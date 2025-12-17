@@ -1,0 +1,50 @@
+[
+  {
+    "id": "anat_001",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "easy",
+    "question": "Which muscle is the primary flexor of the elbow?",
+    "options": ["Biceps brachii", "Triceps brachii", "Brachialis", "Deltoid"],
+    "answer": "Biceps brachii",
+    "explanation": "Biceps brachii is the main flexor of the elbow, especially during supination."
+  },
+  {
+    "id": "anat_002",
+    "type": "short",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Name the nerve that innervates the deltoid muscle.",
+    "answer": "Axillary nerve",
+    "explanation": "The axillary nerve (C5–C6) supplies the deltoid and teres minor."
+  },
+  {
+    "id": "anat_003",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "easy",
+    "question": "Which vertebral level corresponds to the sternal angle?",
+    "options": ["T2", "T4", "T6", "T8"],
+    "answer": "T4",
+    "explanation": "The sternal angle lies at the level of T4–T5."
+  },
+  {
+    "id": "anat_004",
+    "type": "short",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which artery supplies the head of the femur?",
+    "answer": "Medial circumflex femoral artery",
+    "explanation": "The medial circumflex femoral artery is the main blood supply to the femoral head."
+  },
+  {
+    "id": "anat_005",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which structure passes through the foramen ovale?",
+    "options": ["Optic nerve", "Maxillary nerve", "Mandibular nerve", "Facial nerve"],
+    "answer": "Mandibular nerve",
+    "explanation": "The mandibular division of the trigeminal nerve (V3) passes through the foramen ovale."
+  }
+]

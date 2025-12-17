@@ -1,0 +1,95 @@
+/* ==============================
+   GAMES MODE DASHBOARD
+============================== */
+
+.games-container {
+    min-height: 100vh;
+    padding: 40px;
+    background: radial-gradient(circle at top, #0f172a, #020617);
+    color: #e5e7eb;
+  }
+  
+  .games-container h1 {
+    font-size: 2.2rem;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  
+  .games-container p {
+    color: #9ca3af;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  
+  /* Grid */
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on desktop */
+    gap: 24px;
+    justify-items: center; /* center the cards in each column */
+    max-width: 1200px;    /* optional, centers content on large screens */
+    margin: 0 auto;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .games-grid {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .games-grid {
+      grid-template-columns: 1fr; /* 1 column on mobile */
+    }
+  }
+  
+  /* Base card */
+  .game-card {
+    background: linear-gradient(160deg, #0f172a, #020617);
+    border-radius: 22px;
+    padding: 26px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    position: relative;
+    overflow: hidden;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 180px; /* uniform height for all cards */
+    width: 100%;
+    max-width: 320px;  /* keeps cards from getting too wide */
+  }
+  
+  /* Hover effect */
+  .game-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(56,189,248,0.25);
+  }
+  
+  .game-card h2 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+  
+  .game-card p {
+    font-size: 0.95rem;
+    color: #9ca3af;
+  }
+  
+  /* Individual personalities */
+  .game-card.speed h2 { color: #38bdf8; }
+  .game-card.clues h2 { color: #a78bfa; }
+  .game-card.sprint h2 { color: #22c55e; }
+  .game-card.identity h2 { color: #facc15; }
+  .game-card.mcq h2 { color: #94a3b8; }
+  .game-card.blackbox h2 { color: #ef4444; }
+  .game-card.ladder h2 { color: #f97316; }
+  
+  /* Glow on hover */
+  .game-card:hover h2 {
+    text-shadow: 0 0 14px currentColor;
+  }
+  

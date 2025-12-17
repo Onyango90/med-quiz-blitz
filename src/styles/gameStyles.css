@@ -1,0 +1,99 @@
+/* GLOBAL BACKGROUND */
+body {
+    background: linear-gradient(135deg, #111, #222, #111);
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    color: white;
+  }
+  
+  /* CENTER CONTAINERS */
+  .game-container {
+    max-width: 700px;
+    margin: auto;
+    text-align: center;
+    padding-top: 40px;
+  }
+  
+  /* GAME TITLES */
+  .game-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  
+  /* QUESTION CARD */
+  .question-card {
+    background: rgba(255, 255, 255, 0.07);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 20px auto;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    width: 90%;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* BUTTONS */
+  .game-btn {
+    padding: 12px 25px;
+    font-size: 18px;
+    margin: 10px;
+    border-radius: 12px;
+    background: #282828;
+    border: 1px solid #444;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  
+  .game-btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+    border-color: #777;
+  }
+  
+  /* MAIN DASHBOARD BUTTONS */
+  .mode-btn {
+    width: 80%;
+    padding: 15px;
+    background: #1b1b1b;
+    border: 2px solid #333;
+    border-radius: 15px;
+    font-size: 20px;
+    margin: 15px auto;
+    color: white;
+    cursor: pointer;
+    display: block;
+    transition: 0.25s ease;
+  }
+  
+  .mode-btn:hover {
+    background: #2b2b2b;
+    transform: scale(1.03);
+    border-color: #666;
+  }
+  
+  /* ANSWER FIELD */
+  .answer-input {
+    width: 80%;
+    padding: 12px;
+    margin: 10px auto;
+    display: block;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+  }
+  
+  /* VALID ANSWERS BOX */
+  .answer-box {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 20px;
+    border-radius: 12px;
+    width: 80%;
+    margin: auto;
+    text-align: left;
+  }
+  

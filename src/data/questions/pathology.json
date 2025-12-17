@@ -1,0 +1,50 @@
+[
+  {
+    "id": "path_001",
+    "type": "mcq",
+    "subject": "Pathology",
+    "difficulty": "easy",
+    "question": "Which type of necrosis is seen in tuberculosis?",
+    "options": ["Coagulative", "Liquefactive", "Caseous", "Fat"],
+    "answer": "Caseous",
+    "explanation": "Tuberculosis characteristically causes caseous necrosis."
+  },
+  {
+    "id": "path_002",
+    "type": "short",
+    "subject": "Pathology",
+    "difficulty": "medium",
+    "question": "What is the hallmark histological feature of Hodgkin lymphoma?",
+    "answer": "Reed-Sternberg cells",
+    "explanation": "Reed-Sternberg cells are large binucleated cells seen in Hodgkin lymphoma."
+  },
+  {
+    "id": "path_003",
+    "type": "mcq",
+    "subject": "Pathology",
+    "difficulty": "medium",
+    "question": "Which protein is mutated in sickle cell disease?",
+    "options": ["Alpha globin", "Beta globin", "Hemoglobin A", "Myosin"],
+    "answer": "Beta globin",
+    "explanation": "Sickle cell disease results from a mutation in the beta-globin gene."
+  },
+  {
+    "id": "path_004",
+    "type": "short",
+    "subject": "Pathology",
+    "difficulty": "medium",
+    "question": "Name the type of hypersensitivity reaction seen in anaphylaxis.",
+    "answer": "Type I hypersensitivity",
+    "explanation": "Anaphylaxis is an IgE-mediated Type I hypersensitivity reaction."
+  },
+  {
+    "id": "path_005",
+    "type": "mcq",
+    "subject": "Pathology",
+    "difficulty": "hard",
+    "question": "Which tumor suppressor gene is commonly mutated in colorectal cancer?",
+    "options": ["BRCA1", "TP53", "RB", "WT1"],
+    "answer": "TP53",
+    "explanation": "TP53 mutation is common in the late stages of colorectal cancer."
+  }
+]

@@ -1,0 +1,201 @@
+/* ===============================
+   LANDING PAGE BASE
+================================ */
+.landing-container {
+    height: 100vh;
+    width: 100%;
+    background: radial-gradient(circle at top, #10162f, #050814);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  /* ===============================
+     TITLE
+  ================================ */
+  .title-wrapper {
+    position: relative;
+  }
+  
+  .landing-title {
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #38bdf8;
+    opacity: 0;
+    animation: titleReveal 1.2s ease forwards;
+    text-shadow: 0 0 25px rgba(56, 189, 248, 0.35);
+  }
+  
+  /* Light sweep */
+  .landing-title::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(56, 189, 248, 0.6),
+      transparent
+    );
+    transform: translateX(-120%);
+    animation: lightSweep 4s linear infinite;
+  }
+  
+  @keyframes titleReveal {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes lightSweep {
+    0% {
+      transform: translateX(-120%);
+    }
+    100% {
+      transform: translateX(120%);
+    }
+  }
+  
+  /* ===============================
+     START BUTTON
+  ================================ */
+  .start-button {
+    margin-top: 50px;
+    padding: 14px 36px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #38bdf8, #2563eb);
+    color: #020617;
+    opacity: 0;
+    animation: buttonFadeIn 1s ease forwards;
+    animation-delay: 2s;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+    transition: all 0.3s ease;
+  }
+  
+  .start-button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px rgba(56, 189, 248, 0.9);
+  }
+  
+  @keyframes buttonFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  /* ==============================
+   LANDING PAGE
+============================== */
+
+.landing-container {
+    height: 100vh;
+    background: radial-gradient(circle at top, #0f172a, #020617);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    outline: none;
+    animation: fadeIn 1.2s ease forwards;
+  }
+  
+  /* Title */
+  .landing-title {
+    font-size: 3.2rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+  
+  .landing-title span {
+    display: inline-block;
+    color: #38bdf8;
+    opacity: 0;
+    animation: letterGlow 0.6s ease forwards;
+  }
+  
+  .landing-title span:nth-child(n) {
+    animation-delay: calc(var(--i) * 0.08s);
+  }
+  
+  /* Subtitle */
+  .landing-subtitle {
+    color: #9ca3af;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards;
+    animation-delay: 1.2s;
+  }
+  
+  /* Start Button */
+  .landing-start {
+    margin-top: 18px;
+    padding: 12px 36px;
+    border-radius: 999px;
+    border: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    background: linear-gradient(135deg, #38bdf8, #2563eb);
+    color: #020617;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    animation: pulseGlow 3s ease-in-out infinite;
+    transition: transform 0.3s ease;
+  }
+  
+  .landing-start:hover {
+    transform: scale(1.08);
+  }
+  
+  /* ==============================
+     ANIMATIONS
+  ============================== */
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes letterGlow {
+    to {
+      opacity: 1;
+      text-shadow: 0 0 18px rgba(56, 189, 248, 0.8);
+    }
+  }
+  
+  @keyframes pulseGlow {
+    0%, 100% {
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 28px rgba(56, 189, 248, 0.7);
+    }
+  }
+  

@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #0f2027;  /* gradient background */
+    background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+    color: white;
+  }
+  
+  .screen {
+    text-align: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  h1 {
+    font-size: 48px;
+    margin-bottom: 30px;
+  }
+  
+  h3.question {
+    font-size: 24px;
+    margin: 20px 0;
+  }
+  
+  button {
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .start-btn {
+    background: #ff416c;
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    padding: 15px 40px;
+    font-size: 20px;
+    border: none;
+    border-radius: 12px;
+    color: white;
+  }
+  
+  .start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255,255,255,0.3);
+  }
+  
+  .options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .option-btn {
+    background: #1f4037;
+    background: linear-gradient(to right, #99f2c8, #1f4037);
+    padding: 12px 25px;
+    margin: 8px 0;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    width: 250px;
+  }
+  
+  .option-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  
+  input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    width: 200px;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 10px;
+  }
+  
+  .timer-bar {
+    width: 300px;
+    height: 15px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  
+  .timer-fill {
+    height: 100%;
+    background: #00ff99;
+    transition: width 1s linear;
+  }
+  
+  .feedback {
+    font-size: 20px;
+    margin: 15px 0;
+  }
+  
+  .feedback.correct {
+    color: #00ff99;
+  }
+  
+  .feedback.wrong {
+    color: #ff4b2b;
+  }
+  
+  .finish-screen .score {
+    font-size: 28px;
+    margin: 20px 0;
+  }
+  

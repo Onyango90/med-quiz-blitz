@@ -1,0 +1,11 @@
+# Node dependencies
+node_modules/
+
+# Production build
+build/
+
+# Environment files
+.env
+
+# VS Code settings
+.vscode/
