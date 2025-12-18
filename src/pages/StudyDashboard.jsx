@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 // Optional click sound
 let clickSound;
 try {
-  clickSound = new Audio(require("../sound/click.mp3"));
+  // Changed from .mp3 to .wav
+  clickSound = new Audio(require("../sound/click.wav"));
 } catch (e) {
   console.warn("Click sound file not found, skipping sound.");
   clickSound = null;
