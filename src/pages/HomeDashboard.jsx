@@ -1,35 +1,39 @@
 // src/pages/HomeDashboard.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HomeDashboard.css";
 
 function HomeDashboard() {
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const toggleSidebar = () => setCollapsed(!collapsed);
+  // Collapse sidebar by default on small screens
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setIsCollapsed(true);
+    }
+  }, []);
+
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
   return (
     <div className="home-dashboard">
       {/* Sidebar */}
-      <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
-        <button className="collapse-btn" onClick={toggleSidebar}>
-          {collapsed ? "➤" : "⬅"} {/* Arrow changes on collapse */}
-        </button>
+      <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
+        <div className="collapse-btn" onClick={toggleSidebar}>
+          {isCollapsed ? "▶" : "◀"}
+        </div>
+        <h2>Med Game Blitz</h2>
 
-        {!collapsed && (
-          <>
-            <h2>Med Game Blitz</h2>
-
-            <div className="nav-item" onClick={() => navigate("/")}>🏠 Dashboard</div>
-            <div className="nav-item" onClick={() => navigate("/study-dashboard")}>📚 Study Centre</div>
-            <div className="nav-item" onClick={() => navigate("/games-dashboard")}>🕹 Game Modes</div>
-            <div className="nav-item" onClick={() => navigate("/battle")}>⚔️ Battle</div>
-            <div className="nav-item" onClick={() => navigate("/leaderboard")}>🏆 Leaderboard</div>
-            <div className="nav-item" onClick={() => navigate("/stats")}>📊 Stats</div>
-            <div className="nav-item" onClick={() => navigate("/settings")}>⚙ Settings</div>
-          </>
-        )}
+        <div className="nav-item" onClick={() => navigate("/")}>🏠 Dashboard</div>
+        <div className="nav-item" onClick={() => navigate("/study-dashboard")}>📚 Study Centre</div>
+        <div className="nav-item" onClick={() => navigate("/games-dashboard")}>🕹 Game Modes</div>
+        <div className="nav-item" onClick={() => navigate("/battle")}>⚔️ Battle</div>
+        <div className="nav-item" onClick={() => navigate("/leaderboard")}>🏆 Leaderboard</div>
+        <div className="nav-item" onClick={() => navigate("/stats")}>📊 Stats</div>
+        <div className="nav-item" onClick={() => navigate("/settings")}>⚙ Settings</div>
       </div>
 
       {/* Main Content */}
@@ -62,22 +66,27 @@ function HomeDashboard() {
             <h2>📚 Study Centre</h2>
             <p>Revise medical topics with guided quizzes.</p>
           </div>
+
           <div className="dashboard-card" onClick={() => navigate("/games-dashboard")}> 
             <h2>🕹 Game Modes</h2>
             <p>Timed quizzes, rapid fire & challenge modes.</p>
           </div>
+
           <div className="dashboard-card" onClick={() => navigate("/battle")}> 
             <h2>⚔️ Battle Mode</h2>
             <p>Compete head‑to‑head with other med students.</p>
           </div>
+
           <div className="dashboard-card" onClick={() => navigate("/leaderboard")}> 
             <h2>🏆 Leaderboard</h2>
             <p>Track top performers and global rankings.</p>
           </div>
+
           <div className="dashboard-card" onClick={() => navigate("/stats")}> 
             <h2>📊 Stats</h2>
             <p>Analyze your accuracy, speed & consistency.</p>
           </div>
+
           <div className="dashboard-card" onClick={() => navigate("/settings")}> 
             <h2>⚙ Settings</h2>
             <p>Personalize themes, sounds & preferences.</p>
