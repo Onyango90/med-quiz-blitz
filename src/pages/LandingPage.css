@@ -198,4 +198,212 @@
       box-shadow: 0 0 28px rgba(56, 189, 248, 0.7);
     }
   }
-  
+  /* LandingPage.css */
+
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  text-align: center;
+  background: #f5f5f5; /* optional, can match your theme */
+}
+
+.landing-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.landing-title span {
+  display: inline-block;
+}
+
+.landing-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.landing-start {
+  font-size: 1.25rem;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  background-color: #6a4c93; /* your theme color */
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.landing-start:hover {
+  transform: scale(1.05);
+  background-color: #563d7c;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .landing-title {
+    font-size: 2.2rem;
+  }
+
+  .landing-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .landing-start {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-title {
+    font-size: 1.8rem;
+  }
+
+  .landing-subtitle {
+    font-size: 1rem;
+  }
+
+  .landing-start {
+    font-size: 0.95rem;
+    padding: 10px 20px;
+  }
+}
+/* ===============================
+   LANDING PAGE BASE
+================================ */
+.landing-container {
+  height: 100vh;
+  width: 100%;
+  background: radial-gradient(circle at top, #0f172a, #020617); /* dark theme */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  outline: none;
+  padding: 20px;
+  text-align: center;
+  animation: fadeIn 1.2s ease forwards;
+  overflow: hidden;
+}
+
+/* ===============================
+   TITLE
+=============================== */
+.landing-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #38bdf8;
+  opacity: 0;
+  animation: titleReveal 1.2s ease forwards;
+  text-shadow: 0 0 25px rgba(56, 189, 248, 0.35);
+}
+
+.landing-title span {
+  display: inline-block;
+  opacity: 0;
+  animation: letterGlow 0.6s ease forwards;
+}
+
+.landing-title span:nth-child(n) {
+  animation-delay: calc(var(--i) * 0.08s);
+}
+
+/* Light sweep */
+.landing-title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(56, 189, 248, 0.6),
+    transparent
+  );
+  transform: translateX(-120%);
+  animation: lightSweep 4s linear infinite;
+}
+
+/* Subtitle */
+.landing-subtitle {
+  color: #9ca3af;
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 1.2s;
+}
+
+/* Start Button */
+.landing-start {
+  margin-top: 18px;
+  padding: 12px 36px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  color: #020617;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+  animation: pulseGlow 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.landing-start:hover {
+  transform: scale(1.08);
+}
+
+/* ==============================
+   ANIMATIONS
+============================== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes titleReveal {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes letterGlow {
+  to { opacity: 1; text-shadow: 0 0 18px rgba(56, 189, 248, 0.8); }
+}
+
+@keyframes lightSweep {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 18px rgba(56, 189, 248, 0.4); }
+  50% { box-shadow: 0 0 28px rgba(56, 189, 248, 0.7); }
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+@media (max-width: 768px) {
+  .landing-title { font-size: 2.2rem; }
+  .landing-subtitle { font-size: 1rem; }
+  .landing-start { font-size: 0.95rem; padding: 10px 24px; }
+}
+
+@media (max-width: 480px) {
+  .landing-title { font-size: 1.8rem; }
+  .landing-subtitle { font-size: 0.9rem; }
+  .landing-start { font-size: 0.85rem; padding: 8px 20px; }
+}

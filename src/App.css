@@ -110,4 +110,90 @@ body {
     font-size: 28px;
     margin: 20px 0;
   }
-  
+  /* Global responsive adjustments */
+
+/* Make all containers adapt */
+body, #root, .App {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+/* General heading scaling */
+h1, h2, h3 {
+  margin: 0.5em 0;
+}
+
+@media (max-width: 1024px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.5rem; }
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.2rem; }
+}
+
+/* Flex containers adjustment */
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .flex-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Cards adjustment */
+.card {
+  width: 180px;
+  height: 180px;
+  margin: 10px;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 90%;
+    max-width: 300px;
+    height: auto;
+  }
+}
+
+/* Landing page title adjustment */
+.landing-title {
+  font-size: 4rem;
+  text-align: center;
+  margin: 50px 0;
+}
+
+@media (max-width: 768px) {
+  .landing-title {
+    font-size: 2rem;
+    margin: 20px 0;
+  }
+}
+
+/* Side panel adjustment for dashboards */
+.side-panel {
+  width: 250px;
+}
+
+@media (max-width: 1024px) {
+  .side-panel {
+    width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .side-panel {
+    width: 100%;
+  }
+}
