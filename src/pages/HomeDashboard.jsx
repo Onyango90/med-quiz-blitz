@@ -1,4 +1,3 @@
-// src/pages/HomeDashboard.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HomeDashboard.css";
@@ -7,7 +6,6 @@ function HomeDashboard() {
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  // Collapse sidebar by default on small screens
   useEffect(() => {
     if (window.innerWidth < 768) {
       setIsCollapsed(true);
@@ -20,7 +18,7 @@ function HomeDashboard() {
 
   return (
     <div className="home-dashboard">
-      {/* Sidebar */}
+      {/* Sidebar (UNCHANGED) */}
       <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
         <div className="collapse-btn" onClick={toggleSidebar}>
           {isCollapsed ? "▶" : "◀"}
@@ -38,11 +36,13 @@ function HomeDashboard() {
 
       {/* Main Content */}
       <div className="main-content">
-        <h1>Welcome, Dr. Onyango!</h1>
-        <p>Choose a mode to start your learning adventure:</p>
+        <h1 className="welcome-text">
+          Welcome, <span>Dr. Onyango</span> 👋
+        </h1>
+        <p className="subtitle">Today’s mission starts here ⚡</p>
 
-        {/* DAILY CHALLENGE – HERO SECTION */}
-        <div className="extra-section">
+        {/* DAILY CHALLENGE */}
+        <div className="daily-challenge">
           <div className="challenge-header">
             <h2>🔥 Daily Challenge</h2>
             <span className="streak">Streak: 5 days</span>
@@ -57,39 +57,27 @@ function HomeDashboard() {
           </div>
           <small className="progress-text">Progress: 6 / 10 questions</small>
 
-          <button onClick={() => navigate("/classic-challenge")}>Start Challenge</button>
+          <button onClick={() => navigate("/classic-challenge")}>
+            Start Blitz
+          </button>
         </div>
 
         {/* DASHBOARD CARDS */}
         <div className="cards-container">
-          <div className="dashboard-card" onClick={() => navigate("/study-dashboard")}> 
-            <h2>📚 Study Centre</h2>
-            <p>Revise medical topics with guided quizzes.</p>
-          </div>
-
-          <div className="dashboard-card" onClick={() => navigate("/games-dashboard")}> 
+          <div
+            className="dashboard-card"
+            onClick={() => navigate("/games-dashboard")}
+          >
             <h2>🕹 Game Modes</h2>
-            <p>Timed quizzes, rapid fire & challenge modes.</p>
+            <p>Rapid fire, timed quizzes & special challenges.</p>
           </div>
 
-          <div className="dashboard-card" onClick={() => navigate("/battle")}> 
-            <h2>⚔️ Battle Mode</h2>
-            <p>Compete head‑to‑head with other med students.</p>
-          </div>
-
-          <div className="dashboard-card" onClick={() => navigate("/leaderboard")}> 
-            <h2>🏆 Leaderboard</h2>
-            <p>Track top performers and global rankings.</p>
-          </div>
-
-          <div className="dashboard-card" onClick={() => navigate("/stats")}> 
-            <h2>📊 Stats</h2>
-            <p>Analyze your accuracy, speed & consistency.</p>
-          </div>
-
-          <div className="dashboard-card" onClick={() => navigate("/settings")}> 
-            <h2>⚙ Settings</h2>
-            <p>Personalize themes, sounds & preferences.</p>
+          <div
+            className="dashboard-card"
+            onClick={() => navigate("/stats")}
+          >
+            <h2>📊 Personal Stats</h2>
+            <p>Track accuracy, speed, streaks & consistency.</p>
           </div>
         </div>
       </div>
