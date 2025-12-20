@@ -3,7 +3,9 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Pages
-import LandingPage from "./pages/LandingPage"; // ✅ NEW
+import LandingPage from "./pages/LandingPage";
+import SignIn from "./pages/SignIn"; // ✅ ADDED
+import SignUp from "./pages/SignUp"; // ✅ NEW
 import HomeDashboard from "./pages/HomeDashboard";
 import StudyDashboard from "./pages/StudyDashboard";
 import GamesMode from "./pages/GamesMode";
@@ -21,10 +23,16 @@ function App() {
     <Router>
       <Routes>
         {/* Landing */}
-        <Route path="/" element={<LandingPage />} /> {/* ✅ CHANGED */}
+        <Route path="/" element={<LandingPage />} />
+
+        {/* Sign In */}
+        <Route path="/signin" element={<SignIn />} /> {/* ✅ ADDED */}
+
+        {/* Sign Up */}
+        <Route path="/signup" element={<SignUp />} /> {/* ✅ NEW */}
 
         {/* Home */}
-        <Route path="/home" element={<HomeDashboard />} /> {/* ✅ NEW */}
+        <Route path="/home" element={<HomeDashboard />} />
 
         {/* Study dashboards */}
         <Route path="/study-dashboard" element={<StudyDashboard />} />

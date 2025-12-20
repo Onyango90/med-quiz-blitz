@@ -1239,3 +1239,98 @@ body {
 .dashboard-card:hover h2 {
   color: #22D3EE;
 }
+/* ================================
+   SIDEBAR COLLAPSE BUTTON & STATE
+================================ */
+.sidebar {
+  position: relative; /* Ensure collapse button absolute works */
+  transition: width 0.3s ease;
+}
+
+.sidebar.collapsed {
+  width: 60px; /* collapsed width */
+  overflow: hidden;
+}
+
+.collapse-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #2563eb;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+.collapse-btn:hover {
+  background: #38bdf8;
+  transform: scale(1.1);
+}
+
+/* Hide sidebar items when collapsed */
+.sidebar.collapsed .nav-item,
+.sidebar.collapsed h2 {
+  display: none;
+}
+
+/* Adjust main content when sidebar collapses */
+.home-dashboard .main-content {
+  transition: margin-left 0.3s ease;
+}
+
+/* ================================
+   DAILY CHALLENGE ENHANCEMENTS
+================================ */
+.daily-challenge {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  animation: dailyGlow 3s ease-in-out infinite alternate;
+}
+
+.daily-challenge .streak {
+  font-weight: 700;
+  color: #FACC15; /* brighter streak */
+  text-shadow: 0 0 6px #FACC15;
+}
+
+.daily-challenge button {
+  transition: all 0.2s ease;
+  box-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
+}
+
+.daily-challenge button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(250, 204, 21, 0.7);
+}
+
+@keyframes dailyGlow {
+  0% { box-shadow: 0 0 8px rgba(250, 204, 21, 0.5); }
+  50% { box-shadow: 0 0 18px rgba(250, 204, 21, 0.7); }
+  100% { box-shadow: 0 0 8px rgba(250, 204, 21, 0.5); }
+}
+
+/* Optional shimmer for progress bar */
+.progress-fill {
+  animation: progressShimmer 2.5s infinite;
+}
+
+@keyframes progressShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ================================
+   WELCOME TEXT UPGRADE
+================================ */
+.welcome-text {
+  font-size: 2.3rem; /* slightly bigger */
+  font-weight: 700;
+  color: #1D4ED8;
+  text-shadow: 0 0 8px rgba(29, 78, 216, 0.5);
+}

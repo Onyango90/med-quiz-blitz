@@ -6,6 +6,9 @@ function HomeDashboard() {
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
+  // ✅ Dynamic user name
+  const userName = localStorage.getItem("userName") || "Onyango";
+
   useEffect(() => {
     if (window.innerWidth < 768) {
       setIsCollapsed(true);
@@ -18,12 +21,14 @@ function HomeDashboard() {
 
   return (
     <div className="home-dashboard">
-      {/* Sidebar (UNCHANGED) */}
+      {/* Sidebar */}
       <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
+        {/* Collapse button at the top */}
         <div className="collapse-btn" onClick={toggleSidebar}>
           {isCollapsed ? "▶" : "◀"}
         </div>
-        <h2>Med Game Blitz</h2>
+
+        <h2 className="sidebar-title">Med Game Blitz</h2>
 
         <div className="nav-item" onClick={() => navigate("/")}>🏠 Dashboard</div>
         <div className="nav-item" onClick={() => navigate("/study-dashboard")}>📚 Study Centre</div>
@@ -37,12 +42,12 @@ function HomeDashboard() {
       {/* Main Content */}
       <div className="main-content">
         <h1 className="welcome-text">
-          Welcome, <span>Dr. Onyango</span> 👋
+          Welcome, <span>Dr. {userName}</span> 👋
         </h1>
         <p className="subtitle">Today’s mission starts here ⚡</p>
 
         {/* DAILY CHALLENGE */}
-        <div className="daily-challenge">
+        <div className="daily-challenge enhanced">
           <div className="challenge-header">
             <h2>🔥 Daily Challenge</h2>
             <span className="streak">Streak: 5 days</span>
