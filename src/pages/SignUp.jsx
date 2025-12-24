@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css"; // Using the shared Auth.css
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const [isDoctor, setIsDoctor] = useState(false);
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -12,10 +13,16 @@ export default function SignUp() {
     const email = e.target.email.value.trim();
     const password = e.target.password.value.trim();
 
-    // 🔹 Store user name in localStorage for dashboard
-    // Prefer fullName if entered, otherwise use email
-    const name = fullName || email.split("@")[0].split(".")[0];
-    localStorage.setItem("userName", name);
+    if (!fullName) {
+      alert("Full Name is required");
+      return;
+    }
+
+    // Store user name in localStorage for dashboard
+    localStorage.setItem("userName", fullName);
+
+    // Store doctor status in localStorage
+    localStorage.setItem("isDoctor", isDoctor);
 
     // Navigate to dashboard
     navigate("/home");
@@ -36,9 +43,35 @@ export default function SignUp() {
         </p>
 
         <form className="auth-card" onSubmit={handleSignUp}>
-          <input type="text" name="fullName" placeholder="Full Name (optional)" />
-          <input type="email" name="email" placeholder="Email address" required />
-          <input type="password" name="password" placeholder="Password" required />
+          <input
+            type="text"
+            name="fullName"
+            placeholder="Full Name"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email address"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+
+          {/* ✅ Doctor checkbox */}
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              checked={isDoctor}
+              onChange={(e) => setIsDoctor(e.target.checked)}
+            />
+            I am a doctor
+          </label>
+
           <button type="submit">Sign Up</button>
         </form>
 
