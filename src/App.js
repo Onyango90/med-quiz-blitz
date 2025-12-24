@@ -1,11 +1,11 @@
 // src/App.js
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 // Pages
 import LandingPage from "./pages/LandingPage";
-import SignIn from "./pages/SignIn"; // ✅ ADDED
-import SignUp from "./pages/SignUp"; // ✅ NEW
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import HomeDashboard from "./pages/HomeDashboard";
 import StudyDashboard from "./pages/StudyDashboard";
 import GamesMode from "./pages/GamesMode";
@@ -18,6 +18,25 @@ import ClassicChallenge from "./pages/ClassicChallenge";
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
 
+// Quiz Component
+import Quiz from "./game/Quiz";
+
+// ✅ Wrapper to pass questions from navigation state to Quiz
+function QuizWrapper() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const questions = location.state?.questions || [];
+
+  const handleFinish = (score) => {
+    alert(`Quiz finished! Your score: ${score}`);
+    navigate("/home");
+  };
+
+  if (questions.length === 0) return <p>No questions available!</p>;
+
+  return <Quiz questions={questions} onFinish={handleFinish} />;
+}
+
 function App() {
   return (
     <Router>
@@ -26,10 +45,10 @@ function App() {
         <Route path="/" element={<LandingPage />} />
 
         {/* Sign In */}
-        <Route path="/signin" element={<SignIn />} /> {/* ✅ ADDED */}
+        <Route path="/signin" element={<SignIn />} />
 
         {/* Sign Up */}
-        <Route path="/signup" element={<SignUp />} /> {/* ✅ NEW */}
+        <Route path="/signup" element={<SignUp />} />
 
         {/* Home */}
         <Route path="/home" element={<HomeDashboard />} />
@@ -41,6 +60,9 @@ function App() {
         {/* Games */}
         <Route path="/games-dashboard" element={<GamesMode />} />
         <Route path="/classic-challenge" element={<ClassicChallenge />} />
+
+        {/* Quiz route */}
+        <Route path="/quiz" element={<QuizWrapper />} />
 
         {/* Other pages */}
         <Route path="/battle" element={<Battle />} />

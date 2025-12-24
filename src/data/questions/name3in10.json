@@ -1,0 +1,30 @@
+[
+    {
+      "id": "n3_001",
+      "type": "LIST",
+      "modeTags": ["DAILY"],
+      "difficulty": "easy",
+      "timeLimit": 20,
+      "question": "Name 3 classic signs of meningitis",
+      "answers": ["Fever", "Neck stiffness", "Photophobia"]
+    },
+    {
+      "id": "n3_002",
+      "type": "LIST",
+      "modeTags": ["DAILY"],
+      "difficulty": "medium",
+      "timeLimit": 20,
+      "question": "Name 3 causes of nephrotic syndrome in children",
+      "answers": ["Minimal change disease", "FSGS", "Membranous nephropathy"]
+    },
+    {
+      "id": "n3_003",
+      "type": "LIST",
+      "modeTags": ["DAILY"],
+      "difficulty": "easy",
+      "timeLimit": 20,
+      "question": "Name 3 life-saving steps in adult CPR",
+      "answers": ["Check responsiveness", "Call for help", "Start chest compressions"]
+    }
+  ]
+  

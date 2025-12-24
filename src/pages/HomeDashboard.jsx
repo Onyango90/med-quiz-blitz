@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./HomeDashboard.css";
 
+// ✅ Import Daily Challenge questions
+import { getDailyChallengeQuestions } from "../game/dailyChallenge"; 
+
 function HomeDashboard() {
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -23,7 +26,6 @@ function HomeDashboard() {
     <div className="home-dashboard">
       {/* Sidebar */}
       <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
-        {/* Collapse button at the top */}
         <div className="collapse-btn" onClick={toggleSidebar}>
           {isCollapsed ? "▶" : "◀"}
         </div>
@@ -62,7 +64,12 @@ function HomeDashboard() {
           </div>
           <small className="progress-text">Progress: 6 / 10 questions</small>
 
-          <button onClick={() => navigate("/classic-challenge")}>
+          {/* ✅ Start Blitz now navigates to Quiz component with questions */}
+          <button
+            onClick={() =>
+              navigate("/quiz", { state: { questions: getDailyChallengeQuestions() } })
+            }
+          >
             Start Blitz
           </button>
         </div>
