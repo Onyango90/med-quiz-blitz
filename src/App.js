@@ -14,6 +14,8 @@ import Leaderboard from "./pages/Leaderboard";
 import Stats from "./pages/Stats";
 import Settings from "./pages/Settings";
 import ClassicChallenge from "./pages/ClassicChallenge";
+import EndPage from "./pages/EndPage"; // ✅ Added EndPage import
+import ReviewPage from "./pages/ReviewPage"; // ✅ Added ReviewPage import
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
@@ -28,8 +30,8 @@ function QuizWrapper() {
   const questions = location.state?.questions || [];
 
   const handleFinish = (score) => {
-    alert(`Quiz finished! Your score: ${score}`);
-    navigate("/home");
+    // alert removed to prevent pop-up
+    navigate("/end"); // Quiz.jsx already passes the results to EndPage
   };
 
   if (questions.length === 0) return <p>No questions available!</p>;
@@ -63,6 +65,12 @@ function App() {
 
         {/* Quiz route */}
         <Route path="/quiz" element={<QuizWrapper />} />
+
+        {/* End Page */}
+        <Route path="/end" element={<EndPage />} />  {/* ✅ EndPage route */}
+
+        {/* Review Page */}
+        <Route path="/review" element={<ReviewPage />} />  {/* ✅ ReviewPage route */}
 
         {/* Other pages */}
         <Route path="/battle" element={<Battle />} />

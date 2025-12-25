@@ -1,0 +1,115 @@
+/* ===== PAGE BACKGROUND (END PAGE THEME) ===== */
+.review-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #ffffff;
+    font-family: "Inter", system-ui, sans-serif;
+  }
+  
+  /* ===== TITLE ===== */
+  .review-page h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .review-summary p {
+    font-size: 1.1rem;
+    margin: 0.4rem 0;
+    opacity: 0.95;
+  }
+  
+  /* ===== QUESTIONS SECTION ===== */
+  .questions-review {
+    margin-top: 2rem;
+  }
+  
+  /* ===== QUESTION CARD ===== */
+  .question-card {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1e1e1e;
+    border-radius: 14px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.3rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .question-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* ===== CORRECT / WRONG STATES ===== */
+  .question-card.correct {
+    border-left: 7px solid #2ecc71;
+  }
+  
+  .question-card.wrong {
+    border-left: 7px solid #e74c3c;
+  }
+  
+  /* ===== QUESTION TEXT ===== */
+  .question-card p {
+    margin: 0.45rem 0;
+    line-height: 1.5;
+  }
+  
+  .question-card strong {
+    color: #111;
+  }
+  
+  /* ===== ANSWER TEXT ===== */
+  .question-card .user-answer {
+    background: #f4f6f8;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    margin-top: 0.4rem;
+    font-size: 0.95rem;
+  }
+  
+  /* ===== XP / STATUS ===== */
+  .question-card .status {
+    margin-top: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  
+  /* ===== EMPTY STATE ===== */
+  .review-page-empty {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+  }
+  
+  /* ===== BUTTONS (MATCH END PAGE BUTTONS) ===== */
+  .review-cta button {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+    border: none;
+    padding: 12px 26px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .review-cta button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(46, 204, 113, 0.45);
+  }
+  .correct-answer {
+    margin-top: 0.6rem;
+    color: #155724;
+    font-weight: 600;
+  }
+  
+  .explanation {
+    margin-top: 0.4rem;
+    background: #eef2f6;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #2c3e50;
+  }
+  

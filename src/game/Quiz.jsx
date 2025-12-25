@@ -1,9 +1,8 @@
 // src/game/Quiz.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Quiz.css"; // optional: add your styles
+import "./Quiz.css";
 
-// ✅ Add sound effects
 import correctSoundFile from "../sound/correct.wav";
 import wrongSoundFile from "../sound/wrong.wav";
 
@@ -13,15 +12,15 @@ export default function Quiz({ questions, onFinish }) {
   const [userAnswer, setUserAnswer] = useState("");
   const [timeLeft, setTimeLeft] = useState(0);
   const [score, setScore] = useState(0);
-  const [feedback, setFeedback] = useState(""); // ✅ Correct/wrong feedback
-  const [clickedOption, setClickedOption] = useState(null); // ✅ highlight clicked button
+  const [feedback, setFeedback] = useState("");
+  const [clickedOption, setClickedOption] = useState(null);
+  const [answersList, setAnswersList] = useState([]);
 
   const correctSound = useRef(new Audio(correctSoundFile));
   const wrongSound = useRef(new Audio(wrongSoundFile));
 
   const currentQuestion = questions[currentIndex];
 
-  // Start timer for LIST questions
   useEffect(() => {
     if (!currentQuestion) return;
 
@@ -42,38 +41,34 @@ export default function Quiz({ questions, onFinish }) {
     }
   }, [currentQuestion]);
 
-  if (!currentQuestion) return <p>Loading quiz...</p>;
+  // Prevent blank screen
+  if (!currentQuestion && currentIndex < questions.length) {
+    return <div className="quiz-loading">Loading question…</div>;
+  }
 
   const handleSubmit = (option = null) => {
+    if (!currentQuestion) return;
+
     let xpEarned = 0;
     let isCorrect = false;
 
     if (currentQuestion.type === "mcq") {
       setClickedOption(option);
-      if (option === currentQuestion.answer) {
-        xpEarned = 10;
-        isCorrect = true;
-      }
+      if (option === currentQuestion.answer) isCorrect = true;
+      if (isCorrect) xpEarned = 10;
     } else if (currentQuestion.type === "short") {
-      if (
-        userAnswer.trim().toLowerCase() ===
-        currentQuestion.answer.toLowerCase()
-      ) {
-        xpEarned = 15;
+      if (userAnswer.trim().toLowerCase() === currentQuestion.answer.toLowerCase())
         isCorrect = true;
-      }
+      if (isCorrect) xpEarned = 15;
     } else if (currentQuestion.type === "LIST") {
-      const answersGiven = userAnswer
-        .split(",")
-        .map((a) => a.trim().toLowerCase());
+      const answersGiven = userAnswer.split(",").map((a) => a.trim().toLowerCase());
       const correctCount = currentQuestion.answers.filter((ans) =>
         answersGiven.includes(ans.toLowerCase())
       ).length;
-      xpEarned = correctCount * 5; // partial credit
       if (correctCount > 0) isCorrect = true;
+      xpEarned = correctCount * 5;
     }
 
-    // Play sound
     if (isCorrect) correctSound.current.play();
     else wrongSound.current.play();
 
@@ -82,28 +77,42 @@ export default function Quiz({ questions, onFinish }) {
     setUserAnswer("");
     setTimeLeft(0);
 
-    // Move to next question after short delay to show feedback
+    const currentAnswer = {
+      question: currentQuestion.question,
+      selected: option || userAnswer,
+      correct: isCorrect,
+      xpEarned: xpEarned,
+    };
+
+    // Only update answersList here, no navigation
+    setAnswersList((prev) => [...prev, currentAnswer]);
+
     setTimeout(() => {
       setFeedback("");
       setClickedOption(null);
-      if (currentIndex + 1 >= questions.length) {
-        alert(`Quiz finished! Your score: ${score + xpEarned}`);
-        onFinish(score + xpEarned);
-        navigate("/home");
-      } else {
+      if (currentIndex + 1 < questions.length) {
         setCurrentIndex((prev) => prev + 1);
       }
     }, 700);
   };
+
+  // ✅ Navigate to end page only when all questions are answered
+  useEffect(() => {
+    if (answersList.length === questions.length) {
+      onFinish(score);
+      navigate("/end", { state: { results: answersList } });
+    }
+  }, [answersList, navigate, onFinish, questions.length, score]);
 
   return (
     <div className="quiz-container">
       <h2>
         Question {currentIndex + 1} / {questions.length}
       </h2>
-      <p className="quiz-question">{currentQuestion.question}</p>
 
-      {currentQuestion.type === "mcq" && (
+      <p className="quiz-question">{currentQuestion?.question}</p>
+
+      {currentQuestion?.type === "mcq" && (
         <div className="options-container">
           {currentQuestion.options.map((opt, idx) => (
             <button
@@ -123,7 +132,7 @@ export default function Quiz({ questions, onFinish }) {
         </div>
       )}
 
-      {(currentQuestion.type === "short" || currentQuestion.type === "LIST") && (
+      {(currentQuestion?.type === "short" || currentQuestion?.type === "LIST") && (
         <div className="input-container">
           {currentQuestion.type === "LIST" && (
             <p className="timer">Time left: {timeLeft}s</p>
@@ -144,17 +153,23 @@ export default function Quiz({ questions, onFinish }) {
         </div>
       )}
 
-      {feedback && <p className={`feedback ${feedback.includes("Correct") ? "correct" : "wrong"}`}>{feedback}</p>}
+      {feedback && (
+        <p
+          className={`feedback ${
+            feedback.includes("Correct") ? "correct" : "wrong"
+          }`}
+        >
+          {feedback}
+        </p>
+      )}
 
-      {/* Progress bar */}
       <div className="progress-bar">
         <div
           className="progress-fill"
-          style={{
-            width: `${((currentIndex + 1) / questions.length) * 100}%`,
-          }}
+          style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
         ></div>
       </div>
+
       <small>
         XP: {score} | Question {currentIndex + 1} / {questions.length}
       </small>

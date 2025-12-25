@@ -1,0 +1,124 @@
+/* EndPage container */
+.end-page {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px 35px;
+    background: #fefefe;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #111;
+  }
+  
+  /* Main heading */
+  .end-page h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 25px;
+  }
+  
+  /* Score summary card */
+  .score-card {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  
+  .score-card h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+  
+  .score-card p {
+    font-size: 18px;
+    margin: 5px 0;
+  }
+  
+  /* Streak card */
+  .streak-card {
+    background-color: #f1c40f;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  
+  .streak-card p {
+    margin: 5px 0;
+    font-size: 18px;
+  }
+  
+  .streak-card small {
+    display: block;
+    margin-top: 8px;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  /* Learning pearl card */
+  .pearl-card {
+    background-color: #3498db;
+    color: #fff;
+    padding: 18px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  
+  .pearl-card h3 {
+    margin-bottom: 12px;
+    font-size: 20px;
+  }
+  
+  .pearl-card p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  /* CTA section */
+  .cta {
+    margin-top: 15px;
+  }
+  
+  .cta button {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    background-color: #2ecc71;
+    color: #fff;
+    cursor: default;
+  }
+  
+  .cta p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 500px) {
+    .end-page {
+      padding: 20px;
+    }
+  
+    .score-card, .streak-card, .pearl-card {
+      padding: 15px;
+    }
+  
+    .score-card h2, .pearl-card h3 {
+      font-size: 18px;
+    }
+  
+    .score-card p, .streak-card p, .pearl-card p {
+      font-size: 15px;
+    }
+  }
+  
