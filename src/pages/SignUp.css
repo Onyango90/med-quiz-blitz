@@ -87,4 +87,41 @@
       transform: translateY(0);
     }
   }
-  
+  .auth-input {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #1982c4;
+  box-shadow: 0 0 0 2px rgba(25, 130, 196, 0.2);
+}
+/* Clear, visible input boxes */
+.auth-input {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border: 2px solid #cbd5f5; /* thicker, visible border */
+  border-radius: 12px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: white;
+  color: #1e293b;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.auth-input::placeholder {
+  color: #94a3b8; /* soft grey placeholder */
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #1982c4; /* blue border on focus */
+  box-shadow: 0 0 0 3px rgba(25, 130, 196, 0.2); /* subtle glow */
+}

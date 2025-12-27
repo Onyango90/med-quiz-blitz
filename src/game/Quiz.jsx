@@ -41,7 +41,6 @@ export default function Quiz({ questions, onFinish }) {
     }
   }, [currentQuestion]);
 
-  // Prevent blank screen
   if (!currentQuestion && currentIndex < questions.length) {
     return <div className="quiz-loading">Loading question…</div>;
   }
@@ -84,7 +83,6 @@ export default function Quiz({ questions, onFinish }) {
       xpEarned: xpEarned,
     };
 
-    // Only update answersList here, no navigation
     setAnswersList((prev) => [...prev, currentAnswer]);
 
     setTimeout(() => {
@@ -96,9 +94,27 @@ export default function Quiz({ questions, onFinish }) {
     }, 700);
   };
 
-  // ✅ Navigate to end page only when all questions are answered
   useEffect(() => {
     if (answersList.length === questions.length) {
+      // ✅ Update Daily Challenge progress in localStorage
+      const today = new Date().toISOString().split("T")[0];
+      const dailyData = JSON.parse(localStorage.getItem("dailyChallenge")) || {};
+
+      const totalXP = score;
+      const answered = questions.length;
+
+      // Increment streak if at least 1 question answered correctly
+      const streak = (dailyData[today]?.streak || 0) + 1;
+
+      dailyData[today] = {
+        answered,
+        total: questions.length,
+        xpEarned: totalXP,
+        streak,
+      };
+
+      localStorage.setItem("dailyChallenge", JSON.stringify(dailyData));
+
       onFinish(score);
       navigate("/end", { state: { results: answersList } });
     }

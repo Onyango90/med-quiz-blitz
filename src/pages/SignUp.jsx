@@ -10,16 +10,17 @@ export default function SignUp() {
     e.preventDefault();
 
     const fullName = e.target.fullName.value.trim();
+    const username = e.target.username.value.trim();
     const email = e.target.email.value.trim();
     const password = e.target.password.value.trim();
 
-    if (!fullName) {
-      alert("Full Name is required");
+    if (!fullName || !username) {
+      alert("Full Name and Username are required");
       return;
     }
 
     // Store user name in localStorage for dashboard
-    localStorage.setItem("userName", fullName);
+    localStorage.setItem("userName", username);
 
     // Store doctor status in localStorage
     localStorage.setItem("isDoctor", isDoctor);
@@ -47,18 +48,28 @@ export default function SignUp() {
             type="text"
             name="fullName"
             placeholder="Full Name"
+            className="auth-input"
+            required
+          />
+          <input
+            type="text"
+            name="username"
+            placeholder="I want to be called Dr (your username)"
+            className="auth-input"
             required
           />
           <input
             type="email"
             name="email"
             placeholder="Email address"
+            className="auth-input"
             required
           />
           <input
             type="password"
             name="password"
             placeholder="Password"
+            className="auth-input"
             required
           />
 
