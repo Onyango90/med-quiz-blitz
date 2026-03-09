@@ -1,0 +1,29 @@
+[
+    {
+        "id": "pharm_disinfect_001",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Disinfectants",
+        "difficulty": "medium",
+        "question": "True about disinfectants/antiseptics except:",
+        "options": [
+            "Alcohols kill bacteria, fungi, and both lipophilic and hydrophilic viruses",
+            "Chlorhexidine has residual effects",
+            "Povidone iodine can be used orally",
+            "Phenolics are only used as disinfectants"
+        ],
+        "answer": "Povidone iodine can be used orally",
+        "explanation": "Povidone-iodine is NOT typically used orally (it's for topical use, surgical scrubs, and mouthwash in diluted form - but generally not 'orally' as in swallowed). Alcohols have broad-spectrum activity. Chlorhexidine has persistent residual activity on skin. Phenolics are too toxic for antiseptic use (disinfectants only)."
+    },
+    {
+        "id": "pharm_disinfect_002",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Disinfectants",
+        "difficulty": "medium",
+        "question": "The following disinfectants/antiseptics can be used as sterilants except:",
+        "options": ["Ethylene oxide", "Glutaraldehyde", "Peracetic acid", "Alcohol", "Hydrogen peroxide"],
+        "answer": "Alcohol",
+        "explanation": "Alcohol is NOT a sterilant. It is a disinfectant/antiseptic but cannot achieve sterilization (doesn't kill spores reliably). Ethylene oxide (gas sterilization), glutaraldehyde (high-level disinfectant/chemical sterilant), and peracetic acid can all achieve sterilization under appropriate conditions."
+    }
+]

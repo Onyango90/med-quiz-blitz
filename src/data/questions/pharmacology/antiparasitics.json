@@ -1,0 +1,70 @@
+[
+    {
+        "id": "pharm_para_001",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antiparasitics",
+        "difficulty": "hard",
+        "question": "Which is the incorrect statement regarding the use of drugs in malaria prophylaxis?",
+        "options": [
+            "Mefloquine can be safely administered in the second trimester of pregnancy",
+            "Suppressive prophylaxis involves administration of tissue schizonticides",
+            "Daily oral doxycycline can be used for malaria prophylaxis in 16-year-old",
+            "If travelling to an area with chloroquine sensitive Plasmodium falciparum, chloroquine should be started one week before travel",
+            "Terminal prophylaxis involves administration of daily primaquine for two weeks after leaving an area endemic of Plasmodium vivax"
+        ],
+        "answer": "Suppressive prophylaxis involves administration of tissue schizonticides",
+        "explanation": "This is INCORRECT. Suppressive prophylaxis uses blood schizonticides (not tissue schizonticides) to eliminate erythrocytic forms. Tissue schizonticides (like primaquine) are used for causal prophylaxis or terminal prophylaxis. Mefloquine is safe in 2nd/3rd trimester. Doxycycline can be used in adults and children >8 years. Chloroquine should be started 1-2 weeks before travel. Terminal prophylaxis with primaquine prevents relapses from P. vivax/P. ovale."
+    },
+    {
+        "id": "pharm_para_002",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antiparasitics",
+        "difficulty": "medium",
+        "question": "Which of the following antimalarial combination is recommended for intermittent preventive therapy in high risk pregnant women?",
+        "options": [
+            "Pyrimethamine and sulfadiazine",
+            "Pyrimethamine and clindamycin",
+            "Pyrimethamine and dapsone",
+            "Pyrimethamine and sulfaloxone",
+            "Artemether and lumefantrine"
+        ],
+        "answer": "Pyrimethamine and sulfaloxone",
+        "explanation": "Sulfadoxine-pyrimethamine (sulfaloxone is sulfadoxine) is recommended for intermittent preventive therapy in pregnancy (IPTp) in malaria-endemic areas. It is given as directly observed therapy at each antenatal visit after the first trimester. Artemether-lumefantrine is for treatment, not IPTp."
+    },
+    {
+        "id": "pharm_para_003",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antiparasitics",
+        "difficulty": "hard",
+        "question": "False about artemisinin:",
+        "options": [
+            "Artemisinin is insoluble and can only be given orally",
+            "Artesunate can be given orally, intravenously, intramuscularly and rectally",
+            "Artemether can be given intramuscularly and intravenously",
+            "Oral absorption of artemisinin is good",
+            "Artemisinins are rapidly acting blood schizonticides"
+        ],
+        "answer": "Artemether can be given intramuscularly and intravenously",
+        "explanation": "This is FALSE. Artemether can be given IM but NOT IV (it's oil-based). Artesunate is water-soluble and can be given IV, IM, oral, or rectal. Artemisinin itself has poor oral absorption. All artemisinins are rapidly acting blood schizonticides effective against multidrug-resistant P. falciparum."
+    },
+    {
+        "id": "pharm_para_004",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antiparasitics",
+        "difficulty": "hard",
+        "question": "Which of the following drugs is not correctly matched with its clinical indication?",
+        "options": [
+            "Babesia : Clindamycin",
+            "Balantidium coli : Tetracycline",
+            "Cryptosporidium : Metronidazole",
+            "Giardia lamblia : Tinidazole",
+            "Toxoplasma gondii : Pyrimethamine plus clindamycin"
+        ],
+        "answer": "Cryptosporidium : Metronidazole",
+        "explanation": "This is INCORRECT. Cryptosporidium is NOT treated with metronidazole. Treatment is nitazoxanide or supportive care in immunocompetent patients. The others are correct: Babesia (clindamycin+quinine), Balantidium coli (tetracycline), Giardia (tinidazole/metronidazole), Toxoplasma (pyrimethamine+sulfadiazine or clindamycin)."
+    }
+]

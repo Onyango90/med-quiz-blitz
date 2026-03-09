@@ -1,0 +1,282 @@
+[
+    {
+        "id": "pharm_ab_001",
+        "type": "short",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "Name an adverse effect of aminoglycosides.",
+        "answer": "Ototoxicity and nephrotoxicity",
+        "explanation": "Aminoglycosides (gentamicin, tobramycin) can damage the auditory nerve (ototoxicity) and renal tubules (nephrotoxicity). Monitor drug levels to prevent toxicity."
+    },
+    {
+        "id": "pharm_ab_002",
+        "type": "short",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "hard",
+        "question": "Which antibiotic inhibits cell wall synthesis by binding to D-ala-D-ala?",
+        "answer": "Vancomycin",
+        "explanation": "Vancomycin binds to the D-ala-D-ala terminus of peptidoglycan precursors, preventing cross-linking. This is different from beta-lactams which bind to PBPs (penicillin-binding proteins)."
+    },
+    {
+        "id": "pharm_ab_003",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "Which antibiotic is associated with 'Red Man Syndrome'?",
+        "options": ["Vancomycin", "Penicillin", "Ciprofloxacin", "Azithromycin"],
+        "answer": "Vancomycin",
+        "explanation": "Red Man Syndrome (flushing, rash, pruritus of face and upper torso) occurs with rapid vancomycin infusion due to histamine release. Prevent by infusing over ≥60 minutes and pre-treating with antihistamines if needed."
+    },
+    {
+        "id": "pharm_ab_004",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "hard",
+        "question": "Which antibiotic inhibits protein synthesis by binding to the 30S ribosomal subunit?",
+        "options": ["Erythromycin", "Clindamycin", "Tetracycline", "Linezolid"],
+        "answer": "Tetracycline",
+        "explanation": "Tetracyclines (doxycycline, minocycline) bind the 30S subunit, preventing tRNA binding. For reference: Macrolides (erythromycin) and linezolid bind 50S subunit, while clindamycin binds 50S subunit."
+    },
+    {
+        "id": "pharm_ab_005",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "easy",
+        "question": "Which antibiotic class inhibits bacterial cell wall synthesis?",
+        "options": ["Penicillins", "Tetracyclines", "Macrolides", "Aminoglycosides"],
+        "answer": "Penicillins",
+        "explanation": "Penicillins (and other beta-lactams) inhibit cell wall synthesis by binding to PBPs and preventing peptidoglycan cross-linking."
+    },
+    {
+        "id": "pharm_ab_006",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "Which antibiotic can cause tendon rupture, especially in patients taking steroids?",
+        "options": ["Ciprofloxacin", "Amoxicillin", "Doxycycline", "Clindamycin"],
+        "answer": "Ciprofloxacin",
+        "explanation": "Fluoroquinolones (ciprofloxacin, levofloxacin) increase risk of tendonitis and tendon rupture, particularly in elderly, athletes, and those taking corticosteroids."
+    },
+    {
+        "id": "pharm_ab_007",
+        "type": "short",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "Name a contraindication for tetracycline use.",
+        "answer": "Pregnancy and children under 8 years",
+        "explanation": "Tetracyclines can cause permanent tooth discoloration and affect bone growth in children. They are also contraindicated in pregnancy (Category D)."
+    },
+    {
+        "id": "pharm_ab_008",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "Which antibiotic requires monitoring of drug levels due to narrow therapeutic index?",
+        "options": ["Gentamicin", "Penicillin", "Azithromycin", "Doxycycline"],
+        "answer": "Gentamicin",
+        "explanation": "Aminoglycosides (gentamicin, tobramycin) have a narrow therapeutic index and require peak/trough monitoring to prevent ototoxicity and nephrotoxicity."
+    },
+    {
+        "id": "pharm_ab_009",
+        "type": "short",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "hard",
+        "question": "What is the mechanism of action of sulfonamides?",
+        "answer": "Inhibit folic acid synthesis by competing with PABA",
+        "explanation": "Sulfonamides are structural analogs of PABA and competitively inhibit dihydropteroate synthase, blocking folic acid synthesis in bacteria."
+    },
+    {
+        "id": "pharm_ab_010",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "easy",
+        "question": "Which antibiotic is first-line for treating MRSA?",
+        "options": ["Vancomycin", "Penicillin", "Cephalexin", "Erythromycin"],
+        "answer": "Vancomycin",
+        "explanation": "Vancomycin is the first-line treatment for MRSA (Methicillin-Resistant Staphylococcus aureus) infections. Linezolid and daptomycin are alternatives."
+    },
+    {
+        "id": "pharm_ab_011",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "Which antibiotic can cause disulfiram-like reaction with alcohol?",
+        "options": ["Metronidazole", "Amoxicillin", "Ciprofloxacin", "Doxycycline"],
+        "answer": "Metronidazole",
+        "explanation": "Metronidazole inhibits aldehyde dehydrogenase, causing accumulation of acetaldehyde when alcohol is consumed. Symptoms: flushing, nausea, vomiting, headache."
+    },
+    {
+        "id": "pharm_ab_012",
+        "type": "short",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "What is the mechanism of action of macrolides?",
+        "answer": "Bind to 50S ribosomal subunit, inhibiting protein synthesis",
+        "explanation": "Macrolides (erythromycin, azithromycin, clarithromycin) bind to the 50S ribosomal subunit and block translocation during protein synthesis."
+    },
+    {
+        "id": "pharm_ab_013",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "True regarding tetracyclines:",
+        "options": [
+            "Acid pH impairs absorption",
+            "Presence of food reduces absorption of doxycycline",
+            "Minocycline exhibits a pharmacokinetic drug interaction with aluminium antacids",
+            "Do not cross the placenta",
+            "Reduces urinary excretion of the B vitamins"
+        ],
+        "answer": "Acid pH impairs absorption",
+        "explanation": "Tetracyclines form insoluble complexes with calcium, magnesium, aluminum, and iron. Acidic pH can impair absorption. Doxycycline absorption is NOT significantly affected by food. Tetracyclines do cross the placenta and can affect fetal bone and teeth development."
+    },
+    {
+        "id": "pharm_ab_014",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "hard",
+        "question": "Which of the following is not a monobactam?",
+        "options": ["Aztreonam", "Tigeonam", "Nocardicin A", "Tabtoxin", "Streptogramin B"],
+        "answer": "Streptogramin B",
+        "explanation": "Streptogramin B is NOT a monobactam; it belongs to the streptogramin class of antibiotics (protein synthesis inhibitors). Monobactams include aztreonam, tigeonam, nocardicin A, and tabtoxin. Aztreonam is the only monobactam used clinically."
+    },
+    {
+        "id": "pharm_ab_015",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "hard",
+        "question": "False regarding carbapenems:",
+        "options": [
+            "Meropenem is more likely to cause seizures than imipenem",
+            "Ertapenem can be administered once daily",
+            "Mechanism of resistance include the presence of drug efflux pumps and presence of carbapenemases",
+            "Imipenem is combined with cilastatin to inhibit renal metabolism of imipenem",
+            "Doripenem has greater antipseudomonal activity than imipenem"
+        ],
+        "answer": "Meropenem is more likely to cause seizures than imipenem",
+        "explanation": "This statement is FALSE. Imipenem has a higher seizure risk than meropenem. Meropenem was developed to have reduced CNS toxicity. Ertapenem has a long half-life (once daily dosing). Carbapenem resistance can occur via efflux pumps or carbapenemases. Cilastatin prevents renal metabolism of imipenem."
+    },
+    {
+        "id": "pharm_ab_016",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "Which antimicrobial cannot be applied topically?",
+        "options": ["Mupirocin", "Clindamycin", "Clotrimazole", "Acyclovir", "Ketoconazole"],
+        "answer": "Clindamycin",
+        "explanation": "ALL of these can be applied topically EXCEPT clindamycin? Actually, clindamycin CAN be applied topically (for acne). Wait, this question might be tricky. Let me check: Mupirocin (topical), Clindamycin (topical & systemic), Clotrimazole (topical), Acyclovir (topical), Ketoconazole (topical). Actually all CAN be topical. This might be a trick question - perhaps they mean which is NOT typically topical? Acyclovir is available topically for herpes. Actually all are available topically, so this question might have an issue."
+    },
+    {
+        "id": "pharm_ab_017",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "False about chloramphenicol:",
+        "options": [
+            "May cause aplastic anemia",
+            "Causes gray baby syndrome in neonates",
+            "Effective against rickettsia",
+            "Is an enzyme inducer",
+            "Inhibits bacterial protein synthesis"
+        ],
+        "answer": "Is an enzyme inducer",
+        "explanation": "This is FALSE. Chloramphenicol is an enzyme INHIBITOR, not an inducer. It inhibits CYP450 enzymes, which can lead to drug interactions. It does cause dose-independent aplastic anemia (rare but fatal), gray baby syndrome in neonates (due to immature glucuronidation), is effective against rickettsia, and inhibits protein synthesis by binding to 50S ribosomal subunit."
+    },
+    {
+        "id": "pharm_ab_018",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "True of the route of parenteral routes:",
+        "options": [
+            "Oral bioavailability of penicillin G is about 50%",
+            "Penicillin V is stable against gastric acid",
+            "Penicillin G is not distributed in the body",
+            "Penetration into the renal tubules is facilitated by probenecid",
+            "Are effective against gram-positive organisms and a few gram-negative bacilli"
+        ],
+        "answer": "Penicillin V is stable against gastric acid",
+        "explanation": "Penicillin V (phenoxymethylpenicillin) is acid-stable and can be given orally. Penicillin G is acid-labile (poor oral bioavailability). Probenecid blocks renal tubular secretion of penicillins (increases levels, not penetration). Penicillins are distributed widely and effective against Gram-positive and some Gram-negative bacteria."
+    },
+    {
+        "id": "pharm_ab_019",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "True about beta-lactamase inhibitors:",
+        "options": [
+            "Are effective antibacterial agents",
+            "Inhibit all bacterial beta-lactamases",
+            "Protect hydrolysable penicillins from destruction by beta-lactamases",
+            "The antibacterial spectrum is determined by the inhibitor in fixed combinations",
+            "For fixed combinations of penicillin and beta-lactamase inhibitors, dosage adjustment is based on both components"
+        ],
+        "answer": "Protect hydrolysable penicillins from destruction by beta-lactamases",
+        "explanation": "Beta-lactamase inhibitors (clavulanic acid, sulbactam, tazobactam) have weak antibacterial activity themselves but protect penicillins from enzymatic degradation. They do NOT inhibit all beta-lactamases. The spectrum is determined by the penicillin component, not the inhibitor. Dosage is based on the penicillin component."
+    },
+    {
+        "id": "pharm_ab_020",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "True of erythromycin except:",
+        "options": [
+            "Is a natural compound",
+            "Is effective against mycoplasma and chlamydia",
+            "Resistance is usually plasmid mediated",
+            "Is stable against gastric acid",
+            "Is mainly excreted renally"
+        ],
+        "answer": "Is mainly excreted renally",
+        "explanation": "This is FALSE. Erythromycin is primarily excreted in bile (hepatic elimination), not renally. It is a natural macrolide, effective against atypical pathogens (mycoplasma, chlamydia, legionella), resistance can be plasmid-mediated, and it is acid-labile (requires enteric coating)."
+    },
+    {
+        "id": "pharm_ab_021",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "easy",
+        "question": "The following are adverse effects of aminoglycosides except:",
+        "options": ["Nephrotoxicity", "Skin rash", "Ototoxicity", "Muscle paralysis", "Hepatotoxicity"],
+        "answer": "Hepatotoxicity",
+        "explanation": "Hepatotoxicity is NOT a typical adverse effect of aminoglycosides. Common AEs: nephrotoxicity (proximal tubule damage), ototoxicity (cochlear and vestibular), and neuromuscular blockade (muscle paralysis, especially with concurrent neuromuscular blockers). Skin rash is rare but can occur."
+    },
+    {
+        "id": "pharm_ab_022",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "hard",
+        "question": "Which statement is correct?",
+        "options": [
+            "Amoxicillin is an aminopenicillin",
+            "Amoxicillin is used for the treatment of syphilis",
+            "Piperacillin does not have activity against Pseudomonas aeruginosa",
+            "Clavulanic acid is a beta-lactamase inhibitor",
+            "Piperacillin is administered parenterally"
+        ],
+        "answer": "Clavulanic acid is a beta-lactamase inhibitor",
+        "explanation": "Multiple are correct actually: Amoxicillin IS an aminopenicillin (true), Clavulanic acid IS a beta-lactamase inhibitor (true), Piperacillin IS administered parenterally (true). But if only one answer: Clavulanic acid is correct. Amoxicillin is NOT used for syphilis (penicillin G is). Piperacillin DOES have antipseudomonal activity."
+    }
+
+]

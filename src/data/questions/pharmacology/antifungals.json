@@ -1,0 +1,13 @@
+[
+    {
+        "id": "pharm_fung_001",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antifungals",
+        "difficulty": "medium",
+        "question": "The following topical antifungal agents are useful in the treatment of dermatophyte infections except:",
+        "options": ["Ketoconazole", "Ciclopirox olamine", "Terbinafine", "Tolnaftate", "Nystatin"],
+        "answer": "Nystatin",
+        "explanation": "Nystatin is NOT effective against dermatophytes. It is active only against Candida species (and some other fungi). Dermatophyte infections (tinea) are treated with azoles (ketoconazole), allylamines (terbinafine), ciclopirox, and tolnaftate. Nystatin is used for cutaneous or mucosal candidiasis only."
+    }
+]

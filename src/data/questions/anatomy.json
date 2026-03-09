@@ -46,5 +46,129 @@
     "options": ["Optic nerve", "Maxillary nerve", "Mandibular nerve", "Facial nerve"],
     "answer": "Mandibular nerve",
     "explanation": "The mandibular division of the trigeminal nerve (V3) passes through the foramen ovale."
+  },
+  [
+  {
+    "id": "anat_001",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "easy",
+    "question": "Which muscle is the primary flexor of the elbow?",
+    "options": ["Biceps brachii", "Triceps brachii", "Brachialis", "Deltoid"],
+    "answer": "Biceps brachii",
+    "explanation": "Biceps brachii is the main flexor of the elbow, especially during supination."
+  },
+  {
+    "id": "anat_002",
+    "type": "short",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Name the nerve that innervates the deltoid muscle.",
+    "answer": "Axillary nerve",
+    "explanation": "The axillary nerve (C5–C6) supplies the deltoid and teres minor."
+  },
+  {
+    "id": "anat_003",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "easy",
+    "question": "Which vertebral level corresponds to the sternal angle?",
+    "options": ["T2", "T4", "T6", "T8"],
+    "answer": "T4",
+    "explanation": "The sternal angle lies at the level of T4–T5."
+  },
+  {
+    "id": "anat_004",
+    "type": "short",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which artery supplies the head of the femur?",
+    "answer": "Medial circumflex femoral artery",
+    "explanation": "The medial circumflex femoral artery is the main blood supply to the femoral head."
+  },
+  {
+    "id": "anat_005",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which structure passes through the foramen ovale?",
+    "options": ["Optic nerve", "Maxillary nerve", "Mandibular nerve", "Facial nerve"],
+    "answer": "Mandibular nerve",
+    "explanation": "The mandibular division of the trigeminal nerve (V3) passes through the foramen ovale."
   }
+]
+  ,
+  {
+    "id": "anat_006",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "easy",
+    "question": "Which muscle initiates abduction of the arm from 0° to 15°?",
+    "options": ["Deltoid", "Supraspinatus", "Infraspinatus", "Teres minor"],
+    "answer": "Supraspinatus",
+    "explanation": "Supraspinatus initiates the first 15 degrees of shoulder abduction."
+  },
+  {
+    "id": "anat_007",
+    "type": "short",
+    "subject": "Anatomy",
+    "difficulty": "easy",
+    "question": "Which nerve supplies the diaphragm?",
+    "answer": "Phrenic nerve",
+    "explanation": "The phrenic nerve (C3–C5) provides motor supply to the diaphragm."
+  },
+  {
+    "id": "anat_008",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which structure forms the medial wall of the axilla?",
+    "options": ["Humerus", "Serratus anterior", "Latissimus dorsi", "Pectoralis major"],
+    "answer": "Serratus anterior",
+    "explanation": "The medial wall of the axilla is formed by the serratus anterior muscle."
+  },
+  {
+    "id": "anat_009",
+    "type": "short",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "At which vertebral level does the spinal cord end in adults?",
+    "answer": "L1–L2",
+    "explanation": "In adults, the spinal cord typically ends at the level of L1–L2."
+  },
+  {
+    "id": "anat_010",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which nerve is most likely injured in a fracture of the surgical neck of the humerus?",
+    "options": ["Radial nerve", "Median nerve", "Axillary nerve", "Ulnar nerve"],
+    "answer": "Axillary nerve",
+    "explanation": "The axillary nerve winds around the surgical neck of the humerus."
+  },
+  {
+    "id": "anat_011",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Which structure passes through the jugular foramen?",
+    "options": [
+      "Glossopharyngeal nerve",
+      "Vagus nerve",
+      "Accessory nerve",
+      "All of the above"
+    ],
+    "answer": "All of the above",
+    "explanation": "Cranial nerves IX, X, and XI pass through the jugular foramen."
+  },
+  {
+    "id": "anat_012",
+    "type": "short",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Which ligament prevents posterior displacement of the tibia?",
+    "answer": "Posterior cruciate ligament",
+    "explanation": "The posterior cruciate ligament prevents posterior movement of the tibia."
+  }
+  
 ]

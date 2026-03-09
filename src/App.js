@@ -14,24 +14,24 @@ import Leaderboard from "./pages/Leaderboard";
 import Stats from "./pages/Stats";
 import Settings from "./pages/Settings";
 import ClassicChallenge from "./pages/ClassicChallenge";
-import EndPage from "./pages/EndPage"; // ✅ Added EndPage import
-import ReviewPage from "./pages/ReviewPage"; // ✅ Added ReviewPage import
+import EndPage from "./pages/EndPage";
+import ReviewPage from "./pages/ReviewPage";
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
+import SubcategoryStudyMode from "./components/SubcategoryStudyMode"; // We'll create this
 
 // Quiz Component
 import Quiz from "./game/Quiz";
 
-// ✅ Wrapper to pass questions from navigation state to Quiz
+// Wrapper to pass questions from navigation state to Quiz
 function QuizWrapper() {
   const location = useLocation();
   const navigate = useNavigate();
   const questions = location.state?.questions || [];
 
   const handleFinish = (score) => {
-    // alert removed to prevent pop-up
-    navigate("/end"); // Quiz.jsx already passes the results to EndPage
+    navigate("/end");
   };
 
   if (questions.length === 0) return <p>No questions available!</p>;
@@ -57,7 +57,12 @@ function App() {
 
         {/* Study dashboards */}
         <Route path="/study-dashboard" element={<StudyDashboard />} />
+        
+        {/* Main topic route (e.g., /study/pharmacology) */}
         <Route path="/study/:topic" element={<StudyMode />} />
+        
+        {/* Subcategory route (e.g., /study/pharmacology/antibiotics) */}
+        <Route path="/study/:topic/:subcategory" element={<SubcategoryStudyMode />} />
 
         {/* Games */}
         <Route path="/games-dashboard" element={<GamesMode />} />
@@ -67,10 +72,10 @@ function App() {
         <Route path="/quiz" element={<QuizWrapper />} />
 
         {/* End Page */}
-        <Route path="/end" element={<EndPage />} />  {/* ✅ EndPage route */}
+        <Route path="/end" element={<EndPage />} />
 
         {/* Review Page */}
-        <Route path="/review" element={<ReviewPage />} />  {/* ✅ ReviewPage route */}
+        <Route path="/review" element={<ReviewPage />} />
 
         {/* Other pages */}
         <Route path="/battle" element={<Battle />} />

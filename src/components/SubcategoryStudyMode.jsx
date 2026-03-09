@@ -1,35 +1,32 @@
-// src/components/StudyMode.jsx
+// src/components/SubcategoryStudyMode.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 
-// Import your question JSONs
-import anatomyQuestions from "../data/questions/anatomy.json";
-import pathologyQuestions from "../data/questions/pathology.json";
-import pharmacologyQuestions from "../data/questions/pharmacology/index.js";
+// Import pharmacology subcategories
+import pharmacologyQuestions, { antibiotics } from "../data/questions/pharmacology/index.js";
 
 import correctSoundFile from "../sound/correct.wav";
 import wrongSoundFile from "../sound/wrong.wav";
 
-// Function to get questions based on topic
-function getQuestions(topic, locationState) {
-  if (!topic) return [];
-  
-  // If we have questions passed in state (from subcategory), use those
+// Function to get questions based on subcategory
+function getSubcategoryQuestions(topic, subcategory, locationState) {
+  // If we have questions passed in state, use those first
   if (locationState?.questions) {
     return locationState.questions;
   }
   
-  // Otherwise load based on topic
-  switch (topic.toLowerCase()) {
-    case "anatomy":
-      return anatomyQuestions;
-    case "pathology":
-      return pathologyQuestions;
-    case "pharmacology":
-      return pharmacologyQuestions;
-    default:
-      return [];
+  // Otherwise check based on subcategory
+  if (topic === "pharmacology") {
+    switch (subcategory) {
+      case "antibiotics":
+        return antibiotics || [];
+      // Add more cases as you add categories
+      default:
+        return [];
+    }
   }
+  
+  return [];
 }
 
 // Function to split questions into batches of 15
@@ -41,12 +38,12 @@ function getBatches(questions, batchSize = 15) {
   return batches;
 }
 
-function StudyMode() {
-  const { topic } = useParams();
+function SubcategoryStudyMode() {
+  const { topic, subcategory } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   
-  const allQuestions = getQuestions(topic, location) || [];
+  const allQuestions = getSubcategoryQuestions(topic, subcategory, location) || [];
   const batches = getBatches(allQuestions, 15);
   
   const [currentBatchIndex, setCurrentBatchIndex] = useState(0);
@@ -65,6 +62,12 @@ function StudyMode() {
   const correctSound = new Audio(correctSoundFile);
   const wrongSound = new Audio(wrongSoundFile);
 
+  // Format subcategory name for display
+  const formatSubcategoryName = (sub) => {
+    if (!sub) return "";
+    return sub.charAt(0).toUpperCase() + sub.slice(1);
+  };
+
   // Reset state when topic or batch changes
   useEffect(() => {
     setCurrentIndex(0);
@@ -73,7 +76,7 @@ function StudyMode() {
     setTimeLeft(15);
     setAnswerStatus(null);
     setShowBatchSummary(false);
-  }, [topic, currentBatchIndex]);
+  }, [topic, subcategory, currentBatchIndex]);
 
   // Timer for short answer questions
   useEffect(() => {
@@ -89,9 +92,9 @@ function StudyMode() {
     return () => clearInterval(timer);
   }, [timeLeft, currentQuestion, showAnswer, wrongSound]);
 
-  if (!topic) return <div style={{ padding: 20 }}>⚠️ No topic selected.</div>;
+  if (!topic || !subcategory) return <div style={{ padding: 20 }}>⚠️ Invalid topic.</div>;
   if (!allQuestions.length)
-    return <div style={{ padding: 20 }}>⚠️ No questions found for {topic}.</div>;
+    return <div style={{ padding: 20 }}>⚠️ No questions found for {formatSubcategoryName(subcategory)}.</div>;
   if (currentBatchIndex >= batches.length)
     return <div style={{ padding: 20 }}>🎉 You finished all questions!</div>;
   if (!currentQuestion)
@@ -151,7 +154,7 @@ function StudyMode() {
 
   const handleReviewBatch = () => {
     // Navigate to review page with batch results
-    navigate("/review", { state: { results: batchResults, topic } });
+    navigate("/review", { state: { results: batchResults, topic: `${topic} - ${formatSubcategoryName(subcategory)}` } });
   };
 
   const cardStyle = {
@@ -187,7 +190,9 @@ function StudyMode() {
     return (
       <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
         <div style={cardStyle}>
-          <h2 style={{ color: "#ff7f50", textAlign: "center" }}>Batch {currentBatchIndex + 1} Complete!</h2>
+          <h2 style={{ color: "#ff7f50", textAlign: "center" }}>
+            {formatSubcategoryName(subcategory)} - Batch {currentBatchIndex + 1} Complete!
+          </h2>
           
           <div style={{ textAlign: "center", margin: "30px 0" }}>
             <div style={{ fontSize: "48px", fontWeight: "bold", color: score >= 70 ? "#4CAF50" : "#F44336" }}>
@@ -256,6 +261,27 @@ function StudyMode() {
   // Regular Question View
   return (
     <div style={{ padding: "20px" }}>
+      {/* Header */}
+      <div style={{ marginBottom: "20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h3 style={{ color: "#6a4c93", margin: 0 }}>
+          {formatSubcategoryName(subcategory)} • {topic}
+        </h3>
+        <button
+          onClick={() => navigate("/study-dashboard")}
+          style={{
+            padding: "8px 16px",
+            borderRadius: "8px",
+            background: "#6b5b95",
+            color: "#fff",
+            cursor: "pointer",
+            border: "none",
+            fontSize: "14px",
+          }}
+        >
+          ← Back
+        </button>
+      </div>
+
       {/* Progress Bar */}
       <div style={{ marginBottom: "20px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
@@ -408,4 +434,4 @@ function StudyMode() {
   );
 }
 
-export default StudyMode;
+export default SubcategoryStudyMode;
