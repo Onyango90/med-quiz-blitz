@@ -1,9 +1,8 @@
-// src/firebase.js
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD8iBxkPPnHjs1c2zK24_yLtKrz6WWKFrQ",
+  apiKey: "AIzaSyBXA2-tlOIJyOWeUvj0CkhN3YKduIEp37s",
   authDomain: "medblitz-9c4e7.firebaseapp.com",
   projectId: "medblitz-9c4e7",
   storageBucket: "medblitz-9c4e7.firebasestorage.app",
@@ -14,4 +13,3 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-// No Firestore exports
