@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useStats } from "../hooks/useStats"; // ✅ Import stats hook
 import "./HomeDashboard.css";
 
 // ✅ Icons (gamified, professional)
@@ -19,11 +21,27 @@ import { getDailyChallengeQuestions } from "../game/dailyChallenge";
 function HomeDashboard() {
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  
+  // ✅ Get user from Firebase
+  const { currentUser, userData, loading: authLoading } = useAuth();
+  
+  // ✅ Get real stats from stats service
+  const { stats, loading: statsLoading } = useStats();
 
-  // ✅ Dynamic user name
-  const userName = localStorage.getItem("userName") || "Onyango";
+  // ✅ User name from Firebase or localStorage fallback
+  const userName = currentUser?.displayName || 
+                   localStorage.getItem("userName") || 
+                   currentUser?.email?.split('@')[0] || 
+                   "Onyango";
 
-  // ✅ Daily Challenge state
+  // ✅ Real stats from the stats service
+  const totalXP = stats?.basic?.totalXP || 0;
+  const todayStats = stats?.today || { attempted: 0, accuracy: 0, xpEarned: 0 };
+  const currentStreak = stats?.basic?.currentStreak || 0;
+  const overallAccuracy = stats?.basic?.accuracy || 0;
+  const totalQuestions = stats?.basic?.totalAttempted || 0;
+
+  // ✅ Daily Challenge state (still separate, will integrate later)
   const [dailyProgress, setDailyProgress] = useState({
     answered: 0,
     total: 10,
@@ -31,33 +49,35 @@ function HomeDashboard() {
     streak: 0,
   });
 
-  // ✅ Total XP state
-  const [totalXP, setTotalXP] = useState(0);
-
   useEffect(() => {
     if (window.innerWidth < 768) {
       setIsCollapsed(true);
     }
 
+    // Load daily challenge data from localStorage
     const today = new Date().toISOString().split("T")[0];
     const dailyData = JSON.parse(localStorage.getItem("dailyChallenge")) || {};
 
-    // Load today's daily progress
     if (dailyData[today]) {
       setDailyProgress(dailyData[today]);
     }
-
-    // Calculate total XP across all days
-    const xpSum = Object.values(dailyData).reduce(
-      (acc, day) => acc + (day.xpEarned || 0),
-      0
-    );
-    setTotalXP(xpSum);
   }, []);
+
+  // ✅ Show loading state while Firebase or stats initialize
+  if (authLoading || statsLoading) {
+    return (
+      <div className="home-dashboard" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div>Loading your dashboard...</div>
+      </div>
+    );
+  }
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
+
+  // ✅ Get user's year (default to 2 if not set)
+  const userYear = userData?.profile?.year || 2;
 
   return (
     <div className="home-dashboard">
@@ -70,12 +90,17 @@ function HomeDashboard() {
           justifyContent: "space-between"
         }}
       >
-        {/* Welcome message */}
+        {/* Welcome message with real streak */}
         <h1 className="welcome-text">
           Welcome, <span>Dr. {userName}</span>
+          {currentStreak > 0 && (
+            <span style={{ fontSize: "0.875rem", marginLeft: "12px", color: "#ff9800" }}>
+              🔥 {currentStreak} day streak!
+            </span>
+          )}
         </h1>
 
-        {/* Total XP on the top right */}
+        {/* Total XP from real stats */}
         <div style={{ display: "flex", alignItems: "center", gap: "6px", fontWeight: "600", color: "#ffbe0b" }}>
           <Flame size={20} color="#ffbe0b" />
           <span>Total XP: {totalXP}</span>
@@ -143,6 +168,41 @@ function HomeDashboard() {
 
         {/* Main Content */}
         <div className="main-content">
+          {/* QUICK STATS CARDS - NEW! */}
+          <div className="quick-stats-grid">
+            <div className="quick-stat-card">
+              <div className="quick-stat-icon">📝</div>
+              <div className="quick-stat-value">{todayStats.attempted}</div>
+              <div className="quick-stat-label">Today's Questions</div>
+              <div className="quick-stat-sub">{todayStats.accuracy}% correct</div>
+            </div>
+            
+            <div className="quick-stat-card">
+              <div className="quick-stat-icon">🎯</div>
+              <div className="quick-stat-value">{overallAccuracy}%</div>
+              <div className="quick-stat-label">Overall Accuracy</div>
+              <div className="quick-stat-sub">{totalQuestions} total</div>
+            </div>
+            
+            <div className="quick-stat-card">
+              <div className="quick-stat-icon">🔥</div>
+              <div className="quick-stat-value">{currentStreak}</div>
+              <div className="quick-stat-label">Day Streak</div>
+              <div className="quick-stat-sub">
+                {currentStreak >= 3 ? "Keep it up! 🔥" : "Start a streak!"}
+              </div>
+            </div>
+            
+            <div className="quick-stat-card">
+              <div className="quick-stat-icon">⭐</div>
+              <div className="quick-stat-value">{totalXP}</div>
+              <div className="quick-stat-label">Total XP</div>
+              <div className="quick-stat-sub">
+                {totalXP >= 500 ? "Elite learner!" : "Keep studying!"}
+              </div>
+            </div>
+          </div>
+
           {/* DAILY CHALLENGE */}
           <div className="daily-challenge enhanced">
             <div className="challenge-header">
@@ -170,7 +230,10 @@ function HomeDashboard() {
             <button
               onClick={() =>
                 navigate("/quiz", {
-                  state: { questions: getDailyChallengeQuestions() },
+                  state: { 
+                    questions: getDailyChallengeQuestions(userYear),
+                    mode: "daily" 
+                  },
                 })
               }
             >
@@ -218,6 +281,19 @@ function HomeDashboard() {
               <p>Track accuracy, speed, streaks & consistency.</p>
             </div>
           </div>
+
+          {/* MOTIVATIONAL MESSAGE BASED ON REAL DATA */}
+          {currentStreak >= 5 && (
+            <div className="motivation-banner">
+              🔥 {currentStreak} day streak! You're on fire! Keep pushing!
+            </div>
+          )}
+          
+          {totalQuestions === 0 && (
+            <div className="welcome-banner">
+              🎉 Welcome to MedBlitz! Answer your first question to start earning XP!
+            </div>
+          )}
         </div>
       </div>
     </div>

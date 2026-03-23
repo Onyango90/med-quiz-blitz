@@ -1,6 +1,7 @@
 // src/App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext"; // Added this import
 
 // Pages
 import LandingPage from "./pages/LandingPage";
@@ -9,7 +10,7 @@ import SignUp from "./pages/SignUp";
 import HomeDashboard from "./pages/HomeDashboard";
 import StudyDashboard from "./pages/StudyDashboard";
 import GamesMode from "./pages/GamesMode";
-import Battle from "./pages/Battle";
+import BattleComingSoon from "./pages/BattleComingSoon";
 import Leaderboard from "./pages/Leaderboard";
 import Stats from "./pages/Stats";
 import Settings from "./pages/Settings";
@@ -19,7 +20,7 @@ import ReviewPage from "./pages/ReviewPage";
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
-import SubcategoryStudyMode from "./components/SubcategoryStudyMode"; // We'll create this
+import SubcategoryStudyMode from "./components/SubcategoryStudyMode";
 
 // Quiz Component
 import Quiz from "./game/Quiz";
@@ -41,49 +42,51 @@ function QuizWrapper() {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Landing */}
-        <Route path="/" element={<LandingPage />} />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Landing */}
+          <Route path="/" element={<LandingPage />} />
 
-        {/* Sign In */}
-        <Route path="/signin" element={<SignIn />} />
+          {/* Sign In */}
+          <Route path="/signin" element={<SignIn />} />
 
-        {/* Sign Up */}
-        <Route path="/signup" element={<SignUp />} />
+          {/* Sign Up */}
+          <Route path="/signup" element={<SignUp />} />
 
-        {/* Home */}
-        <Route path="/home" element={<HomeDashboard />} />
+          {/* Home */}
+          <Route path="/home" element={<HomeDashboard />} />
 
-        {/* Study dashboards */}
-        <Route path="/study-dashboard" element={<StudyDashboard />} />
-        
-        {/* Main topic route (e.g., /study/pharmacology) */}
-        <Route path="/study/:topic" element={<StudyMode />} />
-        
-        {/* Subcategory route (e.g., /study/pharmacology/antibiotics) */}
-        <Route path="/study/:topic/:subcategory" element={<SubcategoryStudyMode />} />
+          {/* Study dashboards */}
+          <Route path="/study-dashboard" element={<StudyDashboard />} />
+          
+          {/* Main topic route (e.g., /study/pharmacology) */}
+          <Route path="/study/:topic" element={<StudyMode />} />
+          
+          {/* Subcategory route */}
+          <Route path="/study/:topic/:subcategory" element={<SubcategoryStudyMode />} />
 
-        {/* Games */}
-        <Route path="/games-dashboard" element={<GamesMode />} />
-        <Route path="/classic-challenge" element={<ClassicChallenge />} />
+          {/* Games */}
+          <Route path="/games-dashboard" element={<GamesMode />} />
+          <Route path="/classic-challenge" element={<ClassicChallenge />} />
 
-        {/* Quiz route */}
-        <Route path="/quiz" element={<QuizWrapper />} />
+          {/* Quiz route */}
+          <Route path="/quiz" element={<QuizWrapper />} />
 
-        {/* End Page */}
-        <Route path="/end" element={<EndPage />} />
+          {/* End Page */}
+          <Route path="/end" element={<EndPage />} />
 
-        {/* Review Page */}
-        <Route path="/review" element={<ReviewPage />} />
+          {/* Review Page */}
+          <Route path="/review" element={<ReviewPage />} />
 
-        {/* Other pages */}
-        <Route path="/battle" element={<Battle />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/stats" element={<Stats />} />
-        <Route path="/settings" element={<Settings />} />
-      </Routes>
-    </Router>
+          {/* Other pages */}
+          <Route path="/battle" element={<BattleComingSoon />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/stats" element={<Stats />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

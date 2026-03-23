@@ -91,4 +91,47 @@
       transform: translateY(0);
     }
   }
-  
+  /* Add to Auth.css */
+
+/* Style the select dropdown */
+.auth-select {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  background-color: white;
+  color: #1a2b4c;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+}
+
+.auth-select:hover {
+  border-color: #ffbe0b;
+}
+
+.auth-select:focus {
+  outline: none;
+  border-color: #ffbe0b;
+  box-shadow: 0 0 0 3px rgba(255, 190, 11, 0.1);
+}
+
+/* Optional: Add animation when dropdown opens */
+.auth-select option {
+  padding: 10px;
+}
+
+/* Optional: Style for different year options */
+.auth-select option[value="1"] { background-color: #e6f7e6; }
+.auth-select option[value="2"] { background-color: #e6f0ff; }
+.auth-select option[value="3"] { background-color: #fff0e6; }
+.auth-select option[value="4"] { background-color: #f3e6ff; }
+.auth-select option[value="5"] { background-color: #ffe6f0; }
+.auth-select option[value="6"] { background-color: #ffe6cc; }

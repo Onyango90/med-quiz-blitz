@@ -1,0 +1,360 @@
+/* src/pages/Leaderboard.css */
+.leaderboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.leaderboard-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.leaderboard-header h1 {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.leaderboard-header .subtitle {
+  color: rgba(255,255,255,0.8);
+}
+
+/* Your Rank Card */
+.your-rank-card {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.rank-badge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.rank-icon {
+  font-size: 3rem;
+}
+
+.rank-info h3 {
+  font-size: 1.25rem;
+  margin: 0;
+  color: #1a2b4c;
+}
+
+.rank-title {
+  color: #667eea;
+  font-weight: bold;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1a2b4c;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #6c757d;
+}
+
+.xp-progress {
+  margin-top: 1rem;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+  background: #e5e7eb;
+  border-radius: 999px;
+  height: 0.5rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.tab {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  background: transparent;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #6c757d;
+}
+
+.tab.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+/* Leaderboard List */
+.leaderboard-list {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s;
+}
+
+.leaderboard-item:last-child {
+  border-bottom: none;
+}
+
+.leaderboard-item.first {
+  background: linear-gradient(135deg, #fff9e6, #fff3cc);
+}
+
+.leaderboard-item.second {
+  background: #f8f9fa;
+}
+
+.leaderboard-item.third {
+  background: #f8f9fa;
+}
+
+.rank {
+  font-size: 1.5rem;
+  width: 50px;
+}
+
+.user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #1a2b4c;
+}
+
+.user-tier {
+  font-size: 0.75rem;
+  color: #6c757d;
+}
+
+.score {
+  font-weight: bold;
+  font-size: 1.125rem;
+  color: #667eea;
+}
+
+/* Invite Section */
+.invite-message, .streak-tip {
+  padding: 1rem;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 0.75rem;
+  margin: 1rem;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.invite-btn {
+  margin-top: 0.5rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.streak-tip {
+  background: linear-gradient(135deg, #fff9e6, #fff3cc);
+  color: #ff9800;
+  font-weight: 500;
+}
+
+/* Top Subjects Card */
+.top-subjects-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.top-subjects-card h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #1a2b4c;
+}
+
+.subjects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.subject-rank {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 0.75rem;
+}
+
+.subject-medal {
+  font-size: 1.25rem;
+  width: 40px;
+}
+
+.subject-name {
+  flex: 1;
+  font-weight: 500;
+}
+
+.subject-accuracy {
+  font-weight: bold;
+  color: #667eea;
+}
+
+/* Achievement Card */
+.achievement-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(135deg, #ffd700, #ffb347);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.achievement-icon {
+  font-size: 2rem;
+}
+
+.achievement-info h4 {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.achievement-info p {
+  margin: 0;
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+/* Invite Section */
+.invite-section {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.invite-section h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #1a2b4c;
+}
+
+.invite-section p {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.share-btn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Coming Soon Note */
+.coming-soon-note {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.1);
+  border-radius: 1rem;
+  color: white;
+}
+
+.coming-soon-note p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.coming-soon-note .small {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 3rem;
+  color: white;
+  font-size: 1.125rem;
+}

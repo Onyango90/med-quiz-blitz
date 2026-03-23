@@ -277,6 +277,18 @@
         ],
         "answer": "Clavulanic acid is a beta-lactamase inhibitor",
         "explanation": "Multiple are correct actually: Amoxicillin IS an aminopenicillin (true), Clavulanic acid IS a beta-lactamase inhibitor (true), Piperacillin IS administered parenterally (true). But if only one answer: Clavulanic acid is correct. Amoxicillin is NOT used for syphilis (penicillin G is). Piperacillin DOES have antipseudomonal activity."
+    },
+    {
+        "id": "pharm_ab_023",
+        "type": "mcq",
+        "subject": "Pharmacology",
+        "category": "Antibiotics",
+        "difficulty": "medium",
+        "question": "A 25-year-old patient is treated for a severe bacterial infection. The prescribed antibiotic works by inhibiting bacterial cell wall synthesis by binding to penicillin-binding proteins (PBPs). Which of the following drugs is most likely being used?",
+        "options": ["Azithromycin", "Ciprofloxacin", "Amoxicillin", "Doxycycline"],
+        "answer": "Amoxicillin",
+        "explanation": "Amoxicillin is a beta-lactam antibiotic that works by inhibiting bacterial cell wall synthesis through binding to penicillin-binding proteins (PBPs). Macrolides (erythromycin, azithromycin) are protein synthesis inhibitors, not beta-lactams. Ciprofloxacin is a fluoroquinolone, and doxycycline is a tetracycline."
     }
+    
 
 ]
