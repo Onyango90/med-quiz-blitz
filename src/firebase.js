@@ -1,15 +1,37 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
+// Firebase configuration from environment variables
 const firebaseConfig = {
-  apiKey: "AIzaSyBXA2-tlOIJyOWeUvj0CkhN3YKduIEp37s",
-  authDomain: "medblitz-9c4e7.firebaseapp.com",
-  projectId: "medblitz-9c4e7",
-  storageBucket: "medblitz-9c4e7.firebasestorage.app",
-  messagingSenderId: "87079197909",
-  appId: "1:87079197909:web:8eecf9503b2fe057c2565c",
-  measurementId: "G-MBFJVWWZLZ"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
+
+// Validate that all required environment variables are set
+const requiredEnvVars = [
+  'REACT_APP_FIREBASE_API_KEY',
+  'REACT_APP_FIREBASE_AUTH_DOMAIN',
+  'REACT_APP_FIREBASE_PROJECT_ID',
+  'REACT_APP_FIREBASE_STORAGE_BUCKET',
+  'REACT_APP_FIREBASE_MESSAGING_SENDER_ID',
+  'REACT_APP_FIREBASE_APP_ID'
+];
+
+const missingEnvVars = requiredEnvVars.filter(
+  envVar => !process.env[envVar]
+);
+
+if (missingEnvVars.length > 0) {
+  console.error(
+    'Missing required environment variables:',
+    missingEnvVars.join(', ')
+  );
+}
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);

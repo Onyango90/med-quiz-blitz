@@ -1,4 +1,4 @@
-# Node dependencies
+﻿# Node dependencies
 node_modules/
 
 # Production build
@@ -6,6 +6,9 @@ build/
 
 # Environment files
 .env
+.env.local
+.env.production
+.env.development
 
 # VS Code settings
 .vscode/
