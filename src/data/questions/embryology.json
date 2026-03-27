@@ -1,0 +1,57 @@
+﻿[
+  {
+    "id": "embryo_001",
+    "text": "What is formed when a sperm fertilizes an ovum?",
+    "options": ["Morula", "Blastocyst", "Zygote", "Gamete"],
+    "correctAnswer": 2,
+    "xpValue": 2,
+    "difficulty": "easy",
+    "year": 1,
+    "category": "Embryology",
+    "explanation": "The fertilized egg is called a zygote."
+  },
+  {
+    "id": "embryo_002",
+    "text": "What is the 16-cell stage called?",
+    "options": ["Zygote", "Blastocyst", "Morula", "Gastrula"],
+    "correctAnswer": 2,
+    "xpValue": 2,
+    "difficulty": "easy",
+    "year": 1,
+    "category": "Embryology",
+    "explanation": "The morula is the solid ball of 16-32 cells."
+  },
+  {
+    "id": "embryo_003",
+    "text": "Where does implantation normally occur?",
+    "options": ["Fallopian tube", "Cervix", "Fundus of uterus", "Ovary"],
+    "correctAnswer": 2,
+    "xpValue": 3,
+    "difficulty": "medium",
+    "year": 1,
+    "category": "Embryology",
+    "explanation": "Implantation typically occurs in the fundus of the uterus."
+  },
+  {
+    "id": "embryo_004",
+    "text": "What does the inner cell mass of the blastocyst become?",
+    "options": ["Placenta", "Embryo proper", "Amnion", "Chorion"],
+    "correctAnswer": 1,
+    "xpValue": 5,
+    "difficulty": "hard",
+    "year": 1,
+    "category": "Embryology",
+    "explanation": "The inner cell mass develops into the embryo proper."
+  },
+  {
+    "id": "embryo_005",
+    "text": "What is the function of the placenta?",
+    "options": ["Produces hormones", "Exchanges nutrients and waste", "Protects the fetus", "All of the above"],
+    "correctAnswer": 3,
+    "xpValue": 3,
+    "difficulty": "medium",
+    "year": 1,
+    "category": "Embryology",
+    "explanation": "The placenta provides nutrient exchange, waste removal, and hormone production."
+  }
+]

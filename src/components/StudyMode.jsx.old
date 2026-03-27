@@ -1,0 +1,536 @@
+// src/components/StudyMode.jsx
+import React, { useState, useEffect } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+
+// Import all anatomy subtopic JSONs
+import upperLimb from "../data/questions/anatomy/gross_anatomy/upper_limb.json";
+import lowerLimb from "../data/questions/anatomy/gross_anatomy/lower_limb.json";
+import neuroanatomy from "../data/questions/anatomy/gross_anatomy/neuroanatomy.json";
+import headAndNeck from "../data/questions/anatomy/gross_anatomy/head_and_neck.json";
+import thorax from "../data/questions/anatomy/gross_anatomy/thorax.json";
+import abdomen from "../data/questions/anatomy/gross_anatomy/abdomen.json";
+import pelvisPerineum from "../data/questions/anatomy/gross_anatomy/pelvis_perineum.json";
+
+// Histology (Cell Biology removed)
+import epithelialTissue from "../data/questions/anatomy/histology/epithelial_tissue.json";
+import connectiveTissue from "../data/questions/anatomy/histology/connective_tissue.json";
+import muscleTissue from "../data/questions/anatomy/histology/muscle_tissue.json";
+import nervousTissue from "../data/questions/anatomy/histology/nervous_tissue.json";
+import cardiovascular from "../data/questions/anatomy/histology/cardiovascular.json";
+import respiratory from "../data/questions/anatomy/histology/respiratory.json";
+import digestive from "../data/questions/anatomy/histology/digestive.json";
+import urinary from "../data/questions/anatomy/histology/urinary.json";
+import endocrine from "../data/questions/anatomy/histology/endocrine.json";
+import reproductive from "../data/questions/anatomy/histology/reproductive.json";
+
+// Embryology
+import gametogenesis from "../data/questions/anatomy/embryology/gametogenesis.json";
+import fertilization from "../data/questions/anatomy/embryology/fertilization.json";
+import firstWeek from "../data/questions/anatomy/embryology/first_week.json";
+import secondWeek from "../data/questions/anatomy/embryology/second_week.json";
+import thirdWeek from "../data/questions/anatomy/embryology/third_week.json";
+import fourthToEighth from "../data/questions/anatomy/embryology/fourth_to_eighth.json";
+import fetalPeriod from "../data/questions/anatomy/embryology/fetal_period.json";
+import placentaMembranes from "../data/questions/anatomy/embryology/placenta_membranes.json";
+import organogenesis from "../data/questions/anatomy/embryology/organogenesis.json";
+
+// Import other subjects (to be added later)
+import pathologyQuestions from "../data/questions/pathology.json";
+import pharmacologyQuestions from "../data/questions/pharmacology/index.js";
+
+// Placeholder for empty topics
+import placeholder from "../data/placeholder.json";
+
+import correctSoundFile from "../sound/correct.wav";
+import wrongSoundFile from "../sound/wrong.wav";
+
+// Helper function to check if questions array is valid (has content)
+const isValidQuestions = (questions) => {
+  return questions && Array.isArray(questions) && questions.length > 0;
+};
+
+// Mapping for anatomy subtopics with fallback to placeholder
+const anatomySubtopics = {
+  // Gross Anatomy
+  "Upper Limb": isValidQuestions(upperLimb) ? upperLimb : placeholder,
+  "Lower Limb": isValidQuestions(lowerLimb) ? lowerLimb : placeholder,
+  "Neuroanatomy": isValidQuestions(neuroanatomy) ? neuroanatomy : placeholder,
+  "Head and Neck": isValidQuestions(headAndNeck) ? headAndNeck : placeholder,
+  "Thorax": isValidQuestions(thorax) ? thorax : placeholder,
+  "Abdomen": isValidQuestions(abdomen) ? abdomen : placeholder,
+  "Pelvis and Perineum": isValidQuestions(pelvisPerineum) ? pelvisPerineum : placeholder,
+  // Histology (Cell Biology removed)
+  "Epithelial Tissue": isValidQuestions(epithelialTissue) ? epithelialTissue : placeholder,
+  "Connective Tissue": isValidQuestions(connectiveTissue) ? connectiveTissue : placeholder,
+  "Muscle Tissue": isValidQuestions(muscleTissue) ? muscleTissue : placeholder,
+  "Nervous Tissue": isValidQuestions(nervousTissue) ? nervousTissue : placeholder,
+  "Cardiovascular System": isValidQuestions(cardiovascular) ? cardiovascular : placeholder,
+  "Respiratory System": isValidQuestions(respiratory) ? respiratory : placeholder,
+  "Digestive System": isValidQuestions(digestive) ? digestive : placeholder,
+  "Urinary System": isValidQuestions(urinary) ? urinary : placeholder,
+  "Endocrine System": isValidQuestions(endocrine) ? endocrine : placeholder,
+  "Reproductive System": isValidQuestions(reproductive) ? reproductive : placeholder,
+  // Embryology
+  "Gametogenesis": isValidQuestions(gametogenesis) ? gametogenesis : placeholder,
+  "Fertilization": isValidQuestions(fertilization) ? fertilization : placeholder,
+  "First Week": isValidQuestions(firstWeek) ? firstWeek : placeholder,
+  "Second Week": isValidQuestions(secondWeek) ? secondWeek : placeholder,
+  "Third Week": isValidQuestions(thirdWeek) ? thirdWeek : placeholder,
+  "Fourth to Eighth Week": isValidQuestions(fourthToEighth) ? fourthToEighth : placeholder,
+  "Fetal Period": isValidQuestions(fetalPeriod) ? fetalPeriod : placeholder,
+  "Placenta and Membranes": isValidQuestions(placentaMembranes) ? placentaMembranes : placeholder,
+  "Organogenesis": isValidQuestions(organogenesis) ? organogenesis : placeholder
+};
+
+// Function to get questions based on topic and subtopic
+function getQuestions(topic, subtopic, locationState) {
+  // If we have questions passed in state (from subcategory), use those
+  if (locationState?.questions) {
+    return locationState.questions;
+  }
+  
+  // Handle anatomy subtopics
+  if (topic?.toLowerCase() === "anatomy" && subtopic) {
+    const questions = anatomySubtopics[subtopic];
+    if (questions && Array.isArray(questions)) {
+      return questions;
+    }
+    return [];
+  }
+  
+  // Handle other main topics
+  switch (topic?.toLowerCase()) {
+    case "pathology":
+      return pathologyQuestions;
+    case "pharmacology":
+      return pharmacologyQuestions;
+    default:
+      return [];
+  }
+}
+
+// Function to split questions into batches of 15
+function getBatches(questions, batchSize = 15) {
+  const batches = [];
+  for (let i = 0; i < questions.length; i += batchSize) {
+    batches.push(questions.slice(i, i + batchSize));
+  }
+  return batches;
+}
+
+function StudyMode() {
+  const { topic, subtopic } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  // Get subtopic from location state if not in URL
+  const currentSubtopic = subtopic || location.state?.subtopic;
+  
+  const allQuestions = getQuestions(topic, currentSubtopic, location) || [];
+  const batches = getBatches(allQuestions, 15);
+  
+  const [currentBatchIndex, setCurrentBatchIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState("");
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(15);
+  const [answerStatus, setAnswerStatus] = useState(null);
+  const [batchResults, setBatchResults] = useState([]);
+  const [showBatchSummary, setShowBatchSummary] = useState(false);
+  const [xpEarned, setXpEarned] = useState(0);
+
+  const currentBatch = batches[currentBatchIndex] || [];
+  const currentQuestion = currentBatch[currentIndex];
+  const isLastQuestionInBatch = currentIndex === currentBatch.length - 1;
+
+  const correctSound = new Audio(correctSoundFile);
+  const wrongSound = new Audio(wrongSoundFile);
+
+  // Reset state when topic or batch changes
+  useEffect(() => {
+    setCurrentIndex(0);
+    setSelectedAnswer("");
+    setShowAnswer(false);
+    setTimeLeft(15);
+    setAnswerStatus(null);
+    setShowBatchSummary(false);
+  }, [topic, currentSubtopic, currentBatchIndex]);
+
+  // Timer for short answer questions
+  useEffect(() => {
+    if (!currentQuestion || currentQuestion.type !== "short" || showAnswer) return;
+    if (timeLeft <= 0) {
+      setShowAnswer(true);
+      setAnswerStatus("timeout");
+      wrongSound.play();
+      return;
+    }
+
+    const timer = setInterval(() => setTimeLeft((t) => t - 1), 1000);
+    return () => clearInterval(timer);
+  }, [timeLeft, currentQuestion, showAnswer, wrongSound]);
+
+  if (!topic) return <div style={{ padding: 20 }}>⚠️ No topic selected.</div>;
+  if (!allQuestions.length) {
+    return (
+      <div style={{ padding: 20 }}>
+        ⚠️ No questions found for {topic}{currentSubtopic ? ` - ${currentSubtopic}` : ""}.
+        <br />
+        <button 
+          onClick={() => navigate("/study-dashboard")}
+          style={{ marginTop: 20, padding: "10px 20px", cursor: "pointer" }}
+        >
+          Back to Dashboard
+        </button>
+      </div>
+    );
+  }
+  if (currentBatchIndex >= batches.length)
+    return <div style={{ padding: 20 }}>🎉 You finished all questions!</div>;
+  if (!currentQuestion)
+    return <div style={{ padding: 20 }}>Loading...</div>;
+
+  const isMCQ = currentQuestion.type === "mcq" || !currentQuestion.type; // default to MCQ if no type
+  const isShort = currentQuestion.type === "short";
+
+  const handleAnswer = (answer) => {
+    if (showAnswer) return;
+    setSelectedAnswer(answer);
+    setShowAnswer(true);
+    
+    const isCorrect = answer === currentQuestion.correctAnswer || answer === currentQuestion.answer;
+    const xpToAdd = isCorrect ? (currentQuestion.xpValue || 0) : 0;
+    
+    if (isCorrect) {
+      setAnswerStatus("correct");
+      setXpEarned(prev => prev + xpToAdd);
+      correctSound.play();
+    } else {
+      setAnswerStatus("wrong");
+      wrongSound.play();
+    }
+
+    // Store result
+    setBatchResults(prev => [
+      ...prev,
+      {
+        id: currentQuestion.id,
+        question: currentQuestion.text || currentQuestion.question,
+        userAnswer: answer,
+        correctAnswer: currentQuestion.correctAnswer || currentQuestion.answer,
+        isCorrect,
+        explanation: currentQuestion.explanation,
+        xpEarned: isCorrect ? xpToAdd : 0
+      }
+    ]);
+  };
+
+  const handleNext = () => {
+    if (isLastQuestionInBatch) {
+      // Show batch summary
+      setShowBatchSummary(true);
+    } else {
+      // Move to next question in current batch
+      setSelectedAnswer("");
+      setShowAnswer(false);
+      setTimeLeft(15);
+      setAnswerStatus(null);
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  const handleNextBatch = () => {
+    // Move to next batch
+    setBatchResults([]);
+    setShowBatchSummary(false);
+    setCurrentBatchIndex(currentBatchIndex + 1);
+  };
+
+  const handleReviewBatch = () => {
+    // Navigate to review page with batch results
+    navigate("/review", { state: { results: batchResults, topic, subtopic: currentSubtopic } });
+  };
+
+  const cardStyle = {
+    padding: "20px",
+    borderRadius: "12px",
+    marginBottom: "15px",
+    background: "#fdf6e3",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+  };
+
+  const buttonStyle = (opt) => ({
+    background:
+      selectedAnswer === opt
+        ? opt === (currentQuestion.correctAnswer || currentQuestion.answer)
+          ? "#4CAF50"
+          : "#F44336"
+        : "#ffdca8",
+    color: selectedAnswer === opt ? "#fff" : "#000",
+    margin: "5px",
+    padding: "12px 18px",
+    borderRadius: "8px",
+    cursor: "pointer",
+    minWidth: "140px",
+    fontWeight: "bold",
+    transition: "0.2s",
+  });
+
+  // Batch Summary View
+  if (showBatchSummary) {
+    const correctCount = batchResults.filter(r => r.isCorrect).length;
+    const score = Math.round((correctCount / batchResults.length) * 100);
+    const totalXpThisBatch = batchResults.reduce((sum, r) => sum + r.xpEarned, 0);
+    
+    return (
+      <div style={{ padding: "20px", maxWidth: "600px", margin: "0 auto" }}>
+        <div style={cardStyle}>
+          <h2 style={{ color: "#ff7f50", textAlign: "center" }}>
+            {currentSubtopic || topic} - Batch {currentBatchIndex + 1} Complete!
+          </h2>
+          
+          <div style={{ textAlign: "center", margin: "30px 0" }}>
+            <div style={{ fontSize: "48px", fontWeight: "bold", color: score >= 70 ? "#4CAF50" : "#F44336" }}>
+              {score}%
+            </div>
+            <div style={{ fontSize: "18px", marginTop: "10px" }}>
+              {correctCount} correct out of {batchResults.length}
+            </div>
+            <div style={{ fontSize: "16px", marginTop: "5px", color: "#ff7f50" }}>
+              🏆 +{totalXpThisBatch} XP earned
+            </div>
+          </div>
+
+          <div style={{ display: "flex", gap: "15px", justifyContent: "center", flexWrap: "wrap" }}>
+            <button
+              onClick={handleReviewBatch}
+              style={{
+                padding: "12px 24px",
+                borderRadius: "8px",
+                background: "#6b5b95",
+                color: "#fff",
+                cursor: "pointer",
+                border: "none",
+                fontSize: "16px",
+              }}
+            >
+              📋 Review Answers
+            </button>
+            
+            {currentBatchIndex < batches.length - 1 && (
+              <button
+                onClick={handleNextBatch}
+                style={{
+                  padding: "12px 24px",
+                  borderRadius: "8px",
+                  background: "#ff7f50",
+                  color: "#fff",
+                  cursor: "pointer",
+                  border: "none",
+                  fontSize: "16px",
+                }}
+              >
+                Next Batch ➡️
+              </button>
+            )}
+            
+            {currentBatchIndex === batches.length - 1 && (
+              <button
+                onClick={() => navigate("/study-dashboard")}
+                style={{
+                  padding: "12px 24px",
+                  borderRadius: "8px",
+                  background: "#4CAF50",
+                  color: "#fff",
+                  cursor: "pointer",
+                  border: "none",
+                  fontSize: "16px",
+                }}
+              >
+                🏠 Back to Dashboard
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Regular Question View
+  return (
+    <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
+      {/* Header */}
+      <div style={{ marginBottom: "20px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
+          <div>
+            <span style={{ background: "#ff7f50", color: "white", padding: "4px 12px", borderRadius: "20px", fontSize: "14px" }}>
+              {currentSubtopic || topic}
+            </span>
+          </div>
+          <div style={{ color: "#ff7f50", fontWeight: "bold" }}>
+            🏆 Total XP: {xpEarned}
+          </div>
+        </div>
+        
+        <div style={{ marginTop: "15px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px", fontSize: "14px" }}>
+            <span>Batch {currentBatchIndex + 1} of {batches.length}</span>
+            <span>Question {currentIndex + 1} of {currentBatch.length}</span>
+          </div>
+          <div style={{
+            height: "8px",
+            width: "100%",
+            background: "#ddd",
+            borderRadius: "4px",
+            overflow: "hidden"
+          }}>
+            <div style={{
+              height: "100%",
+              width: `${((currentIndex + 1) / currentBatch.length) * 100}%`,
+              background: "#ff7f50",
+              transition: "width 0.3s ease"
+            }} />
+          </div>
+        </div>
+      </div>
+
+      {/* Question Card */}
+      <div style={cardStyle}>
+        <h3 style={{ color: "#ff7f50", marginBottom: "15px" }}>
+          Question {currentIndex + 1}
+        </h3>
+        <h2 style={{ fontSize: "1.5rem", marginBottom: "20px" }}>
+          {currentQuestion.text || currentQuestion.question}
+        </h2>
+
+        {/* MCQ */}
+        {isMCQ && currentQuestion.options && (
+          <div style={{ marginTop: "15px", display: "flex", flexWrap: "wrap", gap: "10px" }}>
+            {currentQuestion.options.map((opt, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleAnswer(opt)}
+                style={buttonStyle(opt)}
+                disabled={showAnswer}
+              >
+                {opt}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Short Answer */}
+        {isShort && !showAnswer && (
+          <div style={{ marginTop: "15px" }}>
+            <input
+              type="text"
+              placeholder="Type your answer..."
+              value={selectedAnswer}
+              onChange={(e) => setSelectedAnswer(e.target.value)}
+              style={{
+                padding: "12px",
+                width: "100%",
+                borderRadius: "8px",
+                border: "1px solid #ddd",
+                fontSize: "16px",
+              }}
+            />
+            <div style={{ marginTop: "10px" }}>
+              <div style={{
+                height: "8px",
+                width: "100%",
+                background: "#ddd",
+                borderRadius: "4px",
+              }}>
+                <div
+                  style={{
+                    height: "8px",
+                    width: `${(timeLeft / 15) * 100}%`,
+                    background: timeLeft <= 5 ? "#F44336" : "#ff7f50",
+                    borderRadius: "4px",
+                    transition: "width 1s linear",
+                  }}
+                />
+              </div>
+              <p style={{ fontSize: "12px", marginTop: "5px" }}>Time left: {timeLeft}s</p>
+            </div>
+            <button
+              onClick={() => setShowAnswer(true)}
+              style={{
+                marginTop: "12px",
+                padding: "10px 20px",
+                borderRadius: "8px",
+                background: "#6b5b95",
+                color: "#fff",
+                cursor: "pointer",
+                border: "none",
+              }}
+            >
+              Show Answer
+            </button>
+          </div>
+        )}
+
+        {/* Show Short Answer Result */}
+        {showAnswer && isShort && (
+          <div
+            style={{
+              background: answerStatus === "correct" ? "#4CAF50" : "#F44336",
+              color: "#fff",
+              padding: "15px",
+              borderRadius: "8px",
+              marginTop: "10px",
+              fontWeight: "bold",
+            }}
+          >
+            Correct Answer: {currentQuestion.correctAnswer || currentQuestion.answer}
+            {answerStatus === "correct" && currentQuestion.xpValue && (
+              <span style={{ marginLeft: "10px" }}>🏆 +{currentQuestion.xpValue} XP</span>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Explanation */}
+      {showAnswer && currentQuestion.explanation && (
+        <div
+          style={{
+            background: "#e8f5e9",
+            padding: "15px",
+            marginTop: "10px",
+            borderRadius: "8px",
+            color: "#2c3e50",
+            boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+            borderLeft: "4px solid #4CAF50"
+          }}
+        >
+          <strong>📖 Explanation:</strong>
+          <p style={{ marginTop: "8px", lineHeight: "1.5" }}>{currentQuestion.explanation}</p>
+        </div>
+      )}
+
+      {/* Next Button */}
+      {showAnswer && (
+        <button
+          onClick={handleNext}
+          style={{
+            marginTop: "20px",
+            padding: "12px 24px",
+            borderRadius: "8px",
+            background: "#ff7f50",
+            color: "#fff",
+            cursor: "pointer",
+            border: "none",
+            fontSize: "16px",
+            width: "100%",
+            fontWeight: "bold",
+          }}
+        >
+          {isLastQuestionInBatch ? "📊 See Batch Results" : "Next Question ➡️"}
+        </button>
+      )}
+    </div>
+  );
+}
+
+export default StudyMode;

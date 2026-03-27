@@ -1,0 +1,57 @@
+﻿[
+  {
+    "id": "histo_001",
+    "text": "What type of epithelium lines the alveoli of the lungs?",
+    "options": ["Stratified squamous", "Simple squamous", "Simple cuboidal", "Simple columnar"],
+    "correctAnswer": 1,
+    "xpValue": 2,
+    "difficulty": "easy",
+    "year": 1,
+    "category": "Histology",
+    "explanation": "Simple squamous epithelium allows for efficient gas exchange."
+  },
+  {
+    "id": "histo_002",
+    "text": "What is the function of the Golgi apparatus?",
+    "options": ["Protein synthesis", "DNA replication", "Modifying and packaging proteins", "Energy production"],
+    "correctAnswer": 2,
+    "xpValue": 3,
+    "difficulty": "medium",
+    "year": 1,
+    "category": "Histology",
+    "explanation": "The Golgi apparatus modifies, sorts, and packages proteins."
+  },
+  {
+    "id": "histo_003",
+    "text": "Which organelle contains digestive enzymes?",
+    "options": ["Peroxisome", "Lysosome", "Endosome", "Vacuole"],
+    "correctAnswer": 1,
+    "xpValue": 3,
+    "difficulty": "medium",
+    "year": 1,
+    "category": "Histology",
+    "explanation": "Lysosomes contain hydrolytic enzymes for digestion."
+  },
+  {
+    "id": "histo_004",
+    "text": "What type of connective tissue stores fat?",
+    "options": ["Areolar", "Adipose", "Reticular", "Dense regular"],
+    "correctAnswer": 1,
+    "xpValue": 2,
+    "difficulty": "easy",
+    "year": 1,
+    "category": "Histology",
+    "explanation": "Adipose tissue stores fat and provides insulation."
+  },
+  {
+    "id": "histo_005",
+    "text": "Which of the following is a characteristic of cardiac muscle?",
+    "options": ["Voluntary control", "Multinucleated", "Intercalated discs", "Spindle-shaped cells"],
+    "correctAnswer": 2,
+    "xpValue": 3,
+    "difficulty": "medium",
+    "year": 1,
+    "category": "Histology",
+    "explanation": "Cardiac muscle has intercalated discs that allow for coordinated contraction."
+  }
+]

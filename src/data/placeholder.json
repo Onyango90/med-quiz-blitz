@@ -1,0 +1,12 @@
+[
+  {
+    "id": "placeholder_001",
+    "text": "📚 Questions coming soon! This topic is being prepared. Check back later for new content.",
+    "options": ["Okay, I'll wait", "Take me back"],
+    "correctAnswer": 0,
+    "xpValue": 0,
+    "difficulty": "easy",
+    "year": 1,
+    "explanation": "We're working hard to add quality questions for this topic. Stay tuned!"
+  }
+]

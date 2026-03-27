@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// Import question data to get actual counts
-import anatomyQuestions from "../data/questions/anatomy.json";
+// Import anatomy categories
+import grossAnatomy from "../data/questions/gross_anatomy.json";
+import histology from "../data/questions/histology.json";
+import embryology from "../data/questions/embryology.json";
+
+// Import other subjects
 import pathologyQuestions from "../data/questions/pathology.json";
-import pharmacologyQuestions, { antibiotics, cardiovascular, cns, endocrine } from "../data/questions/pharmacology/index.js";
-// Import other question files as you add them
+import pharmacologyQuestions, { antibiotics, cardiovascular as pharmaCardio, cns, endocrine as pharmaEndocrine } from "../data/questions/pharmacology/index.js";
 
 // Optional click sound
 let clickSound;
@@ -16,19 +19,33 @@ try {
   clickSound = null;
 }
 
-// Function to get question count by topic
-const getQuestionCount = (topicName) => {
-  switch (topicName.toLowerCase()) {
-    case "anatomy":
-      return anatomyQuestions.length;
-    case "pathology":
-      return pathologyQuestions.length;
-    case "pharmacology":
-      return pharmacologyQuestions.length;
-    default:
-      return 5;
+// Define anatomy subcategories with REAL counts
+const anatomySubcategories = [
+  { 
+    name: "Gross Anatomy", 
+    path: "/study/gross_anatomy", 
+    icon: "🦴", 
+    description: "Macroscopic structures",
+    count: grossAnatomy?.length || 0,
+    questions: grossAnatomy
+  },
+  { 
+    name: "Histology", 
+    path: "/study/histology", 
+    icon: "🔬", 
+    description: "Microscopic structures",
+    count: histology?.length || 0,
+    questions: histology
+  },
+  { 
+    name: "Embryology", 
+    path: "/study/embryology", 
+    icon: "👶", 
+    description: "Development",
+    count: embryology?.length || 0,
+    questions: embryology
   }
-};
+];
 
 // Define pharmacology subcategories
 const pharmacologySubcategories = [
@@ -37,12 +54,12 @@ const pharmacologySubcategories = [
     path: "/study/pharmacology", 
     icon: "💊", 
     description: "All pharmacology topics",
-    count: pharmacologyQuestions.length,
+    count: pharmacologyQuestions?.length || 0,
     questions: pharmacologyQuestions
   },
   { 
     name: "Antibiotics", 
-    path: "/study/pharmacology/antibiotics", 
+    path: "/study/antibiotics", 
     icon: "🧪", 
     description: "Antibacterial drugs",
     count: antibiotics?.length || 12,
@@ -50,15 +67,15 @@ const pharmacologySubcategories = [
   },
   { 
     name: "Cardiovascular", 
-    path: "/study/pharmacology/cardiovascular", 
+    path: "/study/cardiovascular", 
     icon: "❤️", 
     description: "Heart drugs & BP meds",
-    count: cardiovascular?.length || 6,
-    questions: cardiovascular
+    count: pharmaCardio?.length || 6,
+    questions: pharmaCardio
   },
   { 
     name: "CNS Drugs", 
-    path: "/study/pharmacology/cns", 
+    path: "/study/cns", 
     icon: "🧠", 
     description: "Brain & nervous system drugs",
     count: cns?.length || 5,
@@ -66,11 +83,11 @@ const pharmacologySubcategories = [
   },
   { 
     name: "Endocrine", 
-    path: "/study/pharmacology/endocrine", 
+    path: "/study/endocrine", 
     icon: "⚕️", 
     description: "Hormones & diabetes drugs",
-    count: endocrine?.length || 3,
-    questions: endocrine
+    count: pharmaEndocrine?.length || 3,
+    questions: pharmaEndocrine
   },
 ];
 
@@ -82,8 +99,9 @@ const topics = [
     color: "#ff9f80", 
     icon: "🦴", 
     description: "Learn body structures",
-    count: getQuestionCount("anatomy"),
-    hasSubcategories: false
+    count: (grossAnatomy?.length || 0) + (histology?.length || 0) + (embryology?.length || 0),
+    hasSubcategories: true,
+    subcategories: anatomySubcategories
   },
   { 
     name: "Pathology", 
@@ -91,7 +109,7 @@ const topics = [
     color: "#f4d35e", 
     icon: "🧫", 
     description: "Disease processes",
-    count: getQuestionCount("pathology"),
+    count: pathologyQuestions?.length || 0,
     hasSubcategories: false
   },
   { 
@@ -118,7 +136,7 @@ const topics = [
     color: "#6a4c93", 
     icon: "💊", 
     description: "Drugs and mechanisms",
-    count: getQuestionCount("pharmacology"),
+    count: pharmacologyQuestions?.length || 0,
     hasSubcategories: true,
     subcategories: pharmacologySubcategories
   },
@@ -140,11 +158,10 @@ function StudyDashboard() {
   const handleClick = (path, questions = null) => {
     if (clickSound) clickSound.play();
     
-    // If we have specific questions, pass them in state
     if (questions) {
-      navigate(path, { state: { questions } });
+      navigate(path, { state: { questions, originalPath: path } });
     } else {
-      navigate(path);
+      navigate(path, { state: { originalPath: path } });
     }
   };
 
@@ -162,7 +179,6 @@ function StudyDashboard() {
       <div style={{ display: "flex", flexWrap: "wrap", gap: "20px", justifyContent: "center" }}>
         {topics.map((topic) => (
           <div key={topic.name} style={{ position: "relative" }}>
-            {/* Main Topic Card */}
             <div
               onClick={() => topic.hasSubcategories ? toggleDropdown(topic.name) : handleClick(topic.path)}
               style={{
@@ -183,67 +199,48 @@ function StudyDashboard() {
                 padding: "15px",
                 border: openDropdown === topic.name ? "3px solid white" : "none",
               }}
-              onMouseEnter={(e) => {
-                if (openDropdown !== topic.name) {
-                  e.currentTarget.style.transform = "translateY(-10px) scale(1.05)";
-                  e.currentTarget.style.boxShadow = "0 12px 25px rgba(0,0,0,0.35)";
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (openDropdown !== topic.name) {
-                  e.currentTarget.style.transform = "translateY(0) scale(1)";
-                  e.currentTarget.style.boxShadow = "0 6px 15px rgba(0,0,0,0.25)";
-                }
-              }}
             >
               <div style={{ fontSize: "40px", marginBottom: "10px" }}>{topic.icon}</div>
               <h3 style={{ margin: "5px 0" }}>{topic.name}</h3>
               <p style={{ fontSize: "12px", lineHeight: "1.2" }}>{topic.description}</p>
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "10px",
-                  right: "10px",
-                  fontSize: "12px",
-                  background: "rgba(255,255,255,0.3)",
-                  padding: "2px 6px",
-                  borderRadius: "8px",
-                }}
-              >
-                {topic.count} Q{topic.count !== 1 ? 's' : ''}
+              <div style={{
+                position: "absolute",
+                bottom: "10px",
+                right: "10px",
+                fontSize: "12px",
+                background: "rgba(255,255,255,0.3)",
+                padding: "2px 6px",
+                borderRadius: "8px",
+              }}>
+                {topic.count} Qs
               </div>
               {topic.hasSubcategories && (
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: "10px",
-                    left: "10px",
-                    fontSize: "12px",
-                    background: "rgba(0,0,0,0.3)",
-                    padding: "2px 6px",
-                    borderRadius: "8px",
-                  }}
-                >
+                <div style={{
+                  position: "absolute",
+                  bottom: "10px",
+                  left: "10px",
+                  fontSize: "12px",
+                  background: "rgba(0,0,0,0.3)",
+                  padding: "2px 6px",
+                  borderRadius: "8px",
+                }}>
                   ▼ {openDropdown === topic.name ? 'Close' : 'Topics'}
                 </div>
               )}
             </div>
 
-            {/* Dropdown Menu for Subcategories */}
             {openDropdown === topic.name && topic.hasSubcategories && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: "190px",
-                  left: "0",
-                  width: "180px",
-                  background: "white",
-                  borderRadius: "12px",
-                  boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
-                  zIndex: 1000,
-                  overflow: "hidden",
-                }}
-              >
+              <div style={{
+                position: "absolute",
+                top: "190px",
+                left: "0",
+                width: "180px",
+                background: "white",
+                borderRadius: "12px",
+                boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
+                zIndex: 1000,
+                overflow: "hidden",
+              }}>
                 {topic.subcategories.map((sub, index) => (
                   <div
                     key={sub.name}
@@ -253,26 +250,12 @@ function StudyDashboard() {
                       cursor: "pointer",
                       background: index % 2 === 0 ? "#f8f9fa" : "white",
                       borderBottom: index < topic.subcategories.length - 1 ? "1px solid #eee" : "none",
-                      transition: "background 0.2s",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "#e9ecef";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = index % 2 === 0 ? "#f8f9fa" : "white";
+                      textAlign: "center",
                     }}
                   >
-                    <span style={{ fontSize: "20px" }}>{sub.icon}</span>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontWeight: "bold", fontSize: "14px", color: "#333" }}>{sub.name}</div>
-                      <div style={{ fontSize: "11px", color: "#666" }}>{sub.description}</div>
-                      <div style={{ fontSize: "10px", color: "#999", marginTop: "2px" }}>
-                        {sub.count} questions
-                      </div>
-                    </div>
+                    <div style={{ fontSize: "20px" }}>{sub.icon}</div>
+                    <div style={{ fontWeight: "bold", fontSize: "14px", color: "#333" }}>{sub.name}</div>
+                    <div style={{ fontSize: "10px", color: "#666" }}>{sub.count} questions</div>
                   </div>
                 ))}
               </div>

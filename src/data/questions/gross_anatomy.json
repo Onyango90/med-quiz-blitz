@@ -1,0 +1,57 @@
+﻿[
+  {
+    "id": "gross_001",
+    "text": "What is the longest bone in the human body?",
+    "options": ["Femur", "Tibia", "Fibula", "Humerus"],
+    "correctAnswer": 0,
+    "xpValue": 2,
+    "difficulty": "easy",
+    "year": 1,
+    "category": "Gross Anatomy",
+    "explanation": "The femur is the longest and strongest bone in the human body."
+  },
+  {
+    "id": "gross_002",
+    "text": "What is the anatomical term for the shoulder blade?",
+    "options": ["Clavicle", "Scapula", "Humerus", "Sternum"],
+    "correctAnswer": 1,
+    "xpValue": 2,
+    "difficulty": "easy",
+    "year": 1,
+    "category": "Gross Anatomy",
+    "explanation": "The scapula is a flat, triangular bone on the back of the ribcage."
+  },
+  {
+    "id": "gross_003",
+    "text": "How many carpal bones are in the human wrist?",
+    "options": ["6", "7", "8", "9"],
+    "correctAnswer": 2,
+    "xpValue": 3,
+    "difficulty": "medium",
+    "year": 1,
+    "category": "Gross Anatomy",
+    "explanation": "There are eight carpal bones arranged in two rows of four."
+  },
+  {
+    "id": "gross_004",
+    "text": "Which nerve is compressed in carpal tunnel syndrome?",
+    "options": ["Ulnar nerve", "Radial nerve", "Median nerve", "Musculocutaneous nerve"],
+    "correctAnswer": 2,
+    "xpValue": 5,
+    "difficulty": "hard",
+    "year": 1,
+    "category": "Gross Anatomy",
+    "explanation": "The median nerve passes through the carpal tunnel."
+  },
+  {
+    "id": "gross_005",
+    "text": "What is the kneecap called?",
+    "options": ["Patella", "Tibia", "Fibula", "Femur"],
+    "correctAnswer": 0,
+    "xpValue": 2,
+    "difficulty": "easy",
+    "year": 1,
+    "category": "Gross Anatomy",
+    "explanation": "The patella is a small bone that protects the knee joint."
+  }
+]
