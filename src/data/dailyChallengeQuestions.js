@@ -14,16 +14,10 @@ function pickQuestion(topics, type, year, difficulty = null) {
   topics.forEach(topic => {
     if (Array.isArray(topic)) {
       const filtered = topic.filter(q => {
-        // Check year match
         const matchesYear = !q.year || q.year === year || q.year === parseInt(year);
-        
-        // Check question type
         const qType = q.type ? q.type.toLowerCase() : (q.options ? "mcq" : "short");
         const matchesType = qType === type.toLowerCase();
-        
-        // Check difficulty if specified
         const matchesDifficulty = difficulty ? q.difficulty?.toLowerCase() === difficulty.toLowerCase() : true;
-        
         return matchesYear && matchesType && matchesDifficulty;
       });
       pool.push(...filtered);
@@ -46,7 +40,7 @@ const fallbackQuestions = {
       xpValue: 3,
       difficulty: "easy",
       year: 1,
-      explanation: "The nephron is the microscopic structural and functional unit of the kidney, responsible for filtering blood and forming urine."
+      explanation: "The nephron is the microscopic structural and functional unit of the kidney."
     },
     {
       id: "fallback_year1_2",
@@ -105,16 +99,6 @@ const fallbackQuestions = {
       difficulty: "medium",
       year: 3,
       explanation: "Streptococcus pneumoniae remains the most common cause of community-acquired pneumonia."
-    },
-    {
-      id: "fallback_year3_2",
-      type: "short",
-      question: "What is the first-line treatment for hypertension?",
-      answer: "ACE inhibitors or thiazide diuretics",
-      xpValue: 3,
-      difficulty: "medium",
-      year: 3,
-      explanation: "ACE inhibitors and thiazide diuretics are recommended as first-line agents for hypertension."
     }
   ],
   4: [
@@ -158,7 +142,7 @@ const fallbackQuestions = {
   ]
 };
 
-// General questions for all years (with 3 XP)
+// General questions for all years
 const generalQuestions = [
   {
     id: "general_1",
@@ -187,7 +171,7 @@ const generalQuestions = [
     answer: "Oxygen transport",
     xpValue: 3,
     difficulty: "easy",
-    explanation: "Hemoglobin in red blood cells binds and transports oxygen from the lungs to tissues throughout the body."
+    explanation: "Hemoglobin in red blood cells binds and transports oxygen from the lungs to tissues."
   },
   {
     id: "general_4",
@@ -201,64 +185,53 @@ const generalQuestions = [
   }
 ];
 
+// Generate 20 questions for daily challenge
 export function getDailyChallengeQuestions(yearOfStudy = 1) {
   const yearNum = typeof yearOfStudy === 'number' ? yearOfStudy : parseInt(yearOfStudy);
   const effectiveYear = Math.min(Math.max(yearNum || 1, 1), 6);
   
-  // Create a mix of 20 questions with 3 XP each
-  const questionTypes = [
-    // 10 easy MCQs
-    ...Array(10).fill({ type: "mcq", difficulty: "easy" }),
-    // 6 medium MCQs
-    ...Array(6).fill({ type: "mcq", difficulty: "medium" }),
-    // 2 hard MCQs
-    ...Array(2).fill({ type: "mcq", difficulty: "hard" }),
-    // 2 short answer
-    ...Array(2).fill({ type: "short", difficulty: null })
+  // Create 20 questions with a good mix
+  const questions = [];
+  
+  // Mix of question types
+  const types = [
+    "mcq", "mcq", "mcq", "mcq", "mcq",  // 5 easy MCQs
+    "mcq", "mcq", "mcq", "mcq", "mcq",  // 5 medium MCQs
+    "mcq", "mcq", "mcq", "mcq", "mcq",  // 5 hard MCQs
+    "short", "short", "short", "short", "short"  // 5 short answer
   ];
   
-  const questions = [];
-  for (let i = 0; i < questionTypes.length; i++) {
-    const { type, difficulty } = questionTypes[i];
-    const question = pickQuestion(allTopics, type, effectiveYear, difficulty);
-    if (question) {
-      // Override XP value to 3
-      questions.push({ ...question, xpValue: 3 });
-    }
-  }
+  // Difficulties distribution
+  const difficulties = [
+    "easy", "easy", "easy", "easy", "easy",
+    "medium", "medium", "medium", "medium", "medium",
+    "hard", "hard", "hard", "hard", "hard",
+    null, null, null, null, null
+  ];
   
-  // Add fallback questions if needed
-  if (questions.length < 20) {
-    const yearFallbacks = fallbackQuestions[effectiveYear] || fallbackQuestions[1];
-    const generalFallbacks = generalQuestions;
-    let fallbackIndex = 0;
+  for (let i = 0; i < 20; i++) {
+    const type = types[i];
+    const difficulty = difficulties[i];
+    let question = null;
     
-    while (questions.length < 20) {
-      let fallback;
-      if (fallbackIndex < yearFallbacks.length) {
-        fallback = { ...yearFallbacks[fallbackIndex], xpValue: 3 };
-      } else if (fallbackIndex - yearFallbacks.length < generalFallbacks.length) {
-        fallback = { ...generalFallbacks[fallbackIndex - yearFallbacks.length], xpValue: 3 };
-      } else {
-        // Create a generic fallback if needed
-        fallback = {
-          id: `fallback_${questions.length}`,
-          type: "mcq",
-          question: "What is the primary function of the mitochondria?",
-          options: ["Protein synthesis", "ATP production", "DNA replication", "Cell division"],
-          answer: "ATP production",
-          xpValue: 3,
-          difficulty: "medium",
-          year: effectiveYear,
-          explanation: "Mitochondria are the powerhouses of the cell, producing ATP through cellular respiration."
-        };
-      }
-      questions.push(fallback);
-      fallbackIndex++;
+    if (type === "short") {
+      question = pickQuestion(allTopics, "short", effectiveYear);
+    } else {
+      question = pickQuestion(allTopics, "mcq", effectiveYear, difficulty);
+    }
+    
+    if (question) {
+      // Override XP to 3
+      questions.push({ ...question, xpValue: 3 });
+    } else {
+      // Add fallback
+      const yearFallbacks = fallbackQuestions[effectiveYear] || fallbackQuestions[1];
+      const fallbackIndex = i % yearFallbacks.length;
+      questions.push({ ...yearFallbacks[fallbackIndex], xpValue: 3 });
     }
   }
   
-  return questions.slice(0, 20);
+  return questions;
 }
 
 // Get daily questions for a specific year (same for all users on same day)

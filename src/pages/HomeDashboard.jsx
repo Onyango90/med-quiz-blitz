@@ -1,10 +1,11 @@
+// src/pages/HomeDashboard.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useStats } from "../hooks/useStats"; // ✅ Import stats hook
+import { useStats } from "../hooks/useStats";
 import "./HomeDashboard.css";
 
-// ✅ Icons (gamified, professional)
+// Icons
 import {
   Gamepad2,
   Swords,
@@ -15,36 +16,28 @@ import {
   Flame
 } from "lucide-react";
 
-// ✅ Import Daily Challenge questions
-import { getDailyChallengeQuestions } from "../game/dailyChallenge";
+// Import the updated daily questions generator
+import { getDailyQuestions } from "../data/dailyChallengeQuestions";
 
 function HomeDashboard() {
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
   
-  // ✅ Get user from Firebase
   const { currentUser, userData, loading: authLoading } = useAuth();
-  
-  // ✅ Get real stats from stats service
   const { stats, loading: statsLoading } = useStats();
 
-  // ✅ User name from Firebase or localStorage fallback
   const userName = currentUser?.displayName || 
                    localStorage.getItem("userName") || 
                    currentUser?.email?.split('@')[0] || 
                    "Onyango";
 
-  // ✅ Real stats from the stats service
   const totalXP = stats?.basic?.totalXP || 0;
-  const todayStats = stats?.today || { attempted: 0, accuracy: 0, xpEarned: 0 };
   const currentStreak = stats?.basic?.currentStreak || 0;
-  const overallAccuracy = stats?.basic?.accuracy || 0;
-  const totalQuestions = stats?.basic?.totalAttempted || 0;
 
-  // ✅ Daily Challenge state (still separate, will integrate later)
+  // Daily Challenge state - updated to 20 questions
   const [dailyProgress, setDailyProgress] = useState({
     answered: 0,
-    total: 10,
+    total: 20,
     xpEarned: 0,
     streak: 0,
   });
@@ -54,7 +47,6 @@ function HomeDashboard() {
       setIsCollapsed(true);
     }
 
-    // Load daily challenge data from localStorage
     const today = new Date().toISOString().split("T")[0];
     const dailyData = JSON.parse(localStorage.getItem("dailyChallenge")) || {};
 
@@ -63,7 +55,6 @@ function HomeDashboard() {
     }
   }, []);
 
-  // ✅ Show loading state while Firebase or stats initialize
   if (authLoading || statsLoading) {
     return (
       <div className="home-dashboard" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -76,12 +67,14 @@ function HomeDashboard() {
     setIsCollapsed(!isCollapsed);
   };
 
-  // ✅ Get user's year (default to 2 if not set)
   const userYear = userData?.profile?.year || 2;
+  
+  // Calculate streak bonus AFTER currentStreak is defined
+  const streakBonus = Math.min(20 + (currentStreak * 2), 40);
 
   return (
     <div className="home-dashboard">
-      {/* ---------------- Top Header ---------------- */}
+      {/* Top Header */}
       <div
         className="top-header"
         style={{
@@ -90,7 +83,6 @@ function HomeDashboard() {
           justifyContent: "space-between"
         }}
       >
-        {/* Welcome message with real streak */}
         <h1 className="welcome-text">
           Welcome, <span>Dr. {userName}</span>
           {currentStreak > 0 && (
@@ -100,13 +92,11 @@ function HomeDashboard() {
           )}
         </h1>
 
-        {/* Total XP from real stats */}
         <div style={{ display: "flex", alignItems: "center", gap: "6px", fontWeight: "600", color: "#ffbe0b" }}>
           <Flame size={20} color="#ffbe0b" />
           <span>Total XP: {totalXP}</span>
         </div>
 
-        {/* Hamburger menu */}
         <div className="collapse-btn" onClick={toggleSidebar}>
           <div className="hamburger">
             <span style={{ display: "block", width: "24px", height: "3px", backgroundColor: "#000", borderRadius: "2px", margin: "3px 0" }} />
@@ -116,48 +106,35 @@ function HomeDashboard() {
         </div>
       </div>
 
-      {/* ---------------- Content Below Header ---------------- */}
+      {/* Content */}
       <div className="below-header-wrapper">
         {/* Sidebar */}
         <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
           {!isCollapsed && (
             <>
-              <div
-                className="nav-item"
-                style={{
-                  color: "#ffbe0b",
-                  fontWeight: "700",
-                  cursor: "default"
-                }}
-              >
+              <div className="nav-item" style={{ color: "#ffbe0b", fontWeight: "700", cursor: "default" }}>
                 Dashboard
               </div>
-
               <div className="nav-item" onClick={() => navigate("/games-dashboard")}>
                 <Gamepad2 size={18} style={{ marginRight: "8px" }} />
                 Game Modes
               </div>
-
               <div className="nav-item" onClick={() => navigate("/battle")}>
                 <Swords size={18} style={{ marginRight: "8px" }} />
                 Battle
               </div>
-
               <div className="nav-item" onClick={() => navigate("/study-dashboard")}>
                 <BookOpen size={18} style={{ marginRight: "8px" }} />
                 Study Centre
               </div>
-
               <div className="nav-item" onClick={() => navigate("/leaderboard")}>
                 <Trophy size={18} style={{ marginRight: "8px" }} />
                 Leaderboard
               </div>
-
               <div className="nav-item" onClick={() => navigate("/stats")}>
                 <BarChart3 size={18} style={{ marginRight: "8px" }} />
                 Stats
               </div>
-
               <div className="nav-item" onClick={() => navigate("/settings")}>
                 <Settings size={18} style={{ marginRight: "8px" }} />
                 Settings
@@ -168,96 +145,100 @@ function HomeDashboard() {
 
         {/* Main Content */}
         <div className="main-content">
-          {/* QUICK STATS CARDS - NEW! */}
-          <div className="quick-stats-grid">
-            <div className="quick-stat-card">
-              <div className="quick-stat-icon">📝</div>
-              <div className="quick-stat-value">{todayStats.attempted}</div>
-              <div className="quick-stat-label">Today's Questions</div>
-              <div className="quick-stat-sub">{todayStats.accuracy}% correct</div>
-            </div>
+          {/* DAILY CHALLENGE - Clean and Simple */}
+          <div className="daily-challenge premium">
+            {/* Animated Background Glow */}
+            <div className="challenge-glow-ring"></div>
             
-            <div className="quick-stat-card">
-              <div className="quick-stat-icon">🎯</div>
-              <div className="quick-stat-value">{overallAccuracy}%</div>
-              <div className="quick-stat-label">Overall Accuracy</div>
-              <div className="quick-stat-sub">{totalQuestions} total</div>
-            </div>
-            
-            <div className="quick-stat-card">
-              <div className="quick-stat-icon">🔥</div>
-              <div className="quick-stat-value">{currentStreak}</div>
-              <div className="quick-stat-label">Day Streak</div>
-              <div className="quick-stat-sub">
-                {currentStreak >= 3 ? "Keep it up! 🔥" : "Start a streak!"}
+            {/* Header with Animated Streak */}
+            <div className="challenge-header-premium">
+              <div className="header-left">
+                <div className="challenge-icon pulse">⭐</div>
+                <div>
+                  <h2>Daily Challenge</h2>
+                  <p className="challenge-subtitle">Test your skills & earn rewards</p>
+                </div>
+              </div>
+              <div className="streak-badge-premium">
+                <span className="streak-fire">🔥</span>
+                <span className="streak-number">{currentStreak}</span>
+                <span className="streak-text">day streak</span>
               </div>
             </div>
-            
-            <div className="quick-stat-card">
-              <div className="quick-stat-icon">⭐</div>
-              <div className="quick-stat-value">{totalXP}</div>
-              <div className="quick-stat-label">Total XP</div>
-              <div className="quick-stat-sub">
-                {totalXP >= 500 ? "Elite learner!" : "Keep studying!"}
+
+            {/* Progress Section */}
+            <div className="progress-section-premium">
+              <div className="progress-header">
+                <span>Today's Progress</span>
+                <span className="progress-percent">
+                  {Math.round((dailyProgress.answered / dailyProgress.total) * 100)}%
+                </span>
+              </div>
+              <div className="progress-bar-premium">
+                <div 
+                  className="progress-fill-premium" 
+                  style={{ width: `${(dailyProgress.answered / dailyProgress.total) * 100}%` }}
+                >
+                  <div className="progress-glow"></div>
+                </div>
+              </div>
+              <div className="progress-stats">
+                <span>✅ {dailyProgress.answered} completed</span>
+                <span>⏳ {dailyProgress.total - dailyProgress.answered} remaining</span>
               </div>
             </div>
-          </div>
 
-          {/* DAILY CHALLENGE */}
-          <div className="daily-challenge enhanced">
-            <div className="challenge-header">
-              <h2 style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <Flame size={20} color="#ff595e" />
-                Daily Challenge
-              </h2>
-              <span className="streak">Streak: {dailyProgress.streak} days</span>
-            </div>
-
-            <div className="challenge-rewards">
-              <span className="xp">+{dailyProgress.xpEarned} XP</span>
-            </div>
-
-            <div className="progress-bar">
-              <div
-                className="progress-fill"
-                style={{ width: `${(dailyProgress.answered / dailyProgress.total) * 100}%` }}
-              />
-            </div>
-            <small className="progress-text">
-              Progress: {dailyProgress.answered} / {dailyProgress.total} questions
-            </small>
-
-            <button
-              onClick={() =>
-                navigate("/quiz", {
+            {/* Action Button */}
+            <button 
+              className="start-blitz-premium"
+              onClick={() => {
+                const questions = getDailyQuestions(parseInt(userYear));
+                navigate("/daily-quiz", { 
                   state: { 
-                    questions: getDailyChallengeQuestions(userYear),
-                    mode: "daily" 
-                  },
-                })
-              }
+                    questions: questions,
+                    isDailyChallenge: true,
+                    xpBonus: streakBonus,
+                    streak: currentStreak,
+                    topic: "Daily Challenge",
+                    userYear: userYear,
+                    questionsCount: dailyProgress.total
+                  } 
+                });
+              }}
             >
-              Start Blitz
+              <span className="btn-glow"></span>
+              <span className="btn-content">
+                <span className="btn-icon">⚡</span>
+                START TODAY'S BLITZ
+                <span className="btn-icon">⚡</span>
+              </span>
+              <span className="btn-arrow">→</span>
             </button>
 
-            {[...Array(8)].map((_, i) => (
-              <div
-                key={i}
-                className="particle"
-                style={{
-                  left: `${Math.random() * 90}%`,
-                  top: `${Math.random() * 50 + 30}%`,
-                  width: `${Math.random() * 6 + 6}px`,
-                  height: `${Math.random() * 6 + 6}px`,
-                  backgroundColor: ["#ffbe0b", "#ff595e", "#8ac926", "#1982c4"][
-                    Math.floor(Math.random() * 4)
-                  ],
-                }}
-              />
-            ))}
+            {/* Motivational Quote */}
+            <div className="challenge-quote">
+              <span className="quote-icon">💪</span>
+              <span>Complete today's challenge to maintain your {currentStreak > 0 ? `${currentStreak}-day` : "new"} streak!</span>
+            </div>
+
+            {/* Animated Particles */}
+            <div className="challenge-particles">
+              {[...Array(12)].map((_, i) => (
+                <div
+                  key={i}
+                  className="particle"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 3}s`,
+                    animationDuration: `${2 + Math.random() * 3}s`
+                  }}
+                />
+              ))}
+            </div>
           </div>
 
-          {/* DASHBOARD CARDS */}
+          {/* Dashboard Cards */}
           <div className="cards-container">
             <div
               className="dashboard-card"
@@ -282,16 +263,10 @@ function HomeDashboard() {
             </div>
           </div>
 
-          {/* MOTIVATIONAL MESSAGE BASED ON REAL DATA */}
+          {/* Motivational Messages */}
           {currentStreak >= 5 && (
             <div className="motivation-banner">
               🔥 {currentStreak} day streak! You're on fire! Keep pushing!
-            </div>
-          )}
-          
-          {totalQuestions === 0 && (
-            <div className="welcome-banner">
-              🎉 Welcome to MedBlitz! Answer your first question to start earning XP!
             </div>
           )}
         </div>

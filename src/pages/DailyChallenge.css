@@ -1,0 +1,449 @@
+/* src/pages/DailyChallenge.css */
+
+.daily-challenge-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+}
+
+/* Hero Section */
+.daily-challenge-hero {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-icon {
+  font-size: 80px;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  margin: 20px 0 10px;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  letter-spacing: 2px;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 20px;
+}
+
+.hero-year-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  padding: 8px 20px;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.hero-decoration {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Main Challenge Card */
+.challenge-card {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 32px;
+  padding: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.challenge-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,127,80,0.15) 0%, transparent 70%);
+  animation: pulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Streak Banner */
+.streak-banner {
+  background: linear-gradient(135deg, #ff7f50, #ffb347);
+  border-radius: 60px;
+  padding: 12px 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  width: auto;
+  justify-content: center;
+}
+
+.streak-fire {
+  font-size: 28px;
+  animation: bounce 0.5s ease infinite;
+}
+
+.streak-count {
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 1px;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Reset Timer */
+.reset-timer {
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.timer-icon {
+  font-size: 18px;
+}
+
+/* Main CTA Button */
+.start-blitz-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #ff7f50, #ffb347);
+  border: none;
+  padding: 20px;
+  border-radius: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(255,127,80,0.4);
+}
+
+.start-blitz-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 40px rgba(255,127,80,0.5);
+}
+
+.start-blitz-btn:active {
+  transform: scale(0.98);
+}
+
+.btn-icon {
+  font-size: 28px;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.btn-text {
+  font-size: 20px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: 2px;
+}
+
+/* Info Grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.info-card {
+  background: #f8f9fa;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+}
+
+.info-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.info-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ff7f50;
+}
+
+.info-label {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* XP Breakdown */
+.xp-breakdown {
+  background: #f8f9fa;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.xp-breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.xp-breakdown-item:last-child {
+  border-bottom: none;
+}
+
+.xp-breakdown-item.highlight {
+  color: #ff7f50;
+  font-weight: 600;
+}
+
+.xp-breakdown-item.total {
+  font-weight: 800;
+  font-size: 1.1rem;
+  padding-top: 15px;
+  margin-top: 5px;
+  border-top: 2px solid #ff7f50;
+  color: #ff7f50;
+}
+
+/* Completed State */
+.completed-state {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.completed-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  animation: bounce 0.5s ease;
+}
+
+.completed-state h3 {
+  font-size: 28px;
+  color: #4CAF50;
+  margin-bottom: 10px;
+}
+
+.completed-state p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.completed-stats {
+  background: #e8f5e9;
+  border-radius: 20px;
+  padding: 15px;
+  margin: 20px 0;
+}
+
+.completed-stat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #4CAF50;
+}
+
+.back-to-games-btn {
+  background: #ff7f50;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-to-games-btn:hover {
+  transform: scale(1.05);
+  background: #ff6b3d;
+}
+
+/* What to Expect Section */
+.expect-section {
+  max-width: 600px;
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.expect-section h3 {
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.expect-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.expect-item {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.expect-item:hover {
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.2);
+}
+
+.expect-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.expect-text {
+  font-size: 11px;
+  color: white;
+  font-weight: 500;
+}
+
+/* Loading State */
+.daily-challenge-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .daily-challenge-container {
+    padding: 20px;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .challenge-card {
+    padding: 24px;
+  }
+  
+  .btn-text {
+    font-size: 16px;
+  }
+  
+  .info-grid {
+    gap: 10px;
+  }
+  
+  .info-card {
+    padding: 12px;
+  }
+  
+  .info-value {
+    font-size: 22px;
+  }
+  
+  .expect-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+/* Simplified Rewards Section - Clean and Minimal */
+.rewards-simple {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+  padding: 16px 0;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.reward-simple-item {
+  text-align: center;
+  min-width: 70px;
+}
+
+.reward-simple-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffbe0b;
+  line-height: 1.2;
+}
+
+.reward-simple-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}

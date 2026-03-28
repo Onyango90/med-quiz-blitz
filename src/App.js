@@ -1,7 +1,7 @@
 // src/App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext"; // Added this import
+import { AuthProvider } from "./context/AuthContext";
 
 // Pages
 import LandingPage from "./pages/LandingPage";
@@ -17,6 +17,8 @@ import Settings from "./pages/Settings";
 import ClassicChallenge from "./pages/ClassicChallenge";
 import EndPage from "./pages/EndPage";
 import ReviewPage from "./pages/ReviewPage";
+import DailyChallenge from "./pages/DailyChallenge";
+import DailyQuiz from "./pages/DailyQuiz";
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
@@ -60,7 +62,7 @@ function App() {
           {/* Study dashboards */}
           <Route path="/study-dashboard" element={<StudyDashboard />} />
           
-          {/* Main topic route (e.g., /study/pharmacology) */}
+          {/* Main topic route */}
           <Route path="/study/:topic" element={<StudyMode />} />
           
           {/* Subcategory route */}
@@ -69,6 +71,10 @@ function App() {
           {/* Games */}
           <Route path="/games-dashboard" element={<GamesMode />} />
           <Route path="/classic-challenge" element={<ClassicChallenge />} />
+
+          {/* Daily Challenge */}
+          <Route path="/daily-challenge" element={<DailyChallenge />} />
+          <Route path="/daily-quiz" element={<DailyQuiz />} />
 
           {/* Quiz route */}
           <Route path="/quiz" element={<QuizWrapper />} />

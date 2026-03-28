@@ -1,7 +1,9 @@
 // src/game/Quiz.jsx
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useStats } from "../hooks/useStats";
+import { auth } from "../firebase";
+import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "firebase/firestore";
 import "./Quiz.css";
 
 import correctSoundFile from "../sound/correct.wav";
@@ -9,6 +11,7 @@ import wrongSoundFile from "../sound/wrong.wav";
 
 export default function Quiz({ questions, onFinish, mode = "classic" }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswer, setUserAnswer] = useState("");
   const [timeLeft, setTimeLeft] = useState(0);
@@ -18,6 +21,13 @@ export default function Quiz({ questions, onFinish, mode = "classic" }) {
   const [answersList, setAnswersList] = useState([]);
   const [xpPopups, setXpPopups] = useState([]);
   const [sessionStartTime] = useState(Date.now());
+
+  // Check if this is a daily challenge
+  const isDailyChallenge = location.state?.isDailyChallenge || false;
+  const dailyBonusXP = location.state?.xpBonus || 50;
+  const dailyStreak = location.state?.streak || 0;
+  const userYear = location.state?.userYear || "";
+  const dailyQuestionsCount = location.state?.questionsCount || 6;
 
   // ✅ Stats tracking hook
   const { startSession, processAnswer, endSession } = useStats();
@@ -68,7 +78,7 @@ export default function Quiz({ questions, onFinish, mode = "classic" }) {
     return <div className="quiz-loading">Loading question…</div>;
   }
 
-  const handleSubmit = (option = null) => {
+  const handleSubmit = async (option = null) => {
     if (!currentQuestion) return;
 
     let xpEarned = 0;
@@ -84,14 +94,14 @@ export default function Quiz({ questions, onFinish, mode = "classic" }) {
       setClickedOption(option);
       if (option === currentQuestion.answer) {
         isCorrect = true;
-        xpEarned = 10;
+        xpEarned = currentQuestion.xpValue || 15;
       } else {
-        xpEarned = 2; // Participation XP for wrong answers
+        xpEarned = 2;
       }
     } else if (currentQuestion.type === "short") {
       if (userAnswer.trim().toLowerCase() === currentQuestion.answer.toLowerCase()) {
         isCorrect = true;
-        xpEarned = 15;
+        xpEarned = currentQuestion.xpValue || 15;
       } else {
         xpEarned = 2;
       }
@@ -121,12 +131,13 @@ export default function Quiz({ questions, onFinish, mode = "classic" }) {
     );
 
     // ✅ Show XP popup with bonus info
-    if (statsResult?.xpEarned > 0) {
-      showXPPopup(statsResult.xpEarned, false);
+    const finalXp = statsResult?.xpEarned || xpEarned;
+    if (finalXp > 0) {
+      showXPPopup(finalXp, false);
     }
 
     // ✅ Update local score
-    setScore((prev) => prev + xpEarned);
+    setScore((prev) => prev + finalXp);
     setFeedback(isCorrect ? "✅ Correct!" : "❌ Wrong!");
     setUserAnswer("");
     setTimeLeft(0);
@@ -136,8 +147,10 @@ export default function Quiz({ questions, onFinish, mode = "classic" }) {
       question: currentQuestion.question,
       selected: option || userAnswer,
       correct: isCorrect,
-      xpEarned: xpEarned,
-      statsResult: statsResult
+      xpEarned: finalXp,
+      statsResult: statsResult,
+      answer: currentQuestion.answer,
+      explanation: currentQuestion.explanation
     };
 
     setAnswersList((prev) => [...prev, currentAnswer]);
@@ -152,37 +165,89 @@ export default function Quiz({ questions, onFinish, mode = "classic" }) {
     }, 700);
   };
 
+  // ✅ Save daily challenge results to Firestore
+  const saveDailyChallengeResults = async (totalXP, bonusXP) => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const db = getFirestore();
+    const today = new Date().toISOString().split('T')[0];
+    
+    const correctCount = answersList.filter(a => a.correct).length;
+    const percentage = Math.round((correctCount / questions.length) * 100);
+    
+    let newStreak = dailyStreak;
+    if (percentage >= 60) {
+      newStreak = dailyStreak + 1;
+    } else {
+      newStreak = 0;
+    }
+    
+    const totalXPWithBonus = totalXP + bonusXP;
+    
+    // Create daily activity object
+    const dailyActivityData = {
+      date: today,
+      xpEarned: totalXPWithBonus,
+      questionsAnswered: questions.length,
+      correctAnswers: correctCount,
+      isDailyChallenge: true,
+      bonusXP: bonusXP,
+      streak: newStreak
+    };
+    
+    const userDocRef = doc(db, "users", user.uid);
+    
+    await updateDoc(userDocRef, {
+      "stats.totalXP": increment(totalXPWithBonus),
+      "stats.streak": newStreak,
+      "stats.lastActiveDate": today,
+      "stats.dailyChallengesCompleted": increment(1),
+      "stats.sessionsCompleted": increment(1),
+      [`dailyActivity.${today}`]: dailyActivityData
+    });
+    
+    const challengeRef = doc(db, "users", user.uid, "dailyChallenges", today);
+    await setDoc(challengeRef, {
+      date: today,
+      score: correctCount,
+      totalQuestions: questions.length,
+      percentage: percentage,
+      xpEarned: totalXPWithBonus,
+      bonusXP: bonusXP,
+      streak: newStreak,
+      completedAt: new Date().toISOString(),
+      yearOfStudy: userYear
+    });
+  };
+
   // ✅ End session when all questions are answered
   useEffect(() => {
     if (answersList.length === questions.length && questions.length > 0) {
-      // End session and get bonus XP
       const sessionResult = endSession();
-      
-      // Calculate total XP from stats (includes bonuses)
       const totalStatsXP = sessionResult?.totalXP || score;
       const bonusXP = sessionResult?.bonusXP || 0;
       const bonuses = sessionResult?.bonuses || [];
       
-      // ✅ Update Daily Challenge progress in localStorage
-      const today = new Date().toISOString().split("T")[0];
-      const dailyData = JSON.parse(localStorage.getItem("dailyChallenge")) || {};
+      if (isDailyChallenge && auth.currentUser) {
+        saveDailyChallengeResults(totalStatsXP, dailyBonusXP);
+      } else {
+        const today = new Date().toISOString().split("T")[0];
+        const dailyData = JSON.parse(localStorage.getItem("dailyChallenge")) || {};
+        const hasCorrect = answersList.some(a => a.correct);
+        const streak = hasCorrect ? (dailyData[today]?.streak || 0) + 1 : 0;
 
-      // Calculate streak (if at least 1 question correct)
-      const hasCorrect = answersList.some(a => a.correct);
-      const streak = hasCorrect ? (dailyData[today]?.streak || 0) + 1 : 0;
+        dailyData[today] = {
+          answered: questions.length,
+          total: questions.length,
+          xpEarned: totalStatsXP,
+          streak: streak,
+        };
 
-      dailyData[today] = {
-        answered: questions.length,
-        total: questions.length,
-        xpEarned: totalStatsXP,
-        streak: streak,
-      };
+        localStorage.setItem("dailyChallenge", JSON.stringify(dailyData));
+      }
 
-      localStorage.setItem("dailyChallenge", JSON.stringify(dailyData));
-
-      // ✅ Show bonus summary before navigating
       if (bonusXP > 0 && bonuses.length > 0) {
-        // Store bonus info to show on end page
         localStorage.setItem("quizBonusInfo", JSON.stringify({
           bonusXP,
           bonuses,
@@ -191,14 +256,15 @@ export default function Quiz({ questions, onFinish, mode = "classic" }) {
         }));
       }
 
-      // Navigate to end page with results
       onFinish(score);
       navigate("/end", { 
         state: { 
           results: answersList,
           totalXP: totalStatsXP,
           bonusXP: bonusXP,
-          bonuses: bonuses
+          bonuses: bonuses,
+          isDailyChallenge: isDailyChallenge,
+          dailyBonus: dailyBonusXP
         } 
       });
     }
@@ -232,6 +298,15 @@ export default function Quiz({ questions, onFinish, mode = "classic" }) {
 
   return (
     <div className="quiz-container">
+      {/* Daily Challenge Header */}
+      {isDailyChallenge && (
+        <div className="daily-challenge-badge">
+          <span className="badge-icon">⭐</span>
+          <span className="badge-text">Daily Challenge</span>
+          <span className="badge-streak">🔥 {dailyStreak} Day Streak</span>
+        </div>
+      )}
+
       {/* XP Popup Animations */}
       {xpPopups.map((popup) => (
         <div
@@ -244,6 +319,7 @@ export default function Quiz({ questions, onFinish, mode = "classic" }) {
 
       <h2>
         Question {currentIndex + 1} / {questions.length}
+        {isDailyChallenge && <span className="bonus-tag">+{dailyBonusXP} bonus at end!</span>}
       </h2>
 
       <p className="quiz-question">{currentQuestion?.question}</p>
@@ -310,6 +386,9 @@ export default function Quiz({ questions, onFinish, mode = "classic" }) {
       <div className="quiz-stats">
         <small>⭐ XP: {score}</small>
         <small>📝 Q{currentIndex + 1}/{questions.length}</small>
+        {isDailyChallenge && (
+          <small className="streak-indicator">🔥 Streak Bonus: +{dailyBonusXP} XP</small>
+        )}
       </div>
     </div>
   );
