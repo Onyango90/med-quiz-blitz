@@ -58,6 +58,7 @@ function Dashboard() {
             {mode.emoji} {mode.name}
           </div>
         ))}
+        <div className="nav-item" onClick={() => navigate("/ai-quiz")}>🤖 AI Quiz</div>
         <div className="nav-item" onClick={() => navigate("/battle")}>⚔️ Battle</div>
         <div className="nav-item" onClick={() => navigate("/leaderboard")}>🏆 Leaderboard</div>
         <div className="nav-item" onClick={() => navigate("/stats")}>📊 Stats</div>

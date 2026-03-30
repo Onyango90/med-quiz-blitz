@@ -1,270 +1,203 @@
+// src/pages/StudyDashboard.jsx — redesigned
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ArrowLeft, ChevronRight, ChevronDown, Sparkles, BookOpen } from "lucide-react";
+import "./StudyDashboard.css";
 
-// Import anatomy categories
-import grossAnatomy from "../data/questions/gross_anatomy.json";
-import histology from "../data/questions/histology.json";
-import embryology from "../data/questions/embryology.json";
-
-// Import other subjects
+import grossAnatomy      from "../data/questions/gross_anatomy.json";
+import histology         from "../data/questions/histology.json";
+import embryology        from "../data/questions/embryology.json";
 import pathologyQuestions from "../data/questions/pathology.json";
-import pharmacologyQuestions, { antibiotics, cardiovascular as pharmaCardio, cns, endocrine as pharmaEndocrine } from "../data/questions/pharmacology/index.js";
+import pharmacologyQuestions, {
+  antibiotics, cardiovascular as pharmaCardio, cns, endocrine as pharmaEndocrine,
+} from "../data/questions/pharmacology/index.js";
 
-// Optional click sound
 let clickSound;
-try {
-  clickSound = new Audio(require("../sound/click.wav"));
-} catch (e) {
-  console.warn("Click sound file not found, skipping sound.");
-  clickSound = null;
-}
+try { clickSound = new Audio(require("../sound/click.wav")); }
+catch { clickSound = null; }
 
-// Define anatomy subcategories with REAL counts
-const anatomySubcategories = [
-  { 
-    name: "Gross Anatomy", 
-    path: "/study/gross_anatomy", 
-    icon: "🦴", 
-    description: "Macroscopic structures",
-    count: grossAnatomy?.length || 0,
-    questions: grossAnatomy
-  },
-  { 
-    name: "Histology", 
-    path: "/study/histology", 
-    icon: "🔬", 
-    description: "Microscopic structures",
-    count: histology?.length || 0,
-    questions: histology
-  },
-  { 
-    name: "Embryology", 
-    path: "/study/embryology", 
-    icon: "👶", 
-    description: "Development",
-    count: embryology?.length || 0,
-    questions: embryology
-  }
-];
-
-// Define pharmacology subcategories
-const pharmacologySubcategories = [
-  { 
-    name: "All Pharmacology", 
-    path: "/study/pharmacology", 
-    icon: "💊", 
-    description: "All pharmacology topics",
-    count: pharmacologyQuestions?.length || 0,
-    questions: pharmacologyQuestions
-  },
-  { 
-    name: "Antibiotics", 
-    path: "/study/antibiotics", 
-    icon: "🧪", 
-    description: "Antibacterial drugs",
-    count: antibiotics?.length || 12,
-    questions: antibiotics
-  },
-  { 
-    name: "Cardiovascular", 
-    path: "/study/cardiovascular", 
-    icon: "❤️", 
-    description: "Heart drugs & BP meds",
-    count: pharmaCardio?.length || 6,
-    questions: pharmaCardio
-  },
-  { 
-    name: "CNS Drugs", 
-    path: "/study/cns", 
-    icon: "🧠", 
-    description: "Brain & nervous system drugs",
-    count: cns?.length || 5,
-    questions: cns
-  },
-  { 
-    name: "Endocrine", 
-    path: "/study/endocrine", 
-    icon: "⚕️", 
-    description: "Hormones & diabetes drugs",
-    count: pharmaEndocrine?.length || 3,
-    questions: pharmaEndocrine
-  },
-];
-
-// Main topics with their subcategories
-const topics = [
-  { 
-    name: "Anatomy", 
-    path: "/study/anatomy", 
-    color: "#ff9f80", 
-    icon: "🦴", 
-    description: "Learn body structures",
-    count: (grossAnatomy?.length || 0) + (histology?.length || 0) + (embryology?.length || 0),
+// ── Data ─────────────────────────────────────────────────────────────────────
+const TOPICS = [
+  {
+    name: "Anatomy",
+    icon: "🦴",
+    description: "Structures of the human body",
+    color: "coral",
+    path: "/study/anatomy",
     hasSubcategories: true,
-    subcategories: anatomySubcategories
+    subcategories: [
+      { name: "Gross Anatomy", icon: "🦴", description: "Macroscopic structures", path: "/study/gross_anatomy", questions: grossAnatomy,  count: grossAnatomy?.length  || 0 },
+      { name: "Histology",     icon: "🔬", description: "Microscopic tissue",     path: "/study/histology",     questions: histology,     count: histology?.length     || 0 },
+      { name: "Embryology",    icon: "👶", description: "Development stages",     path: "/study/embryology",    questions: embryology,    count: embryology?.length    || 0 },
+    ],
+    get count() { return (grossAnatomy?.length || 0) + (histology?.length || 0) + (embryology?.length || 0); },
   },
-  { 
-    name: "Pathology", 
-    path: "/study/pathology", 
-    color: "#f4d35e", 
-    icon: "🧫", 
-    description: "Disease processes",
+  {
+    name: "Pathology",
+    icon: "🧫",
+    description: "Disease mechanisms & processes",
+    color: "amber",
+    path: "/study/pathology",
+    hasSubcategories: false,
     count: pathologyQuestions?.length || 0,
-    hasSubcategories: false
   },
-  { 
-    name: "Physiology", 
-    path: "/study/physiology", 
-    color: "#80ced6", 
-    icon: "💓", 
-    description: "Body functions",
+  {
+    name: "Physiology",
+    icon: "💓",
+    description: "How the body functions",
+    color: "teal",
+    path: "/study/physiology",
+    hasSubcategories: false,
     count: 5,
-    hasSubcategories: false
   },
-  { 
-    name: "Microbiology", 
-    path: "/study/microbiology", 
-    color: "#ff6f61", 
-    icon: "🦠", 
-    description: "Microbes and infections",
+  {
+    name: "Microbiology",
+    icon: "🦠",
+    description: "Microbes & infections",
+    color: "red",
+    path: "/study/microbiology",
+    hasSubcategories: false,
     count: 5,
-    hasSubcategories: false
   },
-  { 
-    name: "Pharmacology", 
-    path: "/study/pharmacology", 
-    color: "#6a4c93", 
-    icon: "💊", 
-    description: "Drugs and mechanisms",
-    count: pharmacologyQuestions?.length || 0,
+  {
+    name: "Pharmacology",
+    icon: "💊",
+    description: "Drugs & mechanisms of action",
+    color: "purple",
+    path: "/study/pharmacology",
     hasSubcategories: true,
-    subcategories: pharmacologySubcategories
+    subcategories: [
+      { name: "All Pharmacology", icon: "💊", description: "All drug topics",        path: "/study/pharmacology",   questions: pharmacologyQuestions, count: pharmacologyQuestions?.length || 0 },
+      { name: "Antibiotics",      icon: "🧪", description: "Antibacterial drugs",    path: "/study/antibiotics",    questions: antibiotics,           count: antibiotics?.length || 12 },
+      { name: "Cardiovascular",   icon: "❤️",  description: "Heart & BP medications", path: "/study/cardiovascular", questions: pharmaCardio,          count: pharmaCardio?.length || 6 },
+      { name: "CNS Drugs",        icon: "🧠", description: "Neuro & psych drugs",    path: "/study/cns",            questions: cns,                   count: cns?.length || 5 },
+      { name: "Endocrine",        icon: "⚕️", description: "Hormones & diabetes",    path: "/study/endocrine",      questions: pharmaEndocrine,       count: pharmaEndocrine?.length || 3 },
+    ],
+    count: pharmacologyQuestions?.length || 0,
   },
-  { 
-    name: "Clinical Skills", 
-    path: "/study/clinical-skills", 
-    color: "#2a9d8f", 
-    icon: "🩺", 
-    description: "Practical medical skills",
-    count: 5,
-    hasSubcategories: false
+  {
+    name: "Clinical Skills",
+    icon: "🩺",
+    description: "Practical bedside skills",
+    color: "green",
+    path: "/study/clinical-skills",
+    hasSubcategories: false,
+    count: 0,
   },
 ];
 
-function StudyDashboard() {
+// ── Component ─────────────────────────────────────────────────────────────────
+export default function StudyDashboard() {
   const navigate = useNavigate();
-  const [openDropdown, setOpenDropdown] = useState(null);
+  const [expanded, setExpanded] = useState(null);
 
-  const handleClick = (path, questions = null) => {
-    if (clickSound) clickSound.play();
-    
-    if (questions) {
-      navigate(path, { state: { questions, originalPath: path } });
-    } else {
-      navigate(path, { state: { originalPath: path } });
-    }
+  const go = (path, questions = null) => {
+    if (clickSound) clickSound.play().catch(() => {});
+    if (questions) navigate(path, { state: { questions, originalPath: path } });
+    else           navigate(path, { state: { originalPath: path } });
   };
 
-  const toggleDropdown = (topicName) => {
-    if (openDropdown === topicName) {
-      setOpenDropdown(null);
-    } else {
-      setOpenDropdown(topicName);
-    }
-  };
+  const toggle = (name) => setExpanded((v) => (v === name ? null : name));
+
+  const totalQuestions = TOPICS.reduce((a, t) => a + (t.count || 0), 0);
 
   return (
-    <div style={{ padding: "30px" }}>
-      <h1 style={{ textAlign: "center", marginBottom: "30px" }}>LET'S MAKE STUDYING FUN!</h1>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px", justifyContent: "center" }}>
-        {topics.map((topic) => (
-          <div key={topic.name} style={{ position: "relative" }}>
-            <div
-              onClick={() => topic.hasSubcategories ? toggleDropdown(topic.name) : handleClick(topic.path)}
-              style={{
-                cursor: "pointer",
-                width: "180px",
-                height: "180px",
-                background: topic.color,
-                borderRadius: "16px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 6px 15px rgba(0,0,0,0.25)",
-                transition: "all 0.3s ease",
-                position: "relative",
-                color: "#fff",
-                textAlign: "center",
-                padding: "15px",
-                border: openDropdown === topic.name ? "3px solid white" : "none",
-              }}
-            >
-              <div style={{ fontSize: "40px", marginBottom: "10px" }}>{topic.icon}</div>
-              <h3 style={{ margin: "5px 0" }}>{topic.name}</h3>
-              <p style={{ fontSize: "12px", lineHeight: "1.2" }}>{topic.description}</p>
-              <div style={{
-                position: "absolute",
-                bottom: "10px",
-                right: "10px",
-                fontSize: "12px",
-                background: "rgba(255,255,255,0.3)",
-                padding: "2px 6px",
-                borderRadius: "8px",
-              }}>
-                {topic.count} Qs
+    <div className="sd-page">
+
+      {/* ── Header ── */}
+      <header className="sd-header">
+        <button className="sd-back" onClick={() => navigate("/home")}>
+          <ArrowLeft size={16} /> Back
+        </button>
+        <div className="sd-header-center">
+          <div className="sd-header-icon"><BookOpen size={20} /></div>
+          <div>
+            <h1 className="sd-title">Study Centre</h1>
+            <p className="sd-subtitle">{totalQuestions} questions across {TOPICS.length} subjects</p>
+          </div>
+        </div>
+        <button className="sd-ai-btn" onClick={() => navigate("/ai-quiz")}>
+          <Sparkles size={14} /> AI Quiz
+        </button>
+      </header>
+
+      {/* ── Body ── */}
+      <div className="sd-body">
+
+        {/* Intro banner */}
+        <div className="sd-banner">
+          <span className="sd-banner-icon">💡</span>
+          <p>Choose a subject below to start studying. Topics with subcategories can be expanded.</p>
+        </div>
+
+        {/* Topic cards */}
+        <div className="sd-grid">
+          {TOPICS.map((topic) => (
+            <div key={topic.name} className="sd-topic-wrap">
+
+              {/* Main card */}
+              <div
+                className={`sd-card sd-card-${topic.color} ${expanded === topic.name ? "sd-card-expanded" : ""}`}
+                onClick={() => topic.hasSubcategories ? toggle(topic.name) : go(topic.path)}
+              >
+                {/* Left accent stripe */}
+                <div className="sd-card-stripe" />
+
+                <div className="sd-card-icon">{topic.icon}</div>
+
+                <div className="sd-card-body">
+                  <h2 className="sd-card-name">{topic.name}</h2>
+                  <p className="sd-card-desc">{topic.description}</p>
+                </div>
+
+                <div className="sd-card-right">
+                  <span className="sd-card-count">
+                    {topic.count > 0 ? `${topic.count} Qs` : "Coming soon"}
+                  </span>
+                  {topic.hasSubcategories
+                    ? <ChevronDown size={16} className={`sd-chevron ${expanded === topic.name ? "sd-chevron-open" : ""}`} />
+                    : <ChevronRight size={16} className="sd-chevron" />
+                  }
+                </div>
               </div>
-              {topic.hasSubcategories && (
-                <div style={{
-                  position: "absolute",
-                  bottom: "10px",
-                  left: "10px",
-                  fontSize: "12px",
-                  background: "rgba(0,0,0,0.3)",
-                  padding: "2px 6px",
-                  borderRadius: "8px",
-                }}>
-                  ▼ {openDropdown === topic.name ? 'Close' : 'Topics'}
+
+              {/* Subcategories drawer */}
+              {topic.hasSubcategories && expanded === topic.name && (
+                <div className="sd-subs">
+                  {topic.subcategories.map((sub) => (
+                    <button
+                      key={sub.name}
+                      className="sd-sub-card"
+                      onClick={() => go(sub.path, sub.questions)}
+                    >
+                      <span className="sd-sub-icon">{sub.icon}</span>
+                      <div className="sd-sub-text">
+                        <span className="sd-sub-name">{sub.name}</span>
+                        <span className="sd-sub-desc">{sub.description}</span>
+                      </div>
+                      <span className="sd-sub-count">{sub.count > 0 ? `${sub.count} Qs` : "—"}</span>
+                      <ChevronRight size={14} className="sd-sub-arrow" />
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
+          ))}
+        </div>
 
-            {openDropdown === topic.name && topic.hasSubcategories && (
-              <div style={{
-                position: "absolute",
-                top: "190px",
-                left: "0",
-                width: "180px",
-                background: "white",
-                borderRadius: "12px",
-                boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
-                zIndex: 1000,
-                overflow: "hidden",
-              }}>
-                {topic.subcategories.map((sub, index) => (
-                  <div
-                    key={sub.name}
-                    onClick={() => handleClick(sub.path, sub.questions)}
-                    style={{
-                      padding: "12px",
-                      cursor: "pointer",
-                      background: index % 2 === 0 ? "#f8f9fa" : "white",
-                      borderBottom: index < topic.subcategories.length - 1 ? "1px solid #eee" : "none",
-                      textAlign: "center",
-                    }}
-                  >
-                    <div style={{ fontSize: "20px" }}>{sub.icon}</div>
-                    <div style={{ fontWeight: "bold", fontSize: "14px", color: "#333" }}>{sub.name}</div>
-                    <div style={{ fontSize: "10px", color: "#666" }}>{sub.count} questions</div>
-                  </div>
-                ))}
-              </div>
-            )}
+        {/* AI prompt card */}
+        <div className="sd-ai-card" onClick={() => navigate("/ai-quiz")}>
+          <div className="sd-ai-card-left">
+            <div className="sd-ai-orb">✨</div>
+            <div>
+              <h3>Can't find what you need?</h3>
+              <p>Use the AI Quiz to generate custom questions on any topic, difficulty, or question type.</p>
+            </div>
           </div>
-        ))}
+          <button className="sd-ai-card-btn">Generate Quiz <ChevronRight size={14} /></button>
+        </div>
+
       </div>
     </div>
   );
 }
-
-export default StudyDashboard;

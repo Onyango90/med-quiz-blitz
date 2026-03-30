@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from
 import { AuthProvider } from "./context/AuthContext";
 
 // Pages
+import PastPaperImporter from "./pages/PastPaperImporter";
+<Route path="/import-questions" element={<PastPaperImporter />} />
 import LandingPage from "./pages/LandingPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -19,6 +21,7 @@ import EndPage from "./pages/EndPage";
 import ReviewPage from "./pages/ReviewPage";
 import DailyChallenge from "./pages/DailyChallenge";
 import DailyQuiz from "./pages/DailyQuiz";
+import AIQuiz from "./pages/AIQuiz";
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
@@ -75,6 +78,9 @@ function App() {
           {/* Daily Challenge */}
           <Route path="/daily-challenge" element={<DailyChallenge />} />
           <Route path="/daily-quiz" element={<DailyQuiz />} />
+
+          {/* AI Quiz */}
+          <Route path="/ai-quiz" element={<AIQuiz />} />
 
           {/* Quiz route */}
           <Route path="/quiz" element={<QuizWrapper />} />
