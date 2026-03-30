@@ -12,6 +12,9 @@ import {
 } from "lucide-react";
 import "./HomeDashboard.css";
 
+// ── Admin email — only this user sees Import Questions ───────────────────────
+const ADMIN_EMAIL = process.env.REACT_APP_ADMIN_EMAIL || "admin@medblitz.app";
+
 // ── Motivational quotes ───────────────────────────────────────────────────────
 const QUOTES = [
   "The expert in anything was once a beginner.",
@@ -30,19 +33,22 @@ export default function HomeDashboard() {
   const [dailyProgress, setDailyProgress] = useState({ answered: 0, total: 20, xpEarned: 0 });
   const [time, setTime] = useState(new Date());
 
+  const isAdmin = currentUser?.email === ADMIN_EMAIL;
+
   // Get actual user name
-  const userName = currentUser?.displayName ||
+  const userName =
+    currentUser?.displayName ||
     userData?.profile?.name ||
     localStorage.getItem("userName") ||
     currentUser?.email?.split("@")[0] ||
     "Doctor";
 
-  const totalXP      = stats?.basic?.totalXP       || 0;
-  const streak       = stats?.basic?.currentStreak  || 0;
-  const accuracy     = stats?.basic?.accuracy       || 0;
-  const totalAnswered= stats?.basic?.totalAttempted || 0;
-  const userYear     = userData?.profile?.year      || 2;
-  const streakBonus  = Math.min(20 + streak * 2, 40);
+  const totalXP       = stats?.basic?.totalXP       || 0;
+  const streak        = stats?.basic?.currentStreak  || 0;
+  const accuracy      = stats?.basic?.accuracy       || 0;
+  const totalAnswered = stats?.basic?.totalAttempted || 0;
+  const userYear      = userData?.profile?.year      || 2;
+  const streakBonus   = Math.min(20 + streak * 2, 40);
 
   // Clock
   useEffect(() => {
@@ -66,8 +72,8 @@ export default function HomeDashboard() {
         setSidebarOpen(false);
       }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   if (authLoading || statsLoading) {
@@ -103,16 +109,18 @@ export default function HomeDashboard() {
   };
 
   // ── Nav items ───────────────────────────────────────────────────────────────
-  const navItems = [
-    { icon: BookOpen,  label: "Study Centre",    path: "/study-dashboard",   accent: "#2a9d8f" },
-    { icon: Gamepad2,  label: "Game Modes",       path: "/games-dashboard",   accent: "#6366f1" },
-    { icon: Sparkles,  label: "AI Quiz",          path: "/ai-quiz",           accent: "#f59e0b" },
-    { icon: FileText,  label: "Import Questions", path: "/import-questions",  accent: "#10b981" },
-    { icon: Swords,    label: "Battle",           path: "/battle",            accent: "#ef4444" },
-    { icon: Trophy,    label: "Leaderboard",      path: "/leaderboard",       accent: "#f97316" },
-    { icon: BarChart3, label: "My Stats",         path: "/stats",             accent: "#3b82f6" },
-    { icon: Settings,  label: "Settings",         path: "/settings",          accent: "#8b5cf6" },
+  const allNavItems = [
+    { icon: BookOpen,  label: "Study Centre",    path: "/study-dashboard",   accent: "#2a9d8f",  adminOnly: false },
+    { icon: Gamepad2,  label: "Game Modes",       path: "/games-dashboard",   accent: "#6366f1",  adminOnly: false },
+    { icon: Sparkles,  label: "AI Quiz",          path: "/ai-quiz",           accent: "#f59e0b",  adminOnly: false },
+    { icon: FileText,  label: "Import Questions", path: "/import-questions",  accent: "#10b981",  adminOnly: true  },
+    { icon: Swords,    label: "Battle",           path: "/battle",            accent: "#ef4444",  adminOnly: false },
+    { icon: Trophy,    label: "Leaderboard",      path: "/leaderboard",       accent: "#f97316",  adminOnly: false },
+    { icon: BarChart3, label: "My Stats",         path: "/stats",             accent: "#3b82f6",  adminOnly: false },
+    { icon: Settings,  label: "Settings",         path: "/settings",          accent: "#8b5cf6",  adminOnly: false },
   ];
+
+  const navItems = allNavItems.filter((item) => !item.adminOnly || isAdmin);
 
   // ── Quick action cards ──────────────────────────────────────────────────────
   const quickActions = [
@@ -141,6 +149,11 @@ export default function HomeDashboard() {
   return (
     <div className={`hd-root ${sidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
 
+      {/* ── Mobile overlay (closes sidebar on tap) ──────────────────── */}
+      {sidebarOpen && window.innerWidth < 1024 && (
+        <div className="hd-overlay" onClick={() => setSidebarOpen(false)} />
+      )}
+
       {/* ── Sidebar ───────────────────────────────────────────────────────── */}
       <aside className={`hd-sidebar ${sidebarOpen ? "open" : "closed"}`}>
         <div className="hd-sidebar-logo">
@@ -154,7 +167,10 @@ export default function HomeDashboard() {
               key={item.path}
               className="hd-nav-item"
               style={{ "--accent": item.accent }}
-              onClick={() => navigate(item.path)}
+              onClick={() => {
+                navigate(item.path);
+                if (window.innerWidth < 1024) setSidebarOpen(false);
+              }}
               title={item.label}
             >
               <item.icon size={18} className="hd-nav-icon" />
@@ -235,7 +251,7 @@ export default function HomeDashboard() {
             ))}
           </div>
 
-          {/* ── Daily Challenge hero - THINNER VERSION ────────────────────── */}
+          {/* ── Daily Challenge hero ────────────────────────────────────── */}
           <div className="hd-daily hd-daily-thin">
             {/* Background mesh */}
             <div className="hd-daily-bg" aria-hidden="true">
@@ -256,7 +272,7 @@ export default function HomeDashboard() {
                   {dailyPct === 100 ? "Challenge Complete! 🎉" : "Today's Blitz"}
                 </h2>
 
-                {/* Progress bar - compact */}
+                {/* Progress bar */}
                 <div className="hd-daily-progress-wrap">
                   <div className="hd-daily-progress-row">
                     <span className="hd-daily-count">{dailyProgress.answered} / {dailyProgress.total}</span>
@@ -283,7 +299,7 @@ export default function HomeDashboard() {
                 </button>
               </div>
 
-              {/* Right: streak & stats - compact */}
+              {/* Right: streak & stats */}
               <div className="hd-daily-right">
                 <div className="hd-daily-streak-ring">
                   <div className="hd-daily-streak-inner">
@@ -306,7 +322,7 @@ export default function HomeDashboard() {
               </div>
             </div>
 
-            {/* Particles - fewer for thin card */}
+            {/* Particles */}
             <div className="hd-daily-particles" aria-hidden="true">
               {Array.from({ length: 8 }).map((_, i) => (
                 <span

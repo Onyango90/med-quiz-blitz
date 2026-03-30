@@ -1,8 +1,7 @@
-// src/pages/LandingPage.jsx
+// src/pages/LandingPage.jsx — uses the "M" logo mark as the hero on the landing screen
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
-import mbLogo from "../assets/medblitz-logo.png";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -16,17 +15,17 @@ export default function LandingPage() {
       setShowLogo(true);
     }, 3000);
 
-    // Stage 2: Logo stays for 6 seconds
+    // Stage 2: Logo stays, text fades in
     const logoDisplayTimer = setTimeout(() => {
       setShowText(true);
     }, 9000);
 
-    // Stage 3: Second wave animation (2 seconds)
+    // Stage 3: Exit wave
     const secondWaveTimer = setTimeout(() => {
       setShowSecondWave(true);
     }, 13000);
 
-    // Stage 4: Navigate to signin immediately after second wave completes (2 seconds later)
+    // Stage 4: Navigate to signin
     const navigateTimer = setTimeout(() => {
       navigate("/signin");
     }, 15000);
@@ -55,9 +54,13 @@ export default function LandingPage() {
         </svg>
       </div>
 
-      {/* Logo that follows the wave */}
+      {/* M Logo mark + brand name */}
       <div className={`logo-wrapper ${showLogo ? "logo-enter" : ""}`}>
-        <img src={mbLogo} alt="MedBlitz Logo" className="landing-logo" />
+        {/* The "M" mark — styled exactly like the sidebar logo mark, but bigger */}
+        <div className="landing-m-mark">
+          <span>M</span>
+        </div>
+
         <div className={`logo-text ${showText ? "text-enter" : ""}`}>
           <span className="med-text">Med</span>
           <span className="blitz-text">Blitz</span>

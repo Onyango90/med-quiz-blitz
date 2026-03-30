@@ -1,13 +1,15 @@
 // src/pages/PastPaperImporter.jsx
 // A visual tool for adding past paper questions to any topic.
 // Route: /import-questions
-// Add to App.js: import PastPaperImporter from "./pages/PastPaperImporter";
-//                <Route path="/import-questions" element={<PastPaperImporter />} />
-// Add to HomeDashboard sidebar: navigate("/import-questions")
+// ADMIN ONLY — access controlled by REACT_APP_ADMIN_EMAIL in .env
 
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "./PastPaperImporter.css";
+
+// ── Admin email — only this user can access the importer ─────────────────────
+const ADMIN_EMAIL = process.env.REACT_APP_ADMIN_EMAIL || "admin@medblitz.app";
 
 // ── All topics & their file targets ──────────────────────────────────────────
 const TOPICS = [
@@ -58,437 +60,297 @@ function buildJSON(questions, topic) {
       id: `${topic.idPrefix}_${String(Date.now() + i).slice(-6)}`,
       type: q.type,
       subject: topic.subject,
-      category: topic.label,
       difficulty: q.difficulty,
       year: q.year,
       question: q.question.trim(),
+      answer: q.answer.trim(),
       explanation: q.explanation.trim(),
     };
     if (q.type === "mcq") {
-      return { ...base, options: q.options.map((o) => o.trim()), answer: q.answer.trim() };
+      base.options = q.options.map((o) => o.trim());
     }
-    return { ...base, answer: q.answer.trim() };
+    return base;
   });
 }
 
-function validate(q) {
-  const errs = [];
-  if (!q.question.trim()) errs.push("Question text is required");
-  if (!q.answer.trim()) errs.push("Answer is required");
-  if (q.type === "mcq") {
-    if (q.options.some((o) => !o.trim())) errs.push("All 4 options must be filled in");
-    if (!q.options.includes(q.answer)) errs.push("Answer must match one of the options exactly");
-  }
-  return errs;
-}
-
-// ═════════════════════════════════════════════════════════════════════════════
-// MAIN COMPONENT
-// ═════════════════════════════════════════════════════════════════════════════
+// ── Main Component ────────────────────────────────────────────────────────────
 export default function PastPaperImporter() {
   const navigate = useNavigate();
-  const [topic, setTopic] = useState(TOPICS[0]);
-  const [questions, setQuestions] = useState([BLANK_MCQ()]);
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [errors, setErrors] = useState({});
-  const [outputJSON, setOutputJSON] = useState("");
-  const [copied, setCopied] = useState(false);
-  const [showOutput, setShowOutput] = useState(false);
-  const outputRef = useRef(null);
+  const { currentUser } = useAuth();
 
-  const active = questions[activeIdx];
-
-  // ── Question list actions ─────────────────────────────────────────────────
-  const addQuestion = (type) => {
-    const q = type === "mcq" ? BLANK_MCQ() : BLANK_SHORT();
-    setQuestions((prev) => [...prev, q]);
-    setActiveIdx(questions.length);
-    setShowOutput(false);
-  };
-
-  const removeQuestion = (idx) => {
-    if (questions.length === 1) return;
-    const next = questions.filter((_, i) => i !== idx);
-    setQuestions(next);
-    setActiveIdx(Math.min(activeIdx, next.length - 1));
-    setShowOutput(false);
-  };
-
-  const duplicateQuestion = (idx) => {
-    const copy = { ...questions[idx], id: crypto.randomUUID() };
-    const next = [...questions];
-    next.splice(idx + 1, 0, copy);
-    setQuestions(next);
-    setActiveIdx(idx + 1);
-  };
-
-  // ── Field updates ─────────────────────────────────────────────────────────
-  const update = (field, value) => {
-    setQuestions((prev) =>
-      prev.map((q, i) => (i === activeIdx ? { ...q, [field]: value } : q))
+  // ── Admin gate ──────────────────────────────────────────────────────────────
+  if (!currentUser || currentUser.email !== ADMIN_EMAIL) {
+    return (
+      <div style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "system-ui, sans-serif",
+        background: "#f4f5f7",
+        gap: 16,
+      }}>
+        <div style={{ fontSize: 48 }}>🔒</div>
+        <h2 style={{ color: "#1a2b4c", margin: 0 }}>Access Restricted</h2>
+        <p style={{ color: "#6b7280", margin: 0 }}>This page is only available to admins.</p>
+        <button
+          onClick={() => navigate("/home")}
+          style={{
+            marginTop: 8,
+            padding: "10px 24px",
+            background: "#2a9d8f",
+            color: "#fff",
+            border: "none",
+            borderRadius: 10,
+            fontWeight: 600,
+            cursor: "pointer",
+            fontSize: 14,
+          }}
+        >
+          ← Back to Dashboard
+        </button>
+      </div>
     );
-    setErrors((e) => ({ ...e, [activeIdx]: undefined }));
-    setShowOutput(false);
+  }
+
+  // ── State ──────────────────────────────────────────────────────────────────
+  const [selectedTopic, setSelectedTopic] = useState(TOPICS[0]);
+  const [questions, setQuestions] = useState([BLANK_MCQ()]);
+  const [exportReady, setExportReady] = useState(false);
+  const [exportJSON, setExportJSON] = useState("");
+  const [copied, setCopied] = useState(false);
+  const fileRef = useRef(null);
+
+  // ── Question operations ────────────────────────────────────────────────────
+  const addQuestion = (type) => {
+    setQuestions((prev) => [...prev, type === "mcq" ? BLANK_MCQ() : BLANK_SHORT()]);
   };
 
-  const updateOption = (optIdx, value) => {
-    const opts = [...active.options];
-    opts[optIdx] = value;
-    update("options", opts);
+  const removeQuestion = (id) => {
+    setQuestions((prev) => prev.filter((q) => q.id !== id));
   };
 
-  // ── Generate JSON ─────────────────────────────────────────────────────────
-  const generate = () => {
-    const newErrors = {};
-    let hasError = false;
-    questions.forEach((q, i) => {
-      const errs = validate(q);
-      if (errs.length) { newErrors[i] = errs; hasError = true; }
-    });
-    setErrors(newErrors);
-    if (hasError) {
-      // Jump to first error
-      const firstErr = parseInt(Object.keys(newErrors)[0]);
-      setActiveIdx(firstErr);
-      return;
-    }
-    const json = buildJSON(questions, topic);
-    setOutputJSON(JSON.stringify(json, null, 2));
-    setShowOutput(true);
-    setTimeout(() => outputRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
+  const updateQuestion = (id, field, value) => {
+    setQuestions((prev) =>
+      prev.map((q) => (q.id === id ? { ...q, [field]: value } : q))
+    );
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(outputJSON).then(() => {
+  const updateOption = (id, index, value) => {
+    setQuestions((prev) =>
+      prev.map((q) => {
+        if (q.id !== id) return q;
+        const options = [...q.options];
+        options[index] = value;
+        return { ...q, options };
+      })
+    );
+  };
+
+  // ── Export ─────────────────────────────────────────────────────────────────
+  const handleExport = () => {
+    const built = buildJSON(questions, selectedTopic);
+    const json = JSON.stringify(built, null, 2);
+    setExportJSON(json);
+    setExportReady(true);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(exportJSON).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
   };
 
-  const downloadJSON = () => {
-    const blob = new Blob([outputJSON], { type: "application/json" });
+  const handleDownload = () => {
+    const blob = new Blob([exportJSON], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${topic.idPrefix}_questions_${Date.now()}.json`;
+    a.download = `${selectedTopic.idPrefix}_questions.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
 
-  // ── Quick add from text ───────────────────────────────────────────────────
-  const [bulkText, setBulkText] = useState("");
-  const [showBulk, setShowBulk] = useState(false);
-
-  const parseBulkText = () => {
-    // Tries to parse a simple plain-text question format:
-    // Q: Question text
-    // A. option  B. option  C. option  D. option
-    // Answer: A
-    // Explanation: ...
-    const blocks = bulkText.trim().split(/\n{2,}/);
-    const parsed = [];
-
-    blocks.forEach((block) => {
-      const lines = block.trim().split("\n").map((l) => l.trim()).filter(Boolean);
-      if (lines.length < 2) return;
-
-      const qLine = lines.find((l) => /^Q[:.)]/i.test(l));
-      const ansLine = lines.find((l) => /^(ans|answer|correct)[:.)]/i.test(l));
-      const expLine = lines.find((l) => /^(exp|explanation)[:.)]/i.test(l));
-      const optLines = lines.filter((l) => /^[A-Da-d][.)]/i.test(l));
-
-      if (!qLine) return;
-
-      const question = qLine.replace(/^Q[:.)]\s*/i, "").trim();
-      const explanation = expLine ? expLine.replace(/^(exp|explanation)[:.)]\s*/i, "").trim() : "";
-
-      if (optLines.length >= 2) {
-        // MCQ
-        const options = optLines.map((o) => o.replace(/^[A-Da-d][.)]\s*/i, "").trim());
-        let answer = "";
-        if (ansLine) {
-          const letter = ansLine.replace(/^(ans|answer|correct)[:.)]\s*/i, "").trim().toUpperCase()[0];
-          const idx = "ABCD".indexOf(letter);
-          answer = idx >= 0 ? options[idx] : options[0];
-        } else {
-          answer = options[0];
+  // ── Import from file ───────────────────────────────────────────────────────
+  const handleImportFile = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const parsed = JSON.parse(ev.target.result);
+        if (Array.isArray(parsed)) {
+          const mapped = parsed.map((q) => ({
+            id: crypto.randomUUID(),
+            type: q.type || "mcq",
+            question: q.question || "",
+            options: q.options || ["", "", "", ""],
+            answer: q.answer || "",
+            explanation: q.explanation || "",
+            difficulty: q.difficulty || "medium",
+            year: q.year || 1,
+          }));
+          setQuestions(mapped);
         }
-        // Pad to 4 options if fewer
-        while (options.length < 4) options.push("");
-        parsed.push({ id: crypto.randomUUID(), type: "mcq", question, options: options.slice(0, 4), answer, explanation, difficulty: "medium", year: 1 });
-      } else {
-        // Short answer
-        const answer = ansLine ? ansLine.replace(/^(ans|answer|correct)[:.)]\s*/i, "").trim() : "";
-        parsed.push({ id: crypto.randomUUID(), type: "short", question, answer, explanation, difficulty: "medium", year: 1 });
+      } catch {
+        alert("Invalid JSON file.");
       }
-    });
-
-    if (parsed.length > 0) {
-      setQuestions((prev) => [...prev, ...parsed]);
-      setActiveIdx(questions.length);
-      setBulkText("");
-      setShowBulk(false);
-    }
+    };
+    reader.readAsText(file);
   };
 
-  // ═══════════════════════════════════════════════════════════════════════════
-  // RENDER
-  // ═══════════════════════════════════════════════════════════════════════════
+  // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <div className="ppi-page">
-
-      {/* ── Top bar ── */}
-      <div className="ppi-topbar">
-        <button className="ppi-back" onClick={() => navigate(-1)}>← Back</button>
-        <div className="ppi-topbar-center">
-          <span className="ppi-topbar-badge">📄 Past Paper Importer</span>
-          <p>Build questions visually, export ready-to-paste JSON</p>
+      <header className="ppi-header">
+        <button className="ppi-back" onClick={() => navigate("/home")}>← Back</button>
+        <div>
+          <h1 className="ppi-title">Import Questions</h1>
+          <p className="ppi-sub">Admin tool — add past paper questions to the question bank</p>
         </div>
-        <button className="ppi-generate-btn" onClick={generate}>
-          Generate JSON →
-        </button>
-      </div>
+        <div className="ppi-admin-badge">🔑 Admin</div>
+      </header>
 
       <div className="ppi-body">
 
-        {/* ── Left: config + question list ── */}
-        <aside className="ppi-sidebar">
-
-          {/* Topic selector */}
-          <div className="ppi-panel">
-            <label className="ppi-label">Target File</label>
-            <select
-              className="ppi-select"
-              value={topic.label}
-              onChange={(e) => setTopic(TOPICS.find((t) => t.label === e.target.value))}
-            >
-              {TOPICS.map((t) => (
-                <option key={t.label} value={t.label}>{t.label}</option>
-              ))}
-            </select>
-            <p className="ppi-file-path">📁 {topic.file}</p>
+        {/* Topic selector */}
+        <section className="ppi-section">
+          <h2 className="ppi-section-title">Target Topic</h2>
+          <div className="ppi-topics">
+            {TOPICS.map((t) => (
+              <button
+                key={t.file}
+                className={`ppi-topic-btn ${selectedTopic.file === t.file ? "active" : ""}`}
+                onClick={() => setSelectedTopic(t)}
+              >
+                {t.label}
+              </button>
+            ))}
           </div>
+          <p className="ppi-file-path">📁 {selectedTopic.file}</p>
+        </section>
 
-          {/* Question list */}
-          <div className="ppi-panel ppi-qlist-panel">
-            <div className="ppi-qlist-header">
-              <label className="ppi-label">Questions ({questions.length})</label>
-            </div>
-            <div className="ppi-qlist">
-              {questions.map((q, i) => (
-                <div
-                  key={q.id}
-                  className={`ppi-qitem ${i === activeIdx ? "active" : ""} ${errors[i] ? "error" : ""}`}
-                  onClick={() => setActiveIdx(i)}
-                >
-                  <span className="ppi-qitem-num">{i + 1}</span>
-                  <span className="ppi-qitem-type">{q.type.toUpperCase()}</span>
-                  <span className="ppi-qitem-preview">
-                    {q.question.trim() ? q.question.slice(0, 36) + (q.question.length > 36 ? "…" : "") : "Empty question"}
-                  </span>
-                  {errors[i] && <span className="ppi-qitem-err">⚠</span>}
-                  <div className="ppi-qitem-actions">
-                    <button title="Duplicate" onClick={(e) => { e.stopPropagation(); duplicateQuestion(i); }}>⧉</button>
-                    <button title="Remove" onClick={(e) => { e.stopPropagation(); removeQuestion(i); }}>✕</button>
-                  </div>
-                </div>
-              ))}
-            </div>
+        {/* Import from file */}
+        <section className="ppi-section">
+          <h2 className="ppi-section-title">Load Existing JSON</h2>
+          <input
+            ref={fileRef}
+            type="file"
+            accept=".json"
+            style={{ display: "none" }}
+            onChange={handleImportFile}
+          />
+          <button className="ppi-outline-btn" onClick={() => fileRef.current.click()}>
+            📂 Load JSON file
+          </button>
+        </section>
 
+        {/* Questions */}
+        <section className="ppi-section">
+          <div className="ppi-section-header">
+            <h2 className="ppi-section-title">Questions ({questions.length})</h2>
             <div className="ppi-add-btns">
               <button className="ppi-add-btn" onClick={() => addQuestion("mcq")}>+ MCQ</button>
               <button className="ppi-add-btn" onClick={() => addQuestion("short")}>+ Short Answer</button>
             </div>
-
-            {/* Bulk paste toggle */}
-            <button className="ppi-bulk-toggle" onClick={() => setShowBulk((v) => !v)}>
-              {showBulk ? "▲ Hide" : "▼ Paste from text"}
-            </button>
-            {showBulk && (
-              <div className="ppi-bulk">
-                <p className="ppi-bulk-hint">
-                  Paste questions in this format (blank line between each):
-                  <br /><code>Q: What is the kneecap?</code>
-                  <br /><code>A. Patella  B. Tibia  C. Femur  D. Fibula</code>
-                  <br /><code>Answer: A</code>
-                  <br /><code>Explanation: The patella protects the knee joint.</code>
-                </p>
-                <textarea
-                  className="ppi-bulk-textarea"
-                  value={bulkText}
-                  onChange={(e) => setBulkText(e.target.value)}
-                  placeholder="Paste your questions here…"
-                  rows={8}
-                />
-                <button className="ppi-parse-btn" onClick={parseBulkText}>Parse & Add</button>
-              </div>
-            )}
           </div>
-        </aside>
 
-        {/* ── Right: editor ── */}
-        <main className="ppi-editor">
-          {active && (
-            <div className="ppi-form">
-              <div className="ppi-form-header">
-                <span className="ppi-form-qnum">Question {activeIdx + 1}</span>
-                <div className="ppi-type-toggle">
-                  <button
-                    className={active.type === "mcq" ? "active" : ""}
-                    onClick={() => update("type", "mcq")}
-                  >MCQ</button>
-                  <button
-                    className={active.type === "short" ? "active" : ""}
-                    onClick={() => update("type", "short")}
-                  >Short Answer</button>
+          <div className="ppi-questions">
+            {questions.map((q, idx) => (
+              <div key={q.id} className="ppi-q-card">
+                <div className="ppi-q-header">
+                  <span className="ppi-q-num">Q{idx + 1} — {q.type.toUpperCase()}</span>
+                  <div className="ppi-q-meta">
+                    <select
+                      value={q.difficulty}
+                      onChange={(e) => updateQuestion(q.id, "difficulty", e.target.value)}
+                      className="ppi-select"
+                    >
+                      {DIFFICULTIES.map((d) => <option key={d} value={d}>{d}</option>)}
+                    </select>
+                    <select
+                      value={q.year}
+                      onChange={(e) => updateQuestion(q.id, "year", Number(e.target.value))}
+                      className="ppi-select"
+                    >
+                      {YEARS.map((y) => <option key={y} value={y}>Year {y}</option>)}
+                    </select>
+                    <button className="ppi-remove-btn" onClick={() => removeQuestion(q.id)}>✕</button>
+                  </div>
                 </div>
-              </div>
 
-              {errors[activeIdx] && (
-                <div className="ppi-err-banner">
-                  {errors[activeIdx].map((e, i) => <div key={i}>⚠ {e}</div>)}
-                </div>
-              )}
-
-              {/* Question text */}
-              <div className="ppi-field">
-                <label>Question *</label>
                 <textarea
                   className="ppi-textarea"
-                  value={active.question}
-                  onChange={(e) => update("question", e.target.value)}
-                  placeholder="Type the question exactly as it appears in the past paper…"
-                  rows={3}
+                  placeholder="Question text…"
+                  value={q.question}
+                  onChange={(e) => updateQuestion(q.id, "question", e.target.value)}
+                  rows={2}
                 />
-              </div>
 
-              {/* MCQ options */}
-              {active.type === "mcq" && (
-                <div className="ppi-field">
-                  <label>Options * <span className="ppi-hint">(click ✓ to mark the correct answer)</span></label>
+                {q.type === "mcq" && (
                   <div className="ppi-options">
-                    {["A", "B", "C", "D"].map((letter, i) => (
-                      <div key={i} className={`ppi-option-row ${active.answer === active.options[i] && active.options[i] ? "correct" : ""}`}>
-                        <span className="ppi-opt-letter">{letter}</span>
+                    {q.options.map((opt, oi) => (
+                      <div key={oi} className="ppi-option-row">
+                        <span className="ppi-opt-label">{["A","B","C","D"][oi]}.</span>
                         <input
-                          className="ppi-option-input"
-                          value={active.options[i]}
-                          onChange={(e) => updateOption(i, e.target.value)}
-                          placeholder={`Option ${letter}`}
+                          type="text"
+                          className="ppi-input"
+                          placeholder={`Option ${["A","B","C","D"][oi]}`}
+                          value={opt}
+                          onChange={(e) => updateOption(q.id, oi, e.target.value)}
                         />
-                        <button
-                          className={`ppi-correct-btn ${active.answer === active.options[i] && active.options[i] ? "active" : ""}`}
-                          title="Mark as correct"
-                          onClick={() => update("answer", active.options[i])}
-                          disabled={!active.options[i]}
-                        >✓</button>
                       </div>
                     ))}
                   </div>
-                  {active.answer && (
-                    <p className="ppi-answer-preview">✅ Correct answer: <strong>{active.answer}</strong></p>
-                  )}
-                </div>
-              )}
+                )}
 
-              {/* Short answer */}
-              {active.type === "short" && (
-                <div className="ppi-field">
-                  <label>Answer *</label>
-                  <input
-                    className="ppi-input"
-                    value={active.answer}
-                    onChange={(e) => update("answer", e.target.value)}
-                    placeholder="The correct answer (keep it concise)"
-                  />
-                </div>
-              )}
+                <input
+                  type="text"
+                  className="ppi-input ppi-answer"
+                  placeholder={q.type === "mcq" ? "Correct answer (full option text, e.g. A. Penicillin)" : "Correct answer"}
+                  value={q.answer}
+                  onChange={(e) => updateQuestion(q.id, "answer", e.target.value)}
+                />
 
-              {/* Explanation */}
-              <div className="ppi-field">
-                <label>Explanation</label>
                 <textarea
                   className="ppi-textarea"
-                  value={active.explanation}
-                  onChange={(e) => update("explanation", e.target.value)}
-                  placeholder="Why is this the correct answer? (shown after answering)"
+                  placeholder="Explanation (1–2 sentences)…"
+                  value={q.explanation}
+                  onChange={(e) => updateQuestion(q.id, "explanation", e.target.value)}
                   rows={2}
                 />
               </div>
+            ))}
+          </div>
+        </section>
 
-              {/* Meta row */}
-              <div className="ppi-meta-row">
-                <div className="ppi-field ppi-meta-field">
-                  <label>Difficulty</label>
-                  <select className="ppi-select" value={active.difficulty} onChange={(e) => update("difficulty", e.target.value)}>
-                    {DIFFICULTIES.map((d) => <option key={d}>{d}</option>)}
-                  </select>
-                </div>
-                <div className="ppi-field ppi-meta-field">
-                  <label>Year of Study</label>
-                  <select className="ppi-select" value={active.year} onChange={(e) => update("year", parseInt(e.target.value))}>
-                    {YEARS.map((y) => <option key={y} value={y}>Year {y}</option>)}
-                  </select>
-                </div>
-              </div>
+        {/* Export */}
+        <section className="ppi-section">
+          <button className="ppi-export-btn" onClick={handleExport}>
+            ⚡ Generate JSON
+          </button>
 
-              {/* Navigation */}
-              <div className="ppi-nav-row">
-                <button
-                  className="ppi-nav-btn"
-                  disabled={activeIdx === 0}
-                  onClick={() => setActiveIdx((i) => i - 1)}
-                >← Previous</button>
-                <span className="ppi-nav-counter">{activeIdx + 1} / {questions.length}</span>
-                <button
-                  className="ppi-nav-btn"
-                  disabled={activeIdx === questions.length - 1}
-                  onClick={() => setActiveIdx((i) => i + 1)}
-                >Next →</button>
+          {exportReady && (
+            <div className="ppi-export-box">
+              <div className="ppi-export-actions">
+                <button className="ppi-outline-btn" onClick={handleCopy}>
+                  {copied ? "✅ Copied!" : "📋 Copy JSON"}
+                </button>
+                <button className="ppi-outline-btn" onClick={handleDownload}>
+                  💾 Download .json
+                </button>
               </div>
+              <pre className="ppi-json-preview">{exportJSON}</pre>
+              <p className="ppi-instructions">
+                Paste this JSON into <code>{selectedTopic.file}</code> in your project, then redeploy.
+              </p>
             </div>
           )}
-        </main>
+        </section>
+
       </div>
-
-      {/* ── JSON Output ── */}
-      {showOutput && (
-        <div className="ppi-output" ref={outputRef}>
-          <div className="ppi-output-header">
-            <div>
-              <h2>✅ Ready to paste!</h2>
-              <p>Copy this JSON and add it to <code>{topic.file}</code></p>
-            </div>
-            <div className="ppi-output-actions">
-              <button className="ppi-copy-btn" onClick={copyToClipboard}>
-                {copied ? "✅ Copied!" : "📋 Copy JSON"}
-              </button>
-              <button className="ppi-download-btn" onClick={downloadJSON}>
-                ⬇ Download .json
-              </button>
-            </div>
-          </div>
-
-          <div className="ppi-instructions">
-            <strong>How to add to your app:</strong>
-            <ol>
-              <li>Open <code>{topic.file}</code> in your editor</li>
-              <li>The file contains a JSON array <code>[ ... ]</code></li>
-              <li>Add a comma after the last <code>{"}"}</code> in the array</li>
-              <li>Paste the new questions before the closing <code>]</code></li>
-              <li>Save the file — questions appear immediately in the app!</li>
-            </ol>
-          </div>
-
-          <pre className="ppi-code">{outputJSON}</pre>
-
-          <div className="ppi-output-footer">
-            <button className="ppi-add-more-btn" onClick={() => { setShowOutput(false); setQuestions([BLANK_MCQ()]); setActiveIdx(0); }}>
-              + Add More Questions
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

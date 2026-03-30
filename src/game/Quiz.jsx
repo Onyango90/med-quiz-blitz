@@ -1,395 +1,318 @@
-// src/game/Quiz.jsx
+// src/game/Quiz.jsx — redesigned
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useStats } from "../hooks/useStats";
 import { auth } from "../firebase";
-import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "firebase/firestore";
+import { getFirestore, doc, updateDoc, increment, setDoc } from "firebase/firestore";
 import "./Quiz.css";
 
 import correctSoundFile from "../sound/correct.wav";
 import wrongSoundFile from "../sound/wrong.wav";
 
+const OPTION_LABELS = ["A", "B", "C", "D"];
+
 export default function Quiz({ questions, onFinish, mode = "classic" }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [userAnswer, setUserAnswer] = useState("");
-  const [timeLeft, setTimeLeft] = useState(0);
-  const [score, setScore] = useState(0);
-  const [feedback, setFeedback] = useState("");
-  const [clickedOption, setClickedOption] = useState(null);
-  const [answersList, setAnswersList] = useState([]);
-  const [xpPopups, setXpPopups] = useState([]);
-  const [sessionStartTime] = useState(Date.now());
 
-  // Check if this is a daily challenge
+  const [currentIndex, setCurrentIndex]       = useState(0);
+  const [userAnswer, setUserAnswer]           = useState("");
+  const [timeLeft, setTimeLeft]               = useState(0);
+  const [score, setScore]                     = useState(0);
+  const [feedback, setFeedback]               = useState("");
+  const [clickedOption, setClickedOption]     = useState(null);
+  const [answersList, setAnswersList]         = useState([]);
+  const [xpPopups, setXpPopups]               = useState([]);
+  const [sessionStartTime]                    = useState(Date.now());
+  const [isAnimatingOut, setIsAnimatingOut]   = useState(false);
+  const [cardKey, setCardKey]                 = useState(0);
+  const inputRef = useRef(null);
+
   const isDailyChallenge = location.state?.isDailyChallenge || false;
-  const dailyBonusXP = location.state?.xpBonus || 50;
-  const dailyStreak = location.state?.streak || 0;
-  const userYear = location.state?.userYear || "";
-  const dailyQuestionsCount = location.state?.questionsCount || 6;
+  const dailyBonusXP     = location.state?.xpBonus || 50;
+  const dailyStreak      = location.state?.streak || 0;
+  const userYear         = location.state?.userYear || "";
+  const topic            = location.state?.topic || "";
 
-  // ✅ Stats tracking hook
   const { startSession, processAnswer, endSession } = useStats();
-
   const correctSound = useRef(new Audio(correctSoundFile));
-  const wrongSound = useRef(new Audio(wrongSoundFile));
+  const wrongSound   = useRef(new Audio(wrongSoundFile));
 
   const currentQuestion = questions[currentIndex];
+  const progress = (currentIndex / questions.length) * 100;
 
-  // ✅ Start session when quiz loads
+  useEffect(() => { if (questions.length > 0) startSession(mode); }, []);
+
   useEffect(() => {
-    if (questions.length > 0) {
-      startSession(mode);
-    }
-  }, []);
+    if (currentQuestion?.type === "short" && inputRef.current) inputRef.current.focus();
+  }, [currentIndex, currentQuestion?.type]);
 
-  // Timer for LIST type questions
   useEffect(() => {
-    if (!currentQuestion) return;
-
-    if (currentQuestion.type === "LIST") {
-      setTimeLeft(currentQuestion.timeLimit || 10);
-      const timer = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer);
-            handleSubmit();
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-
-      return () => clearInterval(timer);
-    }
+    if (!currentQuestion || currentQuestion.type !== "LIST") return;
+    setTimeLeft(currentQuestion.timeLimit || 10);
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) { clearInterval(timer); handleSubmit(); return 0; }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
   }, [currentQuestion]);
 
-  // Show XP popup animation
   const showXPPopup = (xp, isBonus = false) => {
-    const id = Date.now();
+    const id = Date.now() + Math.random();
     setXpPopups((prev) => [...prev, { id, xp, isBonus }]);
-    setTimeout(() => {
-      setXpPopups((prev) => prev.filter((popup) => popup.id !== id));
-    }, 1000);
+    setTimeout(() => setXpPopups((prev) => prev.filter((p) => p.id !== id)), 1200);
   };
 
   if (!currentQuestion && currentIndex < questions.length) {
-    return <div className="quiz-loading">Loading question…</div>;
+    return (
+      <div className="qz-loading">
+        <div className="qz-loading-ring" />
+        <p>Loading question…</p>
+      </div>
+    );
   }
 
   const handleSubmit = async (option = null) => {
-    if (!currentQuestion) return;
-
-    let xpEarned = 0;
-    let isCorrect = false;
+    if (!currentQuestion || feedback) return;
+    let xpEarned = 0, isCorrect = false;
     const timeSpent = Math.floor((Date.now() - sessionStartTime) / 1000);
-    const currentQuestionData = {
-      ...currentQuestion,
-      subject: currentQuestion.subject || determineSubject(currentQuestion.question)
-    };
+    const qData = { ...currentQuestion, subject: currentQuestion.subject || determineSubject(currentQuestion.question) };
 
-    // ✅ Determine correct answer and XP based on question type
     if (currentQuestion.type === "mcq") {
       setClickedOption(option);
-      if (option === currentQuestion.answer) {
-        isCorrect = true;
-        xpEarned = currentQuestion.xpValue || 15;
-      } else {
-        xpEarned = 2;
-      }
+      isCorrect = option === currentQuestion.answer;
+      xpEarned  = isCorrect ? (currentQuestion.xpValue || 15) : 2;
     } else if (currentQuestion.type === "short") {
-      if (userAnswer.trim().toLowerCase() === currentQuestion.answer.toLowerCase()) {
-        isCorrect = true;
-        xpEarned = currentQuestion.xpValue || 15;
-      } else {
-        xpEarned = 2;
-      }
+      isCorrect = userAnswer.trim().toLowerCase() === currentQuestion.answer.toLowerCase();
+      xpEarned  = isCorrect ? (currentQuestion.xpValue || 15) : 2;
     } else if (currentQuestion.type === "LIST") {
-      const answersGiven = userAnswer.split(",").map((a) => a.trim().toLowerCase());
-      const correctCount = currentQuestion.answers.filter((ans) =>
-        answersGiven.includes(ans.toLowerCase())
-      ).length;
-      if (correctCount > 0) isCorrect = true;
-      xpEarned = correctCount * 5;
-      if (!isCorrect && correctCount === 0) xpEarned = 2;
+      const given   = userAnswer.split(",").map((a) => a.trim().toLowerCase());
+      const correct = currentQuestion.answers.filter((a) => given.includes(a.toLowerCase())).length;
+      isCorrect = correct > 0;
+      xpEarned  = correct > 0 ? correct * 5 : 2;
     }
 
-    // ✅ Play sound feedback
-    if (isCorrect) {
-      correctSound.current.play();
-    } else {
-      wrongSound.current.play();
-    }
+    if (isCorrect) correctSound.current.play().catch(() => {});
+    else           wrongSound.current.play().catch(() => {});
 
-    // ✅ Track answer with stats service
-    const statsResult = processAnswer(
-      currentQuestionData,
-      isCorrect,
-      timeSpent,
-      mode
-    );
-
-    // ✅ Show XP popup with bonus info
+    const statsResult = processAnswer(qData, isCorrect, timeSpent, mode);
     const finalXp = statsResult?.xpEarned || xpEarned;
-    if (finalXp > 0) {
-      showXPPopup(finalXp, false);
-    }
+    if (finalXp > 0) showXPPopup(finalXp, false);
 
-    // ✅ Update local score
     setScore((prev) => prev + finalXp);
-    setFeedback(isCorrect ? "✅ Correct!" : "❌ Wrong!");
+    setFeedback(isCorrect ? "correct" : "wrong");
     setUserAnswer("");
     setTimeLeft(0);
+    setAnswersList((prev) => [...prev, {
+      question: currentQuestion.question, selected: option || userAnswer,
+      correct: isCorrect, xpEarned: finalXp, statsResult,
+      answer: currentQuestion.answer, explanation: currentQuestion.explanation,
+    }]);
 
-    // ✅ Store answer for review
-    const currentAnswer = {
-      question: currentQuestion.question,
-      selected: option || userAnswer,
-      correct: isCorrect,
-      xpEarned: finalXp,
-      statsResult: statsResult,
-      answer: currentQuestion.answer,
-      explanation: currentQuestion.explanation
-    };
-
-    setAnswersList((prev) => [...prev, currentAnswer]);
-
-    // ✅ Move to next question after delay
     setTimeout(() => {
-      setFeedback("");
-      setClickedOption(null);
-      if (currentIndex + 1 < questions.length) {
-        setCurrentIndex((prev) => prev + 1);
-      }
-    }, 700);
+      setIsAnimatingOut(true);
+      setTimeout(() => {
+        setFeedback(""); setClickedOption(null);
+        setIsAnimatingOut(false); setCardKey((k) => k + 1);
+        if (currentIndex + 1 < questions.length) setCurrentIndex((prev) => prev + 1);
+      }, 300);
+    }, 900);
   };
 
-  // ✅ Save daily challenge results to Firestore
-  const saveDailyChallengeResults = async (totalXP, bonusXP) => {
+  useEffect(() => {
+    if (answersList.length !== questions.length || questions.length === 0) return;
+    const sessionResult = endSession();
+    const totalStatsXP  = sessionResult?.totalXP || score;
+    const bonusXP       = sessionResult?.bonusXP || 0;
+    const bonuses       = sessionResult?.bonuses || [];
+
+    if (isDailyChallenge && auth.currentUser) {
+      saveDailyChallengeResults(totalStatsXP, dailyBonusXP, answersList);
+    } else {
+      const today = new Date().toISOString().split("T")[0];
+      const dailyData = JSON.parse(localStorage.getItem("dailyChallenge")) || {};
+      dailyData[today] = {
+        answered: questions.length, total: questions.length, xpEarned: totalStatsXP,
+        streak: answersList.some((a) => a.correct) ? (dailyData[today]?.streak || 0) + 1 : 0,
+      };
+      localStorage.setItem("dailyChallenge", JSON.stringify(dailyData));
+    }
+    if (bonusXP > 0 && bonuses.length > 0) {
+      localStorage.setItem("quizBonusInfo", JSON.stringify({ bonusXP, bonuses, totalXP: totalStatsXP, sessionAccuracy: sessionResult?.sessionAccuracy || 0 }));
+    }
+    onFinish(score);
+    navigate("/end", { state: { results: answersList, totalXP: totalStatsXP, bonusXP, bonuses, isDailyChallenge, dailyBonus: dailyBonusXP } });
+  }, [answersList]);
+
+  const saveDailyChallengeResults = async (totalXP, bonusXP, answers) => {
     const user = auth.currentUser;
     if (!user) return;
-
     const db = getFirestore();
-    const today = new Date().toISOString().split('T')[0];
-    
-    const correctCount = answersList.filter(a => a.correct).length;
-    const percentage = Math.round((correctCount / questions.length) * 100);
-    
-    let newStreak = dailyStreak;
-    if (percentage >= 60) {
-      newStreak = dailyStreak + 1;
-    } else {
-      newStreak = 0;
-    }
-    
+    const today = new Date().toISOString().split("T")[0];
+    const correctCount = answers.filter((a) => a.correct).length;
+    const percentage   = Math.round((correctCount / questions.length) * 100);
+    const newStreak    = percentage >= 60 ? dailyStreak + 1 : 0;
     const totalXPWithBonus = totalXP + bonusXP;
-    
-    // Create daily activity object
-    const dailyActivityData = {
-      date: today,
-      xpEarned: totalXPWithBonus,
-      questionsAnswered: questions.length,
-      correctAnswers: correctCount,
-      isDailyChallenge: true,
-      bonusXP: bonusXP,
-      streak: newStreak
-    };
-    
-    const userDocRef = doc(db, "users", user.uid);
-    
-    await updateDoc(userDocRef, {
-      "stats.totalXP": increment(totalXPWithBonus),
-      "stats.streak": newStreak,
-      "stats.lastActiveDate": today,
-      "stats.dailyChallengesCompleted": increment(1),
+    await updateDoc(doc(db, "users", user.uid), {
+      "stats.totalXP": increment(totalXPWithBonus), "stats.streak": newStreak,
+      "stats.lastActiveDate": today, "stats.dailyChallengesCompleted": increment(1),
       "stats.sessionsCompleted": increment(1),
-      [`dailyActivity.${today}`]: dailyActivityData
+      [`dailyActivity.${today}`]: { date: today, xpEarned: totalXPWithBonus, questionsAnswered: questions.length, correctAnswers: correctCount, isDailyChallenge: true, bonusXP, streak: newStreak },
     });
-    
-    const challengeRef = doc(db, "users", user.uid, "dailyChallenges", today);
-    await setDoc(challengeRef, {
-      date: today,
-      score: correctCount,
-      totalQuestions: questions.length,
-      percentage: percentage,
-      xpEarned: totalXPWithBonus,
-      bonusXP: bonusXP,
-      streak: newStreak,
-      completedAt: new Date().toISOString(),
-      yearOfStudy: userYear
+    await setDoc(doc(db, "users", user.uid, "dailyChallenges", today), {
+      date: today, score: correctCount, totalQuestions: questions.length, percentage,
+      xpEarned: totalXPWithBonus, bonusXP, streak: newStreak,
+      completedAt: new Date().toISOString(), yearOfStudy: userYear,
     });
   };
 
-  // ✅ End session when all questions are answered
-  useEffect(() => {
-    if (answersList.length === questions.length && questions.length > 0) {
-      const sessionResult = endSession();
-      const totalStatsXP = sessionResult?.totalXP || score;
-      const bonusXP = sessionResult?.bonusXP || 0;
-      const bonuses = sessionResult?.bonuses || [];
-      
-      if (isDailyChallenge && auth.currentUser) {
-        saveDailyChallengeResults(totalStatsXP, dailyBonusXP);
-      } else {
-        const today = new Date().toISOString().split("T")[0];
-        const dailyData = JSON.parse(localStorage.getItem("dailyChallenge")) || {};
-        const hasCorrect = answersList.some(a => a.correct);
-        const streak = hasCorrect ? (dailyData[today]?.streak || 0) + 1 : 0;
-
-        dailyData[today] = {
-          answered: questions.length,
-          total: questions.length,
-          xpEarned: totalStatsXP,
-          streak: streak,
-        };
-
-        localStorage.setItem("dailyChallenge", JSON.stringify(dailyData));
-      }
-
-      if (bonusXP > 0 && bonuses.length > 0) {
-        localStorage.setItem("quizBonusInfo", JSON.stringify({
-          bonusXP,
-          bonuses,
-          totalXP: totalStatsXP,
-          sessionAccuracy: sessionResult?.sessionAccuracy || 0
-        }));
-      }
-
-      onFinish(score);
-      navigate("/end", { 
-        state: { 
-          results: answersList,
-          totalXP: totalStatsXP,
-          bonusXP: bonusXP,
-          bonuses: bonuses,
-          isDailyChallenge: isDailyChallenge,
-          dailyBonus: dailyBonusXP
-        } 
-      });
-    }
-  }, [answersList, navigate, onFinish, questions.length, score, endSession]);
-
-  // Helper function to determine subject from question text
-  const determineSubject = (questionText) => {
-    const keywords = {
-      Cardiology: ["heart", "cardiac", "artery", "vein", "aorta", "myocardial"],
-      Neurology: ["brain", "nerve", "neuron", "cerebral", "stroke", "seizure"],
-      Pharmacology: ["drug", "medication", "dose", "prescription", "antibiotic"],
-      Respiratory: ["lung", "breath", "airway", "pneumonia", "asthma"],
-      Gastroenterology: ["stomach", "liver", "intestine", "colon", "digest"],
-      Microbiology: ["bacteria", "virus", "fungus", "infection", "antibiotic"],
-      Endocrinology: ["hormone", "thyroid", "insulin", "diabetes", "gland"],
-      Nephrology: ["kidney", "renal", "nephron", "urine"],
-      Hematology: ["blood", "anemia", "hemoglobin", "platelet"],
-      Immunology: ["immune", "antibody", "antigen", "allergy"]
+  const determineSubject = (text) => {
+    const map = {
+      Cardiology: ["heart","cardiac","artery","aorta","myocardial"],
+      Neurology: ["brain","nerve","neuron","cerebral","stroke"],
+      Pharmacology: ["drug","medication","dose","antibiotic"],
+      Respiratory: ["lung","breath","airway","pneumonia","asthma"],
+      Microbiology: ["bacteria","virus","fungus","infection"],
     };
-    
-    const lowerText = questionText.toLowerCase();
-    for (const [subject, keywords] of Object.entries(keywords)) {
-      for (const keyword of keywords) {
-        if (lowerText.includes(keyword)) {
-          return subject;
-        }
-      }
+    const lower = text.toLowerCase();
+    for (const [subj, keys] of Object.entries(map)) {
+      if (keys.some((k) => lower.includes(k))) return subj;
     }
     return "General Medicine";
   };
 
-  return (
-    <div className="quiz-container">
-      {/* Daily Challenge Header */}
-      {isDailyChallenge && (
-        <div className="daily-challenge-badge">
-          <span className="badge-icon">⭐</span>
-          <span className="badge-text">Daily Challenge</span>
-          <span className="badge-streak">🔥 {dailyStreak} Day Streak</span>
-        </div>
-      )}
+  const getOptionState = (opt) => {
+    if (!feedback) return "idle";
+    if (opt === currentQuestion.answer) return "correct";
+    if (opt === clickedOption && opt !== currentQuestion.answer) return "wrong";
+    return "dim";
+  };
 
-      {/* XP Popup Animations */}
-      {xpPopups.map((popup) => (
-        <div
-          key={popup.id}
-          className={`xp-popup ${popup.isBonus ? "bonus" : ""}`}
-        >
-          +{popup.xp} XP {popup.isBonus && "🎉"}
+  const timerPct = currentQuestion?.type === "LIST"
+    ? (timeLeft / (currentQuestion.timeLimit || 10)) * 100 : 100;
+
+  return (
+    <div className={`qz-root ${feedback ? `qz-root--${feedback}` : ""}`}>
+      <div className="qz-bg" aria-hidden="true">
+        <div className="qz-orb qz-orb-1" /><div className="qz-orb qz-orb-2" /><div className="qz-orb qz-orb-3" />
+      </div>
+
+      {xpPopups.map((p) => (
+        <div key={p.id} className={`qz-xp-pop ${p.isBonus ? "qz-xp-pop--bonus" : ""}`}>
+          +{p.xp} XP {p.isBonus && "🎉"}
         </div>
       ))}
 
-      <h2>
-        Question {currentIndex + 1} / {questions.length}
-        {isDailyChallenge && <span className="bonus-tag">+{dailyBonusXP} bonus at end!</span>}
-      </h2>
-
-      <p className="quiz-question">{currentQuestion?.question}</p>
-
-      {currentQuestion?.type === "mcq" && (
-        <div className="options-container">
-          {currentQuestion.options.map((opt, idx) => (
-            <button
-              key={idx}
-              className={`option-btn ${
-                clickedOption === opt
-                  ? opt === currentQuestion.answer
-                    ? "correct"
-                    : "wrong"
-                  : ""
-              }`}
-              onClick={() => handleSubmit(opt)}
-            >
-              {opt}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {(currentQuestion?.type === "short" || currentQuestion?.type === "LIST") && (
-        <div className="input-container">
-          {currentQuestion.type === "LIST" && (
-            <p className="timer">Time left: {timeLeft}s</p>
+      <header className="qz-topbar">
+        <div className="qz-topbar-left">
+          {isDailyChallenge && (
+            <div className="qz-daily-pill">
+              <span>⚡</span><span>Daily</span>
+              {dailyStreak > 0 && <span className="qz-daily-streak">🔥 {dailyStreak}</span>}
+            </div>
           )}
-          <input
-            type="text"
-            value={userAnswer}
-            onChange={(e) => setUserAnswer(e.target.value)}
-            placeholder={
-              currentQuestion.type === "LIST"
-                ? `Type ${currentQuestion.answers.length} items separated by commas`
-                : "Type your answer here..."
-            }
-            onKeyPress={(e) => e.key === "Enter" && handleSubmit()}
-          />
-          <button className="submit-btn" onClick={() => handleSubmit()}>
-            Submit
-          </button>
+          {topic && <span className="qz-topic-label">{topic}</span>}
         </div>
-      )}
+        <div className="qz-counter">
+          <span className="qz-counter-current">{currentIndex + 1}</span>
+          <span className="qz-counter-sep">/</span>
+          <span className="qz-counter-total">{questions.length}</span>
+        </div>
+        <div className="qz-topbar-right">
+          <div className="qz-xp-pill"><span className="qz-xp-icon">⭐</span><span>{score}</span></div>
+        </div>
+      </header>
 
-      {feedback && (
-        <p
-          className={`feedback ${
-            feedback.includes("Correct") ? "correct" : "wrong"
-          }`}
-        >
-          {feedback}
-        </p>
-      )}
-
-      <div className="progress-bar">
-        <div
-          className="progress-fill"
-          style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
-        ></div>
+      <div className="qz-progress-track" role="progressbar" aria-valuenow={progress} aria-valuemax={100}>
+        <div className="qz-progress-fill" style={{ width: `${progress}%` }}>
+          <div className="qz-progress-shimmer" />
+        </div>
+        <div className="qz-progress-head" style={{ left: `calc(${progress}% - 6px)` }} />
       </div>
 
-      <div className="quiz-stats">
-        <small>⭐ XP: {score}</small>
-        <small>📝 Q{currentIndex + 1}/{questions.length}</small>
-        {isDailyChallenge && (
-          <small className="streak-indicator">🔥 Streak Bonus: +{dailyBonusXP} XP</small>
-        )}
-      </div>
+      <main className="qz-main">
+        <div key={cardKey} className={`qz-card ${isAnimatingOut ? "qz-card--out" : "qz-card--in"}`}>
+          <div className="qz-q-label">
+            <span className="qz-q-dot" />
+            Question {currentIndex + 1}
+            {isDailyChallenge && <span className="qz-bonus-tag">+{dailyBonusXP} XP bonus</span>}
+          </div>
+
+          <p className="qz-question">{currentQuestion?.question}</p>
+
+          {currentQuestion?.type === "LIST" && (
+            <div className="qz-timer-wrap">
+              <svg className="qz-timer-ring" viewBox="0 0 44 44">
+                <circle cx="22" cy="22" r="18" className="qz-timer-bg" />
+                <circle cx="22" cy="22" r="18" className="qz-timer-arc"
+                  strokeDasharray={`${timerPct * 1.131} 113.1`} transform="rotate(-90 22 22)"
+                  style={{ stroke: timeLeft <= 3 ? "#ef4444" : "#2a9d8f" }} />
+              </svg>
+              <span className="qz-timer-num" style={{ color: timeLeft <= 3 ? "#ef4444" : "inherit" }}>{timeLeft}</span>
+            </div>
+          )}
+
+          {currentQuestion?.type === "mcq" && (
+            <div className="qz-options">
+              {currentQuestion.options.map((opt, i) => {
+                const state = getOptionState(opt);
+                return (
+                  <button key={i} className={`qz-option qz-option--${state}`}
+                    onClick={() => !feedback && handleSubmit(opt)} disabled={!!feedback}>
+                    <span className="qz-option-letter">{OPTION_LABELS[i]}</span>
+                    <span className="qz-option-text">{opt}</span>
+                    {state === "correct" && <span className="qz-option-check">✓</span>}
+                    {state === "wrong"   && <span className="qz-option-check">✗</span>}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {(currentQuestion?.type === "short" || currentQuestion?.type === "LIST") && (
+            <div className="qz-input-area">
+              {currentQuestion.type === "LIST" && (
+                <p className="qz-list-hint">List {currentQuestion.answers?.length} items, separated by commas</p>
+              )}
+              <div className="qz-input-row">
+                <input ref={inputRef} type="text"
+                  className={`qz-input ${feedback ? `qz-input--${feedback}` : ""}`}
+                  value={userAnswer} onChange={(e) => !feedback && setUserAnswer(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && !feedback && handleSubmit()}
+                  placeholder={currentQuestion.type === "LIST" ? "Type items separated by commas…" : "Type your answer and press Enter…"}
+                  disabled={!!feedback} />
+                {!feedback && <button className="qz-submit-btn" onClick={() => handleSubmit()}>Submit</button>}
+              </div>
+            </div>
+          )}
+
+          {feedback && (
+            <div className={`qz-feedback qz-feedback--${feedback}`}>
+              <div className="qz-feedback-icon">{feedback === "correct" ? "✓" : "✗"}</div>
+              <div className="qz-feedback-body">
+                <p className="qz-feedback-headline">
+                  {feedback === "correct" ? "Correct!" : `Answer: ${currentQuestion.answer}`}
+                </p>
+                {currentQuestion.explanation && (
+                  <p className="qz-feedback-exp">{currentQuestion.explanation}</p>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="qz-dots" aria-hidden="true">
+          {questions.map((_, i) => {
+            const answered  = answersList[i];
+            const isCurrent = i === currentIndex;
+            return (
+              <span key={i} className={`qz-dot ${isCurrent ? "qz-dot--current" : ""} ${answered ? (answered.correct ? "qz-dot--ok" : "qz-dot--fail") : ""}`} />
+            );
+          })}
+        </div>
+      </main>
     </div>
   );
 }
