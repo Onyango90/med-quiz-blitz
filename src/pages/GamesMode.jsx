@@ -1,7 +1,7 @@
-// src/pages/GamesMode.jsx — redesigned
+// src/pages/GamesMode.jsx — redesigned with click-to-show description
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Lock, ChevronRight, Zap, Trophy } from "lucide-react";
+import { ArrowLeft, Lock, ChevronRight, Zap, Trophy, X } from "lucide-react";
 import "./GamesMode.css";
 
 const GAME_MODES = [
@@ -103,9 +103,18 @@ const DIFFICULTY_COLOR = {
 export default function GamesMode() {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(null);
+  const [selectedGame, setSelectedGame] = useState(null);
 
   const available = GAME_MODES.filter((g) => g.available);
-  const coming    = GAME_MODES.filter((g) => !g.available);
+  const coming = GAME_MODES.filter((g) => !g.available);
+
+  const handleCardClick = (game) => {
+    if (game.available) {
+      navigate(game.path);
+    } else {
+      setSelectedGame(game);
+    }
+  };
 
   return (
     <div className="gm-page">
@@ -138,7 +147,7 @@ export default function GamesMode() {
           <div className="gm-hero-inner">
             <div className="gm-hero-badge"><Zap size={12} /> Game Zone</div>
             <h2 className="gm-hero-title">Test your medical knowledge</h2>
-            <p className="gm-hero-sub">Each mode challenges a different skill. Start with Classic, unlock more as we build them.</p>
+            <p className="gm-hero-sub">Tap any card to learn more. Available modes are ready to play!</p>
           </div>
         </div>
 
@@ -153,7 +162,7 @@ export default function GamesMode() {
                 hovered={hovered === game.id}
                 onEnter={() => setHovered(game.id)}
                 onLeave={() => setHovered(null)}
-                onClick={() => navigate(game.path)}
+                onClick={() => handleCardClick(game)}
               />
             ))}
           </div>
@@ -171,17 +180,43 @@ export default function GamesMode() {
                 hovered={hovered === game.id}
                 onEnter={() => setHovered(game.id)}
                 onLeave={() => setHovered(null)}
+                onClick={() => handleCardClick(game)}
               />
             ))}
           </div>
         </section>
 
       </div>
+
+      {/* Description Modal */}
+      {selectedGame && (
+        <div className="gm-modal-overlay" onClick={() => setSelectedGame(null)}>
+          <div className="gm-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="gm-modal-close" onClick={() => setSelectedGame(null)}>
+              <X size={20} />
+            </button>
+            <div className="gm-modal-icon">{selectedGame.icon}</div>
+            <h3 className="gm-modal-title">{selectedGame.label}</h3>
+            <p className="gm-modal-desc">{selectedGame.description}</p>
+            <div className="gm-modal-footer">
+              <span className="gm-diff-badge" style={DIFFICULTY_COLOR[selectedGame.difficulty]}>
+                {selectedGame.difficulty}
+              </span>
+              <span className="gm-modal-players">{selectedGame.players}</span>
+            </div>
+            {!selectedGame.available && (
+              <button className="gm-modal-notify" onClick={() => setSelectedGame(null)}>
+                Coming Soon
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-// ── Game Card ─────────────────────────────────────────────────────────────────
+// ── Game Card (No Description) ──
 function GameCard({ game, locked, hovered, onEnter, onLeave, onClick }) {
   const diff = DIFFICULTY_COLOR[game.difficulty] || DIFFICULTY_COLOR.Medium;
 
@@ -191,12 +226,9 @@ function GameCard({ game, locked, hovered, onEnter, onLeave, onClick }) {
       style={{ "--gm-accent": game.accent }}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
-      onClick={locked ? undefined : onClick}
+      onClick={onClick}
     >
-      {/* Accent glow */}
       <div className="gm-card-glow" />
-
-      {/* Top row */}
       <div className="gm-card-top">
         <div className="gm-card-emoji">{game.icon}</div>
         {locked
@@ -204,14 +236,10 @@ function GameCard({ game, locked, hovered, onEnter, onLeave, onClick }) {
           : <div className="gm-play-badge"><Zap size={12} /> Play</div>
         }
       </div>
-
-      {/* Content */}
       <div className="gm-card-content">
         <h3 className="gm-card-label">{game.label}</h3>
-        <p className="gm-card-desc">{game.description}</p>
+        {/* Description removed - will show in modal on click */}
       </div>
-
-      {/* Footer */}
       <div className="gm-card-footer">
         <span
           className="gm-diff-badge"
@@ -220,11 +248,9 @@ function GameCard({ game, locked, hovered, onEnter, onLeave, onClick }) {
           {game.difficulty}
         </span>
         <span className="gm-players">{game.players}</span>
-        {!locked && (
-          <div className="gm-card-arrow">
-            <ChevronRight size={16} />
-          </div>
-        )}
+        <div className="gm-card-arrow">
+          <ChevronRight size={16} />
+        </div>
       </div>
     </div>
   );

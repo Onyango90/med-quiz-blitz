@@ -122,37 +122,26 @@ Rules:
 - Return ONLY the JSON array, starting with [ and ending with ]`;
   };
 
-  // ── Generate questions via DeepSeek API ────────────────────────────────
+  // ── Generate questions via Firebase Cloud Function ────────────────────────
   const generateQuestions = async () => {
     if (!config.subject) { setError("Please choose a subject first."); return; }
     setError("");
     setStep("loading");
 
     try {
-      const apiKey = process.env.REACT_APP_DEEPSEEK_API_KEY;
-      
-      if (!apiKey) {
-        setError("API key not configured. Please add REACT_APP_DEEPSEEK_API_KEY to your .env file.");
-        setStep("config");
-        return;
-      }
+      const prompt = buildPrompt();
 
-      const response = await fetch("https://api.deepseek.com/chat/completions", {
+      const response = await fetch("https://us-central1-medblitz-9c4e7.cloudfunctions.net/generateQuestions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${apiKey}`,
         },
-        body: JSON.stringify({
-          model: "deepseek-chat",
-          max_tokens: 4000,
-          messages: [{ role: "user", content: buildPrompt() }],
-        }),
+        body: JSON.stringify({ prompt }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error?.message || `API error: ${response.status}`);
+        throw new Error(errorData.error?.message || `Cloud Function error: ${response.status}`);
       }
 
       const data = await response.json();

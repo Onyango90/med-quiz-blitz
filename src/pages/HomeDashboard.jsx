@@ -1,4 +1,4 @@
-// src/pages/HomeDashboard.jsx  — full redesign
+// src/pages/HomeDashboard.jsx — full redesign
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -8,7 +8,7 @@ import {
   Gamepad2, Swords, BookOpen, Trophy,
   BarChart3, Settings, Flame, Sparkles,
   FileText, ChevronRight, Zap, Target,
-  Clock, TrendingUp, Star, Award
+  Clock, TrendingUp, Star, Award, Menu
 } from "lucide-react";
 import "./HomeDashboard.css";
 
@@ -30,7 +30,9 @@ export default function HomeDashboard() {
   const [dailyProgress, setDailyProgress] = useState({ answered: 0, total: 20, xpEarned: 0 });
   const [time, setTime] = useState(new Date());
 
+  // Get actual user name
   const userName = currentUser?.displayName ||
+    userData?.profile?.name ||
     localStorage.getItem("userName") ||
     currentUser?.email?.split("@")[0] ||
     "Doctor";
@@ -53,6 +55,19 @@ export default function HomeDashboard() {
     const today = new Date().toISOString().split("T")[0];
     const data  = JSON.parse(localStorage.getItem("dailyChallenge")) || {};
     if (data[today]) setDailyProgress(data[today]);
+  }, []);
+
+  // Handle window resize for sidebar
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setSidebarOpen(true);
+      } else {
+        setSidebarOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   if (authLoading || statsLoading) {
@@ -167,7 +182,7 @@ export default function HomeDashboard() {
               className="hd-hamburger"
               onClick={() => setSidebarOpen((v) => !v)}
             >
-              <span /><span /><span />
+              <Menu size={20} />
             </button>
             <div className="hd-greeting">
               <p className="hd-greeting-sub">{greeting} 👋</p>
@@ -220,8 +235,8 @@ export default function HomeDashboard() {
             ))}
           </div>
 
-          {/* ── Daily Challenge hero ────────────────────────────────────── */}
-          <div className="hd-daily">
+          {/* ── Daily Challenge hero - THINNER VERSION ────────────────────── */}
+          <div className="hd-daily hd-daily-thin">
             {/* Background mesh */}
             <div className="hd-daily-bg" aria-hidden="true">
               <div className="hd-daily-orb hd-orb-1" />
@@ -233,32 +248,25 @@ export default function HomeDashboard() {
               {/* Left */}
               <div className="hd-daily-left">
                 <div className="hd-daily-badge">
-                  <Zap size={12} />
+                  <Zap size={10} />
                   <span>Daily Challenge</span>
                 </div>
 
                 <h2 className="hd-daily-title">
                   {dailyPct === 100 ? "Challenge Complete! 🎉" : "Today's Blitz"}
                 </h2>
-                <p className="hd-daily-sub">
-                  {dailyPct === 100
-                    ? "Exceptional work. Come back tomorrow for more!"
-                    : `${dailyProgress.total - dailyProgress.answered} questions remaining · +${streakBonus} streak bonus XP`}
-                </p>
 
-                {/* Progress bar */}
+                {/* Progress bar - compact */}
                 <div className="hd-daily-progress-wrap">
                   <div className="hd-daily-progress-row">
-                    <span>{dailyProgress.answered} / {dailyProgress.total} completed</span>
+                    <span className="hd-daily-count">{dailyProgress.answered} / {dailyProgress.total}</span>
                     <span className="hd-daily-pct">{dailyPct}%</span>
                   </div>
                   <div className="hd-daily-track">
                     <div
                       className="hd-daily-fill"
                       style={{ width: `${dailyPct}%` }}
-                    >
-                      <div className="hd-daily-shimmer" />
-                    </div>
+                    />
                   </div>
                 </div>
 
@@ -268,39 +276,39 @@ export default function HomeDashboard() {
                   disabled={dailyPct === 100}
                 >
                   {dailyPct === 0
-                    ? <><Zap size={16} /> Start Today's Blitz</>
+                    ? <><Zap size={14} /> Start</>
                     : dailyPct === 100
-                    ? <><Award size={16} /> Completed</>
-                    : <><Zap size={16} /> Continue</>}
+                    ? <><Award size={14} /> Done</>
+                    : <><Zap size={14} /> Continue</>}
                 </button>
               </div>
 
-              {/* Right: streak & stats */}
+              {/* Right: streak & stats - compact */}
               <div className="hd-daily-right">
                 <div className="hd-daily-streak-ring">
                   <div className="hd-daily-streak-inner">
-                    <Flame size={28} className="hd-daily-flame" />
+                    <Flame size={20} className="hd-daily-flame" />
                     <span className="hd-daily-streak-num">{streak}</span>
-                    <span className="hd-daily-streak-label">day streak</span>
+                    <span className="hd-daily-streak-label">day</span>
                   </div>
                 </div>
 
                 <div className="hd-daily-mini-stats">
                   <div className="hd-daily-mini">
-                    <TrendingUp size={14} />
-                    <span>+{streakBonus} bonus XP</span>
+                    <TrendingUp size={12} />
+                    <span>+{streakBonus} XP</span>
                   </div>
                   <div className="hd-daily-mini">
-                    <Star size={14} />
-                    <span>{dailyProgress.xpEarned || 0} earned today</span>
+                    <Star size={12} />
+                    <span>{dailyProgress.xpEarned || 0} today</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Particles */}
+            {/* Particles - fewer for thin card */}
             <div className="hd-daily-particles" aria-hidden="true">
-              {Array.from({ length: 18 }).map((_, i) => (
+              {Array.from({ length: 8 }).map((_, i) => (
                 <span
                   key={i}
                   className="hd-particle"

@@ -709,3 +709,44 @@
   .hd-stat-value  { font-size: 16px; }
   .hd-quick-grid  { grid-template-columns: 1fr; }
 }
+/* Mobile Hamburger Menu */
+.hd-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-right: 8px;
+  border-radius: 8px;
+  color: #1a2b4c;
+}
+
+.hd-hamburger:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+  .hd-hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .hd-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .hd-sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .hd-root.sidebar-open .hd-main {
+    margin-left: 0;
+  }
+}
