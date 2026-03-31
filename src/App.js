@@ -1,3 +1,4 @@
+// Trigger redeploy: whitespace/encoding issue fixed 2026-03-31
 // src/App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from "react-router-dom";
