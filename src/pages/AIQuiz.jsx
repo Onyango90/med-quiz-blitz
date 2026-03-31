@@ -138,54 +138,28 @@ Rules:
       return;
     }
 
-    const apiKey = process.env.REACT_APP_DEEPSEEK_API_KEY;
-    if (!apiKey) {
-      setError(
-        "API key not found. Create a .env file in your project root with: REACT_APP_DEEPSEEK_API_KEY=your_key_here  — then restart npm start."
-      );
-      return;
-    }
-
     setError("");
     setStep("loading");
 
     try {
-      // DeepSeek uses the OpenAI-compatible chat completions endpoint
-      const response = await fetch("https://api.deepseek.com/v1/chat/completions", {
+      // Call backend API instead of direct DeepSeek API call
+      const response = await fetch("/api/generateQuestions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${apiKey}`,  // ← DeepSeek uses Bearer token, not x-api-key
         },
         body: JSON.stringify({
-          model: "deepseek-chat",               // ← DeepSeek's model name
-          max_tokens: 4000,
-          temperature: 0.7,
-          messages: [
-            {
-              role: "system",
-              content: "You are a medical education expert. Always respond with valid JSON only — no markdown, no explanation outside the JSON array.",
-            },
-            {
-              role: "user",
-              content: buildPrompt(),
-            },
-          ],
+          prompt: buildPrompt(),
         }),
       });
 
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
-        throw new Error(errData?.error?.message || `API error: ${response.status}`);
+        throw new Error(errData?.error || `API error: ${response.status}`);
       }
 
       const data = await response.json();
-
-      // DeepSeek (OpenAI-compatible) response shape:
-      //   data.choices[0].message.content  ← the text
-      const raw = data.choices?.[0]?.message?.content || "";
-      const clean = raw.replace(/```json|```/g, "").trim();
-      const parsed = JSON.parse(clean);
+      const parsed = data.questions;
 
       if (!Array.isArray(parsed) || parsed.length === 0) {
         throw new Error("No questions returned. Please try again.");
@@ -200,7 +174,7 @@ Rules:
       setScore(0);
       setStep("quiz");
     } catch (err) {
-      console.error("DeepSeek API error:", err);
+      console.error("Question generation error:", err);
       setError(`Failed to generate questions: ${err.message}`);
       setStep("config");
     }
