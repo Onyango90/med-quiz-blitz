@@ -24,11 +24,12 @@ exports.generateQuestions = functions.https.onRequest(async (req, res) => {
       return res.status(400).json({ error: "Prompt is required" });
     }
 
-    // Get API key from environment variables
-    const apiKey = process.env.DEEPSEEK_API_KEY;
+    // Get API key from Firebase Runtime Config
+    const config = functions.config();
+    const apiKey = config.deepseek?.api_key;
 
     if (!apiKey) {
-      console.error("DEEPSEEK_API_KEY environment variable not found");
+      console.error("DEEPSEEK_API_KEY not configured in Firebase Runtime Config");
       return res.status(500).json({ error: "API key not configured" });
     }
 
