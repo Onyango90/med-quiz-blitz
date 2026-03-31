@@ -1,71 +1,81 @@
 const functions = require("firebase-functions");
-const admin = require("firebase-admin");
 
-admin.initializeApp();
-
-exports.generateQuestions = functions.https.onRequest((req, res) => {
+exports.generateQuestions = functions.https.onRequest(async (req, res) => {
   // Enable CORS
   res.set("Access-Control-Allow-Origin", "*");
-  res.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.set("Access-Control-Allow-Headers", "Content-Type");
 
+  // Handle OPTIONS request
   if (req.method === "OPTIONS") {
     res.status(204).send("");
     return;
   }
 
+  // Only allow POST
   if (req.method !== "POST") {
-    return res.status(400).json({ error: "POST method required" });
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
-  (async () => {
-    try {
-      const { prompt } = req.body;
+  try {
+    const { prompt } = req.body;
 
-      // Get API key from Firebase config
-      const config = functions.config();
-      const apiKey = config.deepseek?.api_key;
-
-      if (!apiKey) {
-        console.error("API key not found in config:", config);
-        return res.status(500).json({ error: "API key not configured" });
-      }
-
-      console.log("Using API key:", apiKey.substring(0, 10) + "...");
-
-      // Call DeepSeek API
-      const response = await fetch("https://api.deepseek.com/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-          model: "deepseek-chat",
-          max_tokens: 4000,
-          temperature: 0.7,
-          messages: [
-            {
-              role: "user",
-              content: prompt,
-            },
-          ],
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("DeepSeek API error:", errorData);
-        throw new Error(errorData.error?.message || `API error: ${response.status}`);
-      }
-
-      const data = await response.json();
-      res.status(200).json(data);
-    } catch (error) {
-      console.error("Error:", error);
-      res.status(500).json({
-        error: error.message || "Internal server error",
-      });
+    if (!prompt) {
+      return res.status(400).json({ error: "Prompt is required" });
     }
-  })();
+
+    // Get API key from environment variables
+    const apiKey = process.env.DEEPSEEK_API_KEY;
+
+    if (!apiKey) {
+      console.error("DEEPSEEK_API_KEY environment variable not found");
+      return res.status(500).json({ error: "API key not configured" });
+    }
+
+    // Call DeepSeek API
+    const response = await fetch("https://api.deepseek.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "deepseek-chat",
+        max_tokens: 4000,
+        temperature: 0.7,
+        messages: [
+          {
+            role: "system",
+            content: "You are a medical education expert. Always respond with valid JSON only — no markdown, no explanation outside the JSON array.",
+          },
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error("DeepSeek API error:", errorData);
+      throw new Error(errorData.error?.message || `API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const raw = data.choices?.[0]?.message?.content || "";
+    const clean = raw.replace(/```json|```/g, "").trim();
+    const parsed = JSON.parse(clean);
+
+    if (!Array.isArray(parsed)) {
+      throw new Error("Invalid response format - expected array of questions");
+    }
+
+    res.status(200).json({ questions: parsed });
+  } catch (error) {
+    console.error("Error in generateQuestions:", error);
+    res.status(500).json({
+      error: error.message || "Internal server error",
+    });
+  }
 });
