@@ -29,7 +29,7 @@ Railway will automatically detect your `package.json` but we need to specify the
 1. In Railway dashboard, go to the **"Variables"** tab
 2. Add a new variable:
    - **Key:** `DEEPSEEK_API_KEY`
-   - **Value:** `sk-f0964e30a71f46a1968af4201773b7ea` (your actual key)
+   - **Value:** `sk-your-api-key-here` (your actual DeepSeek API key)
 3. Click **"Add"**
 
 ### 5. Deploy
