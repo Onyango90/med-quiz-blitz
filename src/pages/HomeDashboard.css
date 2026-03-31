@@ -224,7 +224,13 @@
 
 /* Greeting */
 .hd-greeting-sub  { font-size: 12px; color: var(--hd-muted); }
-.hd-greeting-name { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; display: block; }
+.hd-greeting-name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  display: block;
+  color: var(--hd-text);          /* explicitly dark — fixes white-on-white */
+}
 
 /* Pills */
 .hd-streak-pill,
@@ -377,57 +383,57 @@
   66%       { transform: translate(-10px,20px) scale(0.96); }
 }
 
-/* Inner layout */
+/* Inner layout — SLIM */
 .hd-daily-inner {
   position: relative;
   z-index: 2;
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 24px 28px;
+  gap: 16px;
+  padding: 14px 20px;
 }
 
 .hd-daily-left  { flex: 1; min-width: 0; }
-.hd-daily-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.hd-daily-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
 
 /* Badge */
 .hd-daily-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   background: rgba(255,190,11,0.2);
   border: 1px solid rgba(255,190,11,0.4);
   color: #ffbe0b;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 99px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 /* Title */
 .hd-daily-title {
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   background: linear-gradient(135deg, #fff 0%, #a5d8d4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 /* Progress */
-.hd-daily-progress-wrap { margin-bottom: 16px; }
+.hd-daily-progress-wrap { margin-bottom: 10px; }
 
 .hd-daily-progress-row {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 11px;
   color: rgba(255,255,255,0.6);
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 
 .hd-daily-pct { font-weight: 700; color: #ffbe0b; }
@@ -450,23 +456,23 @@
 .hd-daily-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 11px 22px;
+  gap: 6px;
+  padding: 8px 18px;
   background: linear-gradient(135deg, #2a9d8f, #0f6e56);
   color: #fff;
   border: none;
   border-radius: 10px;
   font-family: var(--hd-font);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 4px 16px rgba(42,157,143,0.4);
+  box-shadow: 0 3px 12px rgba(42,157,143,0.35);
   letter-spacing: -0.01em;
 }
 .hd-daily-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(42,157,143,0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(42,157,143,0.45);
 }
 .hd-daily-btn:disabled {
   background: rgba(255,255,255,0.12);
@@ -477,12 +483,12 @@
 
 /* Streak ring */
 .hd-daily-streak-ring {
-  width: 100px; height: 100px;
+  width: 68px; height: 68px;
   border-radius: 50%;
   background: rgba(255,255,255,0.06);
   border: 2px solid rgba(255,255,255,0.12);
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 30px rgba(249,115,22,0.2);
+  box-shadow: 0 0 20px rgba(249,115,22,0.18);
   animation: hd-ring-pulse 3s ease-in-out infinite;
 }
 
@@ -503,7 +509,7 @@
 }
 
 .hd-daily-streak-num {
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 800;
   color: #fff;
   letter-spacing: -0.03em;
@@ -511,7 +517,7 @@
 }
 
 .hd-daily-streak-label {
-  font-size: 11px;
+  font-size: 10px;
   color: rgba(255,255,255,0.5);
   font-weight: 600;
   text-transform: uppercase;
@@ -628,6 +634,9 @@
 .hd-quick-orange::before { background: var(--hd-orange); }
 .hd-quick-orange .hd-quick-icon { background: var(--hd-orange-light); color: var(--hd-orange); }
 
+.hd-quick-blue::before   { background: #3b82f6; }
+.hd-quick-blue .hd-quick-icon   { background: #eff6ff; color: #3b82f6; }
+
 /* ═══════════════════════════════════════════════════════════
    MOTIVATION BANNER
 ═══════════════════════════════════════════════════════════ */
@@ -704,26 +713,25 @@
   .hd-greeting-sub  { font-size: 11px; }
   .hd-greeting-name { font-size: 14px; font-weight: 700; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
 
-  /* Daily challenge — thinner on mobile */
+  /* Daily challenge — ultra-thin on mobile */
   .hd-daily-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 16px;
-    gap: 14px;
-  }
-  .hd-daily-right {
     flex-direction: row;
     align-items: center;
-    width: 100%;
-    justify-content: space-between;
+    padding: 12px 14px;
+    gap: 12px;
   }
-  .hd-daily-streak-ring { width: 64px; height: 64px; }
-  .hd-daily-streak-num  { font-size: 18px; }
-  .hd-daily-streak-inner svg { width: 14px; height: 14px; }
-  .hd-daily-title       { font-size: 17px; }
-  .hd-daily-badge       { font-size: 10px; margin-bottom: 6px; }
-  .hd-daily-btn         { padding: 9px 16px; font-size: 13px; }
-  .hd-orb-1, .hd-orb-2, .hd-orb-3 { display: none; } /* skip heavy animations on phone */
+  .hd-daily-right {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hd-daily-streak-ring { width: 52px; height: 52px; }
+  .hd-daily-streak-num  { font-size: 15px; }
+  .hd-daily-streak-inner svg { width: 12px; height: 12px; }
+  .hd-daily-title       { font-size: 14px; }
+  .hd-daily-badge       { font-size: 9px; margin-bottom: 4px; }
+  .hd-daily-btn         { padding: 7px 13px; font-size: 12px; }
+  .hd-daily-mini-stats  { display: none; } /* hide on very small screens */
+  .hd-orb-1, .hd-orb-2, .hd-orb-3 { display: none; }
 
   .hd-stats-row   { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .hd-stat-card   { padding: 12px; gap: 8px; }
