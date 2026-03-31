@@ -142,8 +142,12 @@ Rules:
     setStep("loading");
 
     try {
-      // Call backend API instead of direct DeepSeek API call
-      const response = await fetch("/api/generateQuestions", {
+      // Get API base URL from environment or use relative path
+      const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || "";
+      const apiEndpoint = `${apiBaseUrl}/api/generateQuestions`;
+
+      // Call microservice API
+      const response = await fetch(apiEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
