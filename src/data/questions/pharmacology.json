@@ -1,13 +1,952 @@
 [
-    {"id":"pharm_001","type":"mcq","subject":"Pharmacology","difficulty":"easy","question":"Which drug class is first-line for hypertension and improves mortality post-MI?","options":["Beta-blockers","Calcium channel blockers","Thiazides","ACE inhibitors"],"answer":"Beta-blockers","explanation":"Beta-blockers reduce mortality after MI and treat HTN."},
-    {"id":"pharm_002","type":"mcq","subject":"Pharmacology","difficulty":"easy","question":"Which drug is an ACE inhibitor?","options":["Lisinopril","Amlodipine","Metoprolol","Hydrochlorothiazide"],"answer":"Lisinopril","explanation":"Lisinopril is an ACE inhibitor used in HTN and heart failure."},
-    {"id":"pharm_003","type":"short","subject":"Pharmacology","difficulty":"medium","question":"Name an adverse effect of aminoglycosides.","answer":"Ototoxicity and nephrotoxicity","explanation":"Aminoglycosides can damage auditory apparatus and renal tubules."},
-    {"id":"pharm_004","type":"mcq","subject":"Pharmacology","difficulty":"medium","question":"Warfarin acts by inhibiting:","options":["Vitamin K epoxide reductase","Thrombin","Platelet aggregation","Factor VIII"],"answer":"Vitamin K epoxide reductase","explanation":"Warfarin inhibits VKORC1, reducing activation of vitamin K-dependent clotting factors."},
-    {"id":"pharm_005","type":"mcq","subject":"Pharmacology","difficulty":"hard","question":"Which drug is contraindicated in pregnancy due to teratogenicity?","options":["Warfarin","Heparin","Insulin","Penicillin"],"answer":"Warfarin","explanation":"Warfarin can cause fetal abnormalities; heparin is preferred in pregnancy."},
-    {"id":"pharm_006","type":"short","subject":"Pharmacology","difficulty":"medium","question":"Which receptor do benzodiazepines act on?","answer":"GABA_A receptor","explanation":"Benzodiazepines enhance GABA_A receptor activity increasing Cl- influx."},
-    {"id":"pharm_007","type":"mcq","subject":"Pharmacology","difficulty":"easy","question":"Which drug is a proton pump inhibitor?","options":["Omeprazole","Ranitidine","Metoclopramide","Loperamide"],"answer":"Omeprazole","explanation":"Omeprazole inhibits hydrogen/potassium ATPase in parietal cells."},
-    {"id":"pharm_008","type":"short","subject":"Pharmacology","difficulty":"medium","question":"Name a medication used for opioid overdose.","answer":"Naloxone","explanation":"Naloxone is an opioid receptor antagonist used to reverse overdose."},
-    {"id":"pharm_009","type":"mcq","subject":"Pharmacology","difficulty":"medium","question":"Which drug class causes reflex tachycardia?","options":["Vasodilators (e.g., nitrates)","Beta-blockers","ACE inhibitors","Diuretics"],"answer":"Vasodilators (e.g., nitrates)","explanation":"Peripheral vasodilation can cause reflex sympathetic tachycardia."},
-    {"id":"pharm_010","type":"short","subject":"Pharmacology","difficulty":"hard","question":"Which antibiotic inhibits cell wall synthesis by binding to D-ala-D-ala?","answer":"Vancomycin (and beta-lactams act on PBPs)","explanation":"Vancomycin binds D-ala-D-ala terminus preventing peptidoglycan cross-linking."}
-  ]
-  
+  {
+    "id": "pharm_cat1_2024_001",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "True of the natural penicillin except:",
+    "options": [
+      "A. Oral bioavailability of penicillin G is about 30%.",
+      "B. Penicillin V is stable against gastric acid.",
+      "C. Penicillin G is not metabolized in the body.",
+      "D. Reabsorption in the renal tubules is inhibited by probenecid.",
+      "E. Are effective against gram positive organism and a few gram-negative bacilli."
+    ],
+    "answer": "C. Penicillin G is not metabolized in the body.",
+    "explanation": "Penicillin G is actually metabolized in the body (about 20% hepatic metabolism). The rest are true: oral bioavailability of pen G is ~30%, pen V is acid-stable, probenecid blocks tubular secretion prolonging action, and spectrum covers gram-positive and selected gram-negatives."
+  },
+  {
+    "id": "pharm_cat1_2024_002",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "True about beta lactamase inhibitors:",
+    "options": [
+      "A. Are effective antibacterial agents.",
+      "B. Inhibit all bacterial beta lactamases.",
+      "C. Protect hydrolysable penicillin from destruction by lactamases.",
+      "D. The antibacterial spectrum is determined by the inhibitor in fixed combinations.",
+      "E. For fixed combinations of penicillin and beta lactamase inhibitor, dosage adjustment is based on both components."
+    ],
+    "answer": "C. Protect hydrolysable penicillin from destruction by lactamases.",
+    "explanation": "Beta-lactamase inhibitors (e.g., clavulanic acid, sulbactam, tazobactam) have weak or no intrinsic antibacterial activity. They do not inhibit ALL beta-lactamases (e.g., they are ineffective against AmpC and metallo-beta-lactamases). The antibacterial spectrum is determined by the penicillin partner. Dosage in fixed combinations is based on the penicillin component. Their primary role is protecting the penicillin from enzymatic destruction."
+  },
+  {
+    "id": "pharm_cat1_2024_003",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "True of erythromycin except:",
+    "options": [
+      "A. Is a natural compound.",
+      "B. Is effective against mycoplasma and chlamydia.",
+      "C. Resistance is usually plasmid mediated.",
+      "D. Is stable against gastric acid.",
+      "E. Is mainly excreted renally."
+    ],
+    "answer": "E. Is mainly excreted renally.",
+    "explanation": "Erythromycin is mainly excreted in bile (hepatic excretion), not renally. It is a natural macrolide, covers atypical organisms like Mycoplasma and Chlamydia, resistance is often plasmid-mediated, and erythromycin estolate is acid-stable (though the base is not)."
+  },
+  {
+    "id": "pharm_cat1_2024_004",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "The following are adverse effects of aminoglycosides except:",
+    "options": [
+      "A. Nephrotoxicity.",
+      "B. Skin rash.",
+      "C. Ototoxicity.",
+      "D. Muscle paralysis.",
+      "E. Hepatotoxicity."
+    ],
+    "answer": "E. Hepatotoxicity.",
+    "explanation": "Aminoglycosides (e.g., gentamicin, amikacin) are notorious for nephrotoxicity, ototoxicity (auditory and vestibular), and neuromuscular blockade causing muscle paralysis. Skin rash can occur. Hepatotoxicity is NOT a recognized adverse effect of aminoglycosides."
+  },
+  {
+    "id": "pharm_cat1_2024_005",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antiparasitics",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following drugs is not correctly matched with its clinical indication?",
+    "options": [
+      "A. Babesia : Clindamycin.",
+      "B. Balantidium coli : Tetracycline.",
+      "C. Cryptosporidium : Metronidazole.",
+      "D. Giardia lamblia : Tinidazole.",
+      "E. Toxoplasma gondii : Pyrimethamine plus clindamycin."
+    ],
+    "answer": "C. Cryptosporidium : Metronidazole.",
+    "explanation": "Cryptosporidiosis is treated with nitazoxanide (in immunocompromised) or is self-limiting, NOT metronidazole. Babesia is treated with clindamycin + quinine. Balantidium coli responds to tetracycline. Giardia is treated with metronidazole or tinidazole. Toxoplasma uses pyrimethamine + sulfadiazine (or clindamycin as alternative)."
+  },
+  {
+    "id": "pharm_cat1_2024_006",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antiparasitics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "False about artemisinin:",
+    "options": [
+      "A. Artemisinin is insoluble and can only be given orally.",
+      "B. Artesunate can be given orally, intravenously, intramuscularly and rectally.",
+      "C. Artemether can be given intramuscularly and intravenously.",
+      "D. Oral absorption of artemisinin is good.",
+      "E. Artemisinin are rapidly acting blood schizonticides."
+    ],
+    "answer": "A. Artemisinin is insoluble and can only be given orally.",
+    "explanation": "Artemisinin itself is poorly water-soluble and poorly oil-soluble, limiting its routes of administration, but the statement that it can ONLY be given orally is false — it can also be given rectally. Its derivatives (artesunate, artemether) have broader routes. All artemisinins are rapid-acting blood schizonticides. Oral absorption of artemisinin is good."
+  },
+  {
+    "id": "pharm_cat1_2024_007",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Disinfectants",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "True about disinfectants/antiseptics except:",
+    "options": [
+      "A. Alcohols kill bacteria, fungi, and both lipophilic and hydrophilic viruses.",
+      "B. Chlorhexidine has residual effects.",
+      "C. Povidone iodine can be used orally.",
+      "D. Phenolics are only used as disinfectants.",
+      "E. Formaldehyde is carcinogenic."
+    ],
+    "answer": "A. Alcohols kill bacteria, fungi, and both lipophilic and hydrophilic viruses.",
+    "explanation": "Alcohols kill bacteria, fungi, and lipophilic viruses, but are NOT reliably effective against hydrophilic (non-enveloped) viruses such as norovirus and poliovirus. Chlorhexidine does have residual activity. Povidone iodine can be used as an oral rinse. Phenolics are used as disinfectants (too toxic for antisepsis on skin). Formaldehyde is a known carcinogen."
+  },
+  {
+    "id": "pharm_cat1_2024_008",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Disinfectants",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "The following disinfectants/antiseptics can be used as a sterilant except:",
+    "options": [
+      "A. Ethylene oxide.",
+      "B. Glutaraldehyde.",
+      "C. Peri acetic acid.",
+      "D. Chlorine dioxide.",
+      "E. Quats."
+    ],
+    "answer": "E. Quats.",
+    "explanation": "Quaternary ammonium compounds (Quats) are low-level disinfectants used on environmental surfaces — they do NOT achieve sterilization. Ethylene oxide, glutaraldehyde (>10 hours), peracetic acid, and chlorine dioxide are all capable of achieving sterilization."
+  },
+  {
+    "id": "pharm_cat1_2024_009",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which statement is incorrect?",
+    "options": [
+      "A. Amoxicillin is an aminopenicillin.",
+      "B. Amoxicillin is used for the treatment of pneumonia.",
+      "C. Piperacillin does not have activity against Pseudomonas aeruginosa.",
+      "D. Clavulanic acid is a beta lactamase inhibitor.",
+      "E. Piperacillin is administered parenterally."
+    ],
+    "answer": "C. Piperacillin does not have activity against Pseudomonas aeruginosa.",
+    "explanation": "Piperacillin is an extended-spectrum antipseudomonal penicillin with significant activity against Pseudomonas aeruginosa. The other statements are all correct: amoxicillin is an aminopenicillin used for pneumonia, clavulanic acid is a beta-lactamase inhibitor, and piperacillin is administered parenterally."
+  },
+  {
+    "id": "pharm_cat1_2024_010",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which is not an adverse effect of sulfonamide?",
+    "options": [
+      "A. Anemia.",
+      "B. Crystalluria.",
+      "C. Granulocytopenia.",
+      "D. Skin rash.",
+      "E. Hypertension."
+    ],
+    "answer": "E. Hypertension.",
+    "explanation": "Sulfonamides cause hemolytic anemia (especially in G6PD deficiency), crystalluria (precipitate in acidic urine), granulocytopenia, Stevens-Johnson syndrome and skin rashes, and kernicterus in neonates. Hypertension is NOT a recognized adverse effect."
+  },
+  {
+    "id": "pharm_cat1_2024_011",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which fluoroquinolone should not be used for the treatment of pneumonia?",
+    "options": [
+      "A. Levofloxacin.",
+      "B. Norfloxacin.",
+      "C. Gatifloxacin.",
+      "D. Gemifloxacin.",
+      "E. Moxifloxacin."
+    ],
+    "answer": "B. Norfloxacin.",
+    "explanation": "Norfloxacin achieves poor systemic concentrations and is only used for urinary tract infections and gastrointestinal infections. It does not achieve adequate tissue levels for pneumonia treatment. Levofloxacin, gatifloxacin, gemifloxacin, and moxifloxacin are all respiratory fluoroquinolones used for community-acquired pneumonia."
+  },
+  {
+    "id": "pharm_cat1_2024_012",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "NSAIDs",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which statement is incorrect?",
+    "options": [
+      "A. Tolmetin is a heteroaryl acetic acid.",
+      "B. Ibuprofen is indicated for patent ductus arteriosus.",
+      "C. Ibuprofen should be stopped if toxic amblyopia occurs.",
+      "D. Ketorolac is used for long term treatment of pain.",
+      "E. Diclofenac is hepatotoxic."
+    ],
+    "answer": "D. Ketorolac is used for long term treatment of pain.",
+    "explanation": "Ketorolac is indicated only for SHORT-TERM management of moderate-to-severe acute pain (maximum 5 days) due to its risk of serious GI and renal adverse effects. It is NOT for long-term use. All other statements are correct: tolmetin is a heteroaryl acetic acid NSAID, indomethacin/ibuprofen close PDA, ibuprofen can cause toxic amblyopia, and diclofenac has hepatotoxic potential."
+  },
+  {
+    "id": "pharm_cat1_2024_013",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "DMARDs",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "True of leflunomide except:",
+    "options": [
+      "A. Safe in pregnancy.",
+      "B. Is a disease modifying antirheumatic drug (DMARD).",
+      "C. Cholestyramine enhances its excretion.",
+      "D. Is a prodrug.",
+      "E. Inhibits T cell proliferation."
+    ],
+    "answer": "A. Safe in pregnancy.",
+    "explanation": "Leflunomide is teratogenic and is CONTRAINDICATED in pregnancy (Category X). It is a DMARD that works as a prodrug converted to teriflunomide, which inhibits dihydroorotate dehydrogenase suppressing T cell proliferation. Cholestyramine is used to enhance its elimination (washout procedure) when needed."
+  },
+  {
+    "id": "pharm_cat1_2024_014",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "DMARDs",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following is not a conventional synthetic DMARD?",
+    "options": [
+      "A. Chloroquine.",
+      "B. Abatacept.",
+      "C. Mycophenolate mofetil.",
+      "D. Sulfasalazine.",
+      "E. Methotrexate."
+    ],
+    "answer": "B. Abatacept.",
+    "explanation": "Abatacept is a biologic DMARD (a CTLA4-Ig fusion protein that inhibits T cell co-stimulation), NOT a conventional synthetic DMARD. Conventional synthetic DMARDs include methotrexate, sulfasalazine, hydroxychloroquine/chloroquine, leflunomide, and mycophenolate mofetil."
+  },
+  {
+    "id": "pharm_cat1_2024_015",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "NSAIDs",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "False regarding cyclooxygenase 2 (COX-2) selective non-steroidal anti-inflammatory drugs (NSAIDs):",
+    "options": [
+      "A. Lumiracoxib is the most selective for COX-2.",
+      "B. Celecoxib is five times more selective for COX-2 than COX-1.",
+      "C. Etodolac is an example.",
+      "D. Rofecoxib increases the risk of myocardial infarction.",
+      "E. COX-2 selective NSAIDs cause less gastric ulceration."
+    ],
+    "answer": "B. Celecoxib is five times more selective for COX-2 than COX-1.",
+    "explanation": "Celecoxib is actually about 10–30 times more selective for COX-2 than COX-1, not just 5 times. Lumiracoxib has the highest COX-2 selectivity. Etodolac is a COX-2 preferential NSAID. Rofecoxib (Vioxx) was withdrawn due to increased cardiovascular risk including MI. COX-2 selective agents do cause less GI ulceration."
+  },
+  {
+    "id": "pharm_cat1_2024_016",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antiparasitics",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which is the incorrect statement regarding the use of drugs in malaria prophylaxis?",
+    "options": [
+      "A. Mefloquine can be safely administered in the second trimester of pregnancy.",
+      "B. Suppressive prophylaxis involves administration of tissue schizonticide agents.",
+      "C. Daily oral doxycycline can be used for malaria prophylaxis in a 10-year-old child.",
+      "D. If travelling to an area with chloroquine sensitive Plasmodium falciparum, chloroquine should be started one week before travel.",
+      "E. Terminal prophylaxis involves administration of daily primaquine for two weeks after leaving an area endemic for Plasmodium vivax."
+    ],
+    "answer": "B. Suppressive prophylaxis involves administration of tissue schizonticide agents.",
+    "explanation": "Suppressive prophylaxis involves blood schizonticides (e.g., chloroquine, mefloquine) that kill the erythrocytic stage, NOT tissue schizonticides. Terminal prophylaxis uses tissue schizonticides (primaquine) to eliminate hepatic hypnozoites of P. vivax/P. ovale. Mefloquine is safe in 2nd trimester. Doxycycline is contraindicated under age 8. Chloroquine prophylaxis starts 1–2 weeks before travel."
+  },
+  {
+    "id": "pharm_cat1_2024_017",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antiparasitics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following antimalarial combination is recommended for intermittent preventive therapy in high-risk pregnant women?",
+    "options": [
+      "A. Pyrimethamine and sulfadiazine.",
+      "B. Pyrimethamine and clindamycin.",
+      "C. Pyrimethamine and dapsone.",
+      "D. Pyrimethamine and sulfadoxine.",
+      "E. Artemether and lumefantrine."
+    ],
+    "answer": "D. Pyrimethamine and sulfadoxine.",
+    "explanation": "Intermittent preventive treatment in pregnancy (IPTp) uses sulfadoxine-pyrimethamine (SP/Fansidar) given at each scheduled antenatal visit after the first trimester in malaria-endemic areas. This is the WHO-recommended regimen."
+  },
+  {
+    "id": "pharm_cat1_2024_018",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antifungals",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "The following topical antifungal agents are useful in the treatment of dermatomycosis infections except:",
+    "options": [
+      "A. Ketoconazole.",
+      "B. Ciclopirox olamine.",
+      "C. Terbinafine.",
+      "D. Tolnaftate.",
+      "E. Nystatin."
+    ],
+    "answer": "E. Nystatin.",
+    "explanation": "Nystatin is a polyene antifungal used for Candida infections (oral thrush, cutaneous candidiasis) but is NOT effective for dermatophyte infections (tinea/ringworm). Ketoconazole, ciclopirox, terbinafine, and tolnaftate are all effective topical agents for dermatomycosis."
+  },
+  {
+    "id": "pharm_cat1_2024_019",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "True regarding tetracyclines:",
+    "options": [
+      "A. Acidic pH impairs absorption.",
+      "B. Presence of food reduces absorption of doxycycline.",
+      "C. Minocycline exhibits a pharmacokinetic drug interaction with aluminium antacids.",
+      "D. Do not cross the placenta.",
+      "E. Reduces urinary excretion of the B vitamins."
+    ],
+    "answer": "C. Minocycline exhibits a pharmacokinetic drug interaction with aluminium antacids.",
+    "explanation": "Aluminium, calcium, magnesium, and iron chelate tetracyclines including minocycline, reducing their absorption — this is a significant pharmacokinetic interaction. Tetracycline absorption is impaired by alkaline pH (antacids), not acidic pH. Doxycycline absorption is NOT significantly affected by food (unlike other tetracyclines). Tetracyclines DO cross the placenta (hence contraindicated in pregnancy). They reduce intestinal flora that synthesize B vitamins, affecting their availability."
+  },
+  {
+    "id": "pharm_cat1_2024_020",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following is not a monobactam?",
+    "options": [
+      "A. Aztreonam.",
+      "B. Tigemonam.",
+      "C. Nocardicin A.",
+      "D. Tabtoxin.",
+      "E. Streptogramin B."
+    ],
+    "answer": "E. Streptogramin B.",
+    "explanation": "Streptogramin B (e.g., quinupristin) belongs to the streptogramin class of antibiotics — it inhibits protein synthesis and is NOT a monobactam. Aztreonam, tigemonam, and nocardicin A are monobactams (monocyclic beta-lactam antibiotics). Tabtoxin is a natural product with a monobactam-like ring."
+  },
+  {
+    "id": "pharm_cat1_2024_021",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "False regarding carbapenems:",
+    "options": [
+      "A. Meropenem is more likely to cause seizures than imipenem.",
+      "B. Ertapenem can be administered once daily.",
+      "C. Mechanism of resistance include the presence of drug efflux pumps and production of carbapenemases.",
+      "D. Imipenem is combined with cilastatin to inhibit renal metabolism of imipenem.",
+      "E. Doripenem has greater antipseudomonal activity than imipenem."
+    ],
+    "answer": "A. Meropenem is more likely to cause seizures than imipenem.",
+    "explanation": "Imipenem is MORE likely to cause seizures than meropenem — imipenem has the highest seizure potential among carbapenems, which is why it is combined with cilastatin (which also reduces nephrotoxicity). Meropenem, ertapenem, and doripenem have lower epileptogenic potential. All other statements are correct."
+  },
+  {
+    "id": "pharm_cat1_2024_022",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which antimicrobial cannot be applied topically?",
+    "options": [
+      "A. Mupirocin.",
+      "B. Clindamycin.",
+      "C. Clotrimazole.",
+      "D. Acyclovir.",
+      "E. Ketoconazole."
+    ],
+    "answer": "E. Ketoconazole.",
+    "explanation": "Ketoconazole IS available topically (shampoo and cream for fungal skin infections). However, in the context of this question, all options are available topically. The intended answer is likely Ketoconazole, but actually all five have topical formulations. Re-reading the context of this question within the exam — if the question focuses on antimicrobials used primarily systemically, ketoconazole oral has been largely replaced by itraconazole/fluconazole due to toxicity, and mupirocin, clindamycin, acyclovir, and clotrimazole are extensively used topically. Note: verify with your lecture notes for the specific expected answer."
+  },
+  {
+    "id": "pharm_cat1_2024_023",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "NSAIDs",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "One of the following is a xanthine oxidase inhibitor that is useful in the management of gout:",
+    "options": [
+      "A. Uricase.",
+      "B. Colchicine.",
+      "C. Probenecid.",
+      "D. Febuxostat.",
+      "E. Indomethacin."
+    ],
+    "answer": "D. Febuxostat.",
+    "explanation": "Febuxostat (like allopurinol) is a xanthine oxidase inhibitor that reduces uric acid synthesis, used for chronic gout management. Uricase (rasburicase) is a recombinant enzyme that converts uric acid to allantoin. Colchicine treats acute gout attacks via anti-inflammatory mechanisms. Probenecid is a uricosuric agent. Indomethacin is an NSAID used for acute gout."
+  },
+  {
+    "id": "pharm_cat1_2024_024",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "False about chloramphenicol:",
+    "options": [
+      "A. May cause aplastic anemia.",
+      "B. Causes grey baby syndrome in neonates.",
+      "C. Effective against rickettsia.",
+      "D. Is an enzyme inducer.",
+      "E. Inhibits bacterial protein synthesis."
+    ],
+    "answer": "D. Is an enzyme inducer.",
+    "explanation": "Chloramphenicol is actually an enzyme INHIBITOR (inhibits CYP2C9, CYP3A4), not an inducer. This is clinically significant as it increases levels of warfarin, phenytoin, and other drugs. It causes dose-independent aplastic anemia, dose-dependent grey baby syndrome (due to inability to conjugate the drug in neonates), is active against Rickettsia, and works by inhibiting the 50S ribosomal subunit."
+  },
+  {
+    "id": "pharm_cat1_2024_025",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following antituberculosis (anti-TB) drugs inhibits adenosine synthase?",
+    "options": [
+      "A. Cycloserine.",
+      "B. Pyrazinamide.",
+      "C. Ethionamide.",
+      "D. Bedaquiline.",
+      "E. Clofazimine."
+    ],
+    "answer": "D. Bedaquiline.",
+    "explanation": "Bedaquiline inhibits mycobacterial ATP synthase (adenosine triphosphate synthase), disrupting energy production in M. tuberculosis. It is used for MDR-TB. Cycloserine inhibits cell wall synthesis (D-alanine incorporation). Pyrazinamide disrupts membrane energy. Ethionamide inhibits mycolic acid synthesis. Clofazimine has multiple mechanisms including membrane disruption."
+  },
+  {
+    "id": "pharm_cat1_2024_026",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "True of clindamycin except:",
+    "options": [
+      "A. Crosses blood brain barrier.",
+      "B. Used in treatment of Pneumocystis jiroveci pneumonia.",
+      "C. Used in treatment of malaria.",
+      "D. Applied topically for the treatment of inflammatory acne.",
+      "E. Resistance may be due to enzymatic inactivation."
+    ],
+    "answer": "A. Crosses blood brain barrier.",
+    "explanation": "Clindamycin has POOR penetration into the CNS/CSF, making it unsuitable for CNS infections. It is used with primaquine for PCP, with quinine for malaria, topically for acne, and resistance occurs via enzymatic inactivation (adenylation of the drug)."
+  },
+  {
+    "id": "pharm_cat1_2024_027",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "DMARDs",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which statement is not true about chloroquine and hydroxychloroquine?",
+    "options": [
+      "A. May be used for the management of rheumatoid arthritis that has been unresponsive to NSAIDs.",
+      "B. Recommended for psoriatic arthritis.",
+      "C. May cause ocular toxicity.",
+      "D. Their clinical effect becomes apparent in 12–24 weeks following initiation of treatment.",
+      "E. Extensively bound to tissues."
+    ],
+    "answer": "B. Recommended for psoriatic arthritis.",
+    "explanation": "Chloroquine and hydroxychloroquine are NOT recommended for psoriatic arthritis and may actually worsen psoriasis. They are used for rheumatoid arthritis (unresponsive to NSAIDs), SLE, and discoid lupus. They cause retinal toxicity requiring regular ophthalmological monitoring, take months to work (12–24 weeks), and are extensively tissue-bound with very long half-lives."
+  },
+  {
+    "id": "pharm_cat1_2024_028",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antiparasitics",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following ectoparasiticide is indicated for treatment of both scabies and pediculosis?",
+    "options": [
+      "A. Pyrethrins with piperonyl butoxide.",
+      "B. Crotamiton.",
+      "C. Malathion.",
+      "D. Lindane.",
+      "E. Benzyl alcohol."
+    ],
+    "answer": "D. Lindane.",
+    "explanation": "Lindane (gamma-benzene hexachloride) is indicated for both scabies and pediculosis (lice), though its use is now restricted due to neurotoxicity. Pyrethrins are mainly for pediculosis. Crotamiton is for scabies only. Malathion is for pediculosis. Benzyl alcohol is for lice only."
+  },
+  {
+    "id": "pharm_cat1_2024_029",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antiparasitics",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Identify the antiprotozoal drug that is effective in the treatment of trypanosomiasis with central nervous system involvement:",
+    "options": [
+      "A. Sodium stibogluconate.",
+      "B. Metronidazole.",
+      "C. Suramin.",
+      "D. Pentamidine.",
+      "E. Melarsoprol."
+    ],
+    "answer": "E. Melarsoprol.",
+    "explanation": "Melarsoprol (an arsenical compound) penetrates the CNS and is the drug of choice for late-stage (CNS) African trypanosomiasis (sleeping sickness). Suramin and pentamidine are used for early-stage (bloodstream) trypanosomiasis without CNS involvement. Sodium stibogluconate treats leishmaniasis. Metronidazole treats other protozoa."
+  },
+  {
+    "id": "pharm_cat1_2024_030",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "The following drug can be used in the treatment of leprosy except:",
+    "options": [
+      "A. Clofazimine.",
+      "B. Rifampin.",
+      "C. Ethionamide.",
+      "D. Moxifloxacin.",
+      "E. Isoniazid."
+    ],
+    "answer": "E. Isoniazid.",
+    "explanation": "Isoniazid is NOT used in the treatment of leprosy — it is used for tuberculosis. WHO multidrug therapy (MDT) for leprosy uses rifampicin, dapsone, and clofazimine. Other second-line agents include ethionamide, minocycline, ofloxacin, and moxifloxacin."
+  },
+  {
+    "id": "pharm_cat1_2024_031",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "True about dapsone in the treatment of leprosy except:",
+    "options": [
+      "A. Inhibits dihydropteroate synthase.",
+      "B. It has poor cerebrospinal fluid (CSF) penetration.",
+      "C. Causes phototoxicity skin reaction.",
+      "D. Safe to use in patient with severe anemia.",
+      "E. Is the drug of choice."
+    ],
+    "answer": "D. Safe to use in patient with severe anemia.",
+    "explanation": "Dapsone causes hemolytic anemia (especially in G6PD-deficient patients) and methemoglobinemia, making it UNSAFE in patients with severe anemia. Dapsone inhibits dihydropteroate synthase (like sulfonamides). It has poor CSF penetration. Phototoxicity/photosensitivity reactions occur. Dapsone (with rifampicin and clofazimine) is the cornerstone of leprosy treatment."
+  },
+  {
+    "id": "pharm_cat1_2024_032",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antivirals",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which drug is used for the treatment of cytomegalovirus (CMV)?",
+    "options": [
+      "A. Acyclovir.",
+      "B. Penciclovir.",
+      "C. Ganciclovir.",
+      "D. Idoxuridine.",
+      "E. Amantadine."
+    ],
+    "answer": "C. Ganciclovir.",
+    "explanation": "Ganciclovir (and its prodrug valganciclovir) is the drug of choice for CMV infections. Acyclovir has poor activity against CMV. Penciclovir is for HSV. Idoxuridine is a topical antiviral for herpes keratitis. Amantadine is an anti-influenza A drug (and also used in Parkinson's disease)."
+  },
+  {
+    "id": "pharm_cat1_2024_033",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antivirals",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "True about interferon except:",
+    "options": [
+      "A. Promotes formation of natural killer cells.",
+      "B. Well absorbed when taken orally.",
+      "C. Used for treatment of chronic hepatitis B (HBV) infection.",
+      "D. Causes severe depression.",
+      "E. Contraindicated in pregnancy."
+    ],
+    "answer": "B. Well absorbed when taken orally.",
+    "explanation": "Interferons (alpha, beta, gamma) are proteins that are destroyed in the GI tract and have essentially NO oral bioavailability — they must be given parenterally (subcutaneous or intramuscular injection). They promote NK cell activity, are used for chronic HBV and HCV, cause significant neuropsychiatric side effects including severe depression, and are contraindicated in pregnancy."
+  },
+  {
+    "id": "pharm_cat1_2024_034",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antiparasitics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Clinical uses of chloroquine include the following except:",
+    "options": [
+      "A. Treatment of non-falciparum malaria.",
+      "B. Chemoprophylaxis of chloroquine sensitive falciparum malaria.",
+      "C. Treatment of amebic liver abscess.",
+      "D. Treatment of rheumatoid arthritis.",
+      "E. Treatment of cardiac arrhythmias."
+    ],
+    "answer": "E. Treatment of cardiac arrhythmias.",
+    "explanation": "Chloroquine is NOT used to treat cardiac arrhythmias — in fact, it can CAUSE arrhythmias (QT prolongation) as a side effect. Its uses include P. vivax/malariae/ovale malaria, chloroquine-sensitive P. falciparum, amoebic liver abscess, rheumatoid arthritis, and SLE."
+  },
+  {
+    "id": "pharm_cat1_2024_035",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antiparasitics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which is the false statement about quinine?",
+    "options": [
+      "A. It is more potent than quinidine.",
+      "B. It has no significant effect on hypnozoites.",
+      "C. It antagonizes the effect of physostigmine.",
+      "D. It is extensively metabolized.",
+      "E. It causes hypoglycemia."
+    ],
+    "answer": "A. It is more potent than quinidine.",
+    "explanation": "Quinidine is actually MORE potent than quinine as an antimalarial and has greater cardiac effects. Quinine has no effect on hepatic hypnozoites (it only acts on blood schizonts). It has anticholinergic properties antagonizing physostigmine. It is extensively hepatically metabolized. It stimulates insulin secretion causing hypoglycemia."
+  },
+  {
+    "id": "pharm_cat1_2024_036",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antibiotics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following is a third-generation cephalosporin?",
+    "options": [
+      "A. Cephalexin.",
+      "B. Ceftazidime.",
+      "C. Cefuroxime.",
+      "D. Loracarbef.",
+      "E. Cefepime."
+    ],
+    "answer": "B. Ceftazidime.",
+    "explanation": "Ceftazidime is a third-generation cephalosporin with excellent Pseudomonas coverage. Cephalexin is 1st generation. Cefuroxime is 2nd generation. Loracarbef is a carbacephem (2nd gen equivalent). Cefepime is 4th generation."
+  },
+  {
+    "id": "pharm_cat1_2024_037",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antivirals",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "All the following are mitochondrial toxic effects of nucleoside reverse transcriptase inhibitors (NRTIs) used in HIV treatment except:",
+    "options": [
+      "A. Peripheral neuropathy.",
+      "B. Lactic acidosis.",
+      "C. Skin rash.",
+      "D. Lipodystrophy.",
+      "E. Pancreatitis."
+    ],
+    "answer": "C. Skin rash.",
+    "explanation": "Skin rash is primarily associated with non-nucleoside reverse transcriptase inhibitors (NNRTIs) such as nevirapine and efavirenz — it is NOT a mitochondrial toxic effect of NRTIs. NRTI mitochondrial toxicity manifests as peripheral neuropathy, lactic acidosis (potentially fatal), lipodystrophy, myopathy, cardiomyopathy, and pancreatitis."
+  },
+  {
+    "id": "pharm_cat1_2024_038",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antivirals",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following antiretroviral drug is a maturation inhibitor?",
+    "options": [
+      "A. Bevirimat.",
+      "B. Lopinavir.",
+      "C. Zidovudine.",
+      "D. Dolutegravir.",
+      "E. Efavirenz."
+    ],
+    "answer": "A. Bevirimat.",
+    "explanation": "Bevirimat is a maturation inhibitor that blocks the final cleavage of Gag protein during HIV assembly, preventing formation of mature infectious virions. Lopinavir is a protease inhibitor. Zidovudine is an NRTI. Dolutegravir is an integrase strand transfer inhibitor. Efavirenz is an NNRTI."
+  },
+  {
+    "id": "pharm_cat1_2024_039",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "NSAIDs",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following is used for the treatment of neuropathic pain?",
+    "options": [
+      "A. Aspirin.",
+      "B. Paracetamol.",
+      "C. Codeine.",
+      "D. Carbamazepine.",
+      "E. Ibuprofen."
+    ],
+    "answer": "D. Carbamazepine.",
+    "explanation": "Carbamazepine is a sodium channel blocker anticonvulsant used as first-line treatment for trigeminal neuralgia and is widely used for neuropathic pain. Standard analgesics (aspirin, paracetamol, ibuprofen) and opioids (codeine) have limited efficacy for neuropathic pain. Other agents for neuropathic pain include gabapentin, pregabalin, TCAs, and SNRIs."
+  },
+  {
+    "id": "pharm_cat1_2024_040",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "DMARDs",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which is the false statement about the use of methotrexate for the treatment of rheumatoid arthritis?",
+    "options": [
+      "A. It has a bioavailability of 70% after oral administration.",
+      "B. It has a half-life of 6–9 hours.",
+      "C. It is often administered once weekly.",
+      "D. It is excreted mainly in bile.",
+      "E. Lower doses are used than those required in cancer chemotherapy."
+    ],
+    "answer": "D. It is excreted mainly in bile.",
+    "explanation": "Methotrexate is excreted primarily via the KIDNEYS (renal excretion ~90%), not bile. This is why it is dangerous in renal impairment. Its oral bioavailability is ~70%, half-life is 6–9 hours, it is given once weekly in RA (to reduce toxicity), and doses for RA (7.5–25 mg/week) are much lower than chemotherapy doses."
+  },
+  {
+    "id": "pharm_cat1_2024_041",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "DMARDs",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Tumor necrosis factor alfa (TNF-alfa) blocking drugs are associated with an increased risk of the following adverse effects except:",
+    "options": [
+      "A. Malignant melanoma.",
+      "B. Hepatitis B virus infections.",
+      "C. Gastrointestinal ulcers.",
+      "D. Systemic lupus erythematosus.",
+      "E. Injection site reactions."
+    ],
+    "answer": "C. Gastrointestinal ulcers.",
+    "explanation": "GI ulcers are NOT a recognized increased risk with TNF-alpha blockers (that is more associated with NSAIDs). TNF-alpha blockers (e.g., infliximab, etanercept, adalimumab) increase risk of infections (TB reactivation, HBV reactivation), lymphoma and non-melanoma skin cancers, drug-induced lupus, and injection site/infusion reactions."
+  },
+  {
+    "id": "pharm_cat1_2024_042",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antiparasitics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which drug is not used for the treatment of trematodes?",
+    "options": [
+      "A. Praziquantel.",
+      "B. Bithionol.",
+      "C. Ivermectin.",
+      "D. Niclosamide.",
+      "E. Metrifonate."
+    ],
+    "answer": "D. Niclosamide.",
+    "explanation": "Niclosamide is used for CESTODE (tapeworm) infections, NOT trematodes (flukes). Praziquantel is the drug of choice for most trematodes (schistosomiasis, liver flukes). Bithionol is used for lung fluke (Paragonimus). Metrifonate is used for Schistosoma haematobium. Ivermectin has some activity against certain trematodes."
+  },
+  {
+    "id": "pharm_cat1_2024_043",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antiparasitics",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following is not an adverse effect of albendazole?",
+    "options": [
+      "A. Nephrotoxicity.",
+      "B. Hepatotoxicity.",
+      "C. Alopecia.",
+      "D. Pancytopenia.",
+      "E. Fever."
+    ],
+    "answer": "A. Nephrotoxicity.",
+    "explanation": "Nephrotoxicity is NOT a recognized adverse effect of albendazole. Albendazole adverse effects include hepatotoxicity (elevated liver enzymes), alopecia (hair loss), bone marrow suppression causing pancytopenia, fever, and GI disturbances. Renal toxicity is not in its adverse effect profile."
+  },
+  {
+    "id": "pharm_cat1_2024_044",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antifungals",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following antifungal drug is not appropriately matched with its class?",
+    "options": [
+      "A. Polyene antifungal : nystatin.",
+      "B. Triazole : ketoconazole.",
+      "C. Echinocandins : anidulafungin.",
+      "D. Allylamine : terbinafine.",
+      "E. Antimetabolite analog : flucytosine."
+    ],
+    "answer": "B. Triazole : ketoconazole.",
+    "explanation": "Ketoconazole is an IMIDAZOLE, not a triazole. Triazoles include fluconazole, itraconazole, voriconazole, and posaconazole (they have a triazole ring). Ketoconazole, miconazole, and clotrimazole are imidazoles. All other matchings are correct: nystatin is a polyene, anidulafungin is an echinocandin, terbinafine is an allylamine, and flucytosine is a fluorinated pyrimidine antimetabolite."
+  },
+  {
+    "id": "pharm_cat1_2024_045",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "Antifungals",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "True of flucytosine except:",
+    "options": [
+      "A. It has a wide therapeutic window.",
+      "B. It is only administered orally.",
+      "C. It requires dosage adjustment in renal impairment.",
+      "D. It is a prodrug.",
+      "E. It is effective for the treatment of cryptococcus meningitis."
+    ],
+    "answer": "A. It has a wide therapeutic window.",
+    "explanation": "Flucytosine has a NARROW therapeutic window — toxicity (bone marrow suppression, GI effects) occurs at serum levels above 100 mcg/mL. It is administered both orally and IV. Renal dose adjustment is required as it is renally excreted. It is a prodrug converted intracellularly to 5-fluorouracil (the active metabolite). It is used with amphotericin B for cryptococcal meningitis."
+  },
+  {
+    "id": "pharm_cat1_2024_046",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "NSAIDs",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following opioid is not a strong agonist?",
+    "options": [
+      "A. Pethidine.",
+      "B. Levorphanol.",
+      "C. Butorphanol.",
+      "D. Alfentanil.",
+      "E. Morphine."
+    ],
+    "answer": "C. Butorphanol.",
+    "explanation": "Butorphanol is a mixed agonist-antagonist opioid — it acts as a kappa receptor agonist and a mu receptor partial agonist/antagonist. It is therefore NOT a pure strong agonist. Morphine, pethidine (meperidine), levorphanol, and alfentanil are all pure mu-receptor strong agonists."
+  },
+  {
+    "id": "pharm_cat1_2024_047",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "NSAIDs",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following statement about opioids is false?",
+    "options": [
+      "A. Analgesia occurs at supraspinal and spinal sites.",
+      "B. Enkephalins are endogenous ligands for mu receptors.",
+      "C. Activation of kappa receptors relieves pain through supraspinal mechanisms.",
+      "D. Opioid receptors are linked to G proteins.",
+      "E. Opioid analgesics act upon brain circuits that contain endogenous opioids."
+    ],
+    "answer": "B. Enkephalins are endogenous ligands for mu receptors.",
+    "explanation": "Enkephalins are endogenous ligands primarily for DELTA (δ) opioid receptors, not mu receptors. Endogenous ligands for mu receptors are beta-endorphins and endomorphins. Dynorphins are ligands for kappa receptors. All opioid receptors (mu, kappa, delta) are Gi/Go-protein coupled receptors. Opioids produce analgesia at both spinal and supraspinal (brain) sites."
+  },
+  {
+    "id": "pharm_cat1_2024_048",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "NSAIDs",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "Which of the following is not an effect of morphine?",
+    "options": [
+      "A. Mydriasis.",
+      "B. Euphoria.",
+      "C. Emesis.",
+      "D. Increased CSF pressure.",
+      "E. Decreased testosterone concentration."
+    ],
+    "answer": "A. Mydriasis.",
+    "explanation": "Morphine causes MIOSIS (pupillary constriction — pinpoint pupils), NOT mydriasis. This is mediated by stimulation of the Edinger-Westphal nucleus. Mydriasis (pupil dilation) is caused by anticholinergic or sympathomimetic drugs. Morphine does cause euphoria, nausea/vomiting (CTZ stimulation), increased intracranial/CSF pressure, and suppresses gonadotropins reducing testosterone."
+  },
+  {
+    "id": "pharm_cat1_2024_049",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "NSAIDs",
+    "difficulty": "hard",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "True about meperidine except:",
+    "options": [
+      "A. Is mainly a kappa receptor agonist.",
+      "B. Has mild spasmogenic effect in the biliary system.",
+      "C. Has synergistic effect with oxytocin in the uterus.",
+      "D. Causes tremors.",
+      "E. Is less potent than morphine."
+    ],
+    "answer": "A. Is mainly a kappa receptor agonist.",
+    "explanation": "Meperidine (pethidine) acts primarily on MU (μ) opioid receptors, NOT kappa receptors. It has a mild spasmogenic effect on the biliary tract (less than morphine). It has a synergistic effect with oxytocin. Its metabolite normeperidine causes CNS excitation including tremors and seizures. It is less potent than morphine (10:1 ratio — 100 mg pethidine ≈ 10 mg morphine)."
+  },
+  {
+    "id": "pharm_cat1_2024_050",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "topic": "NSAIDs",
+    "difficulty": "medium",
+    "year": 3,
+    "source": "MBCHB CAT 1 2024",
+    "question": "True about opioid antagonist except:",
+    "options": [
+      "A. Have high affinity for mu receptors.",
+      "B. Can reverse opioid activity at mu, kappa and delta receptors.",
+      "C. Naloxone is a morphine derivative.",
+      "D. The duration of action of naloxone is 6–8 hours.",
+      "E. The duration of action of naltrexone is 48 hours."
+    ],
+    "answer": "D. The duration of action of naloxone is 6–8 hours.",
+    "explanation": "Naloxone has a SHORT duration of action of only 1–4 hours (typically 1–2 hours), which is why repeat dosing or infusion is needed for opioid overdose. This is clinically important as patients may outlive the naloxone and re-narcotize. Naloxone is indeed a morphine derivative, has highest affinity for mu receptors, reverses all opioid receptor activity, and naltrexone has a longer duration (~24–72 hours, not specifically 48)."
+  }
+]
