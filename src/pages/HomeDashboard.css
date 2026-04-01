@@ -224,13 +224,7 @@
 
 /* Greeting */
 .hd-greeting-sub  { font-size: 12px; color: var(--hd-muted); }
-.hd-greeting-name {
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  display: block;
-  color: var(--hd-text);          /* explicitly dark — fixes white-on-white */
-}
+.hd-greeting-name { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; display: block; }
 
 /* Pills */
 .hd-streak-pill,
@@ -383,57 +377,57 @@
   66%       { transform: translate(-10px,20px) scale(0.96); }
 }
 
-/* Inner layout — SLIM */
+/* Inner layout */
 .hd-daily-inner {
   position: relative;
   z-index: 2;
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 14px 20px;
+  gap: 24px;
+  padding: 24px 28px;
 }
 
 .hd-daily-left  { flex: 1; min-width: 0; }
-.hd-daily-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.hd-daily-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 
 /* Badge */
 .hd-daily-badge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   background: rgba(255,190,11,0.2);
   border: 1px solid rgba(255,190,11,0.4);
   color: #ffbe0b;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 99px;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 
 /* Title */
 .hd-daily-title {
-  font-size: 16px;
+  font-size: 22px;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   background: linear-gradient(135deg, #fff 0%, #a5d8d4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 /* Progress */
-.hd-daily-progress-wrap { margin-bottom: 10px; }
+.hd-daily-progress-wrap { margin-bottom: 16px; }
 
 .hd-daily-progress-row {
   display: flex;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: 12px;
   color: rgba(255,255,255,0.6);
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .hd-daily-pct { font-weight: 700; color: #ffbe0b; }
@@ -456,23 +450,23 @@
 .hd-daily-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 18px;
+  gap: 8px;
+  padding: 11px 22px;
   background: linear-gradient(135deg, #2a9d8f, #0f6e56);
   color: #fff;
   border: none;
   border-radius: 10px;
   font-family: var(--hd-font);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 3px 12px rgba(42,157,143,0.35);
+  box-shadow: 0 4px 16px rgba(42,157,143,0.4);
   letter-spacing: -0.01em;
 }
 .hd-daily-btn:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(42,157,143,0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(42,157,143,0.5);
 }
 .hd-daily-btn:disabled {
   background: rgba(255,255,255,0.12);
@@ -483,12 +477,12 @@
 
 /* Streak ring */
 .hd-daily-streak-ring {
-  width: 68px; height: 68px;
+  width: 100px; height: 100px;
   border-radius: 50%;
   background: rgba(255,255,255,0.06);
   border: 2px solid rgba(255,255,255,0.12);
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 20px rgba(249,115,22,0.18);
+  box-shadow: 0 0 30px rgba(249,115,22,0.2);
   animation: hd-ring-pulse 3s ease-in-out infinite;
 }
 
@@ -509,7 +503,7 @@
 }
 
 .hd-daily-streak-num {
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 800;
   color: #fff;
   letter-spacing: -0.03em;
@@ -517,7 +511,7 @@
 }
 
 .hd-daily-streak-label {
-  font-size: 10px;
+  font-size: 11px;
   color: rgba(255,255,255,0.5);
   font-weight: 600;
   text-transform: uppercase;
@@ -634,9 +628,6 @@
 .hd-quick-orange::before { background: var(--hd-orange); }
 .hd-quick-orange .hd-quick-icon { background: var(--hd-orange-light); color: var(--hd-orange); }
 
-.hd-quick-blue::before   { background: #3b82f6; }
-.hd-quick-blue .hd-quick-icon   { background: #eff6ff; color: #3b82f6; }
-
 /* ═══════════════════════════════════════════════════════════
    MOTIVATION BANNER
 ═══════════════════════════════════════════════════════════ */
@@ -713,25 +704,26 @@
   .hd-greeting-sub  { font-size: 11px; }
   .hd-greeting-name { font-size: 14px; font-weight: 700; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
 
-  /* Daily challenge — ultra-thin on mobile */
+  /* Daily challenge — thinner on mobile */
   .hd-daily-inner {
-    flex-direction: row;
-    align-items: center;
-    padding: 12px 14px;
-    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 14px;
   }
   .hd-daily-right {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    width: 100%;
+    justify-content: space-between;
   }
-  .hd-daily-streak-ring { width: 52px; height: 52px; }
-  .hd-daily-streak-num  { font-size: 15px; }
-  .hd-daily-streak-inner svg { width: 12px; height: 12px; }
-  .hd-daily-title       { font-size: 14px; }
-  .hd-daily-badge       { font-size: 9px; margin-bottom: 4px; }
-  .hd-daily-btn         { padding: 7px 13px; font-size: 12px; }
-  .hd-daily-mini-stats  { display: none; } /* hide on very small screens */
-  .hd-orb-1, .hd-orb-2, .hd-orb-3 { display: none; }
+  .hd-daily-streak-ring { width: 64px; height: 64px; }
+  .hd-daily-streak-num  { font-size: 18px; }
+  .hd-daily-streak-inner svg { width: 14px; height: 14px; }
+  .hd-daily-title       { font-size: 17px; }
+  .hd-daily-badge       { font-size: 10px; margin-bottom: 6px; }
+  .hd-daily-btn         { padding: 9px 16px; font-size: 13px; }
+  .hd-orb-1, .hd-orb-2, .hd-orb-3 { display: none; } /* skip heavy animations on phone */
 
   .hd-stats-row   { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .hd-stat-card   { padding: 12px; gap: 8px; }
@@ -741,4 +733,135 @@
   .hd-quick-grid  { grid-template-columns: 1fr; }
 
   .hd-streak-pill { display: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FEEDBACK BANNER + FAB
+══════════════════════════════════════════════════════════════ */
+
+/* In-content banner */
+.hd-feedback-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, #0f2027 0%, #1a3a4a 50%, #2c5364 100%);
+  border-radius: var(--hd-radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 8px 32px rgba(15,32,39,0.25);
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+.hd-feedback-banner::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 120px; height: 120px;
+  background: rgba(42,157,143,0.15);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hd-feedback-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(15,32,39,0.35);
+}
+
+.hd-feedback-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hd-feedback-banner-icon {
+  font-size: 28px;
+  width: 50px; height: 50px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.hd-feedback-banner-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 3px;
+  letter-spacing: -0.01em;
+}
+.hd-feedback-banner-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+  margin: 0;
+}
+
+.hd-feedback-banner-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 20px;
+  background: rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  border-radius: 10px;
+  font-family: var(--hd-font);
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.hd-feedback-banner-btn:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.4);
+}
+
+/* Floating action button */
+.hd-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 24px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 20px;
+  background: linear-gradient(135deg, #2a9d8f, #0f6e56);
+  border: none;
+  border-radius: 99px;
+  font-family: var(--hd-font);
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(42,157,143,0.45), 0 2px 8px rgba(0,0,0,0.2);
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+  animation: hd-fab-in 0.4s cubic-bezier(0.22,1,0.36,1) 1s both;
+}
+.hd-fab:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 10px 32px rgba(42,157,143,0.55), 0 4px 12px rgba(0,0,0,0.2);
+}
+.hd-fab:active { transform: scale(0.97); }
+
+@keyframes hd-fab-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.8); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);   }
+}
+
+.hd-fab-label { letter-spacing: -0.01em; }
+
+/* Mobile: FAB gets slightly smaller, banner stacks */
+@media (max-width: 640px) {
+  .hd-feedback-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+  .hd-feedback-banner-btn { width: 100%; justify-content: center; }
+  .hd-fab { bottom: 20px; right: 16px; padding: 12px 16px; font-size: 13px; }
 }

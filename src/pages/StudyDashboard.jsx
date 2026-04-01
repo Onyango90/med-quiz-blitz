@@ -8,6 +8,8 @@ import grossAnatomy      from "../data/questions/gross_anatomy.json";
 import histology         from "../data/questions/histology.json";
 import embryology        from "../data/questions/embryology.json";
 import pathologyQuestions from "../data/questions/pathology.json";
+import physiologyLevel1   from "../data/questions/physiology_level1.json";
+import physiologyLevel2   from "../data/questions/physiology_level2.json";
 import pharmacologyQuestions, {
   antibiotics, cardiovascular as pharmaCardio, cns, endocrine as pharmaEndocrine,
 } from "../data/questions/pharmacology/index.js";
@@ -47,8 +49,26 @@ const TOPICS = [
     description: "How the body functions",
     color: "teal",
     path: "/study/physiology",
-    hasSubcategories: false,
-    count: 5,
+    hasSubcategories: true,
+    subcategories: [
+      {
+        name: "Level 1 Physiology",
+        icon: "💓",
+        description: "Core concepts & fundamentals",
+        path: "/study/physiology_level1",
+        questions: physiologyLevel1,
+        count: physiologyLevel1?.length || 0,
+      },
+      {
+        name: "Level 2 Physiology",
+        icon: "🫁",
+        description: "Respiratory, Renal & advanced",
+        path: "/study/physiology_level2",
+        questions: physiologyLevel2,
+        count: physiologyLevel2?.length || 0,
+      },
+    ],
+    count: (physiologyLevel1?.length || 0) + (physiologyLevel2?.length || 0),
   },
   {
     name: "Microbiology",

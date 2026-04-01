@@ -9,6 +9,8 @@ import embryology from "../data/questions/embryology.json";
 // Import other subjects
 import pathologyQuestions from "../data/questions/pathology.json";
 import pharmacologyQuestions from "../data/questions/pharmacology/index.js";
+import physiologyLevel1 from "../data/questions/physiology_level1.json";
+import physiologyLevel2 from "../data/questions/physiology_level2.json";
 
 import correctSoundFile from "../sound/correct.wav";
 import wrongSoundFile from "../sound/wrong.wav";
@@ -33,6 +35,12 @@ function getQuestions(topic, subtopic, locationState) {
       return pathologyQuestions;
     case "pharmacology":
       return pharmacologyQuestions;
+    case "physiology_level1":
+      return physiologyLevel1;
+    case "physiology_level2":
+      return physiologyLevel2;
+    case "physiology":
+      return [...(physiologyLevel1 || []), ...(physiologyLevel2 || [])];
     default:
       return [];
   }

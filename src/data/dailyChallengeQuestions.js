@@ -3,6 +3,7 @@ import pharmacology from "../data/questions/pharmacology.json";
 import pathology from "../data/questions/pathology.json";
 import microbiology from "../data/questions/microbiology.json";
 import physiology from "../data/questions/physiology.json";
+import physiologyLevel2 from "../data/questions/physiology_level2.json";
 
 function pickRandom(arr) {
   if (!arr || arr.length === 0) return null;
@@ -26,7 +27,7 @@ function pickQuestion(topics, type, year, difficulty = null) {
   return pickRandom(pool);
 }
 
-const allTopics = [pharmacology, pathology, microbiology, physiology];
+const allTopics = [pharmacology, pathology, microbiology, physiology, physiologyLevel2];
 
 // Fallback questions for each year level (with 3 XP)
 const fallbackQuestions = {

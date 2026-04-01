@@ -8,9 +8,11 @@ import {
   Gamepad2, Swords, BookOpen, Trophy,
   BarChart3, Settings, Flame, Sparkles,
   FileText, ChevronRight, Zap, Target,
-  Clock, TrendingUp, Star, Award, Menu
+  Clock, TrendingUp, Star, Award, Menu,
+  MessageSquare
 } from "lucide-react";
 import "./HomeDashboard.css";
+import FeedbackForm from "../components/FeedbackForm";
 
 // ── Admin email — only this user sees Import Questions ───────────────────────
 const ADMIN_EMAIL = process.env.REACT_APP_ADMIN_EMAIL || "admin@medblitz.app";
@@ -27,15 +29,16 @@ const QUOTES = [
 export default function HomeDashboard() {
   const navigate = useNavigate();
   const { currentUser, userData, loading: authLoading } = useAuth();
-  const { stats, loading: statsLoading, refreshStats } = useStats();
+  const { stats, loading: statsLoading } = useStats();
   const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 1024);
   const [quote] = useState(() => QUOTES[Math.floor(Math.random() * QUOTES.length)]);
   const [dailyProgress, setDailyProgress] = useState({ answered: 0, total: 20, xpEarned: 0 });
   const [time, setTime] = useState(new Date());
+  const [showFeedback, setShowFeedback] = useState(false);
 
   const isAdmin = currentUser?.email === ADMIN_EMAIL;
 
-  // Get actual user name — try Firebase displayName first, then email prefix
+  // Get actual user name
   const userName =
     currentUser?.displayName ||
     userData?.profile?.name ||
@@ -43,26 +46,12 @@ export default function HomeDashboard() {
     currentUser?.email?.split("@")[0] ||
     "Doctor";
 
-  // Pull stats directly from localStorage as the source of truth
-  // (statsService writes to localStorage; useStats reads from it on mount.
-  //  We re-read on every render so numbers are always current after a quiz.)
-  const liveStats = (() => {
-    if (!currentUser) return null;
-    try {
-      const raw = localStorage.getItem(`medblitz_stats_${currentUser.uid}`);
-      return raw ? JSON.parse(raw) : null;
-    } catch { return null; }
-  })();
-
-  const totalXP       = liveStats?.totalXP       ?? stats?.basic?.totalXP       ?? 0;
-  const streak        = liveStats?.currentStreak  ?? stats?.basic?.currentStreak  ?? 0;
-  const totalAnswered = liveStats?.totalAttempted ?? stats?.basic?.totalAttempted ?? 0;
-  const accuracy      = liveStats && liveStats.totalAttempted > 0
-    ? Math.round((liveStats.totalCorrect / liveStats.totalAttempted) * 100)
-    : (stats?.basic?.accuracy ?? 0);
-
-  const userYear    = userData?.profile?.year || 2;
-  const streakBonus = Math.min(20 + streak * 2, 40);
+  const totalXP       = stats?.basic?.totalXP       || 0;
+  const streak        = stats?.basic?.currentStreak  || 0;
+  const accuracy      = stats?.basic?.accuracy       || 0;
+  const totalAnswered = stats?.basic?.totalAttempted || 0;
+  const userYear      = userData?.profile?.year      || 2;
+  const streakBonus   = Math.min(20 + streak * 2, 40);
 
   // Clock
   useEffect(() => {
@@ -70,10 +59,8 @@ export default function HomeDashboard() {
     return () => clearInterval(t);
   }, []);
 
-  // Refresh stats & daily progress every time the dashboard mounts
-  // (covers returning from a quiz)
+  // Daily progress
   useEffect(() => {
-    refreshStats?.();
     const today = new Date().toISOString().split("T")[0];
     const data  = JSON.parse(localStorage.getItem("dailyChallenge")) || {};
     if (data[today]) setDailyProgress(data[today]);
@@ -156,9 +143,9 @@ export default function HomeDashboard() {
       path: "/ai-quiz", color: "amber",
     },
     {
-      icon: BarChart3, label: "My Stats",
-      desc: "Track your progress",
-      path: "/stats", color: "blue",
+      icon: Trophy, label: "Leaderboard",
+      desc: "See how you rank",
+      path: "/leaderboard", color: "orange",
     },
   ];
 
@@ -392,8 +379,33 @@ export default function HomeDashboard() {
             </div>
           )}
 
+          {/* ── Feedback banner ─────────────────────────────────────────── */}
+          <div className="hd-feedback-banner" onClick={() => setShowFeedback(true)}>
+            <div className="hd-feedback-banner-left">
+              <div className="hd-feedback-banner-icon">💬</div>
+              <div>
+                <p className="hd-feedback-banner-title">Share your feedback</p>
+                <p className="hd-feedback-banner-sub">Help us make MedBlitz better — takes 2 minutes</p>
+              </div>
+            </div>
+            <button className="hd-feedback-banner-btn">
+              <MessageSquare size={15} />
+              Give Feedback
+            </button>
+          </div>
+
         </div>
       </main>
+
+      {/* ── Floating feedback button ─────────────────────────────────── */}
+      <button className="hd-fab" onClick={() => setShowFeedback(true)} title="Give feedback">
+        <MessageSquare size={20} />
+        <span className="hd-fab-label">Feedback</span>
+      </button>
+
+      {/* ── Feedback modal ───────────────────────────────────────────── */}
+      {showFeedback && <FeedbackForm onClose={() => setShowFeedback(false)} />}
+
     </div>
   );
 }

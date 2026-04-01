@@ -1,0 +1,72 @@
+[
+  {
+    "text": "What is the primary function of the mitochondria?",
+    "options": [
+      "Protein synthesis",
+      "Energy production (ATP synthesis)",
+      "DNA replication",
+      "Hormone storage"
+    ],
+    "correctAnswer": 1,
+    "difficulty": "easy",
+    "year": 1,
+    "category": "Cell Biology",
+    "explanation": "Mitochondria are the powerhouse of the cell, responsible for producing adenosine triphosphate (ATP) through cellular respiration."
+  },
+  {
+    "text": "Which enzyme breaks down lactose into glucose and galactose?",
+    "options": [
+      "Amylase",
+      "Lactase",
+      "Sucrase",
+      "Maltase"
+    ],
+    "correctAnswer": 1,
+    "difficulty": "easy",
+    "year": 1,
+    "category": "Biochemistry",
+    "explanation": "Lactase is a disaccharidase enzyme produced in the small intestine that hydrolyzes lactose into glucose and galactose."
+  },
+  {
+    "text": "What is the correct pathway of blood flow through the heart?",
+    "options": [
+      "Right atrium → Right ventricle → Lungs → Left atrium → Left ventricle → Aorta",
+      "Left atrium → Left ventricle → Lungs → Right atrium → Right ventricle → Aorta",
+      "Right ventricle → Right atrium → Lungs → Left ventricle → Left atrium → Aorta",
+      "Left ventricle → Left atrium → Lungs → Right ventricle → Right atrium → Aorta"
+    ],
+    "correctAnswer": 0,
+    "difficulty": "medium",
+    "year": 1,
+    "category": "Gross Anatomy",
+    "explanation": "Deoxygenated blood returns to the right atrium, pumped to the right ventricle, sent to the lungs for oxygenation, returns to the left atrium, pumped to the left ventricle, and distributed via the aorta."
+  },
+  {
+    "text": "Which of the following is a contraindication for ACE inhibitor use?",
+    "options": [
+      "Hypertension",
+      "Bilateral renal artery stenosis",
+      "Heart failure",
+      "Type 2 diabetes mellitus"
+    ],
+    "correctAnswer": 1,
+    "difficulty": "hard",
+    "year": 3,
+    "category": "Pharmacology",
+    "explanation": "ACE inhibitors are contraindicated in bilateral renal artery stenosis as they can cause acute kidney injury by reducing glomerular filtration pressure."
+  },
+  {
+    "text": "What is the most common causative organism of community-acquired pneumonia in adults?",
+    "options": [
+      "Haemophilus influenzae",
+      "Streptococcus pneumoniae",
+      "Pseudomonas aeruginosa",
+      "Legionella pneumophila"
+    ],
+    "correctAnswer": 1,
+    "difficulty": "medium",
+    "year": 2,
+    "category": "Microbiology",
+    "explanation": "Streptococcus pneumoniae is the most common bacterial cause of community-acquired pneumonia in immunocompetent adults worldwide."
+  }
+]
