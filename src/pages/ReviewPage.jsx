@@ -103,8 +103,19 @@ const ReviewPage = () => {
     });
   };
 
+  // ── Navigate back to StudyMode at the NEXT batch ───────────────────
   const handleNextBatch = () => {
-    navigate("/study-dashboard");
+    const nextBatchIndex = (location.state?.currentBatchIndex ?? 0) + 1;
+    const path = location.state?.originalPath || (topic ? `/study/${topic}` : "/study-dashboard");
+
+    navigate(path, {
+      state: {
+        batchIndex: nextBatchIndex,
+        originalPath: path,
+        subtopic: subtopic,
+        topic: topic,
+      },
+    });
   };
 
   return (
@@ -239,23 +250,25 @@ const ReviewPage = () => {
           <span>🔄</span> Retry This Batch (No XP)
         </button>
         
-        <button
-          onClick={handleNextBatch}
-          style={{
-            padding: "12px 25px",
-            borderRadius: "10px",
-            border: "none",
-            backgroundColor: "#4CAF50",
-            color: "#fff",
-            cursor: "pointer",
-            fontWeight: 600,
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
-          <span>➡️</span> Next Batch
-        </button>
+        {location.state?.hasNextBatch !== false && (
+          <button
+            onClick={handleNextBatch}
+            style={{
+              padding: "12px 25px",
+              borderRadius: "10px",
+              border: "none",
+              backgroundColor: "#4CAF50",
+              color: "#fff",
+              cursor: "pointer",
+              fontWeight: 600,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <span>➡️</span> Next Batch (Level {(location.state?.currentBatchIndex ?? 0) + 2})
+          </button>
+        )}
       </section>
     </div>
   );

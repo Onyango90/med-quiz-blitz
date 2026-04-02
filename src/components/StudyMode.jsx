@@ -1,5 +1,6 @@
 ﻿import React, { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useStats } from "../hooks/useStats";
 
 // Import anatomy categories
 import grossAnatomy from "../data/questions/gross_anatomy.json";
@@ -8,9 +9,6 @@ import embryology from "../data/questions/embryology.json";
 
 // Import other subjects
 import pathologyQuestions from "../data/questions/pathology.json";
-import haematologyQuestions from "../data/questions/haematology.json";
-import clinicalChemistryQuestions from "../data/questions/clinical_chemistry.json";
-import immunologyQuestions from "../data/questions/immunology.json";
 import pharmacologyQuestions from "../data/questions/pharmacology/index.js";
 import physiologyLevel1 from "../data/questions/physiology_level1.json";
 import physiologyLevel2 from "../data/questions/physiology_level2.json";
@@ -36,12 +34,6 @@ function getQuestions(topic, subtopic, locationState) {
       return [...(grossAnatomy || []), ...(histology || []), ...(embryology || [])];
     case "pathology":
       return pathologyQuestions;
-    case "haematology":
-      return haematologyQuestions;
-    case "clinical_chemistry":
-      return clinicalChemistryQuestions;
-    case "immunology":
-      return immunologyQuestions;
     case "pharmacology":
       return pharmacologyQuestions;
     case "physiology_level1":
@@ -68,14 +60,20 @@ function StudyMode() {
   const { topic, subtopic } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+
+  // ── Stats hook — persists XP to localStorage ──────────────────────────
+  const { startSession, processAnswer, endSession } = useStats();
   
   // Check if this is a retry (no XP should be awarded)
   const isRetry = location.state?.isRetry || false;
   const currentSubtopic = subtopic || location.state?.subtopic;
   const allQuestions = getQuestions(topic, currentSubtopic, location) || [];
   const batches = getBatches(allQuestions, 15);
+
+  // Resume at the correct batch index if coming from ReviewPage "Next Batch"
+  const initialBatchIndex = location.state?.batchIndex || 0;
   
-  const [currentBatchIndex, setCurrentBatchIndex] = useState(0);
+  const [currentBatchIndex, setCurrentBatchIndex] = useState(initialBatchIndex);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
@@ -84,6 +82,7 @@ function StudyMode() {
   const [batchResults, setBatchResults] = useState([]);
   const [showBatchSummary, setShowBatchSummary] = useState(false);
   const [xpEarned, setXpEarned] = useState(0);
+  const [sessionStarted, setSessionStarted] = useState(false);
 
   const currentBatch = batches[currentBatchIndex] || [];
   const currentQuestion = currentBatch[currentIndex];
@@ -91,6 +90,14 @@ function StudyMode() {
 
   const correctSound = new Audio(correctSoundFile);
   const wrongSound = new Audio(wrongSoundFile);
+
+  // ── Start a stats session when study mode loads ──────────────────────
+  useEffect(() => {
+    if (!isRetry && !sessionStarted) {
+      startSession("study");
+      setSessionStarted(true);
+    }
+  }, []);
 
   useEffect(() => {
     setCurrentIndex(0);
@@ -178,7 +185,7 @@ function StudyMode() {
     }
     
     // Only add XP if NOT a retry
-    const xpToAdd = (!isRetry && isCorrect) ? (currentQuestion.xpValue || 0) : 0;
+    const xpToAdd = (!isRetry && isCorrect) ? (currentQuestion.xpValue || 10) : 0;
     
     if (isCorrect) {
       setAnswerStatus("correct");
@@ -189,6 +196,15 @@ function StudyMode() {
     } else {
       setAnswerStatus("wrong");
       wrongSound.play();
+    }
+
+    // ── Save XP and answer to stats service (persists to localStorage) ──
+    if (!isRetry) {
+      const qData = {
+        ...currentQuestion,
+        subject: currentQuestion.subject || topic || "Physiology",
+      };
+      processAnswer(qData, isCorrect, 0, "study");
     }
 
     setBatchResults(prev => [...prev, {
@@ -214,14 +230,26 @@ function StudyMode() {
     }
   };
 
+  // ── From batch summary: go to next batch within StudyMode ───────────
   const handleNextBatch = () => {
     setBatchResults([]);
     setShowBatchSummary(false);
     setCurrentBatchIndex(currentBatchIndex + 1);
   };
 
+  // ── From batch summary: go to ReviewPage, carrying batch context ─────
   const handleReviewBatch = () => {
-    navigate("/review", { state: { results: batchResults, topic, subtopic: currentSubtopic } });
+    navigate("/review", {
+      state: {
+        results: batchResults,
+        topic,
+        subtopic: currentSubtopic,
+        originalPath: location.state?.originalPath || `/study/${topic}`,
+        currentBatchIndex,
+        totalBatches: batches.length,
+        hasNextBatch: currentBatchIndex < batches.length - 1,
+      },
+    });
   };
 
   const cardStyle = {
