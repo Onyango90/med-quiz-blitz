@@ -13,8 +13,14 @@ import clinicalChemistryQuestions from "../data/questions/clinical_chemistry.jso
 import immunologyQuestions from "../data/questions/immunology.json";
 import physiologyLevel1   from "../data/questions/physiology_level1.json";
 import physiologyLevel2   from "../data/questions/physiology_level2.json";
-import pharmacologyQuestions, {
-  antibiotics, cardiovascular as pharmaCardio, cns, endocrine as pharmaEndocrine,
+import {
+  antibiotics,
+  antifungals,
+  antiparasitics,
+  cardiovascular as pharmaCardio,
+  cns,
+  disinfectants,
+  endocrine as pharmaEndocrine,
 } from "../data/questions/pharmacology/index.js";
 
 let clickSound;
@@ -128,16 +134,21 @@ const TOPICS = [
     icon: "💊",
     description: "Drugs & mechanisms of action",
     color: "purple",
-    path: "/study/pharmacology",
+    path: "/study/antibiotics",
     hasSubcategories: true,
     subcategories: [
-      { name: "All Pharmacology", icon: "💊", description: "All drug topics",        path: "/study/pharmacology",   questions: pharmacologyQuestions, count: pharmacologyQuestions?.length || 0 },
-      { name: "Antibiotics",      icon: "🧪", description: "Antibacterial drugs",    path: "/study/antibiotics",    questions: antibiotics,           count: antibiotics?.length || 12 },
-      { name: "Cardiovascular",   icon: "❤️",  description: "Heart & BP medications", path: "/study/cardiovascular", questions: pharmaCardio,          count: pharmaCardio?.length || 6 },
-      { name: "CNS Drugs",        icon: "🧠", description: "Neuro & psych drugs",    path: "/study/cns",            questions: cns,                   count: cns?.length || 5 },
-      { name: "Endocrine",        icon: "⚕️", description: "Hormones & diabetes",    path: "/study/endocrine",      questions: pharmaEndocrine,       count: pharmaEndocrine?.length || 3 },
+      { name: "Antibiotics",     icon: "🧪", description: "Antibacterial agents",    path: "/study/antibiotics",    questions: antibiotics,    count: antibiotics?.length    || 0 },
+      { name: "Antifungals",     icon: "🍄", description: "Antifungal agents",        path: "/study/antifungals",    questions: antifungals,    count: antifungals?.length    || 0 },
+      { name: "Antiparasitics",  icon: "🦠", description: "Antiparasitic drugs",      path: "/study/antiparasitics", questions: antiparasitics, count: antiparasitics?.length || 0 },
+      { name: "Cardiovascular",  icon: "❤️", description: "Heart & BP medications",   path: "/study/cardiovascular", questions: pharmaCardio,   count: pharmaCardio?.length   || 0 },
+      { name: "CNS Drugs",       icon: "🧠", description: "Neuro & psych drugs",      path: "/study/cns",            questions: cns,            count: cns?.length            || 0 },
+      { name: "Disinfectants",   icon: "🧴", description: "Antiseptics & sterilants", path: "/study/disinfectants",  questions: disinfectants,  count: disinfectants?.length  || 0 },
+      { name: "Endocrine",       icon: "⚕️", description: "Hormones & diabetes",      path: "/study/endocrine",      questions: pharmaEndocrine,count: pharmaEndocrine?.length|| 0 },
     ],
-    count: pharmacologyQuestions?.length || 0,
+    get count() {
+      return (antibiotics?.length||0)+(antifungals?.length||0)+(antiparasitics?.length||0)+
+             (pharmaCardio?.length||0)+(cns?.length||0)+(disinfectants?.length||0)+(pharmaEndocrine?.length||0);
+    },
   },
   {
     name: "Clinical Skills",

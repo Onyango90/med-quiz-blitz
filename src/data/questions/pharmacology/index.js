@@ -1,23 +1,17 @@
-// Import all category questions
-import antibiotics from './antibiotics.json';
-import cardiovascular from './cardiovascular.json';
-import cns from './cns.json';
-import endocrine from './endocrine.json';
+import antibiotics     from './antibiotics.json';
+import antifungals     from './antifungals.json';
+import antiparasitics  from './antiparasitics.json';
+import cardiovascular  from './cardiovascular.json';
+import cns             from './cns.json';
+import disinfectants   from './disinfectants.json';
+import endocrine       from './endocrine.json';
 
-// Combine all questions into one array
-const allPharmacologyQuestions = [
-    ...antibiotics,
-    ...cardiovascular,
-    ...cns,
-    ...endocrine
-];
-
-export default allPharmacologyQuestions;
-
-// Export categories separately for the dropdown
 export {
-    antibiotics,
-    cardiovascular,
-    cns,
-    endocrine
+  antibiotics,
+  antifungals,
+  antiparasitics,
+  cardiovascular,
+  cns,
+  disinfectants,
+  endocrine,
 };

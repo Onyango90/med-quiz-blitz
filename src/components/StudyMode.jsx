@@ -7,11 +7,26 @@ import grossAnatomy from "../data/questions/gross_anatomy.json";
 import histology from "../data/questions/histology.json";
 import embryology from "../data/questions/embryology.json";
 
-// Import other subjects
-import pathologyQuestions from "../data/questions/pathology.json";
-import pharmacologyQuestions from "../data/questions/pharmacology/index.js";
+// Import pathology subfiles
+import pathologyQuestions       from "../data/questions/pathology.json";
+import haematologyQuestions     from "../data/questions/haematology.json";
+import clinicalChemistryQuestions from "../data/questions/clinical_chemistry.json";
+import immunologyQuestions      from "../data/questions/immunology.json";
+
+// Import physiology
 import physiologyLevel1 from "../data/questions/physiology_level1.json";
 import physiologyLevel2 from "../data/questions/physiology_level2.json";
+
+// Import pharmacology subcategories
+import {
+  antibiotics,
+  antifungals,
+  antiparasitics,
+  cardiovascular as pharmaCardio,
+  cns,
+  disinfectants,
+  endocrine as pharmaEndocrine,
+} from "../data/questions/pharmacology/index.js";
 
 import correctSoundFile from "../sound/correct.wav";
 import wrongSoundFile from "../sound/wrong.wav";
@@ -24,26 +39,28 @@ function getQuestions(topic, subtopic, locationState) {
   
   // Handle anatomy categories
   switch (topic?.toLowerCase()) {
-    case "gross_anatomy":
-      return grossAnatomy;
-    case "histology":
-      return histology;
-    case "embryology":
-      return embryology;
-    case "anatomy":
-      return [...(grossAnatomy || []), ...(histology || []), ...(embryology || [])];
-    case "pathology":
-      return pathologyQuestions;
-    case "pharmacology":
-      return pharmacologyQuestions;
-    case "physiology_level1":
-      return physiologyLevel1;
-    case "physiology_level2":
-      return physiologyLevel2;
-    case "physiology":
-      return [...(physiologyLevel1 || []), ...(physiologyLevel2 || [])];
-    default:
-      return [];
+    case "gross_anatomy":   return grossAnatomy;
+    case "histology":       return histology;
+    case "embryology":      return embryology;
+    case "anatomy":         return [...(grossAnatomy||[]), ...(histology||[]), ...(embryology||[])];
+    // Pathology subfiles
+    case "pathology":       return pathologyQuestions;
+    case "haematology":     return haematologyQuestions;
+    case "clinical_chemistry": return clinicalChemistryQuestions;
+    case "immunology":      return immunologyQuestions;
+    // Physiology
+    case "physiology_level1": return physiologyLevel1;
+    case "physiology_level2": return physiologyLevel2;
+    case "physiology":      return [...(physiologyLevel1||[]), ...(physiologyLevel2||[])];
+    // Pharmacology subcategories
+    case "antibiotics":     return antibiotics;
+    case "antifungals":     return antifungals;
+    case "antiparasitics":  return antiparasitics;
+    case "cardiovascular":  return pharmaCardio;
+    case "cns":             return cns;
+    case "disinfectants":   return disinfectants;
+    case "endocrine":       return pharmaEndocrine;
+    default:                return [];
   }
 }
 
