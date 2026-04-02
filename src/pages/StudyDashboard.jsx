@@ -8,6 +8,9 @@ import grossAnatomy      from "../data/questions/gross_anatomy.json";
 import histology         from "../data/questions/histology.json";
 import embryology        from "../data/questions/embryology.json";
 import pathologyQuestions from "../data/questions/pathology.json";
+import haematologyQuestions from "../data/questions/haematology.json";
+import clinicalChemistryQuestions from "../data/questions/clinical_chemistry.json";
+import immunologyQuestions from "../data/questions/immunology.json";
 import physiologyLevel1   from "../data/questions/physiology_level1.json";
 import physiologyLevel2   from "../data/questions/physiology_level2.json";
 import pharmacologyQuestions, {
@@ -40,8 +43,49 @@ const TOPICS = [
     description: "Disease mechanisms & processes",
     color: "amber",
     path: "/study/pathology",
-    hasSubcategories: false,
-    count: pathologyQuestions?.length || 0,
+    hasSubcategories: true,
+    subcategories: [
+      {
+        name: "General Pathology",
+        icon: "🧫",
+        description: "Disease processes & mechanisms",
+        path: "/study/pathology",
+        questions: pathologyQuestions,
+        count: pathologyQuestions?.length || 0,
+      },
+      {
+        name: "Haematology",
+        icon: "🩸",
+        description: "Blood disorders, leukaemia & transfusion",
+        path: "/study/haematology",
+        questions: haematologyQuestions,
+        count: haematologyQuestions?.length || 0,
+      },
+      {
+        name: "Clinical Chemistry",
+        icon: "⚗️",
+        description: "Lab tests, biochemistry & interpretation",
+        path: "/study/clinical_chemistry",
+        questions: clinicalChemistryQuestions,
+        count: clinicalChemistryQuestions?.length || 0,
+      },
+      {
+        name: "Immunology",
+        icon: "🛡️",
+        description: "Immunity, hypersensitivity & autoimmunity",
+        path: "/study/immunology",
+        questions: immunologyQuestions,
+        count: immunologyQuestions?.length || 0,
+      },
+    ],
+    get count() {
+      return (
+        (pathologyQuestions?.length || 0) +
+        (haematologyQuestions?.length || 0) +
+        (clinicalChemistryQuestions?.length || 0) +
+        (immunologyQuestions?.length || 0)
+      );
+    },
   },
   {
     name: "Physiology",

@@ -63,7 +63,7 @@
     "explanation": "TP53 mutation is common in the late stages of colorectal cancer."
   },
   {
-    "id": "path_eoy_001",
+    "id": "path_006",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -82,7 +82,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_002",
+    "id": "path_007",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -101,7 +101,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_003",
+    "id": "path_008",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -120,7 +120,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_004",
+    "id": "path_009",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "easy",
@@ -139,7 +139,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_005",
+    "id": "path_010",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -158,7 +158,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_006",
+    "id": "path_011",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -177,7 +177,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_007",
+    "id": "path_012",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -196,7 +196,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_008",
+    "id": "path_013",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -215,7 +215,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_009",
+    "id": "path_014",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -234,7 +234,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_010",
+    "id": "path_015",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -253,7 +253,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_011",
+    "id": "path_016",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -272,7 +272,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_012",
+    "id": "path_017",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -291,7 +291,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_013",
+    "id": "path_018",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -310,7 +310,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_014",
+    "id": "path_019",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -329,7 +329,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_015",
+    "id": "path_020",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -348,7 +348,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_016",
+    "id": "path_021",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -367,7 +367,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_017",
+    "id": "path_022",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -386,7 +386,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_018",
+    "id": "path_023",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -405,7 +405,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_019",
+    "id": "path_024",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -424,7 +424,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_020",
+    "id": "path_025",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -443,7 +443,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_021",
+    "id": "path_026",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -462,7 +462,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_022",
+    "id": "path_027",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -481,7 +481,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_023",
+    "id": "path_028",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -500,7 +500,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_024",
+    "id": "path_029",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -519,7 +519,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_025",
+    "id": "path_030",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -538,7 +538,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_026",
+    "id": "path_031",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -557,45 +557,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_027",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "True about diffuse large B cell lymphoma",
-    "options": [
-      "70% purely extranodal",
-      "Most common adult non-Hodgkin's lymphoma",
-      "May arise from Hodgkins lymphoma",
-      "Most of them are activated B cell subtype",
-      "CD5 is positive in 50% o cases"
-    ],
-    "answer": "Most common adult non-Hodgkin's lymphoma",
-    "explanation": "DLBCL is the most common type of non-Hodgkin lymphoma in adults, accounting for approximately 30-40% of all cases.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_028",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "Which of the following immunohistochemical findings would support the diagnosis of diffuse large B cell lymphoma NOS",
-    "options": [
-      "Cyclin D1+",
-      "ALK+",
-      "TdT+",
-      "CD21-",
-      "BCL6-"
-    ],
-    "answer": "CD21-",
-    "explanation": "DLBCL is CD20+, CD79a+, BCL6+/- but CD21- (CD21 marks follicular dendritic cells, not B cell lymphomas). BCL6 positivity actually supports DLBCL.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_029",
+    "id": "path_032",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -614,7 +576,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_030",
+    "id": "path_033",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -633,7 +595,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_031",
+    "id": "path_034",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -652,7 +614,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_032",
+    "id": "path_035",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -671,7 +633,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_033",
+    "id": "path_036",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "easy",
@@ -690,7 +652,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_034",
+    "id": "path_037",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -709,7 +671,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_035",
+    "id": "path_038",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -728,7 +690,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_036",
+    "id": "path_039",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "easy",
@@ -747,7 +709,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_037",
+    "id": "path_040",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -766,7 +728,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_038",
+    "id": "path_041",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -785,7 +747,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_039",
+    "id": "path_042",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -804,7 +766,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_040",
+    "id": "path_043",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "easy",
@@ -823,7 +785,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_041",
+    "id": "path_044",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -842,7 +804,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_042",
+    "id": "path_045",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -861,7 +823,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_043",
+    "id": "path_046",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -880,235 +842,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_044",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "True of fluid specimens submitted for cytological assessment",
-    "options": [
-      "Must be preserved with 10% formalin",
-      "Delayed submission to the laboratory results in cellular degeneration",
-      "Are automated at KNH cytology lab",
-      "Have long turnaround time (TAT)",
-      "Do not require microscopic examination"
-    ],
-    "answer": "Delayed submission to the laboratory results in cellular degeneration",
-    "explanation": "Delayed submission of cytological fluid specimens causes cellular degeneration, artifact, and loss of diagnostic quality.",
-    "category": "Pathology Techniques",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_045",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "Glycated haemoglobin levels of 9% is indicative of",
-    "options": [
-      "Normal glucose homeostasis",
-      "Controlled diabetes mellitus",
-      "Acute myocardial infarction",
-      "Uncontrolled diabetes mellitus",
-      "Impaired glucose tolerance"
-    ],
-    "answer": "Uncontrolled diabetes mellitus",
-    "explanation": "HbA1c of 9% indicates poor glycaemic control (target <7% for controlled diabetes). Values >8% indicate uncontrolled diabetes mellitus.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_047",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "A 62-year-old female patient was found to have very low levels of FSH and estradiol. What is the diagnosis",
-    "options": [
-      "Hypopituitarism",
-      "Primary ovarian failure",
-      "Hypergonadotrophic hypergonadism",
-      "Addison's disease",
-      "Not diagnostic"
-    ],
-    "answer": "Hypopituitarism",
-    "explanation": "Low FSH with low estradiol indicates the problem is at the pituitary/hypothalamic level (secondary hypogonadism/hypopituitarism). Primary ovarian failure would show HIGH FSH.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_048",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "An oral glucose tolerance test was carried out in a 56 year old female patient. The fasting plasma glucose level was 6.4 mmol/l and 2 hour levels were 7.0 mmol/L. What is the diagnosis",
-    "options": [
-      "Normal response",
-      "Diabetes mellitus",
-      "Impaired glucose tolerance",
-      "Impaired fasting glycaemia",
-      "Not diagnostic"
-    ],
-    "answer": "Impaired fasting glycaemia",
-    "explanation": "Fasting 6.4 mmol/L is in the impaired fasting glycaemia range (5.6-6.9 mmol/L). 2-hour value of 7.0 mmol/L is normal (<7.8). So the diagnosis is IFG.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_049",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "The last biomarker to fall following acute myocardial infarction is",
-    "options": [
-      "CK-MB",
-      "Myoglobin",
-      "Creatine-kinase",
-      "LDH",
-      "AST"
-    ],
-    "answer": "LDH",
-    "explanation": "LDH peaks at 3-5 days and remains elevated for 10-14 days after MI, making it the last cardiac biomarker to return to normal.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_050",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "The excretory function of the liver can be assessed by measuring serum levels of",
-    "options": [
-      "Urea",
-      "Bilirubin",
-      "Ammonia",
-      "Uric acid",
-      "Bicarbonate"
-    ],
-    "answer": "Bilirubin",
-    "explanation": "Bilirubin is the main excretory product of the liver. Elevated serum bilirubin reflects impaired hepatic excretory function.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_051",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "The enzyme responsible for dilapidation of lipoprotein by removal of triglycerides is",
-    "options": [
-      "LCAT",
-      "Lipoprotein lipase",
-      "CETP",
-      "HMG CO reductase",
-      "Triacyl glycerol lyase"
-    ],
-    "answer": "Lipoprotein lipase",
-    "explanation": "Lipoprotein lipase (LPL) hydrolyzes triglycerides from VLDL and chylomicrons, leading to their catabolism.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_052",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "In the first 10 days of neonatal life a finding of indirect hyper bilirubinaemia is most likely due to",
-    "options": [
-      "Immature glucuronyl transferase",
-      "Acute viral hepatitis",
-      "Congenital liver disease",
-      "Biliary atresia",
-      "Malnutrition"
-    ],
-    "answer": "Immature glucuronyl transferase",
-    "explanation": "Physiological neonatal jaundice (indirect hyperbilirubinaemia) is due to immature hepatic glucuronyl transferase activity in the first days of life.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_053",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "An immunoglobulin causing a paraprotein can be identified through",
-    "options": [
-      "Serum electrophoresis of urine",
-      "Serum protein electrophoresis",
-      "Quantification of kappa and lambda chains",
-      "Immunofixation",
-      "Vanillyl mandelic acid analysis"
-    ],
-    "answer": "Immunofixation",
-    "explanation": "Immunofixation electrophoresis is the gold standard for identifying and characterizing paraproteins (monoclonal immunoglobulins).",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_054",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "The following arterial blood gas analysis profile was obtained from a 20 year old boy in the critical care unit: pH \u2013 7.22 (7.35-7.45); PCO2 \u2013 60 mmHg (35-45); HCO3 \u2013 28 mmol/L (22-28). Causes of the above acid-base disturbance include",
-    "options": [
-      "Acute kidney injury",
-      "Severe anaemia",
-      "High altitude",
-      "Heroine use",
-      "Hypertrophic pyloric stenosis"
-    ],
-    "answer": "Heroine use",
-    "explanation": "The ABG shows respiratory acidosis (low pH, high PCO2, compensatory high HCO3). Heroin causes respiratory depression \u2192 hypoventilation \u2192 respiratory acidosis.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_055",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "Normal TSH with normal free thyroxine and low Free T3 is diagnostic of",
-    "options": [
-      "Secondary hypothyroidism",
-      "Primary hypothyroidism",
-      "Non thyroidal illness",
-      "Primary hyperthyroidism",
-      "Euthyroidism"
-    ],
-    "answer": "Non thyroidal illness",
-    "explanation": "Normal TSH and T4 with low T3 is the classic pattern of sick euthyroid syndrome (non-thyroidal illness), where peripheral T4-to-T3 conversion is impaired.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_056",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "The test for checking mean plasma glucose concentration over the previous 2-3 weeks is",
-    "options": [
-      "Hemoglobin A1c",
-      "Oral glucose tolerance test (OGTT)",
-      "Fructosamine test",
-      "Fasting plasma glucose concentration",
-      "Microalbumin"
-    ],
-    "answer": "Fructosamine test",
-    "explanation": "Fructosamine (glycated albumin) reflects mean blood glucose over the previous 2-3 weeks. HbA1c reflects 2-3 months.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_057",
+    "id": "path_047",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "easy",
@@ -1127,178 +861,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_058",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Secondary adrenal cortical insufficiency is characterized by which hormonal profile",
-    "options": [
-      "High Cortisol, Low ACTH",
-      "High Cortisol, High ACTH",
-      "Low Cortisol, Low ACTH",
-      "Normal Cortisol, Low ACTH",
-      "High Cortisol, Normal ACTH"
-    ],
-    "answer": "Low Cortisol, Low ACTH",
-    "explanation": "Secondary adrenal insufficiency is due to pituitary failure \u2192 low ACTH \u2192 low cortisol. Primary (Addison's) shows low cortisol with HIGH ACTH.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_059",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "A 48-year-old male had a plasma potassium level of 2.8 mmol/L. Which of the following statement is true",
-    "options": [
-      "Insulin insufficiency can cause",
-      "It is associated with metabolic acidosis",
-      "It can occur in renal artery stenosis",
-      "It does not cause potentiation of digoxin toxicity",
-      "It can occur in Addison's disease"
-    ],
-    "answer": "It can occur in renal artery stenosis",
-    "explanation": "Renal artery stenosis activates RAAS \u2192 high aldosterone \u2192 urinary potassium wasting \u2192 hypokalaemia. Addison's causes HYPERkalaemia.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_060",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Which of the following metabolic consequences may occur in a 12 year old child with diabetes mellitus",
-    "options": [
-      "Reduced lipolysis",
-      "Increased ketogenesis",
-      "Reduced gluconeogenesis",
-      "Reduced proteolysis",
-      "Increased glycogenesis"
-    ],
-    "answer": "Increased ketogenesis",
-    "explanation": "In type 1 DM (likely in a 12-year-old), insulin deficiency leads to increased lipolysis \u2192 elevated free fatty acids \u2192 increased ketogenesis \u2192 diabetic ketoacidosis.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_061",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "A 26-year-old female is in the early stages of pregnancy. Which one of the following micronutrients would be recommended for the prevention of birth defects",
-    "options": [
-      "Thiamin",
-      "Vitamin C",
-      "Folic acid",
-      "Vitamin E",
-      "Vitamin D"
-    ],
-    "answer": "Folic acid",
-    "explanation": "Folic acid supplementation in early pregnancy prevents neural tube defects (spina bifida, anencephaly).",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_062",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "A dynamic test using TRH was carried out to assess hypothalamo-anterior pituitary functions. TSH levels were assessed. The results showed a delayed response. Where is the lesion",
-    "options": [
-      "Anterior pituitary",
-      "Hypothalamus",
-      "Thyroid gland",
-      "Adrenal cortex",
-      "Lung cancer"
-    ],
-    "answer": "Hypothalamus",
-    "explanation": "A delayed (rather than absent) TSH response to TRH suggests hypothalamic TRH deficiency \u2014 the pituitary can respond but does so slowly without adequate stimulation.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_063",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Which one of the following statements is CORRECT about creatine kinase (CK)",
-    "options": [
-      "Skeletal muscle and brain tissues contain the same isoenzyme",
-      "It is a tetramer with 8 isoenzyme types",
-      "The main circulating isoenzyme is derived from skeletal muscle",
-      "Cardiac muscle only contains the MB isoenzyme",
-      "Skeletal muscle tissue mainly contains the BB isoenzyme"
-    ],
-    "answer": "The main circulating isoenzyme is derived from skeletal muscle",
-    "explanation": "The main circulating CK in healthy individuals is CK-MM, derived from skeletal muscle. CK-MB is cardiac, CK-BB is brain.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_064",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "The following LFT findings were obtained for a 46-year-old man (Total Bilirubin 536.1, Direct Bilirubin 343.0, AST 2815, ALT 1330, GGT 560, Alk phosphatase 290). Which of the following is NOT correct",
-    "options": [
-      "The patient has a mixed bilirubinaemia",
-      "Patient will have pale stools",
-      "Serology for hepatitis B and C viruses should be done",
-      "Hepato-renal syndrome may be a complication",
-      "Patient is likely to have hypoalbuminaemia"
-    ],
-    "answer": "Patient will have pale stools",
-    "explanation": "The pattern shows hepatocellular damage (very high AST/ALT). Pale stools occur in obstructive jaundice. In hepatocellular disease, stools may be normal or slightly pale.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_065",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "Plasma NT-proBNP was estimated for a 38-year-old man and the result was 23150 pg/ml (0-500). Which of the following is NOT correct",
-    "options": [
-      "This is a biomarker for acute myocardial infarction",
-      "The patient is likely to have bi-pedal oedema",
-      "The plasma osmolality for this patient will be low",
-      "This biomarker counters the actions of aldosterone",
-      "Cardiac troponin may be elevated I this patient"
-    ],
-    "answer": "This is a biomarker for acute myocardial infarction",
-    "explanation": "NT-proBNP is a biomarker for heart failure, not acute MI. It reflects ventricular wall stress. Troponin is the biomarker for MI.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_066",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "Which of the following is not associated with abetalipoproteinaemia",
-    "options": [
-      "Hereditary spherocytosis",
-      "Acanthocytosis in peripheral blood",
-      "Malabsorption and fatty stools",
-      "Deficiency of fat soluble vitamins",
-      "Adrenal dysfunction"
-    ],
-    "answer": "Hereditary spherocytosis",
-    "explanation": "Abetalipoproteinaemia causes acanthocytosis (not spherocytosis), fat malabsorption, vitamin ADEK deficiency. Hereditary spherocytosis is a separate RBC membrane disorder.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_067",
+    "id": "path_048",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -1317,520 +880,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_068",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "One would encounter an erroneously low laboratory test result in samples collected as indicated below",
-    "options": [
-      "Glucose in fluoride tube",
-      "Albumin in a plain tube",
-      "Potassium in a plain tube",
-      "Bicarbonate in a heparin tube",
-      "Calcium in an EDTA tube"
-    ],
-    "answer": "Calcium in an EDTA tube",
-    "explanation": "EDTA chelates calcium ions, causing falsely low calcium results. This is why calcium must be measured in heparin or plain tubes, never EDTA.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_069",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Causes of a high anion gap metabolic acidosis include the following",
-    "options": [
-      "Diarrhoea",
-      "Methanol poisoning",
-      "Narcotic overdose",
-      "Acetazolamide therapy",
-      "Severe anaemia"
-    ],
-    "answer": "Methanol poisoning",
-    "explanation": "High anion gap metabolic acidosis (MUDPILES): Methanol, Uraemia, DKA, Propylene glycol, INH, Lactic acidosis, Ethylene glycol, Salicylates. Diarrhoea causes normal anion gap.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_070",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "All of the following statement is true concerning urobilinogen except",
-    "options": [
-      "Produced by oxidative action of intestinal bacteria",
-      "Undergoes significant enterohepatic circulation",
-      "Urinary levels increased in biliary obstruction",
-      "Faecal levels decreased in biliary obstruction",
-      "Can be found in gall bladder contents"
-    ],
-    "answer": "Urinary levels increased in biliary obstruction",
-    "explanation": "In biliary obstruction, no bilirubin reaches the gut \u2192 no urobilinogen produced \u2192 urinary urobilinogen is ABSENT/DECREASED, not increased.",
-    "category": "Clinical Biochemistry",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_071",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Which theory on the aetiology of autoimmune disease states that type I diabetes is triggered by a viral infection",
-    "options": [
-      "Theory of immune deficiency",
-      "Molecular mimicry",
-      "Clonal selection theory",
-      "Sequestered antigen",
-      "Type III hypersensitivity"
-    ],
-    "answer": "Molecular mimicry",
-    "explanation": "Molecular mimicry theory proposes that viral antigens share structural similarity with self-antigens (e.g., pancreatic beta cells), triggering cross-reactive autoimmunity in type 1 diabetes.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_072",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Which of the following immunopathological mechanisms BEST describes haemolytic disease of the newborn caused by Rhesus incompatibility",
-    "options": [
-      "Anaphylactic reaction",
-      "Cytotoxic hypersensitivity",
-      "Immune complex disease",
-      "Delayed hypersensitivity reaction",
-      "Allorecognition"
-    ],
-    "answer": "Cytotoxic hypersensitivity",
-    "explanation": "HDN due to Rh incompatibility is a Type II (cytotoxic) hypersensitivity reaction where maternal IgG anti-D antibodies cross the placenta and destroy fetal RBCs.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_073",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "Which one of the following sequences is appropriate for testing a patient for antibody against HIV with the ELISA procedure",
-    "options": [
-      "Patient's serum/enzyme substrate/HIV antigen/enzyme-labelled antibody against HIV",
-      "HIV antigen/patient's serum/enzyme-labelled antibody against human gamma globulin/enzyme substrate",
-      "Enzyme-labelled antibody against human gamma globulin/patient's serum/HIV antigen/enzyme substrate",
-      "Enzyme-labelled antibody against HIV/HIV antigen/patient's serum/enzyme substrate",
-      "Patient's serum/enzyme substrate/HIV antigen/enzyme-labelled antibody against human gamma globulin"
-    ],
-    "answer": "HIV antigen/patient's serum/enzyme-labelled antibody against human gamma globulin/enzyme substrate",
-    "explanation": "In indirect ELISA for HIV antibodies: HIV antigen is coated \u2192 patient serum is added \u2192 enzyme-labelled anti-human IgG is added \u2192 substrate is added for colorimetric detection.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_074",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Which of the following is the BEST method to demonstrate IgG on the glomerular basement membrane in a kidney tissue section",
-    "options": [
-      "Precipitin test",
-      "Complement fixation test",
-      "Agglutination test",
-      "Indirect fluorescent antibody test",
-      "Immunohistochemistry"
-    ],
-    "answer": "Immunohistochemistry",
-    "explanation": "Immunohistochemistry (or direct immunofluorescence) on tissue sections is the best method to demonstrate immunoglobulin deposits in situ on the glomerular basement membrane.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_075",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "Select the INCORRECT statement concerning Type I Hypersensitivity",
-    "options": [
-      "Antigen binds to IgE on the surface of mast cells causing the release of inflammatory mediators",
-      "It requires the formation of IgE antibody",
-      "Antigen binds to antigen specific IgE that is firmly attached to FceRI on mast cells but not on basophils or activated eosinophils",
-      "Re-exposure to the same antigen results in cross-linking of cell-bound IgE and release of inflammatory mediators within minutes",
-      "Cross-linking of FceRI on the surface of mast cells by antigen and IgE causes mast cell activation and degranulation"
-    ],
-    "answer": "Antigen binds to antigen specific IgE that is firmly attached to FceRI on mast cells but not on basophils or activated eosinophils",
-    "explanation": "IgE binds to FceRI on mast cells AND basophils (and activated eosinophils). The statement incorrectly excludes basophils.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_076",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Select the INCORRECT statement concerning Autoimmune Diseases",
-    "options": [
-      "Autoimmune diseases are chronic inflammatory processes directed against components of the body",
-      "Immunity against self-antigens is called autoimmunity",
-      "They are much more prevalent among females",
-      "AutoImmune responses resemble Type I hypersensitivity reactions",
-      "The mechanisms of some autoimmune responses are cell-mediated"
-    ],
-    "answer": "AutoImmune responses resemble Type I hypersensitivity reactions",
-    "explanation": "Autoimmune diseases resemble Type II, III, or IV hypersensitivity reactions, NOT Type I (anaphylactic/IgE-mediated).",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_077",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "The process by which neutrophils cross the vascular endothelium is called",
-    "options": [
-      "Diapedesis",
-      "Chemotaxis",
-      "Complement fixation",
-      "Opsonization",
-      "Polymorphonuclear leucocyte response"
-    ],
-    "answer": "Diapedesis",
-    "explanation": "Diapedesis (transmigration) is the process by which neutrophils squeeze between endothelial cells to exit blood vessels during inflammation.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_078",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "Which of the following autoimmune diseases is characterized by the presence of immune complexes formed between antibodies and DNA, histone, and ribosomal antigens",
-    "options": [
-      "Rheumatoid arthritis",
-      "Systemic lupus erythematosus",
-      "Hashimoto disease",
-      "Multiple sclerosis",
-      "Myasthenia gravis"
-    ],
-    "answer": "Systemic lupus erythematosus",
-    "explanation": "SLE is characterized by autoantibodies against nuclear antigens (anti-dsDNA, anti-histone, anti-Sm), forming immune complexes that deposit in tissues.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_079",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "T cell autoimmunity against myelin antigens can lead to which autoimmune disease",
-    "options": [
-      "Multiple sclerosis",
-      "Myasthenia gravis",
-      "Insulin-dependent diabetes mellitus",
-      "Rheumatoid arthritis",
-      "Systemic lupus erythematosus"
-    ],
-    "answer": "Multiple sclerosis",
-    "explanation": "Multiple sclerosis is caused by T cell-mediated autoimmunity against myelin antigens, leading to demyelination in the CNS.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_080",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "Mechanisms of peripheral tolerance include all the following EXCEPT",
-    "options": [
-      "Activation-induced cell death",
-      "CTLA-4 signaling",
-      "Production of suppressive cytokines by regulatory cells",
-      "Destruction of autoreactive cells by CTLs",
-      "Clonal anergy"
-    ],
-    "answer": "Destruction of autoreactive cells by CTLs",
-    "explanation": "Peripheral tolerance mechanisms include clonal anergy, CTLA-4 signaling, activation-induced cell death (AICD), and Treg suppression. CTL-mediated killing of autoreactive cells is not a tolerance mechanism.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_081",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "T cell number or function can be measure by all of the following EXCEPT",
-    "options": [
-      "Flow cytometry",
-      "Delayed type hypersensitivity (DTH) response",
-      "Lymphoproliferation",
-      "Cytokine production",
-      "Dihydrorhodamine oxidation"
-    ],
-    "answer": "Dihydrorhodamine oxidation",
-    "explanation": "Dihydrorhodamine (DHR) oxidation tests are used to assess neutrophil oxidative burst (for chronic granulomatous disease), NOT T cell function.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_082",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "A patient presents at 6 months with pneumonia and difficulty fighting off infections with encapsulated bacteria and enteroviruses. A mutation in Bruton's tyrosine kinase (Btk) is suspected. Which of the following is most likely",
-    "options": [
-      "Myeloperoxidase deficiency",
-      "DiGeorge syndrome",
-      "X-linked agammaglobulinaemia",
-      "Wiskott-Aldrich syndrome",
-      "Common variable immunodeficiency"
-    ],
-    "answer": "X-linked agammaglobulinaemia",
-    "explanation": "Bruton's tyrosine kinase (BTK) mutation causes X-linked agammaglobulinaemia (XLA), presenting after 6 months with recurrent encapsulated bacterial and enteroviral infections.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_083",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Which of the following is NOT true regarding live viral vectored vaccines",
-    "options": [
-      "They require strong adjuvants",
-      "They induce a broad and long-lasting immune response",
-      "They induce both cellular and humoral immunity",
-      "Adenovirus vectors are a good choice to use for vaccines",
-      "The vector does not replicate"
-    ],
-    "answer": "They require strong adjuvants",
-    "explanation": "Live viral vectored vaccines do NOT require adjuvants as the viral vector itself provides strong immunostimulation. Adjuvants are needed for inactivated/subunit vaccines.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_084",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "Helminthic ova are resistant to low pH and proteolytic digestion in the stomach. Adult worms living inside the lower gut are protected from many of the components of the immune response. Mast cells respond to helminths. What immunoglobulin activates these mast cells, leading to degranulation",
-    "options": [
-      "IgA",
-      "IgD",
-      "IgE",
-      "IgG",
-      "IgM"
-    ],
-    "answer": "IgE",
-    "explanation": "IgE binds to FceRI on mast cells. Cross-linking by helminth antigens triggers mast cell degranulation, releasing mediators that expel parasites.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_085",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Rheumatoid factors are",
-    "options": [
-      "DNA:anti-DNA immune complexes",
-      "Autoantibodies to IgM",
-      "Autoantibodies to complement components",
-      "Autoantibodies to IgG",
-      "Any factor predisposing to rheumatoid arthritis"
-    ],
-    "answer": "Autoantibodies to IgG",
-    "explanation": "Rheumatoid factors are autoantibodies (usually IgM) directed against the Fc portion of IgG immunoglobulins.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_086",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "Cryptic T-cell epitopes capable of triggering autoimmune disease",
-    "options": [
-      "Dominate the normal immune response",
-      "Negatively select T cells",
-      "Are unable to bind in the MHC groove",
-      "Can be derived by antigen processing",
-      "Are presented by MHC class I but not MHC class II molecules"
-    ],
-    "answer": "Can be derived by antigen processing",
-    "explanation": "Cryptic T-cell epitopes are generated by antigen processing and are normally not presented at sufficient levels for immune tolerance. They can trigger autoimmunity when revealed.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_087",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Which of the following antibodies are most useful for the diagnosis of pernicious anaemia",
-    "options": [
-      "Anti-parietal cell antibodies",
-      "Anti-thyroid peroxidase antibodies",
-      "Anti-nuclear antibodies",
-      "Anti-IgG Fc antibodies",
-      "Anti-TSH receptor antibodies"
-    ],
-    "answer": "Anti-parietal cell antibodies",
-    "explanation": "Anti-parietal cell antibodies (against H+/K+ ATPase) and anti-intrinsic factor antibodies are diagnostic of pernicious anaemia/autoimmune gastritis.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_088",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Which of the following statements is TRUE of malignant lymphoid cells",
-    "options": [
-      "They show maturation arrest at characteristic stages in differentiation",
-      "They form a polyclonal population of cells",
-      "They are non-dividing",
-      "They express several different tumour-specific antigens",
-      "They are always derived from various stages of the normal B-cell differentiation pathway"
-    ],
-    "answer": "They show maturation arrest at characteristic stages in differentiation",
-    "explanation": "Malignant lymphoid cells are frozen at a particular stage of differentiation (maturation arrest), forming a monoclonal population of identical cells.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_089",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Which of the following does NOT minimize allogeneic graft rejection",
-    "options": [
-      "Cyclosporine",
-      "Azathioprine",
-      "Cross-matching for ABO and MHC",
-      "Anti-CD3",
-      "Leukotriene inhibitors"
-    ],
-    "answer": "Leukotriene inhibitors",
-    "explanation": "Leukotriene inhibitors (e.g., montelukast) are used for asthma/allergies. They do not play a significant role in preventing allograft rejection.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_090",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "The best method for detecting a clonal T cell process is by",
-    "options": [
-      "In situ hybridization (ISH) for T cell DNA",
-      "Immunohistochemistry (IHC) for T cell markers",
-      "Cytologic examination for nuclear irregularity",
-      "DNA gene rearrangement studies",
-      "Electron microscopic (EM) inspection of nuclear features"
-    ],
-    "answer": "DNA gene rearrangement studies",
-    "explanation": "T cell receptor (TCR) gene rearrangement studies detect monoclonality at the DNA level, which is the gold standard for proving a clonal T cell process.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_091",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Cluster of differentiation (CD) antigens are glycoproteins present on the cell surface of many cell types involved in the immune system. They are recognized by monoclonal antibodies and aid in the identification of various cell types. Which of the following glycoproteins is present on the cell surface of all thymocytes: helper T-cells, cytotoxic T-cells, and natural killer cells",
-    "options": [
-      "B7",
-      "CD2",
-      "CD3",
-      "CD4",
-      "CD19"
-    ],
-    "answer": "CD3",
-    "explanation": "CD3 is part of the T cell receptor complex and is expressed on all T cells including helper (CD4+) and cytotoxic (CD8+) T cells, and also on NK cells. CD3 is the pan-T cell marker.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_092",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "DNA extraction/material is a pre-requisite for the following molecular techniques EXCEPT",
-    "options": [
-      "PCR technique",
-      "In situ hybridization",
-      "Western blot technique",
-      "Southern blot technique",
-      "Complementary genomic analysis"
-    ],
-    "answer": "Western blot technique",
-    "explanation": "Western blot separates PROTEINS by electrophoresis and detects them with antibodies. It does not require DNA extraction.",
-    "category": "Pathology Techniques",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_093",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "In flow cytometric analyses of leukaemic cells, the cells are scattered based on all of the following properties EXCEPT",
-    "options": [
-      "Cell size",
-      "Granularity",
-      "Cell surface markers",
-      "Cytoplasmic antigen markers",
-      "Nuclear antigen markers"
-    ],
-    "answer": "Nuclear antigen markers",
-    "explanation": "Flow cytometry scatters cells based on size (FSC) and granularity (SSC), and detects surface and cytoplasmic markers using fluorescence. Nuclear antigen markers require special permeabilization and are not used for standard scatter analysis.",
-    "category": "Pathology Techniques",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_094",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "The BEST strategy for dosing of immunoglobulin (Ig) replacement therapy in patients with antibody deficiency diseases is by achieving a serum IgG level",
-    "options": [
-      "Of 500 mg/dL",
-      "Of 500 mg/dL",
-      "Of 1000 mg/dL",
-      "Of 200 mg/dL over baseline",
-      "That minimizes the number of infections"
-    ],
-    "answer": "That minimizes the number of infections",
-    "explanation": "The optimal strategy for Ig replacement is individualized, targeting the trough IgG level that prevents infections for that particular patient, rather than a fixed number.",
-    "category": "Immunopathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_095",
+    "id": "path_049",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",
@@ -1849,957 +899,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_096",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "A 11 year is referred to hematology clinic and the notes read for evaluation of splenomegaly. The TBC show reduced Red cell count, neutrophils and platelets. This is",
-    "options": [
-      "Hyposplenism",
-      "Hypersplenism",
-      "Normal spleen",
-      "Not related to the spleen",
-      "More information on spleen required"
-    ],
-    "answer": "Hypersplenism",
-    "explanation": "Hypersplenism is an enlarged spleen that sequesters and destroys blood cells, causing pancytopenia (reduced RBCs, WBCs, and platelets).",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_097",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "If this 11 years old was suffering Sickle cell disease Hb SS the expected status of the spleen is functional",
-    "options": [
-      "Hyposplenism",
-      "Hypersplenism",
-      "No spleen function defect",
-      "Major structural splenic defect",
-      "Hyperactive massive splenomegaly"
-    ],
-    "answer": "Hyposplenism",
-    "explanation": "In sickle cell disease (HbSS), repeated sickling causes progressive splenic infarction and autosplenectomy, resulting in functional hyposplenism by age 5-6.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_097",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "Size of the spleen in hypersplenism is usually",
-    "options": [
-      "Normal",
-      "Reduced",
-      "Enlarged",
-      "No change",
-      "May be reduced or normal"
-    ],
-    "answer": "Enlarged",
-    "explanation": "By definition, hypersplenism involves an enlarged spleen (splenomegaly) that sequestrates blood cells, causing cytopenias.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_098",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "The test that confirms the haemoglobin status is",
-    "options": [
-      "Solubility",
-      "Blood film",
-      "Sodium metabisulfite tests",
-      "Electrophoresis",
-      "Bone marrow"
-    ],
-    "answer": "Electrophoresis",
-    "explanation": "Haemoglobin electrophoresis is the definitive test for identifying haemoglobin variants and confirming the haemoglobin status (e.g., HbSS, HbAS, HbSC).",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_099",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "A 32 year old is on follow up in the HIV clinic. The blood counts not expected to be reduced is",
-    "options": [
-      "Neutrophils",
-      "Monocytes",
-      "Eosinophils",
-      "Lymphocytes",
-      "CD4 lymphocytes"
-    ],
-    "answer": "Monocytes",
-    "explanation": "HIV causes CD4 lymphocytopenia, neutropenia, and eosinopenia. Monocytes are actually increased/activated in HIV infection.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_100",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "This case (HIV patient) need to be examined for possible HIV/AIDS defining malignancy but not",
-    "options": [
-      "Kaposi's Sarcoma",
-      "Cervical Cancer",
-      "High grade lymphoma",
-      "Ameloblastoma",
-      "Squamous cell carcinoma of conjunctiva"
-    ],
-    "answer": "Ameloblastoma",
-    "explanation": "AIDS-defining malignancies include Kaposi's sarcoma, high-grade B cell lymphoma, and invasive cervical cancer. Ameloblastoma is a benign jaw tumor unrelated to HIV.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_101",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "He should not be subjected to bone marrow examination if he has",
-    "options": [
-      "Lymphopenia",
-      "Myelodysplasia",
-      "Lymphoma",
-      "Pancytopenia",
-      "Isolated Thrombocytopenia"
-    ],
-    "answer": "Isolated Thrombocytopenia",
-    "explanation": "Isolated thrombocytopenia in an HIV patient is usually due to immune thrombocytopenia (ITP) and does not require bone marrow examination as first-line investigation.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_102",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "One of the reports reads 'plentiful Reed Sternberg cells'. This case has",
-    "options": [
-      "Hodgkin disease",
-      "Burkitt's lymphoma",
-      "Non-Hodgkin lymphoma",
-      "Non-Burkitt",
-      "High grade tumour"
-    ],
-    "answer": "Hodgkin disease",
-    "explanation": "Reed-Sternberg cells (large binucleated 'owl-eye' cells) are the pathognomonic finding of Hodgkin lymphoma.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_103",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "There is a second patient's report that shows in conclusion this H/E preparation shows clearly starry sky appearance, this is describing",
-    "options": [
-      "Hodgkin",
-      "Burkitt",
-      "Non Hodgkin intermediate grade",
-      "Non Burkitt",
-      "Low grade malignant lymphoma"
-    ],
-    "answer": "Burkitt",
-    "explanation": "Burkitt lymphoma characteristically shows a 'starry sky' pattern on H&E \u2014 pale macrophages (stars) scattered among dark tumor cells (sky).",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_104",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "For the definitive diagnosis of the lymphoma there is need for",
-    "options": [
-      "FNA",
-      "Cytology",
-      "Histology",
-      "Imprints",
-      "Trephine"
-    ],
-    "answer": "Histology",
-    "explanation": "Definitive lymphoma diagnosis requires histological examination of an excised lymph node to assess architecture, cell morphology, and immunohistochemistry.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_105",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Management of the following requires mandatorily staging",
-    "options": [
-      "Hodgkin",
-      "Burkitt",
-      "Non Hodgkin",
-      "Non Burkitt",
-      "High grade large cell lymphoma"
-    ],
-    "answer": "Hodgkin",
-    "explanation": "Hodgkin lymphoma requires Ann Arbor staging as it spreads contiguously and stage directly determines treatment (radiation vs chemotherapy combinations).",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_106",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "The leukaemia not diagnosed in children is",
-    "options": [
-      "Acute Lymphocytic",
-      "Chronic lymphocytic",
-      "Myeloid",
-      "Non-lymphoid",
-      "Myelomonocytic"
-    ],
-    "answer": "Chronic lymphocytic",
-    "explanation": "Chronic lymphocytic leukaemia (CLL) is a disease of the elderly (median age 70) and is essentially never diagnosed in children.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_107",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "Hodgkin does not clinically manifest with the following",
-    "options": [
-      "Contiguous spread",
-      "Waxing and waning",
-      "Pel Epstein type of fever",
-      "Multiple anatomical sites from the onset",
-      "Constitutional symptoms such as wasting and night sweat"
-    ],
-    "answer": "Multiple anatomical sites from the onset",
-    "explanation": "Hodgkin lymphoma characteristically begins at a single node and spreads contiguously. Presenting at multiple non-contiguous sites from the onset is more typical of non-Hodgkin lymphoma.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_108",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "The following is not among the ones considered on Policy statements on blood transfusion Service",
-    "options": [
-      "Blood donor",
-      "Donor blood utilization",
-      "Public education on blood transfusion",
-      "Testing for infectious diseases",
-      "Donor blood handling"
-    ],
-    "answer": "Donor blood utilization",
-    "explanation": "Standard blood transfusion policy covers donor selection, blood handling, infectious disease testing, and public education. 'Donor blood utilization' is not a standard policy statement category.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_109",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "According to the blood transfusion mandatory tests for infection diseases do not include",
-    "options": [
-      "HIV I and HIV II",
-      "Hepatitis A",
-      "Hepatitis B",
-      "Hepatitis C",
-      "VDRL"
-    ],
-    "answer": "Hepatitis A",
-    "explanation": "Mandatory blood transfusion screening includes HIV, Hepatitis B, Hepatitis C, and VDRL (syphilis). Hepatitis A is not screened as it is not transmitted by blood transfusion.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_110",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "Blood banks will not perform the following functions on donor blood",
-    "options": [
-      "Receiving",
-      "Synthesizing",
-      "Storing",
-      "Processing",
-      "Dispensing"
-    ],
-    "answer": "Synthesizing",
-    "explanation": "Blood banks receive, process, test, store, and dispense blood products. They do not synthesize blood \u2014 that is done in living organisms.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_111",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "At the Blood transfusion units the work schedule does not involve",
-    "options": [
-      "Antenatal care",
-      "Post-natal",
-      "Tests post transfusion event",
-      "Coordinating blood transfusion functions",
-      "Compatibility tests"
-    ],
-    "answer": "Antenatal care",
-    "explanation": "Blood transfusion units focus on blood processing, compatibility testing, and post-transfusion monitoring. Antenatal care is provided by obstetrics, not the blood transfusion unit.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_112",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "A lady 22 year old presents; Hb 4gm/dl WBC 12x10\u2079/l platelet 24X 10\u2079/l. The test that is not immediately necessary is",
-    "options": [
-      "Red cell indices",
-      "Blood film",
-      "Bone marrow",
-      "Full coagulation test",
-      "White blood cells differential count"
-    ],
-    "answer": "Full coagulation test",
-    "explanation": "This patient has severe anaemia with thrombocytopenia. Immediate tests are RBC indices, film, and differential to determine cause. Coagulation tests are not immediately indicated without bleeding symptoms.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_113",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "Coagulation tests show acquired Von Willebrand disease, the following test is not prolonged",
-    "options": [
-      "Activate Partial Thromboplastin Test (APTT)",
-      "Kaolin Cephalin Clotting Time (KCCT)",
-      "Prothrombin Test Time (PT)",
-      "Both APTT and KCCT",
-      "Bleeding Time Test"
-    ],
-    "answer": "Prothrombin Test Time (PT)",
-    "explanation": "Von Willebrand disease affects the intrinsic pathway and platelet adhesion. PT (extrinsic pathway) is NOT prolonged. APTT, KCCT, and bleeding time are prolonged.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_114",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "A sign that is indicative of cause of anaemia is",
-    "options": [
-      "Beefy red tongue",
-      "Koilonychia",
-      "Jaundice",
-      "Palour",
-      "Mucous membrane colour change"
-    ],
-    "answer": "Koilonychia",
-    "explanation": "Koilonychia (spoon-shaped nails) is specifically indicative of iron deficiency anaemia. Jaundice suggests haemolytic anaemia. Pallor is non-specific.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_115",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "The test among the following that is not relevant in evaluation of cause of low platelets is",
-    "options": [
-      "Total Blood Count",
-      "Blood film",
-      "Splenic aspirate",
-      "Bone marrow",
-      "Differential count"
-    ],
-    "answer": "Splenic aspirate",
-    "explanation": "Splenic aspirate is not a routine investigation for thrombocytopenia. CBC, blood film, bone marrow, and differential count are all relevant.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_116",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Lack of the intrinsic factor does not arise from",
-    "options": [
-      "Excess alcohol use",
-      "Chronic gastritis",
-      "Poor intake of Vitamin rich food",
-      "Gastrectomy",
-      "Atrophic gastritis"
-    ],
-    "answer": "Poor intake of Vitamin rich food",
-    "explanation": "Intrinsic factor deficiency arises from gastric causes (autoimmune gastritis, gastrectomy, atrophic gastritis, alcohol). Poor dietary intake causes B12 deficiency but does not affect intrinsic factor production.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_117",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "Over cooking food staff severely reduces levels of",
-    "options": [
-      "Vitamins",
-      "Vit B6",
-      "Iron",
-      "Folic acid",
-      "Vit B12"
-    ],
-    "answer": "Folic acid",
-    "explanation": "Folate is heat labile and is significantly destroyed by overcooking. B12 and iron are more heat-stable.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_118",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "The ABO blood group of the father is AB and the mother is O, the one group that is not possible offspring",
-    "options": [
-      "B",
-      "Both A and B blood groups",
-      "A",
-      "Any A,B, O",
-      "Both AB and O blood groups"
-    ],
-    "answer": "Both AB and O blood groups",
-    "explanation": "Father AB (I^A I^B) \u00d7 Mother O (ii): possible offspring are I^A i (A) or I^B i (B). AB requires both I^A and I^B from one parent \u2014 impossible. O requires ii \u2014 impossible. Therefore both AB and O are not possible.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_119",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "The following function is for the Regional Blood Transfusion Centre",
-    "options": [
-      "Policy and standards formulation",
-      "Storing donor blood",
-      "Blood donor system",
-      "Compatibility testing",
-      "Link blood donors and recipients"
-    ],
-    "answer": "Policy and standards formulation",
-    "explanation": "The Regional Blood Transfusion Centre is responsible for policy formulation, quality standards, and oversight. Individual hospitals perform compatibility testing and storage.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_120",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "An individual whose blood group is O Rh D negative has",
-    "options": [
-      "No antibodies in circulation",
-      "anti-D antibodies in their serum",
-      "no RhD antigens on their red cells",
-      "No H antigen on their red cells",
-      "no Rh antigens"
-    ],
-    "answer": "no RhD antigens on their red cells",
-    "explanation": "O Rh D negative means: Group O (H antigen present, no A/B), and RhD negative (no D antigen on RBCs). They do not naturally have anti-D unless sensitised.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_121",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Bone marrow examination is not indicated in suspected",
-    "options": [
-      "Myelodysplasia",
-      "Aplastic anaemia",
-      "Myelofibrosis",
-      "Lymphoproliferative disorders",
-      "Haemolytic anaemia"
-    ],
-    "answer": "Haemolytic anaemia",
-    "explanation": "Haemolytic anaemia is diagnosed by peripheral blood film, DAT, reticulocyte count, and LDH \u2014 bone marrow biopsy is not routinely indicated.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_122",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "The following is not a blood component",
-    "options": [
-      "Factor VIII concentrate",
-      "Cryoprecipitate",
-      "Platelet rich plasma",
-      "Washed red cell preparation",
-      "FFP"
-    ],
-    "answer": "Factor VIII concentrate",
-    "explanation": "Factor VIII concentrate is a plasma-derived or recombinant PRODUCT, not a blood component. Components are derived by physical separation (centrifugation) of whole blood.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_123",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "A Kenyan 6-year-old boy develops a rapidly growing jaw swelling, the first consideration is",
-    "options": [
-      "Burkitt's lymphoma",
-      "Osteogenic sarcoma",
-      "Dentigerous cyst",
-      "Rhabdomyosarcoma",
-      "Ameloblastoma"
-    ],
-    "answer": "Burkitt's lymphoma",
-    "explanation": "Endemic Burkitt lymphoma in Africa classically presents as rapidly growing jaw (mandibular) swelling in children aged 4-7, strongly associated with EBV.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_124",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "A blood donor may do so every",
-    "options": [
-      "One month",
-      "Two months",
-      "Three months",
-      "Six months",
-      "Once a year"
-    ],
-    "answer": "Three months",
-    "explanation": "Whole blood donation is recommended every 3 months (12 weeks) to allow adequate time for haemoglobin levels to recover.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_125",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "The one not associated with cause of Iron deficiency anaemia",
-    "options": [
-      "Polymenorrhagia",
-      "Terminal Ileum disease",
-      "Gastric ulcers",
-      "Gastric malignancy",
-      "Haemorrhoids"
-    ],
-    "answer": "Terminal Ileum disease",
-    "explanation": "Terminal ileum disease (Crohn's) causes B12 deficiency (ileum absorbs B12), not iron deficiency. Iron is absorbed in the duodenum/proximal jejunum.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_126",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Risk factors associated with aplastic anaemia do not include",
-    "options": [
-      "Viral infection",
-      "Chloramphenicol",
-      "Irradiation",
-      "Petroleum products",
-      "Chronic diseases"
-    ],
-    "answer": "Chronic diseases",
-    "explanation": "Aplastic anaemia risk factors include viral infections, drugs (chloramphenicol), radiation, and toxins. Chronic diseases per se are not a risk factor.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_127",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "Food Not rich in iron",
-    "options": [
-      "Fish",
-      "Broccoli",
-      "Milk",
-      "Liver",
-      "Red meat"
-    ],
-    "answer": "Milk",
-    "explanation": "Milk (dairy) is very low in iron and actually inhibits iron absorption due to calcium content. Liver, red meat, fish, and green vegetables are good iron sources.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_128",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "Manifestations of iron efficiency do not include",
-    "options": [
-      "Cyanosis",
-      "Pale skin",
-      "Dizziness",
-      "Brittle nails",
-      "Angular stomatitis"
-    ],
-    "answer": "Cyanosis",
-    "explanation": "Iron deficiency anaemia causes pallor, fatigue, dizziness, brittle nails, koilonychia, and angular stomatitis. Cyanosis indicates hypoxia/deoxygenation, not anaemia.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_129",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "In a patient diagnosed with thrombocytopenia, typically involves bleeding into the",
-    "options": [
-      "Ears",
-      "Liver and pancreas",
-      "Mucous membranes and skin",
-      "Brain",
-      "Limb"
-    ],
-    "answer": "Mucous membranes and skin",
-    "explanation": "Thrombocytopenic bleeding is characteristically mucocutaneous \u2014 petechiae, purpura, epistaxis, gingival bleeding. Deep tissue/organ bleeding is more typical of coagulation factor deficiencies.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_130",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "Universally, the most common type of anemia is deficiency of Absorbable haematinic",
-    "options": [
-      "B12",
-      "Iron",
-      "Folate",
-      "Pyridoxine",
-      "Renal failure"
-    ],
-    "answer": "Iron",
-    "explanation": "Iron deficiency anaemia is the most common type of anaemia worldwide, affecting billions of people, particularly women of childbearing age and children.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_131",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "Minimum weight for one to donate Red cell is",
-    "options": [
-      "29 kgs",
-      "50 kgs",
-      "72 kgs",
-      "61 kgs",
-      "58 kgs"
-    ],
-    "answer": "50 kgs",
-    "explanation": "The standard minimum weight for blood donation is 50 kg (110 lbs) to ensure donor safety and adequate blood volume for donation.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_132",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "The Schilling test evaluates absorption of",
-    "options": [
-      "All substrates",
-      "Iron absorption",
-      "Folate",
-      "Vitamin B12",
-      "Vitamin D"
-    ],
-    "answer": "Vitamin B12",
-    "explanation": "The Schilling test assesses Vitamin B12 absorption by comparing urinary excretion of radiolabelled B12 with and without intrinsic factor.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_133",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "ONE of these infectious agents is NOT transmitted by blood transfusion",
-    "options": [
-      "Malaria",
-      "Babesia",
-      "Trypanosomiasis",
-      "Hookworm",
-      "Leishmaniasis"
-    ],
-    "answer": "Hookworm",
-    "explanation": "Hookworm (Ancylostoma) is transmitted via skin contact with contaminated soil, not through blood transfusion. The others are all transfusion-transmissible.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_134",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Three times the haemoglobin level gives an estimate of",
-    "options": [
-      "MCV",
-      "MCH",
-      "MCHC",
-      "PCV/Haematocrit",
-      "MCDW"
-    ],
-    "answer": "PCV/Haematocrit",
-    "explanation": "PCV (Haematocrit) \u2248 3 \u00d7 Hb (in g/dL). This is a quick clinical estimate of haematocrit when automated analysers are unavailable.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_135",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "A ferritin level test assesses the status in the body of",
-    "options": [
-      "Vit B12",
-      "Folic acid",
-      "Pyridoxine phosphate",
-      "Iron",
-      "Haematinics"
-    ],
-    "answer": "Iron",
-    "explanation": "Serum ferritin is the most sensitive marker of iron stores. Low ferritin is the earliest indicator of iron deficiency.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_136",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Family history is not relevant in the following cause of anaemia",
-    "options": [
-      "Elliptocytosis",
-      "Glucose 6-phosphate dehydrogenase deficiency",
-      "Thalassaemia",
-      "Red cell fragmentation anaemia",
-      "Spherocytic anaemia"
-    ],
-    "answer": "Red cell fragmentation anaemia",
-    "explanation": "Red cell fragmentation (microangiopathic haemolytic anaemia) is caused by acquired conditions (TTP, HUS, DIC) and is NOT hereditary. The others have genetic components.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_137",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "If a patient were suffering from an abscess, the expected cells to be increased in the blood is",
-    "options": [
-      "Erythrocytes",
-      "Lymphocytes",
-      "Neutrophils",
-      "Platelets",
-      "Eosinophils"
-    ],
-    "answer": "Neutrophils",
-    "explanation": "Bacterial abscesses cause neutrophilia (increased neutrophils) as the primary response to pyogenic infection.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_138",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "hard",
-    "question": "There is no need for Child diagnosed to have severe haemophilia A to have written on the card the showing",
-    "options": [
-      "Level of severity",
-      "Response to factor",
-      "Status of inhibitor",
-      "Gender",
-      "Last date of receiving factor"
-    ],
-    "answer": "Gender",
-    "explanation": "Haemophilia A is X-linked and almost exclusively affects males. Gender is already known and does not need to be specifically recorded as a clinical management parameter.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_139",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "easy",
-    "question": "Do not advice the following for those with sickle cell anemia",
-    "options": [
-      "Keeping warm",
-      "Physically demanding exercise",
-      "Know triggers of events",
-      "Drinks lots of water",
-      "Take balanced diet"
-    ],
-    "answer": "Physically demanding exercise",
-    "explanation": "Strenuous physical exercise increases oxygen demand, promotes deoxygenation, and can trigger sickling crises. It should be avoided in sickle cell patients.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_140",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "The following interventions is not appropriate for a patient with Thrombocytopenia",
-    "options": [
-      "Intramuscular injections",
-      "Administration of aspirin",
-      "Giving NSAID's",
-      "Use of hard tooth brush",
-      "Ordering blood for transfusion"
-    ],
-    "answer": "Ordering blood for transfusion",
-    "explanation": "In thrombocytopenia, platelet transfusion (not red cell transfusion) is indicated for bleeding. Red cell transfusion does not address the underlying thrombocytopenia.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_141",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "The main site of haemopoiesis in the first 2 weeks of foetal life is",
-    "options": [
-      "Spleen",
-      "Lymph node",
-      "Yolk sac",
-      "Liver",
-      "Bone Marrow"
-    ],
-    "answer": "Yolk sac",
-    "explanation": "In the first 2-8 weeks of fetal life, primitive haemopoiesis occurs in the yolk sac. The liver takes over at weeks 6-7, then bone marrow from week 20 onwards.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_142",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "The tests for the haemolysis do not include",
-    "options": [
-      "Coagulation screening test",
-      "Peripheral blood film",
-      "White cell counts",
-      "Reticulocyte test",
-      "Total blood counts"
-    ],
-    "answer": "Coagulation screening test",
-    "explanation": "Haemolysis investigations include blood film (schistocytes), reticulocyte count, LDH, haptoglobin, DAT, and full blood count. Coagulation screen is NOT a haemolysis test.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_143",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "Diagnosis of acute leukaemia is based on",
-    "options": [
-      "Special cytochemistry",
-      "Differential count",
-      "Bone marrow",
-      "Total blood count",
-      "Blood film"
-    ],
-    "answer": "Bone marrow",
-    "explanation": "Definitive diagnosis of acute leukaemia requires bone marrow examination (>20% blasts by WHO criteria), supported by morphology, cytochemistry, and immunophenotyping.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_144",
-    "type": "mcq",
-    "subject": "Pathology",
-    "difficulty": "medium",
-    "question": "The following has a diagnostic chromosomal change",
-    "options": [
-      "Acute lymphocytic leukaemia",
-      "Chronic myeloid leukaemia",
-      "Acute myeloid leukaemia",
-      "Acute promyelocytic leukaemia",
-      "Chronic lymphocytic leukaemia"
-    ],
-    "answer": "Chronic myeloid leukaemia",
-    "explanation": "CML has the pathognomonic Philadelphia chromosome t(9;22), forming BCR-ABL fusion gene. This is the most diagnostically definitive chromosomal change in haematological malignancy.",
-    "category": "Haematological Pathology",
-    "year": 3,
-    "source": "UoN Pathology EOY MCQs 2024"
-  },
-  {
-    "id": "path_eoy_145",
+    "id": "path_050",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -2818,7 +918,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_146",
+    "id": "path_051",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -2837,7 +937,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_147",
+    "id": "path_052",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "hard",
@@ -2856,7 +956,7 @@
     "source": "UoN Pathology EOY MCQs 2024"
   },
   {
-    "id": "path_eoy_148",
+    "id": "path_053",
     "type": "mcq",
     "subject": "Pathology",
     "difficulty": "medium",

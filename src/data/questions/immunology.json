@@ -1,0 +1,382 @@
+[
+  {
+    "id": "immu_001",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "medium",
+    "question": "Which theory on the aetiology of autoimmune disease states that type I diabetes is triggered by a viral infection",
+    "options": [
+      "Theory of immune deficiency",
+      "Molecular mimicry",
+      "Clonal selection theory",
+      "Sequestered antigen",
+      "Type III hypersensitivity"
+    ],
+    "answer": "Molecular mimicry",
+    "explanation": "Molecular mimicry theory proposes that viral antigens share structural similarity with self-antigens (e.g., pancreatic beta cells), triggering cross-reactive autoimmunity in type 1 diabetes.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_002",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "medium",
+    "question": "Which of the following immunopathological mechanisms BEST describes haemolytic disease of the newborn caused by Rhesus incompatibility",
+    "options": [
+      "Anaphylactic reaction",
+      "Cytotoxic hypersensitivity",
+      "Immune complex disease",
+      "Delayed hypersensitivity reaction",
+      "Allorecognition"
+    ],
+    "answer": "Cytotoxic hypersensitivity",
+    "explanation": "HDN due to Rh incompatibility is a Type II (cytotoxic) hypersensitivity reaction where maternal IgG anti-D antibodies cross the placenta and destroy fetal RBCs.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_003",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "hard",
+    "question": "Which one of the following sequences is appropriate for testing a patient for antibody against HIV with the ELISA procedure",
+    "options": [
+      "Patient's serum/enzyme substrate/HIV antigen/enzyme-labelled antibody against HIV",
+      "HIV antigen/patient's serum/enzyme-labelled antibody against human gamma globulin/enzyme substrate",
+      "Enzyme-labelled antibody against human gamma globulin/patient's serum/HIV antigen/enzyme substrate",
+      "Enzyme-labelled antibody against HIV/HIV antigen/patient's serum/enzyme substrate",
+      "Patient's serum/enzyme substrate/HIV antigen/enzyme-labelled antibody against human gamma globulin"
+    ],
+    "answer": "HIV antigen/patient's serum/enzyme-labelled antibody against human gamma globulin/enzyme substrate",
+    "explanation": "In indirect ELISA for HIV antibodies: HIV antigen is coated \u2192 patient serum is added \u2192 enzyme-labelled anti-human IgG is added \u2192 substrate is added for colorimetric detection.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_004",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "medium",
+    "question": "Which of the following is the BEST method to demonstrate IgG on the glomerular basement membrane in a kidney tissue section",
+    "options": [
+      "Precipitin test",
+      "Complement fixation test",
+      "Agglutination test",
+      "Indirect fluorescent antibody test",
+      "Immunohistochemistry"
+    ],
+    "answer": "Immunohistochemistry",
+    "explanation": "Immunohistochemistry (or direct immunofluorescence) on tissue sections is the best method to demonstrate immunoglobulin deposits in situ on the glomerular basement membrane.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_005",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "hard",
+    "question": "Select the INCORRECT statement concerning Type I Hypersensitivity",
+    "options": [
+      "Antigen binds to IgE on the surface of mast cells causing the release of inflammatory mediators",
+      "It requires the formation of IgE antibody",
+      "Antigen binds to antigen specific IgE that is firmly attached to FceRI on mast cells but not on basophils or activated eosinophils",
+      "Re-exposure to the same antigen results in cross-linking of cell-bound IgE and release of inflammatory mediators within minutes",
+      "Cross-linking of FceRI on the surface of mast cells by antigen and IgE causes mast cell activation and degranulation"
+    ],
+    "answer": "Antigen binds to antigen specific IgE that is firmly attached to FceRI on mast cells but not on basophils or activated eosinophils",
+    "explanation": "IgE binds to FceRI on mast cells AND basophils (and activated eosinophils). The statement incorrectly excludes basophils.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_006",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "medium",
+    "question": "Select the INCORRECT statement concerning Autoimmune Diseases",
+    "options": [
+      "Autoimmune diseases are chronic inflammatory processes directed against components of the body",
+      "Immunity against self-antigens is called autoimmunity",
+      "They are much more prevalent among females",
+      "AutoImmune responses resemble Type I hypersensitivity reactions",
+      "The mechanisms of some autoimmune responses are cell-mediated"
+    ],
+    "answer": "AutoImmune responses resemble Type I hypersensitivity reactions",
+    "explanation": "Autoimmune diseases resemble Type II, III, or IV hypersensitivity reactions, NOT Type I (anaphylactic/IgE-mediated).",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_007",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "easy",
+    "question": "The process by which neutrophils cross the vascular endothelium is called",
+    "options": [
+      "Diapedesis",
+      "Chemotaxis",
+      "Complement fixation",
+      "Opsonization",
+      "Polymorphonuclear leucocyte response"
+    ],
+    "answer": "Diapedesis",
+    "explanation": "Diapedesis (transmigration) is the process by which neutrophils squeeze between endothelial cells to exit blood vessels during inflammation.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_008",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "easy",
+    "question": "Which of the following autoimmune diseases is characterized by the presence of immune complexes formed between antibodies and DNA, histone, and ribosomal antigens",
+    "options": [
+      "Rheumatoid arthritis",
+      "Systemic lupus erythematosus",
+      "Hashimoto disease",
+      "Multiple sclerosis",
+      "Myasthenia gravis"
+    ],
+    "answer": "Systemic lupus erythematosus",
+    "explanation": "SLE is characterized by autoantibodies against nuclear antigens (anti-dsDNA, anti-histone, anti-Sm), forming immune complexes that deposit in tissues.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_009",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "easy",
+    "question": "T cell autoimmunity against myelin antigens can lead to which autoimmune disease",
+    "options": [
+      "Multiple sclerosis",
+      "Myasthenia gravis",
+      "Insulin-dependent diabetes mellitus",
+      "Rheumatoid arthritis",
+      "Systemic lupus erythematosus"
+    ],
+    "answer": "Multiple sclerosis",
+    "explanation": "Multiple sclerosis is caused by T cell-mediated autoimmunity against myelin antigens, leading to demyelination in the CNS.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_010",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "hard",
+    "question": "Mechanisms of peripheral tolerance include all the following EXCEPT",
+    "options": [
+      "Activation-induced cell death",
+      "CTLA-4 signaling",
+      "Production of suppressive cytokines by regulatory cells",
+      "Destruction of autoreactive cells by CTLs",
+      "Clonal anergy"
+    ],
+    "answer": "Destruction of autoreactive cells by CTLs",
+    "explanation": "Peripheral tolerance mechanisms include clonal anergy, CTLA-4 signaling, activation-induced cell death (AICD), and Treg suppression. CTL-mediated killing of autoreactive cells is not a tolerance mechanism.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_011",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "hard",
+    "question": "T cell number or function can be measure by all of the following EXCEPT",
+    "options": [
+      "Flow cytometry",
+      "Delayed type hypersensitivity (DTH) response",
+      "Lymphoproliferation",
+      "Cytokine production",
+      "Dihydrorhodamine oxidation"
+    ],
+    "answer": "Dihydrorhodamine oxidation",
+    "explanation": "Dihydrorhodamine (DHR) oxidation tests are used to assess neutrophil oxidative burst (for chronic granulomatous disease), NOT T cell function.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_012",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "medium",
+    "question": "A patient presents at 6 months with pneumonia and difficulty fighting off infections with encapsulated bacteria and enteroviruses. A mutation in Bruton's tyrosine kinase (Btk) is suspected. Which of the following is most likely",
+    "options": [
+      "Myeloperoxidase deficiency",
+      "DiGeorge syndrome",
+      "X-linked agammaglobulinaemia",
+      "Wiskott-Aldrich syndrome",
+      "Common variable immunodeficiency"
+    ],
+    "answer": "X-linked agammaglobulinaemia",
+    "explanation": "Bruton's tyrosine kinase (BTK) mutation causes X-linked agammaglobulinaemia (XLA), presenting after 6 months with recurrent encapsulated bacterial and enteroviral infections.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_013",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "medium",
+    "question": "Which of the following is NOT true regarding live viral vectored vaccines",
+    "options": [
+      "They require strong adjuvants",
+      "They induce a broad and long-lasting immune response",
+      "They induce both cellular and humoral immunity",
+      "Adenovirus vectors are a good choice to use for vaccines",
+      "The vector does not replicate"
+    ],
+    "answer": "They require strong adjuvants",
+    "explanation": "Live viral vectored vaccines do NOT require adjuvants as the viral vector itself provides strong immunostimulation. Adjuvants are needed for inactivated/subunit vaccines.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_014",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "easy",
+    "question": "Helminthic ova are resistant to low pH and proteolytic digestion in the stomach. Adult worms living inside the lower gut are protected from many of the components of the immune response. Mast cells respond to helminths. What immunoglobulin activates these mast cells, leading to degranulation",
+    "options": [
+      "IgA",
+      "IgD",
+      "IgE",
+      "IgG",
+      "IgM"
+    ],
+    "answer": "IgE",
+    "explanation": "IgE binds to FceRI on mast cells. Cross-linking by helminth antigens triggers mast cell degranulation, releasing mediators that expel parasites.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_015",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "medium",
+    "question": "Rheumatoid factors are",
+    "options": [
+      "DNA:anti-DNA immune complexes",
+      "Autoantibodies to IgM",
+      "Autoantibodies to complement components",
+      "Autoantibodies to IgG",
+      "Any factor predisposing to rheumatoid arthritis"
+    ],
+    "answer": "Autoantibodies to IgG",
+    "explanation": "Rheumatoid factors are autoantibodies (usually IgM) directed against the Fc portion of IgG immunoglobulins.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_016",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "hard",
+    "question": "Cryptic T-cell epitopes capable of triggering autoimmune disease",
+    "options": [
+      "Dominate the normal immune response",
+      "Negatively select T cells",
+      "Are unable to bind in the MHC groove",
+      "Can be derived by antigen processing",
+      "Are presented by MHC class I but not MHC class II molecules"
+    ],
+    "answer": "Can be derived by antigen processing",
+    "explanation": "Cryptic T-cell epitopes are generated by antigen processing and are normally not presented at sufficient levels for immune tolerance. They can trigger autoimmunity when revealed.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_017",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "medium",
+    "question": "Which of the following antibodies are most useful for the diagnosis of pernicious anaemia",
+    "options": [
+      "Anti-parietal cell antibodies",
+      "Anti-thyroid peroxidase antibodies",
+      "Anti-nuclear antibodies",
+      "Anti-IgG Fc antibodies",
+      "Anti-TSH receptor antibodies"
+    ],
+    "answer": "Anti-parietal cell antibodies",
+    "explanation": "Anti-parietal cell antibodies (against H+/K+ ATPase) and anti-intrinsic factor antibodies are diagnostic of pernicious anaemia/autoimmune gastritis.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_018",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "medium",
+    "question": "Which of the following does NOT minimize allogeneic graft rejection",
+    "options": [
+      "Cyclosporine",
+      "Azathioprine",
+      "Cross-matching for ABO and MHC",
+      "Anti-CD3",
+      "Leukotriene inhibitors"
+    ],
+    "answer": "Leukotriene inhibitors",
+    "explanation": "Leukotriene inhibitors (e.g., montelukast) are used for asthma/allergies. They do not play a significant role in preventing allograft rejection.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_019",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "medium",
+    "question": "Cluster of differentiation (CD) antigens are glycoproteins present on the cell surface of many cell types involved in the immune system. They are recognized by monoclonal antibodies and aid in the identification of various cell types. Which of the following glycoproteins is present on the cell surface of all thymocytes: helper T-cells, cytotoxic T-cells, and natural killer cells",
+    "options": [
+      "B7",
+      "CD2",
+      "CD3",
+      "CD4",
+      "CD19"
+    ],
+    "answer": "CD3",
+    "explanation": "CD3 is part of the T cell receptor complex and is expressed on all T cells including helper (CD4+) and cytotoxic (CD8+) T cells, and also on NK cells. CD3 is the pan-T cell marker.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "immu_020",
+    "type": "mcq",
+    "subject": "Immunology",
+    "difficulty": "hard",
+    "question": "The BEST strategy for dosing of immunoglobulin (Ig) replacement therapy in patients with antibody deficiency diseases is by achieving a serum IgG level",
+    "options": [
+      "Of 500 mg/dL",
+      "Of 500 mg/dL",
+      "Of 1000 mg/dL",
+      "Of 200 mg/dL over baseline",
+      "That minimizes the number of infections"
+    ],
+    "answer": "That minimizes the number of infections",
+    "explanation": "The optimal strategy for Ig replacement is individualized, targeting the trough IgG level that prevents infections for that particular patient, rather than a fixed number.",
+    "category": "Immunopathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  }
+]

@@ -1,0 +1,496 @@
+[
+  {
+    "id": "chem_001",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "easy",
+    "question": "True of fluid specimens submitted for cytological assessment",
+    "options": [
+      "Must be preserved with 10% formalin",
+      "Delayed submission to the laboratory results in cellular degeneration",
+      "Are automated at KNH cytology lab",
+      "Have long turnaround time (TAT)",
+      "Do not require microscopic examination"
+    ],
+    "answer": "Delayed submission to the laboratory results in cellular degeneration",
+    "explanation": "Delayed submission of cytological fluid specimens causes cellular degeneration, artifact, and loss of diagnostic quality.",
+    "category": "Pathology Techniques",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_002",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "easy",
+    "question": "Glycated haemoglobin levels of 9% is indicative of",
+    "options": [
+      "Normal glucose homeostasis",
+      "Controlled diabetes mellitus",
+      "Acute myocardial infarction",
+      "Uncontrolled diabetes mellitus",
+      "Impaired glucose tolerance"
+    ],
+    "answer": "Uncontrolled diabetes mellitus",
+    "explanation": "HbA1c of 9% indicates poor glycaemic control (target <7% for controlled diabetes). Values >8% indicate uncontrolled diabetes mellitus.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_003",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "hard",
+    "question": "A 62-year-old female patient was found to have very low levels of FSH and estradiol. What is the diagnosis",
+    "options": [
+      "Hypopituitarism",
+      "Primary ovarian failure",
+      "Hypergonadotrophic hypergonadism",
+      "Addison's disease",
+      "Not diagnostic"
+    ],
+    "answer": "Hypopituitarism",
+    "explanation": "Low FSH with low estradiol indicates the problem is at the pituitary/hypothalamic level (secondary hypogonadism/hypopituitarism). Primary ovarian failure would show HIGH FSH.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_004",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "hard",
+    "question": "An oral glucose tolerance test was carried out in a 56 year old female patient. The fasting plasma glucose level was 6.4 mmol/l and 2 hour levels were 7.0 mmol/L. What is the diagnosis",
+    "options": [
+      "Normal response",
+      "Diabetes mellitus",
+      "Impaired glucose tolerance",
+      "Impaired fasting glycaemia",
+      "Not diagnostic"
+    ],
+    "answer": "Impaired fasting glycaemia",
+    "explanation": "Fasting 6.4 mmol/L is in the impaired fasting glycaemia range (5.6-6.9 mmol/L). 2-hour value of 7.0 mmol/L is normal (<7.8). So the diagnosis is IFG.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_005",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "medium",
+    "question": "The last biomarker to fall following acute myocardial infarction is",
+    "options": [
+      "CK-MB",
+      "Myoglobin",
+      "Creatine-kinase",
+      "LDH",
+      "AST"
+    ],
+    "answer": "LDH",
+    "explanation": "LDH peaks at 3-5 days and remains elevated for 10-14 days after MI, making it the last cardiac biomarker to return to normal.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_006",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "easy",
+    "question": "The excretory function of the liver can be assessed by measuring serum levels of",
+    "options": [
+      "Urea",
+      "Bilirubin",
+      "Ammonia",
+      "Uric acid",
+      "Bicarbonate"
+    ],
+    "answer": "Bilirubin",
+    "explanation": "Bilirubin is the main excretory product of the liver. Elevated serum bilirubin reflects impaired hepatic excretory function.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_007",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "medium",
+    "question": "The enzyme responsible for dilapidation of lipoprotein by removal of triglycerides is",
+    "options": [
+      "LCAT",
+      "Lipoprotein lipase",
+      "CETP",
+      "HMG CO reductase",
+      "Triacyl glycerol lyase"
+    ],
+    "answer": "Lipoprotein lipase",
+    "explanation": "Lipoprotein lipase (LPL) hydrolyzes triglycerides from VLDL and chylomicrons, leading to their catabolism.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_008",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "easy",
+    "question": "In the first 10 days of neonatal life a finding of indirect hyper bilirubinaemia is most likely due to",
+    "options": [
+      "Immature glucuronyl transferase",
+      "Acute viral hepatitis",
+      "Congenital liver disease",
+      "Biliary atresia",
+      "Malnutrition"
+    ],
+    "answer": "Immature glucuronyl transferase",
+    "explanation": "Physiological neonatal jaundice (indirect hyperbilirubinaemia) is due to immature hepatic glucuronyl transferase activity in the first days of life.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_009",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "hard",
+    "question": "An immunoglobulin causing a paraprotein can be identified through",
+    "options": [
+      "Serum electrophoresis of urine",
+      "Serum protein electrophoresis",
+      "Quantification of kappa and lambda chains",
+      "Immunofixation",
+      "Vanillyl mandelic acid analysis"
+    ],
+    "answer": "Immunofixation",
+    "explanation": "Immunofixation electrophoresis is the gold standard for identifying and characterizing paraproteins (monoclonal immunoglobulins).",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_010",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "hard",
+    "question": "The following arterial blood gas analysis profile was obtained from a 20 year old boy in the critical care unit: pH \u2013 7.22 (7.35-7.45); PCO2 \u2013 60 mmHg (35-45); HCO3 \u2013 28 mmol/L (22-28). Causes of the above acid-base disturbance include",
+    "options": [
+      "Acute kidney injury",
+      "Severe anaemia",
+      "High altitude",
+      "Heroine use",
+      "Hypertrophic pyloric stenosis"
+    ],
+    "answer": "Heroine use",
+    "explanation": "The ABG shows respiratory acidosis (low pH, high PCO2, compensatory high HCO3). Heroin causes respiratory depression \u2192 hypoventilation \u2192 respiratory acidosis.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_011",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "hard",
+    "question": "Normal TSH with normal free thyroxine and low Free T3 is diagnostic of",
+    "options": [
+      "Secondary hypothyroidism",
+      "Primary hypothyroidism",
+      "Non thyroidal illness",
+      "Primary hyperthyroidism",
+      "Euthyroidism"
+    ],
+    "answer": "Non thyroidal illness",
+    "explanation": "Normal TSH and T4 with low T3 is the classic pattern of sick euthyroid syndrome (non-thyroidal illness), where peripheral T4-to-T3 conversion is impaired.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_012",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "medium",
+    "question": "The test for checking mean plasma glucose concentration over the previous 2-3 weeks is",
+    "options": [
+      "Hemoglobin A1c",
+      "Oral glucose tolerance test (OGTT)",
+      "Fructosamine test",
+      "Fasting plasma glucose concentration",
+      "Microalbumin"
+    ],
+    "answer": "Fructosamine test",
+    "explanation": "Fructosamine (glycated albumin) reflects mean blood glucose over the previous 2-3 weeks. HbA1c reflects 2-3 months.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_013",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "medium",
+    "question": "Secondary adrenal cortical insufficiency is characterized by which hormonal profile",
+    "options": [
+      "High Cortisol, Low ACTH",
+      "High Cortisol, High ACTH",
+      "Low Cortisol, Low ACTH",
+      "Normal Cortisol, Low ACTH",
+      "High Cortisol, Normal ACTH"
+    ],
+    "answer": "Low Cortisol, Low ACTH",
+    "explanation": "Secondary adrenal insufficiency is due to pituitary failure \u2192 low ACTH \u2192 low cortisol. Primary (Addison's) shows low cortisol with HIGH ACTH.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_014",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "hard",
+    "question": "A 48-year-old male had a plasma potassium level of 2.8 mmol/L. Which of the following statement is true",
+    "options": [
+      "Insulin insufficiency can cause",
+      "It is associated with metabolic acidosis",
+      "It can occur in renal artery stenosis",
+      "It does not cause potentiation of digoxin toxicity",
+      "It can occur in Addison's disease"
+    ],
+    "answer": "It can occur in renal artery stenosis",
+    "explanation": "Renal artery stenosis activates RAAS \u2192 high aldosterone \u2192 urinary potassium wasting \u2192 hypokalaemia. Addison's causes HYPERkalaemia.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_015",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "medium",
+    "question": "Which of the following metabolic consequences may occur in a 12 year old child with diabetes mellitus",
+    "options": [
+      "Reduced lipolysis",
+      "Increased ketogenesis",
+      "Reduced gluconeogenesis",
+      "Reduced proteolysis",
+      "Increased glycogenesis"
+    ],
+    "answer": "Increased ketogenesis",
+    "explanation": "In type 1 DM (likely in a 12-year-old), insulin deficiency leads to increased lipolysis \u2192 elevated free fatty acids \u2192 increased ketogenesis \u2192 diabetic ketoacidosis.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_016",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "easy",
+    "question": "A 26-year-old female is in the early stages of pregnancy. Which one of the following micronutrients would be recommended for the prevention of birth defects",
+    "options": [
+      "Thiamin",
+      "Vitamin C",
+      "Folic acid",
+      "Vitamin E",
+      "Vitamin D"
+    ],
+    "answer": "Folic acid",
+    "explanation": "Folic acid supplementation in early pregnancy prevents neural tube defects (spina bifida, anencephaly).",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_017",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "hard",
+    "question": "A dynamic test using TRH was carried out to assess hypothalamo-anterior pituitary functions. TSH levels were assessed. The results showed a delayed response. Where is the lesion",
+    "options": [
+      "Anterior pituitary",
+      "Hypothalamus",
+      "Thyroid gland",
+      "Adrenal cortex",
+      "Lung cancer"
+    ],
+    "answer": "Hypothalamus",
+    "explanation": "A delayed (rather than absent) TSH response to TRH suggests hypothalamic TRH deficiency \u2014 the pituitary can respond but does so slowly without adequate stimulation.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_018",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "medium",
+    "question": "Which one of the following statements is CORRECT about creatine kinase (CK)",
+    "options": [
+      "Skeletal muscle and brain tissues contain the same isoenzyme",
+      "It is a tetramer with 8 isoenzyme types",
+      "The main circulating isoenzyme is derived from skeletal muscle",
+      "Cardiac muscle only contains the MB isoenzyme",
+      "Skeletal muscle tissue mainly contains the BB isoenzyme"
+    ],
+    "answer": "The main circulating isoenzyme is derived from skeletal muscle",
+    "explanation": "The main circulating CK in healthy individuals is CK-MM, derived from skeletal muscle. CK-MB is cardiac, CK-BB is brain.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_019",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "hard",
+    "question": "The following LFT findings were obtained for a 46-year-old man (Total Bilirubin 536.1, Direct Bilirubin 343.0, AST 2815, ALT 1330, GGT 560, Alk phosphatase 290). Which of the following is NOT correct",
+    "options": [
+      "The patient has a mixed bilirubinaemia",
+      "Patient will have pale stools",
+      "Serology for hepatitis B and C viruses should be done",
+      "Hepato-renal syndrome may be a complication",
+      "Patient is likely to have hypoalbuminaemia"
+    ],
+    "answer": "Patient will have pale stools",
+    "explanation": "The pattern shows hepatocellular damage (very high AST/ALT). Pale stools occur in obstructive jaundice. In hepatocellular disease, stools may be normal or slightly pale.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_020",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "hard",
+    "question": "Plasma NT-proBNP was estimated for a 38-year-old man and the result was 23150 pg/ml (0-500). Which of the following is NOT correct",
+    "options": [
+      "This is a biomarker for acute myocardial infarction",
+      "The patient is likely to have bi-pedal oedema",
+      "The plasma osmolality for this patient will be low",
+      "This biomarker counters the actions of aldosterone",
+      "Cardiac troponin may be elevated I this patient"
+    ],
+    "answer": "This is a biomarker for acute myocardial infarction",
+    "explanation": "NT-proBNP is a biomarker for heart failure, not acute MI. It reflects ventricular wall stress. Troponin is the biomarker for MI.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_021",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "hard",
+    "question": "Which of the following is not associated with abetalipoproteinaemia",
+    "options": [
+      "Hereditary spherocytosis",
+      "Acanthocytosis in peripheral blood",
+      "Malabsorption and fatty stools",
+      "Deficiency of fat soluble vitamins",
+      "Adrenal dysfunction"
+    ],
+    "answer": "Hereditary spherocytosis",
+    "explanation": "Abetalipoproteinaemia causes acanthocytosis (not spherocytosis), fat malabsorption, vitamin ADEK deficiency. Hereditary spherocytosis is a separate RBC membrane disorder.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_022",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "medium",
+    "question": "One would encounter an erroneously low laboratory test result in samples collected as indicated below",
+    "options": [
+      "Glucose in fluoride tube",
+      "Albumin in a plain tube",
+      "Potassium in a plain tube",
+      "Bicarbonate in a heparin tube",
+      "Calcium in an EDTA tube"
+    ],
+    "answer": "Calcium in an EDTA tube",
+    "explanation": "EDTA chelates calcium ions, causing falsely low calcium results. This is why calcium must be measured in heparin or plain tubes, never EDTA.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_023",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "medium",
+    "question": "Causes of a high anion gap metabolic acidosis include the following",
+    "options": [
+      "Diarrhoea",
+      "Methanol poisoning",
+      "Narcotic overdose",
+      "Acetazolamide therapy",
+      "Severe anaemia"
+    ],
+    "answer": "Methanol poisoning",
+    "explanation": "High anion gap metabolic acidosis (MUDPILES): Methanol, Uraemia, DKA, Propylene glycol, INH, Lactic acidosis, Ethylene glycol, Salicylates. Diarrhoea causes normal anion gap.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_024",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "hard",
+    "question": "All of the following statement is true concerning urobilinogen except",
+    "options": [
+      "Produced by oxidative action of intestinal bacteria",
+      "Undergoes significant enterohepatic circulation",
+      "Urinary levels increased in biliary obstruction",
+      "Faecal levels decreased in biliary obstruction",
+      "Can be found in gall bladder contents"
+    ],
+    "answer": "Urinary levels increased in biliary obstruction",
+    "explanation": "In biliary obstruction, no bilirubin reaches the gut \u2192 no urobilinogen produced \u2192 urinary urobilinogen is ABSENT/DECREASED, not increased.",
+    "category": "Clinical Biochemistry",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_025",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "medium",
+    "question": "DNA extraction/material is a pre-requisite for the following molecular techniques EXCEPT",
+    "options": [
+      "PCR technique",
+      "In situ hybridization",
+      "Western blot technique",
+      "Southern blot technique",
+      "Complementary genomic analysis"
+    ],
+    "answer": "Western blot technique",
+    "explanation": "Western blot separates PROTEINS by electrophoresis and detects them with antibodies. It does not require DNA extraction.",
+    "category": "Pathology Techniques",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "chem_026",
+    "type": "mcq",
+    "subject": "Clinical Chemistry",
+    "difficulty": "medium",
+    "question": "In flow cytometric analyses of leukaemic cells, the cells are scattered based on all of the following properties EXCEPT",
+    "options": [
+      "Cell size",
+      "Granularity",
+      "Cell surface markers",
+      "Cytoplasmic antigen markers",
+      "Nuclear antigen markers"
+    ],
+    "answer": "Nuclear antigen markers",
+    "explanation": "Flow cytometry scatters cells based on size (FSC) and granularity (SSC), and detects surface and cytoplasmic markers using fluorescence. Nuclear antigen markers require special permeabilization and are not used for standard scatter analysis.",
+    "category": "Pathology Techniques",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  }
+]

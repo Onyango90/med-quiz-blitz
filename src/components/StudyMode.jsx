@@ -8,6 +8,9 @@ import embryology from "../data/questions/embryology.json";
 
 // Import other subjects
 import pathologyQuestions from "../data/questions/pathology.json";
+import haematologyQuestions from "../data/questions/haematology.json";
+import clinicalChemistryQuestions from "../data/questions/clinical_chemistry.json";
+import immunologyQuestions from "../data/questions/immunology.json";
 import pharmacologyQuestions from "../data/questions/pharmacology/index.js";
 import physiologyLevel1 from "../data/questions/physiology_level1.json";
 import physiologyLevel2 from "../data/questions/physiology_level2.json";
@@ -33,6 +36,12 @@ function getQuestions(topic, subtopic, locationState) {
       return [...(grossAnatomy || []), ...(histology || []), ...(embryology || [])];
     case "pathology":
       return pathologyQuestions;
+    case "haematology":
+      return haematologyQuestions;
+    case "clinical_chemistry":
+      return clinicalChemistryQuestions;
+    case "immunology":
+      return immunologyQuestions;
     case "pharmacology":
       return pharmacologyQuestions;
     case "physiology_level1":

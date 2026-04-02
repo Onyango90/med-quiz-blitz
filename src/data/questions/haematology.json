@@ -1,0 +1,1028 @@
+[
+  {
+    "id": "haem_001",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "True about diffuse large B cell lymphoma",
+    "options": [
+      "70% purely extranodal",
+      "Most common adult non-Hodgkin's lymphoma",
+      "May arise from Hodgkins lymphoma",
+      "Most of them are activated B cell subtype",
+      "CD5 is positive in 50% o cases"
+    ],
+    "answer": "Most common adult non-Hodgkin's lymphoma",
+    "explanation": "DLBCL is the most common type of non-Hodgkin lymphoma in adults, accounting for approximately 30-40% of all cases.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_002",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "hard",
+    "question": "Which of the following immunohistochemical findings would support the diagnosis of diffuse large B cell lymphoma NOS",
+    "options": [
+      "Cyclin D1+",
+      "ALK+",
+      "TdT+",
+      "CD21-",
+      "BCL6-"
+    ],
+    "answer": "CD21-",
+    "explanation": "DLBCL is CD20+, CD79a+, BCL6+/- but CD21- (CD21 marks follicular dendritic cells, not B cell lymphomas). BCL6 positivity actually supports DLBCL.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_003",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "Which of the following statements is TRUE of malignant lymphoid cells",
+    "options": [
+      "They show maturation arrest at characteristic stages in differentiation",
+      "They form a polyclonal population of cells",
+      "They are non-dividing",
+      "They express several different tumour-specific antigens",
+      "They are always derived from various stages of the normal B-cell differentiation pathway"
+    ],
+    "answer": "They show maturation arrest at characteristic stages in differentiation",
+    "explanation": "Malignant lymphoid cells are frozen at a particular stage of differentiation (maturation arrest), forming a monoclonal population of identical cells.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_004",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "hard",
+    "question": "The best method for detecting a clonal T cell process is by",
+    "options": [
+      "In situ hybridization (ISH) for T cell DNA",
+      "Immunohistochemistry (IHC) for T cell markers",
+      "Cytologic examination for nuclear irregularity",
+      "DNA gene rearrangement studies",
+      "Electron microscopic (EM) inspection of nuclear features"
+    ],
+    "answer": "DNA gene rearrangement studies",
+    "explanation": "T cell receptor (TCR) gene rearrangement studies detect monoclonality at the DNA level, which is the gold standard for proving a clonal T cell process.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_005",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "A 11 year is referred to hematology clinic and the notes read for evaluation of splenomegaly. The TBC show reduced Red cell count, neutrophils and platelets. This is",
+    "options": [
+      "Hyposplenism",
+      "Hypersplenism",
+      "Normal spleen",
+      "Not related to the spleen",
+      "More information on spleen required"
+    ],
+    "answer": "Hypersplenism",
+    "explanation": "Hypersplenism is an enlarged spleen that sequesters and destroys blood cells, causing pancytopenia (reduced RBCs, WBCs, and platelets).",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_006",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "If this 11 years old was suffering Sickle cell disease Hb SS the expected status of the spleen is functional",
+    "options": [
+      "Hyposplenism",
+      "Hypersplenism",
+      "No spleen function defect",
+      "Major structural splenic defect",
+      "Hyperactive massive splenomegaly"
+    ],
+    "answer": "Hyposplenism",
+    "explanation": "In sickle cell disease (HbSS), repeated sickling causes progressive splenic infarction and autosplenectomy, resulting in functional hyposplenism by age 5-6.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_007",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "Size of the spleen in hypersplenism is usually",
+    "options": [
+      "Normal",
+      "Reduced",
+      "Enlarged",
+      "No change",
+      "May be reduced or normal"
+    ],
+    "answer": "Enlarged",
+    "explanation": "By definition, hypersplenism involves an enlarged spleen (splenomegaly) that sequestrates blood cells, causing cytopenias.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_008",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "The test that confirms the haemoglobin status is",
+    "options": [
+      "Solubility",
+      "Blood film",
+      "Sodium metabisulfite tests",
+      "Electrophoresis",
+      "Bone marrow"
+    ],
+    "answer": "Electrophoresis",
+    "explanation": "Haemoglobin electrophoresis is the definitive test for identifying haemoglobin variants and confirming the haemoglobin status (e.g., HbSS, HbAS, HbSC).",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_009",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "hard",
+    "question": "A 32 year old is on follow up in the HIV clinic. The blood counts not expected to be reduced is",
+    "options": [
+      "Neutrophils",
+      "Monocytes",
+      "Eosinophils",
+      "Lymphocytes",
+      "CD4 lymphocytes"
+    ],
+    "answer": "Monocytes",
+    "explanation": "HIV causes CD4 lymphocytopenia, neutropenia, and eosinopenia. Monocytes are actually increased/activated in HIV infection.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_010",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "This case (HIV patient) need to be examined for possible HIV/AIDS defining malignancy but not",
+    "options": [
+      "Kaposi's Sarcoma",
+      "Cervical Cancer",
+      "High grade lymphoma",
+      "Ameloblastoma",
+      "Squamous cell carcinoma of conjunctiva"
+    ],
+    "answer": "Ameloblastoma",
+    "explanation": "AIDS-defining malignancies include Kaposi's sarcoma, high-grade B cell lymphoma, and invasive cervical cancer. Ameloblastoma is a benign jaw tumor unrelated to HIV.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_011",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "hard",
+    "question": "He should not be subjected to bone marrow examination if he has",
+    "options": [
+      "Lymphopenia",
+      "Myelodysplasia",
+      "Lymphoma",
+      "Pancytopenia",
+      "Isolated Thrombocytopenia"
+    ],
+    "answer": "Isolated Thrombocytopenia",
+    "explanation": "Isolated thrombocytopenia in an HIV patient is usually due to immune thrombocytopenia (ITP) and does not require bone marrow examination as first-line investigation.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_012",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "One of the reports reads 'plentiful Reed Sternberg cells'. This case has",
+    "options": [
+      "Hodgkin disease",
+      "Burkitt's lymphoma",
+      "Non-Hodgkin lymphoma",
+      "Non-Burkitt",
+      "High grade tumour"
+    ],
+    "answer": "Hodgkin disease",
+    "explanation": "Reed-Sternberg cells (large binucleated 'owl-eye' cells) are the pathognomonic finding of Hodgkin lymphoma.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_013",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "There is a second patient's report that shows in conclusion this H/E preparation shows clearly starry sky appearance, this is describing",
+    "options": [
+      "Hodgkin",
+      "Burkitt",
+      "Non Hodgkin intermediate grade",
+      "Non Burkitt",
+      "Low grade malignant lymphoma"
+    ],
+    "answer": "Burkitt",
+    "explanation": "Burkitt lymphoma characteristically shows a 'starry sky' pattern on H&E \u2014 pale macrophages (stars) scattered among dark tumor cells (sky).",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_014",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "For the definitive diagnosis of the lymphoma there is need for",
+    "options": [
+      "FNA",
+      "Cytology",
+      "Histology",
+      "Imprints",
+      "Trephine"
+    ],
+    "answer": "Histology",
+    "explanation": "Definitive lymphoma diagnosis requires histological examination of an excised lymph node to assess architecture, cell morphology, and immunohistochemistry.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_015",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "Management of the following requires mandatorily staging",
+    "options": [
+      "Hodgkin",
+      "Burkitt",
+      "Non Hodgkin",
+      "Non Burkitt",
+      "High grade large cell lymphoma"
+    ],
+    "answer": "Hodgkin",
+    "explanation": "Hodgkin lymphoma requires Ann Arbor staging as it spreads contiguously and stage directly determines treatment (radiation vs chemotherapy combinations).",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_016",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "The leukaemia not diagnosed in children is",
+    "options": [
+      "Acute Lymphocytic",
+      "Chronic lymphocytic",
+      "Myeloid",
+      "Non-lymphoid",
+      "Myelomonocytic"
+    ],
+    "answer": "Chronic lymphocytic",
+    "explanation": "Chronic lymphocytic leukaemia (CLL) is a disease of the elderly (median age 70) and is essentially never diagnosed in children.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_017",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "hard",
+    "question": "Hodgkin does not clinically manifest with the following",
+    "options": [
+      "Contiguous spread",
+      "Waxing and waning",
+      "Pel Epstein type of fever",
+      "Multiple anatomical sites from the onset",
+      "Constitutional symptoms such as wasting and night sweat"
+    ],
+    "answer": "Multiple anatomical sites from the onset",
+    "explanation": "Hodgkin lymphoma characteristically begins at a single node and spreads contiguously. Presenting at multiple non-contiguous sites from the onset is more typical of non-Hodgkin lymphoma.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_018",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "hard",
+    "question": "The following is not among the ones considered on Policy statements on blood transfusion Service",
+    "options": [
+      "Blood donor",
+      "Donor blood utilization",
+      "Public education on blood transfusion",
+      "Testing for infectious diseases",
+      "Donor blood handling"
+    ],
+    "answer": "Donor blood utilization",
+    "explanation": "Standard blood transfusion policy covers donor selection, blood handling, infectious disease testing, and public education. 'Donor blood utilization' is not a standard policy statement category.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_019",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "According to the blood transfusion mandatory tests for infection diseases do not include",
+    "options": [
+      "HIV I and HIV II",
+      "Hepatitis A",
+      "Hepatitis B",
+      "Hepatitis C",
+      "VDRL"
+    ],
+    "answer": "Hepatitis A",
+    "explanation": "Mandatory blood transfusion screening includes HIV, Hepatitis B, Hepatitis C, and VDRL (syphilis). Hepatitis A is not screened as it is not transmitted by blood transfusion.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_020",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "Blood banks will not perform the following functions on donor blood",
+    "options": [
+      "Receiving",
+      "Synthesizing",
+      "Storing",
+      "Processing",
+      "Dispensing"
+    ],
+    "answer": "Synthesizing",
+    "explanation": "Blood banks receive, process, test, store, and dispense blood products. They do not synthesize blood \u2014 that is done in living organisms.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_021",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "At the Blood transfusion units the work schedule does not involve",
+    "options": [
+      "Antenatal care",
+      "Post-natal",
+      "Tests post transfusion event",
+      "Coordinating blood transfusion functions",
+      "Compatibility tests"
+    ],
+    "answer": "Antenatal care",
+    "explanation": "Blood transfusion units focus on blood processing, compatibility testing, and post-transfusion monitoring. Antenatal care is provided by obstetrics, not the blood transfusion unit.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_022",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "A lady 22 year old presents; Hb 4gm/dl WBC 12x10\u2079/l platelet 24X 10\u2079/l. The test that is not immediately necessary is",
+    "options": [
+      "Red cell indices",
+      "Blood film",
+      "Bone marrow",
+      "Full coagulation test",
+      "White blood cells differential count"
+    ],
+    "answer": "Full coagulation test",
+    "explanation": "This patient has severe anaemia with thrombocytopenia. Immediate tests are RBC indices, film, and differential to determine cause. Coagulation tests are not immediately indicated without bleeding symptoms.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_023",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "hard",
+    "question": "Coagulation tests show acquired Von Willebrand disease, the following test is not prolonged",
+    "options": [
+      "Activate Partial Thromboplastin Test (APTT)",
+      "Kaolin Cephalin Clotting Time (KCCT)",
+      "Prothrombin Test Time (PT)",
+      "Both APTT and KCCT",
+      "Bleeding Time Test"
+    ],
+    "answer": "Prothrombin Test Time (PT)",
+    "explanation": "Von Willebrand disease affects the intrinsic pathway and platelet adhesion. PT (extrinsic pathway) is NOT prolonged. APTT, KCCT, and bleeding time are prolonged.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_024",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "A sign that is indicative of cause of anaemia is",
+    "options": [
+      "Beefy red tongue",
+      "Koilonychia",
+      "Jaundice",
+      "Palour",
+      "Mucous membrane colour change"
+    ],
+    "answer": "Koilonychia",
+    "explanation": "Koilonychia (spoon-shaped nails) is specifically indicative of iron deficiency anaemia. Jaundice suggests haemolytic anaemia. Pallor is non-specific.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_025",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "The test among the following that is not relevant in evaluation of cause of low platelets is",
+    "options": [
+      "Total Blood Count",
+      "Blood film",
+      "Splenic aspirate",
+      "Bone marrow",
+      "Differential count"
+    ],
+    "answer": "Splenic aspirate",
+    "explanation": "Splenic aspirate is not a routine investigation for thrombocytopenia. CBC, blood film, bone marrow, and differential count are all relevant.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_026",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "Lack of the intrinsic factor does not arise from",
+    "options": [
+      "Excess alcohol use",
+      "Chronic gastritis",
+      "Poor intake of Vitamin rich food",
+      "Gastrectomy",
+      "Atrophic gastritis"
+    ],
+    "answer": "Poor intake of Vitamin rich food",
+    "explanation": "Intrinsic factor deficiency arises from gastric causes (autoimmune gastritis, gastrectomy, atrophic gastritis, alcohol). Poor dietary intake causes B12 deficiency but does not affect intrinsic factor production.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_027",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "Over cooking food staff severely reduces levels of",
+    "options": [
+      "Vitamins",
+      "Vit B6",
+      "Iron",
+      "Folic acid",
+      "Vit B12"
+    ],
+    "answer": "Folic acid",
+    "explanation": "Folate is heat labile and is significantly destroyed by overcooking. B12 and iron are more heat-stable.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_028",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "The ABO blood group of the father is AB and the mother is O, the one group that is not possible offspring",
+    "options": [
+      "B",
+      "Both A and B blood groups",
+      "A",
+      "Any A,B, O",
+      "Both AB and O blood groups"
+    ],
+    "answer": "Both AB and O blood groups",
+    "explanation": "Father AB (I^A I^B) \u00d7 Mother O (ii): possible offspring are I^A i (A) or I^B i (B). AB requires both I^A and I^B from one parent \u2014 impossible. O requires ii \u2014 impossible. Therefore both AB and O are not possible.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_029",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "hard",
+    "question": "The following function is for the Regional Blood Transfusion Centre",
+    "options": [
+      "Policy and standards formulation",
+      "Storing donor blood",
+      "Blood donor system",
+      "Compatibility testing",
+      "Link blood donors and recipients"
+    ],
+    "answer": "Policy and standards formulation",
+    "explanation": "The Regional Blood Transfusion Centre is responsible for policy formulation, quality standards, and oversight. Individual hospitals perform compatibility testing and storage.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_030",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "An individual whose blood group is O Rh D negative has",
+    "options": [
+      "No antibodies in circulation",
+      "anti-D antibodies in their serum",
+      "no RhD antigens on their red cells",
+      "No H antigen on their red cells",
+      "no Rh antigens"
+    ],
+    "answer": "no RhD antigens on their red cells",
+    "explanation": "O Rh D negative means: Group O (H antigen present, no A/B), and RhD negative (no D antigen on RBCs). They do not naturally have anti-D unless sensitised.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_031",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "Bone marrow examination is not indicated in suspected",
+    "options": [
+      "Myelodysplasia",
+      "Aplastic anaemia",
+      "Myelofibrosis",
+      "Lymphoproliferative disorders",
+      "Haemolytic anaemia"
+    ],
+    "answer": "Haemolytic anaemia",
+    "explanation": "Haemolytic anaemia is diagnosed by peripheral blood film, DAT, reticulocyte count, and LDH \u2014 bone marrow biopsy is not routinely indicated.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_032",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "The following is not a blood component",
+    "options": [
+      "Factor VIII concentrate",
+      "Cryoprecipitate",
+      "Platelet rich plasma",
+      "Washed red cell preparation",
+      "FFP"
+    ],
+    "answer": "Factor VIII concentrate",
+    "explanation": "Factor VIII concentrate is a plasma-derived or recombinant PRODUCT, not a blood component. Components are derived by physical separation (centrifugation) of whole blood.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_033",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "A Kenyan 6-year-old boy develops a rapidly growing jaw swelling, the first consideration is",
+    "options": [
+      "Burkitt's lymphoma",
+      "Osteogenic sarcoma",
+      "Dentigerous cyst",
+      "Rhabdomyosarcoma",
+      "Ameloblastoma"
+    ],
+    "answer": "Burkitt's lymphoma",
+    "explanation": "Endemic Burkitt lymphoma in Africa classically presents as rapidly growing jaw (mandibular) swelling in children aged 4-7, strongly associated with EBV.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_034",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "A blood donor may do so every",
+    "options": [
+      "One month",
+      "Two months",
+      "Three months",
+      "Six months",
+      "Once a year"
+    ],
+    "answer": "Three months",
+    "explanation": "Whole blood donation is recommended every 3 months (12 weeks) to allow adequate time for haemoglobin levels to recover.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_035",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "The one not associated with cause of Iron deficiency anaemia",
+    "options": [
+      "Polymenorrhagia",
+      "Terminal Ileum disease",
+      "Gastric ulcers",
+      "Gastric malignancy",
+      "Haemorrhoids"
+    ],
+    "answer": "Terminal Ileum disease",
+    "explanation": "Terminal ileum disease (Crohn's) causes B12 deficiency (ileum absorbs B12), not iron deficiency. Iron is absorbed in the duodenum/proximal jejunum.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_036",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "Risk factors associated with aplastic anaemia do not include",
+    "options": [
+      "Viral infection",
+      "Chloramphenicol",
+      "Irradiation",
+      "Petroleum products",
+      "Chronic diseases"
+    ],
+    "answer": "Chronic diseases",
+    "explanation": "Aplastic anaemia risk factors include viral infections, drugs (chloramphenicol), radiation, and toxins. Chronic diseases per se are not a risk factor.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_037",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "Food Not rich in iron",
+    "options": [
+      "Fish",
+      "Broccoli",
+      "Milk",
+      "Liver",
+      "Red meat"
+    ],
+    "answer": "Milk",
+    "explanation": "Milk (dairy) is very low in iron and actually inhibits iron absorption due to calcium content. Liver, red meat, fish, and green vegetables are good iron sources.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_038",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "Manifestations of iron efficiency do not include",
+    "options": [
+      "Cyanosis",
+      "Pale skin",
+      "Dizziness",
+      "Brittle nails",
+      "Angular stomatitis"
+    ],
+    "answer": "Cyanosis",
+    "explanation": "Iron deficiency anaemia causes pallor, fatigue, dizziness, brittle nails, koilonychia, and angular stomatitis. Cyanosis indicates hypoxia/deoxygenation, not anaemia.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_039",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "In a patient diagnosed with thrombocytopenia, typically involves bleeding into the",
+    "options": [
+      "Ears",
+      "Liver and pancreas",
+      "Mucous membranes and skin",
+      "Brain",
+      "Limb"
+    ],
+    "answer": "Mucous membranes and skin",
+    "explanation": "Thrombocytopenic bleeding is characteristically mucocutaneous \u2014 petechiae, purpura, epistaxis, gingival bleeding. Deep tissue/organ bleeding is more typical of coagulation factor deficiencies.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_040",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "Universally, the most common type of anemia is deficiency of Absorbable haematinic",
+    "options": [
+      "B12",
+      "Iron",
+      "Folate",
+      "Pyridoxine",
+      "Renal failure"
+    ],
+    "answer": "Iron",
+    "explanation": "Iron deficiency anaemia is the most common type of anaemia worldwide, affecting billions of people, particularly women of childbearing age and children.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_041",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "Minimum weight for one to donate Red cell is",
+    "options": [
+      "29 kgs",
+      "50 kgs",
+      "72 kgs",
+      "61 kgs",
+      "58 kgs"
+    ],
+    "answer": "50 kgs",
+    "explanation": "The standard minimum weight for blood donation is 50 kg (110 lbs) to ensure donor safety and adequate blood volume for donation.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_042",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "The Schilling test evaluates absorption of",
+    "options": [
+      "All substrates",
+      "Iron absorption",
+      "Folate",
+      "Vitamin B12",
+      "Vitamin D"
+    ],
+    "answer": "Vitamin B12",
+    "explanation": "The Schilling test assesses Vitamin B12 absorption by comparing urinary excretion of radiolabelled B12 with and without intrinsic factor.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_043",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "ONE of these infectious agents is NOT transmitted by blood transfusion",
+    "options": [
+      "Malaria",
+      "Babesia",
+      "Trypanosomiasis",
+      "Hookworm",
+      "Leishmaniasis"
+    ],
+    "answer": "Hookworm",
+    "explanation": "Hookworm (Ancylostoma) is transmitted via skin contact with contaminated soil, not through blood transfusion. The others are all transfusion-transmissible.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_044",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "Three times the haemoglobin level gives an estimate of",
+    "options": [
+      "MCV",
+      "MCH",
+      "MCHC",
+      "PCV/Haematocrit",
+      "MCDW"
+    ],
+    "answer": "PCV/Haematocrit",
+    "explanation": "PCV (Haematocrit) \u2248 3 \u00d7 Hb (in g/dL). This is a quick clinical estimate of haematocrit when automated analysers are unavailable.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_045",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "A ferritin level test assesses the status in the body of",
+    "options": [
+      "Vit B12",
+      "Folic acid",
+      "Pyridoxine phosphate",
+      "Iron",
+      "Haematinics"
+    ],
+    "answer": "Iron",
+    "explanation": "Serum ferritin is the most sensitive marker of iron stores. Low ferritin is the earliest indicator of iron deficiency.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_046",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "Family history is not relevant in the following cause of anaemia",
+    "options": [
+      "Elliptocytosis",
+      "Glucose 6-phosphate dehydrogenase deficiency",
+      "Thalassaemia",
+      "Red cell fragmentation anaemia",
+      "Spherocytic anaemia"
+    ],
+    "answer": "Red cell fragmentation anaemia",
+    "explanation": "Red cell fragmentation (microangiopathic haemolytic anaemia) is caused by acquired conditions (TTP, HUS, DIC) and is NOT hereditary. The others have genetic components.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_047",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "If a patient were suffering from an abscess, the expected cells to be increased in the blood is",
+    "options": [
+      "Erythrocytes",
+      "Lymphocytes",
+      "Neutrophils",
+      "Platelets",
+      "Eosinophils"
+    ],
+    "answer": "Neutrophils",
+    "explanation": "Bacterial abscesses cause neutrophilia (increased neutrophils) as the primary response to pyogenic infection.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_048",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "hard",
+    "question": "There is no need for Child diagnosed to have severe haemophilia A to have written on the card the showing",
+    "options": [
+      "Level of severity",
+      "Response to factor",
+      "Status of inhibitor",
+      "Gender",
+      "Last date of receiving factor"
+    ],
+    "answer": "Gender",
+    "explanation": "Haemophilia A is X-linked and almost exclusively affects males. Gender is already known and does not need to be specifically recorded as a clinical management parameter.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_049",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "easy",
+    "question": "Do not advice the following for those with sickle cell anemia",
+    "options": [
+      "Keeping warm",
+      "Physically demanding exercise",
+      "Know triggers of events",
+      "Drinks lots of water",
+      "Take balanced diet"
+    ],
+    "answer": "Physically demanding exercise",
+    "explanation": "Strenuous physical exercise increases oxygen demand, promotes deoxygenation, and can trigger sickling crises. It should be avoided in sickle cell patients.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_050",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "The following interventions is not appropriate for a patient with Thrombocytopenia",
+    "options": [
+      "Intramuscular injections",
+      "Administration of aspirin",
+      "Giving NSAID's",
+      "Use of hard tooth brush",
+      "Ordering blood for transfusion"
+    ],
+    "answer": "Ordering blood for transfusion",
+    "explanation": "In thrombocytopenia, platelet transfusion (not red cell transfusion) is indicated for bleeding. Red cell transfusion does not address the underlying thrombocytopenia.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_051",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "The main site of haemopoiesis in the first 2 weeks of foetal life is",
+    "options": [
+      "Spleen",
+      "Lymph node",
+      "Yolk sac",
+      "Liver",
+      "Bone Marrow"
+    ],
+    "answer": "Yolk sac",
+    "explanation": "In the first 2-8 weeks of fetal life, primitive haemopoiesis occurs in the yolk sac. The liver takes over at weeks 6-7, then bone marrow from week 20 onwards.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_052",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "The tests for the haemolysis do not include",
+    "options": [
+      "Coagulation screening test",
+      "Peripheral blood film",
+      "White cell counts",
+      "Reticulocyte test",
+      "Total blood counts"
+    ],
+    "answer": "Coagulation screening test",
+    "explanation": "Haemolysis investigations include blood film (schistocytes), reticulocyte count, LDH, haptoglobin, DAT, and full blood count. Coagulation screen is NOT a haemolysis test.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_053",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "Diagnosis of acute leukaemia is based on",
+    "options": [
+      "Special cytochemistry",
+      "Differential count",
+      "Bone marrow",
+      "Total blood count",
+      "Blood film"
+    ],
+    "answer": "Bone marrow",
+    "explanation": "Definitive diagnosis of acute leukaemia requires bone marrow examination (>20% blasts by WHO criteria), supported by morphology, cytochemistry, and immunophenotyping.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  },
+  {
+    "id": "haem_054",
+    "type": "mcq",
+    "subject": "Haematology",
+    "difficulty": "medium",
+    "question": "The following has a diagnostic chromosomal change",
+    "options": [
+      "Acute lymphocytic leukaemia",
+      "Chronic myeloid leukaemia",
+      "Acute myeloid leukaemia",
+      "Acute promyelocytic leukaemia",
+      "Chronic lymphocytic leukaemia"
+    ],
+    "answer": "Chronic myeloid leukaemia",
+    "explanation": "CML has the pathognomonic Philadelphia chromosome t(9;22), forming BCR-ABL fusion gene. This is the most diagnostically definitive chromosomal change in haematological malignancy.",
+    "category": "Haematological Pathology",
+    "year": 3,
+    "source": "UoN Pathology EOY MCQs 2024"
+  }
+]
