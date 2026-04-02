@@ -342,7 +342,7 @@
   overflow: hidden;
   background: linear-gradient(135deg, #0f2027 0%, #1a3a4a 55%, #2c5364 100%);
   box-shadow: 0 8px 28px rgba(15,32,39,0.28);
-  max-width: 520px;        /* ← constrain width */
+  max-width: 520px;
 }
 
 /* Mesh orbs */
@@ -554,7 +554,8 @@
 
 .hd-daily-thin { /* alias — same card, kept for JSX compat */ }
 
-
+/* ═══════════════════════════════════════════════════════════
+   SECTION TITLE
 ═══════════════════════════════════════════════════════════ */
 .hd-section-title {
   font-size: 13px;
