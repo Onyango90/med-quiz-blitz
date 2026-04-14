@@ -2,7 +2,12 @@
   {
     "id": "gross_001",
     "text": "What is the longest bone in the human body?",
-    "options": ["Femur", "Tibia", "Fibula", "Humerus"],
+    "options": [
+      "Femur",
+      "Tibia",
+      "Fibula",
+      "Humerus"
+    ],
     "correctAnswer": 0,
     "xpValue": 2,
     "difficulty": "easy",
@@ -13,7 +18,12 @@
   {
     "id": "gross_002",
     "text": "What is the anatomical term for the shoulder blade?",
-    "options": ["Clavicle", "Scapula", "Humerus", "Sternum"],
+    "options": [
+      "Clavicle",
+      "Scapula",
+      "Humerus",
+      "Sternum"
+    ],
     "correctAnswer": 1,
     "xpValue": 2,
     "difficulty": "easy",
@@ -24,7 +34,12 @@
   {
     "id": "gross_003",
     "text": "How many carpal bones are in the human wrist?",
-    "options": ["6", "7", "8", "9"],
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
     "correctAnswer": 2,
     "xpValue": 3,
     "difficulty": "medium",
@@ -35,7 +50,12 @@
   {
     "id": "gross_004",
     "text": "Which nerve is compressed in carpal tunnel syndrome?",
-    "options": ["Ulnar nerve", "Radial nerve", "Median nerve", "Musculocutaneous nerve"],
+    "options": [
+      "Ulnar nerve",
+      "Radial nerve",
+      "Median nerve",
+      "Musculocutaneous nerve"
+    ],
     "correctAnswer": 2,
     "xpValue": 5,
     "difficulty": "hard",
@@ -46,12 +66,2102 @@
   {
     "id": "gross_005",
     "text": "What is the kneecap called?",
-    "options": ["Patella", "Tibia", "Fibula", "Femur"],
+    "options": [
+      "Patella",
+      "Tibia",
+      "Fibula",
+      "Femur"
+    ],
     "correctAnswer": 0,
     "xpValue": 2,
     "difficulty": "easy",
     "year": 1,
     "category": "Gross Anatomy",
     "explanation": "The patella is a small bone that protects the knee joint."
+  },
+  {
+    "id": "hn_001",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the superior orbital fissure, which is INCORRECT?",
+    "options": [
+      "Its common tendinous ring binds the SOF content of nerves and muscles to the contents of the optic canal",
+      "The origin of levator palpebrae superioris is its bony upper margin",
+      "Lacrimal, frontal and trochlear nerves pass through it",
+      "The oculomotor, abducens and nasociliary nerves lie within the cone of the extraocular muscles"
+    ],
+    "answer": "Its common tendinous ring binds the SOF content of nerves and muscles to the contents of the optic canal",
+    "explanation": "The common tendinous ring (annulus of Zinn) surrounds only part of the superior orbital fissure and is not shared with the optic canal. The optic canal has its own bony margins separate from the SOF.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_002",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the extraocular muscles, which statement is correct?",
+    "options": [
+      "They all arise from a common tendinous ring around the superior orbital fissure",
+      "The rectus muscles all pass laterally to their point of insertion because of the angle of the orbital apex within the skull",
+      "The superior oblique muscle passes through the trochlear, a fibrocartilage loop attached to the frontal bone lateral margin, just behind the orbital margin",
+      "Except for superior oblique, all nerve supply to muscles enter from their optic side"
+    ],
+    "answer": "Except for superior oblique, all nerve supply to muscles enter from their optic side",
+    "explanation": "All extraocular muscles receive their nerve supply on their ocular (inner) surface except for the superior oblique (CN IV) and lateral rectus (CN VI), which are supplied on their outer surface. The inferior oblique arises from the maxilla, not the tendinous ring.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_003",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "With regards to eye movement, which is INCORRECT?",
+    "options": [
+      "The medial and lateral rectus evoke simple horizontal movement only",
+      "The inferior oblique turns the eye down and out",
+      "The superior rectus turns the eye up and in",
+      "The inferior rectus and superior oblique together produce vertical down gaze"
+    ],
+    "answer": "The inferior oblique turns the eye down and out",
+    "explanation": "The inferior oblique actually elevates, abducts and extorts the eye (turns it UP and out). The superior oblique depresses and abducts the eye (turns it down and out).",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_004",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding cranial nerve palsies, which is INCORRECT?",
+    "options": [
+      "In a 4th cranial nerve paralysis, the affected eye lies slightly inturned",
+      "In a 6th cranial nerve palsy, the lateral rectus is affected",
+      "In a 3rd nerve palsy, levator palpebrae is affected",
+      "In an oculomotor nerve palsy the eye looks down and out"
+    ],
+    "answer": "In a 4th cranial nerve paralysis, the affected eye lies slightly inturned",
+    "explanation": "In CN IV (trochlear) palsy, the superior oblique is paralysed. The eye is intorted and elevated (not inturned). The patient typically presents with vertical diplopia worse on downgaze, and a compensatory head tilt.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_005",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "With regards to the retina, which is CORRECT?",
+    "options": [
+      "The retina covers the inner surface of the choroid and is light sensitive everywhere except at the corneal area",
+      "The optic disc contains retina that is completely free of blood vessels and is yellowish in colour",
+      "The optic disc and fovea are of similar size",
+      "The fovea contains no blood vessels or cones, but a high concentration of rods"
+    ],
+    "answer": "The optic disc and fovea are of similar size",
+    "explanation": "The optic disc (blind spot) and fovea are of similar size (~1.5mm diameter). The fovea is avascular and packed with cones, not rods. The optic disc is where vessels enter/exit the retina.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_006",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "The nasal septum consists of:",
+    "options": [
+      "The maxilla",
+      "The vomer and ethmoid bones",
+      "The sphenoid and ethmoid bones",
+      "The frontal, zygoma and maxilla",
+      "The vomer and palatine bones"
+    ],
+    "answer": "The vomer and ethmoid bones",
+    "explanation": "The bony nasal septum is formed by the vomer (posteroinferior) and the perpendicular plate of the ethmoid bone (superoposterior). The septal cartilage forms the anterior part.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_007",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The ophthalmic artery:",
+    "options": [
+      "Is a branch of the ECA",
+      "Enters through the superior orbital fissure",
+      "Does not penetrate the meninges of the optic nerve",
+      "Forms an anastomosis between ECA and ICA",
+      "Is an end artery"
+    ],
+    "answer": "Forms an anastomosis between ECA and ICA",
+    "explanation": "The ophthalmic artery is a branch of the ICA. It forms clinically important anastomoses with ECA branches (e.g. facial artery via dorsal nasal, and middle meningeal via lacrimal). It enters the orbit through the optic canal, not the SOF.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_008",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the carotid sheath, which is correct?",
+    "options": [
+      "Ansa cervicalis lies behind the IJV",
+      "Is free to move in the neck",
+      "Contains the vagus and phrenic nerves",
+      "The sympathetic trunk lies outside the sheath",
+      "The CCA lies lateral to the IJV"
+    ],
+    "answer": "The sympathetic trunk lies outside the sheath",
+    "explanation": "The sympathetic trunk lies posterior to the carotid sheath, behind the prevertebral fascia \u2014 it is NOT within the carotid sheath. The sheath contains the CCA/ICA (medial), IJV (lateral), and vagus nerve (posterior between the two vessels).",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_009",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The contents of the jugular foramen include:",
+    "options": [
+      "Superior petrosal sinus",
+      "Internal jugular vein",
+      "Vagus nerve",
+      "Hypoglossal nerve",
+      "All of the above"
+    ],
+    "answer": "Vagus nerve",
+    "explanation": "The jugular foramen transmits the IJV, CN IX (glossopharyngeal), CN X (vagus), and CN XI (accessory), plus the inferior petrosal sinus. The hypoglossal nerve (CN XII) exits via the hypoglossal canal. The superior petrosal sinus drains into the sigmoid sinus, not through the jugular foramen.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_010",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "The sensory innervation of the auricle of the ear includes:",
+    "options": [
+      "Auriculotemporal nerve (V3)",
+      "Great auricular nerve (C2)",
+      "Facial nerve via tympanic plexus (VII)",
+      "Auricular branch of vagus (X)",
+      "All of the above"
+    ],
+    "answer": "All of the above",
+    "explanation": "The auricle has complex sensory innervation from multiple nerves: auriculotemporal (V3) supplies the anterior auricle, great auricular nerve (C2, C3) the lower/posterior auricle, the auricular branch of the vagus (Arnold's nerve) the concha, and the facial nerve contributes a small auricular branch.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_011",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the abducent nerve (CN VI), which is correct?",
+    "options": [
+      "The nucleus lies in the medulla",
+      "Supplies the superior oblique muscle",
+      "Enters the orbit through the superior orbital fissure",
+      "Has no relation to the cavernous sinus",
+      "Carries autonomic fibres from the Edinger-Westphal nucleus"
+    ],
+    "answer": "Enters the orbit through the superior orbital fissure",
+    "explanation": "CN VI (abducent) enters the orbit through the superior orbital fissure within the common tendinous ring to supply the lateral rectus. Its nucleus is in the pons (not medulla). It runs through the cavernous sinus. CN IV supplies the superior oblique.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_012",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the face, which is INCORRECT?",
+    "options": [
+      "There is no deep fascia on the face",
+      "The bulk of orbicularis oris muscle comes from buccinator",
+      "The eyelid muscles are completely supplied by CN VII",
+      "The parotid duct pierces buccinator opposite the third upper molar tooth",
+      "The facial nerve supplies the occipital belly of occipitofrontalis"
+    ],
+    "answer": "The eyelid muscles are completely supplied by CN VII",
+    "explanation": "Levator palpebrae superioris is supplied by CN III (oculomotor), not CN VII. Orbicularis oculi is supplied by CN VII, but the eyelid muscles as a whole are not exclusively CN VII territory.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_013",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the trigeminal nerve, which is correct?",
+    "options": [
+      "Branches emerge from the parotid gland",
+      "The mandibular nerve has three cutaneous branches",
+      "The supratrochlear nerve supplies midline forehead and scalp",
+      "The infratrochlear nerve is a branch of the maxillary nerve",
+      "The bridge of the nose is supplied by the external nasal nerve"
+    ],
+    "answer": "The mandibular nerve has three cutaneous branches",
+    "explanation": "V3 (mandibular) has three main cutaneous branches: auriculotemporal, mental, and buccal nerves. Branches from the parotid gland are facial nerve branches (CN VII). The infratrochlear is a branch of V1 (nasociliary), not V2.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_014",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which structure does NOT pass through the parotid gland?",
+    "options": [
+      "Retromandibular vein",
+      "Temporozygomatic branch of facial nerve",
+      "Cervicofacial branch of facial nerve",
+      "Internal jugular vein",
+      "External carotid artery"
+    ],
+    "answer": "Internal jugular vein",
+    "explanation": "The parotid gland contains the facial nerve (CN VII) and its branches, the external carotid artery, the retromandibular vein, and the auriculotemporal nerve. The internal jugular vein lies medial/deep to the parotid and does not pass through it.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_015",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Which structure is NOT in the carotid sheath?",
+    "options": [
+      "Internal jugular vein",
+      "Hypoglossal nerve",
+      "Glossopharyngeal nerve",
+      "External jugular vein",
+      "Internal carotid artery"
+    ],
+    "answer": "External jugular vein",
+    "explanation": "The carotid sheath contains the common/internal carotid artery, the internal jugular vein, and the vagus nerve (CN X). The external jugular vein is superficial, running in the subcutaneous tissue over sternocleidomastoid \u2014 it is not within the carotid sheath.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_016",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which is an intrinsic muscle of the tongue?",
+    "options": [
+      "Superior longitudinal muscle",
+      "Genioglossus muscle",
+      "Hyoglossus muscle",
+      "Styloglossus muscle",
+      "Palatoglossus muscle"
+    ],
+    "answer": "Superior longitudinal muscle",
+    "explanation": "The intrinsic tongue muscles (superior longitudinal, inferior longitudinal, transverse, and vertical) have both origin and insertion within the tongue. All extrinsic muscles (genioglossus, hyoglossus, styloglossus, palatoglossus) have an external attachment.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_017",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which muscle abducts the vocal cords?",
+    "options": [
+      "Cricothyroid",
+      "Oblique arytenoid",
+      "Posterior cricoarytenoid",
+      "Lateral cricoarytenoid",
+      "Thyroepiglottic"
+    ],
+    "answer": "Posterior cricoarytenoid",
+    "explanation": "The posterior cricoarytenoid is the ONLY muscle that abducts the vocal cords, opening the rima glottidis for breathing. It rotates the arytenoid cartilages laterally. Bilateral paralysis causes life-threatening airway obstruction.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_018",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Which laryngeal muscle is NOT supplied by the recurrent laryngeal nerve?",
+    "options": [
+      "Thyroarytenoid",
+      "Cricothyroid",
+      "Aryepiglottic",
+      "Oblique arytenoid",
+      "Posterior cricoarytenoid"
+    ],
+    "answer": "Cricothyroid",
+    "explanation": "The cricothyroid muscle is the only intrinsic laryngeal muscle supplied by the external laryngeal nerve (a branch of the superior laryngeal nerve). All other intrinsic laryngeal muscles are supplied by the recurrent laryngeal nerve.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_019",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The internal laryngeal nerve supplies:",
+    "options": [
+      "Sensation to the vocal folds",
+      "The cricothyroid muscle",
+      "Sensation above the vocal folds",
+      "The transverse arytenoid muscle",
+      "Sensation below the vocal folds"
+    ],
+    "answer": "Sensation above the vocal folds",
+    "explanation": "The internal laryngeal nerve (branch of superior laryngeal nerve) provides sensory innervation to the mucosa of the larynx above the vocal cords. Sensation below the cords is via the recurrent laryngeal nerve. Cricothyroid is supplied by the external laryngeal nerve.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_020",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Which nerve does NOT supply skin to the upper eyelid?",
+    "options": [
+      "Lacrimal",
+      "Supraorbital",
+      "Supratrochlear",
+      "Infratrochlear",
+      "Infraorbital"
+    ],
+    "answer": "Infraorbital",
+    "explanation": "The infraorbital nerve (V2) supplies skin of the lower eyelid, cheek, and upper lip. The upper eyelid is supplied by lacrimal, supraorbital, and supratrochlear nerves (all V1 branches), plus the infratrochlear nerve for the medial aspect.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_021",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Which extraocular muscle does NOT arise from the tendinous ring of the orbit?",
+    "options": [
+      "Superior rectus",
+      "Superior oblique",
+      "Inferior rectus",
+      "Medial rectus",
+      "Lateral rectus"
+    ],
+    "answer": "Superior oblique",
+    "explanation": "The superior oblique arises from the body of the sphenoid bone, superomedially above the tendinous ring (annulus of Zinn). The inferior oblique also does not arise from the ring \u2014 it originates from the orbital floor (maxilla). All four recti and levator palpebrae arise from the tendinous ring.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_022",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Which structure passes through the tendinous ring of the orbit?",
+    "options": [
+      "Ophthalmic artery",
+      "Inferior rectus muscle",
+      "Lacrimal nerve",
+      "Trochlear nerve",
+      "Superior oblique muscle"
+    ],
+    "answer": "Ophthalmic artery",
+    "explanation": "The ophthalmic artery passes through the optic canal alongside the optic nerve, entering the orbit through the tendinous ring. The lacrimal, frontal, and trochlear nerves pass through the SOF but OUTSIDE the tendinous ring. The superior oblique does not arise from the ring.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_023",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Which bone is not part of the medial wall of the orbit?",
+    "options": [
+      "Maxilla",
+      "Lacrimal bone",
+      "Sphenoid",
+      "Palatine bone",
+      "Ethmoid"
+    ],
+    "answer": "Palatine bone",
+    "explanation": "The medial wall of the orbit is formed by the maxilla (anteriorly), lacrimal bone, ethmoid (orbital plate \u2014 lamina papyracea), and lesser wing of sphenoid. The palatine bone contributes to the floor and posterior medial orbit but not significantly to the medial wall.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_024",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which muscle helps to open the jaw?",
+    "options": [
+      "Medial pterygoid",
+      "Lateral pterygoid",
+      "Masseter",
+      "Temporalis",
+      "Buccinator"
+    ],
+    "answer": "Lateral pterygoid",
+    "explanation": "The lateral pterygoid is the primary muscle of jaw opening (depression of mandible). It pulls the condyle and disc of the TMJ forwards. Masseter, medial pterygoid, and temporalis are all jaw-closing muscles (elevators of the mandible).",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_025",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the vertebral column, which is correct?",
+    "options": [
+      "Ligamentum flava attach adjacent pedicles",
+      "Lumbar vertebrae have foramina in their transverse processes",
+      "The intervertebral disc is a primary cartilaginous joint",
+      "Rotation is greatest in the thoracic region",
+      "The cruciform ligament holds the dens in place"
+    ],
+    "answer": "The cruciform ligament holds the dens in place",
+    "explanation": "The cruciform (cruciate) ligament of the atlas holds the dens (odontoid process) against the anterior arch of C1. It consists of the transverse ligament plus vertical bands. Ligamentum flava connect adjacent laminae (not pedicles). Intervertebral discs are secondary cartilaginous joints (symphyses).",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_026",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "The middle meningeal artery is a branch of the:",
+    "options": [
+      "Internal carotid artery",
+      "Middle cerebral artery",
+      "Maxillary artery",
+      "Deep temporal artery",
+      "Facial artery"
+    ],
+    "answer": "Maxillary artery",
+    "explanation": "The middle meningeal artery is the largest meningeal artery and arises from the maxillary artery (1st part, within the infratemporal fossa). It enters the skull through the foramen spinosum and supplies the dura. It is classically involved in extradural haematoma after temporal bone fracture.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_027",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "The hyoid bone is at what level?",
+    "options": [
+      "C2 vertebra",
+      "C3 vertebra",
+      "C4 vertebra",
+      "C5 vertebra",
+      "C6 vertebra"
+    ],
+    "answer": "C3 vertebra",
+    "explanation": "The hyoid bone lies at the level of the C3 vertebra. Key neck landmarks: hyoid (C3), thyroid notch (C4-5), cricoid cartilage (C6), and the carotid bifurcation (C3-4).",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_028",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "The parotid gland:",
+    "options": [
+      "Is the largest of the major salivary glands",
+      "Is a mainly mucous gland",
+      "Is a well organised, regular gland, clearly divided into lobes",
+      "Drains into the parotid duct on its posteromedial surface",
+      "Extends from the zygomatic arch to the lower level of the earlobe"
+    ],
+    "answer": "Is the largest of the major salivary glands",
+    "explanation": "The parotid is the largest salivary gland and is purely serous. It is irregular in shape, not well-organised into distinct lobes. The parotid duct (Stensen's duct) opens opposite the upper 2nd molar tooth after piercing the buccinator.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_029",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Cutaneous sensation to the upper lip is supplied by the:",
+    "options": [
+      "Zygomaticofacial nerve",
+      "Buccal nerve",
+      "Infraorbital nerve",
+      "Mental nerve",
+      "External nasal nerve"
+    ],
+    "answer": "Infraorbital nerve",
+    "explanation": "The infraorbital nerve (terminal branch of V2/maxillary) supplies sensation to the skin of the upper lip, lower eyelid, cheek, and lateral nose. The mental nerve (V3) supplies the lower lip. The buccal nerve (V3) supplies the cheek mucosa.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_030",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Skin over the upper lateral eyelid is supplied by the:",
+    "options": [
+      "Lacrimal nerve",
+      "Supraorbital nerve",
+      "Supratrochlear nerve",
+      "Zygomaticofacial nerve",
+      "Zygomaticotemporal nerve"
+    ],
+    "answer": "Lacrimal nerve",
+    "explanation": "The lacrimal nerve (branch of V1/ophthalmic) supplies sensation to the skin of the lateral upper eyelid and the lacrimal gland. The supraorbital and supratrochlear nerves supply the central and medial upper eyelid respectively.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_031",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The facial nerve:",
+    "options": [
+      "Marginal mandibular branch supplies muscles of the upper and lower lips",
+      "Emerges through the stylomastoid foramen",
+      "Has four main branches that exit the parotid gland",
+      "Supplies the anterior belly of digastric",
+      "Divides into temporofacial and cervicofacial divisions just after it enters the parotid gland"
+    ],
+    "answer": "Emerges through the stylomastoid foramen",
+    "explanation": "CN VII exits the skull through the stylomastoid foramen before entering the parotid gland. Within the parotid it divides into temporofacial and cervicofacial divisions, then into 5 terminal branches (temporal, zygomatic, buccal, marginal mandibular, cervical). The posterior belly of digastric (not anterior) is supplied by CN VII.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_032",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The facial artery:",
+    "options": [
+      "Is a branch of the internal carotid artery",
+      "Crosses the angle of the jaw at the posterior border of masseter muscle",
+      "Courses along inferior margin of parotid duct",
+      "Lies in front of the facial vein",
+      "None of the above"
+    ],
+    "answer": "Lies in front of the facial vein",
+    "explanation": "The facial artery lies anterior to the facial vein as both pass over the mandible. The facial artery is a branch of the ECA. It crosses the mandible at the anterior border of masseter (not posterior). It is tortuous and runs near but not along the parotid duct.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_033",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The cervical sympathetic trunk:",
+    "options": [
+      "Lies anterior to scalenus anterior",
+      "Is enclosed in the carotid sheath",
+      "Is lateral to the vertebral artery",
+      "Each ganglion gives off a cardiac branch",
+      "Disruption causes miosis, ptosis and increased sweating"
+    ],
+    "answer": "Each ganglion gives off a cardiac branch",
+    "explanation": "Each of the three cervical sympathetic ganglia (superior, middle, inferior) gives off a cardiac branch to the cardiac plexus. The sympathetic trunk lies posterior to the carotid sheath (not enclosed within it). Horner's syndrome (sympathetic disruption) causes miosis, ptosis, and ANHIDROSIS (decreased sweating), not increased sweating.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_034",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The oculomotor nerve:",
+    "options": [
+      "Does not enter the cavernous sinus",
+      "Supplies the ciliary muscle",
+      "Emerges from the pons",
+      "Contains sympathetic fibres from the Edinger-Westphal nucleus",
+      "Does not pass through the tendinous ring"
+    ],
+    "answer": "Supplies the ciliary muscle",
+    "explanation": "CN III carries parasympathetic fibres from the Edinger-Westphal nucleus (NOT sympathetic) to the ciliary muscle (accommodation) and sphincter pupillae (constriction). It emerges from the midbrain (not pons), runs through the cavernous sinus, and enters the orbit through the tendinous ring.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_035",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The chorda tympani carries:",
+    "options": [
+      "Taste fibres for the posterior third of the tongue",
+      "Ordinary sensation for the anterior two thirds of the tongue",
+      "Taste fibres for the anterior two thirds of the tongue",
+      "Cervical sympathetic fibres",
+      "Motor fibres to the muscles of mastication"
+    ],
+    "answer": "Taste fibres for the anterior two thirds of the tongue",
+    "explanation": "The chorda tympani (branch of CN VII) carries: (1) taste (special afferent) from the anterior 2/3 of tongue, and (2) preganglionic parasympathetic fibres to the submandibular ganglion for secretomotor supply to submandibular and sublingual glands. Ordinary sensation to the anterior 2/3 is from the lingual nerve (V3).",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_036",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Which is NOT a branch of the facial nerve?",
+    "options": [
+      "Nerve to stapedius",
+      "Chorda tympani",
+      "Nerve to levator anguli oris",
+      "Greater superficial petrosal nerve",
+      "Auriculotemporal nerve"
+    ],
+    "answer": "Auriculotemporal nerve",
+    "explanation": "The auriculotemporal nerve is a branch of V3 (mandibular division of trigeminal), not the facial nerve. Facial nerve branches include: greater petrosal nerve, nerve to stapedius, chorda tympani, and the 5 terminal branches (temporal, zygomatic, buccal, marginal mandibular, cervical). Nerve to levator anguli oris is a buccal branch of CN VII.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_037",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding lymph drainage of head and neck, which is INCORRECT?",
+    "options": [
+      "Superficial cervical nodes lie along the external jugular veins",
+      "Submandibular nodes are lateral to submental nodes",
+      "The left jugular lymph trunk usually drains into the thoracic duct",
+      "The jugulodigastric nodes lie on/near the tendon of omohyoid",
+      "Preauricular nodes are outside and within the capsule of the parotid gland"
+    ],
+    "answer": "The jugulodigastric nodes lie on/near the tendon of omohyoid",
+    "explanation": "The jugulodigastric nodes (important for tonsillar/pharyngeal drainage) lie at the junction of the posterior belly of digastric with the internal jugular vein \u2014 NOT near the omohyoid. The jugulo-omohyoid nodes lie near the omohyoid tendon.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_038",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which is NOT a content of the posterior triangle of the neck?",
+    "options": [
+      "Subclavian artery",
+      "Lymph nodes",
+      "Transverse cervical vein",
+      "Omohyoid muscle",
+      "Sternocleidomastoid muscle"
+    ],
+    "answer": "Sternocleidomastoid muscle",
+    "explanation": "The posterior triangle is bounded anteriorly by SCM, posteriorly by trapezius, and inferiorly by the clavicle. SCM forms the anterior BOUNDARY of the posterior triangle \u2014 it is not a content. The floor is formed by prevertebral muscles.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_039",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which laryngeal muscle abducts the vocal cords?",
+    "options": [
+      "Posterior cricoarytenoid",
+      "Cricothyroid",
+      "Transverse arytenoid",
+      "Vocalis",
+      "Thyroarytenoid"
+    ],
+    "answer": "Posterior cricoarytenoid",
+    "explanation": "The posterior cricoarytenoid is the only abductor of the vocal cords. It rotates the arytenoid cartilages posterolaterally, separating the vocal processes. All other intrinsic laryngeal muscles are adductors or tensor/relaxors of the cords.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_040",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the bones of the skull, which is correct?",
+    "options": [
+      "The middle cranial fossa does not extend to the posterior cranial vault",
+      "The temporal lobe rests on the bony rather than the membranous part of the middle cranial fossa",
+      "The posterior cranial fossa contains the cerebellum and lies superior to the tentorium cerebelli",
+      "The floor of the anterior cranial fossa is formed from the orbital plate of the parietal bone",
+      "The cribriform plate lies in the midline and is formed from the roof of the sphenoid bone"
+    ],
+    "answer": "The temporal lobe rests on the bony rather than the membranous part of the middle cranial fossa",
+    "explanation": "The temporal lobe sits in the middle cranial fossa on the bony floor (greater wing of sphenoid and petrous temporal). The posterior fossa contains the cerebellum and lies INFERIOR to the tentorium. The anterior cranial fossa floor includes the orbital plate of the frontal bone (not parietal). The cribriform plate is part of the ethmoid.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_041",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the bones of the skull, which is correct?",
+    "options": [
+      "The anterior clinoid processes are formed by the lesser wings of the sphenoid",
+      "The posterior clinoid processes are formed from the occipital bone",
+      "The dorsum sellae is formed from the anterior part of the occipital bone",
+      "The petrous temporal bone forms the floor of the middle cranial fossa, but not the wall of the posterior cranial fossa",
+      "The inferior orbital fissure separates the lesser and greater wings of the sphenoid"
+    ],
+    "answer": "The anterior clinoid processes are formed by the lesser wings of the sphenoid",
+    "explanation": "The anterior clinoid processes are projections of the lesser wings of the sphenoid. The posterior clinoid processes are part of the dorsum sellae of the sphenoid (not occipital). The petrous temporal forms both the floor of the middle fossa AND the anterior wall of the posterior fossa.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_042",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the cervical spine, which is correct?",
+    "options": [
+      "All seven cervical vertebrae have spinous processes",
+      "Rotatory movements of the head occur mostly at the atlanto-occipital joints",
+      "The odontoid process (peg) is encased by a bony canal in the axis",
+      "All seven cervical vertebrae have foramina transversaria for the vertebral artery to pass through",
+      "Spinous processes, where present, are all bifid except for C7"
+    ],
+    "answer": "Spinous processes, where present, are all bifid except for C7",
+    "explanation": "C2-C6 spinous processes are typically bifid. C7 (vertebra prominens) has a long, non-bifid spinous process. C1 has no spinous process (just a posterior tubercle). Rotation is greatest in the cervical region (especially C1-C2), not thoracic. The dens is held by the transverse ligament (part of the cruciform ligament), not by a bony canal.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_043",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the triangles of the neck, which is correct?",
+    "options": [
+      "The posterior triangle is bound by trapezius, sternocleidomastoid and the middle quarter of clavicle",
+      "The anterior triangle is further divided into two smaller triangles, the carotid and submandibular triangles",
+      "The posterior belly of digastric (and stylohyoid) separates the carotid and submandibular triangles",
+      "The accessory nerve (CN XI) divides the posterior triangle into approximately two halves",
+      "The parotid and submandibular glands lie deep to the investing fascia in the anterior triangle"
+    ],
+    "answer": "The posterior belly of digastric (and stylohyoid) separates the carotid and submandibular triangles",
+    "explanation": "Within the anterior triangle, the digastric muscle (posterior belly) and stylohyoid separate the carotid triangle (inferior) from the digastric/submandibular triangle (superior). The posterior triangle is bounded by the posterior third of the clavicle.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_044",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Regarding anatomy of neck landmarks, which is correct?",
+    "options": [
+      "The arch of the cricoid cartilage is palpable as it protrudes forward of the trachea",
+      "The cricoid cartilage marks the level of C5",
+      "The transverse process of the axis is the most prominent cervical transverse process",
+      "The body of hyoid is not palpable because it is hidden behind the thyroid cartilage",
+      "The coracoid process of scapula is palpable within the deltopectoral triangle"
+    ],
+    "answer": "The arch of the cricoid cartilage is palpable as it protrudes forward of the trachea",
+    "explanation": "The cricoid arch is the most inferior palpable laryngeal structure and marks the beginning of the trachea at C6 (not C5). The atlas (C1) has the most prominent transverse processes, palpable between the mastoid and angle of mandible. The hyoid is palpable at C3.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_045",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding fascia and sheaths in the neck, which is correct?",
+    "options": [
+      "The pretracheal fascia contains both trachea and oesophagus, and also splits to envelop the lobes of the thyroid gland",
+      "The prevertebral fascia encloses vertebrae and muscles but does not contribute to the axillary sheath",
+      "The investing fascia encloses trapezius, sternomastoid and platysma muscles",
+      "The carotid sheath contains carotid artery, sympathetic chain and jugular vein, but not the vagus",
+      "Infection can track in the pretracheal space to mediastinum"
+    ],
+    "answer": "The pretracheal fascia contains both trachea and oesophagus, and also splits to envelop the lobes of the thyroid gland",
+    "explanation": "The pretracheal (visceral) fascia encloses the trachea, oesophagus, and splits to form a capsule around the thyroid gland. Infection in this space can track inferiorly into the mediastinum. The prevertebral fascia DOES extend to form the axillary sheath.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_046",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "For sternocleidomastoid, which is TRUE?",
+    "options": [
+      "Contraction of one muscle rotates the head to the ipsilateral shoulder",
+      "It is crossed superficially by the external jugular vein",
+      "It is supplied by the transverse cervical nerve",
+      "Its clavicular fibres mainly insert into the superior nuchal line",
+      "It is superficial to the deep cervical fascia"
+    ],
+    "answer": "It is crossed superficially by the external jugular vein",
+    "explanation": "The external jugular vein crosses superficially over the SCM before draining into the subclavian vein. SCM is invested by the deep cervical (investing) fascia. It is supplied by CN XI (accessory nerve) with proprioception from C2-3. Unilateral contraction rotates the head to the CONTRALATERAL side.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_047",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Which is NOT considered a content of the posterior triangle of the neck?",
+    "options": [
+      "Subclavian artery",
+      "Trunks of the brachial plexus",
+      "Internal jugular vein",
+      "Branches of the cervical plexus",
+      "Accessory nerve"
+    ],
+    "answer": "Internal jugular vein",
+    "explanation": "The internal jugular vein lies within the carotid sheath in the anterior triangle of the neck, not in the posterior triangle. The posterior triangle contains the subclavian artery (3rd part), brachial plexus trunks, accessory nerve (CN XI), cervical plexus branches, and the inferior belly of omohyoid.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_048",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "For the thyroid gland, which is TRUE?",
+    "options": [
+      "The thyroid isthmus crosses the thyroid cartilage",
+      "The superior thyroid arteries are branches of the internal carotid arteries",
+      "The posterior surface lies on the carotid sheaths",
+      "The inferior thyroid arteries are branches of the external carotid arteries",
+      "The recurrent laryngeal nerves pass anteriorly to each lateral lobe"
+    ],
+    "answer": "The posterior surface lies on the carotid sheaths",
+    "explanation": "The lateral lobes of the thyroid are closely related posterolaterally to the carotid sheaths. The isthmus overlies the 2nd-4th tracheal rings. Superior thyroid artery is from the ECA (not ICA). Inferior thyroid artery is from the thyrocervical trunk of the subclavian. The RLN runs in the groove between trachea and oesophagus, posteriorly to the gland.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_049",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "For the great neck vessels, which is TRUE?",
+    "options": [
+      "The carotid sheath contains the ansa cervicalis, vagus and recurrent laryngeal nerves",
+      "The external carotid artery has three branches",
+      "The internal carotid artery has six branches in the neck",
+      "The internal jugular vein lies lateral to the carotid artery throughout its course",
+      "The carotid sinus lies at the commencement of the common carotid artery"
+    ],
+    "answer": "The internal jugular vein lies lateral to the carotid artery throughout its course",
+    "explanation": "The IJV lies lateral to the ICA/CCA throughout the neck. The ICA has NO branches in the neck (all branches arise intracranially). The ECA has 8 branches. The carotid sinus is at the bifurcation of the CCA (not its commencement). The carotid sheath contains the vagus, not the recurrent laryngeal nerve.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_050",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The blood supply of Little's area (anteroinferior part of the nasal septum) is best described by:",
+    "options": [
+      "Anterior and posterior ethmoidal arteries from the ophthalmic artery",
+      "The sphenopalatine branch of the maxillary artery",
+      "Sphenopalatine artery and septal branch of the superior labial branch of the facial artery",
+      "All of the above",
+      "None of the above"
+    ],
+    "answer": "Sphenopalatine artery and septal branch of the superior labial branch of the facial artery",
+    "explanation": "Little's area (Kiesselbach's plexus) is supplied by an anastomosis of: anterior ethmoidal artery (V1/ICA), sphenopalatine artery (V2/ECA), greater palatine artery (V2/ECA), and the septal branch of the superior labial artery (facial/ECA). The most clinically important are the sphenopalatine and superior labial contributions.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_051",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The septum of the nasal cavity is innervated by:",
+    "options": [
+      "Nasopalatine nerve from cranial nerve V2",
+      "Posterior ethmoidal nerve from V1",
+      "Greater palatine nerve from V2",
+      "Lesser palatine nerve from V2",
+      "None of the above"
+    ],
+    "answer": "Nasopalatine nerve from cranial nerve V2",
+    "explanation": "The nasal septum receives its primary sensory innervation from the nasopalatine nerve (a branch of V2/maxillary via the pterygopalatine ganglion), which supplies the posteroinferior septum. The anterior septum is supplied by the anterior ethmoidal nerve (V1).",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_052",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "The posterior cricoarytenoid muscles:",
+    "options": [
+      "Abduct the vocal cords",
+      "Adduct the vocal cords",
+      "Tension the vocal cords",
+      "Relax the vocal cords",
+      "Act as a sphincter"
+    ],
+    "answer": "Abduct the vocal cords",
+    "explanation": "The posterior cricoarytenoid muscles are the sole abductors of the vocal cords, rotating the arytenoid cartilages to open the rima glottidis. They are essential for breathing. Bilateral palsy results in aphonia and potentially fatal airway obstruction.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_053",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The superior laryngeal nerve:",
+    "options": [
+      "Divides into internal and recurrent laryngeal nerves",
+      "Supplies the cricothyroid muscle via an external laryngeal branch",
+      "Supplies all the intrinsic muscles of the larynx",
+      "Is sensory to the larynx below the vocal cords",
+      "None of the above"
+    ],
+    "answer": "Supplies the cricothyroid muscle via an external laryngeal branch",
+    "explanation": "The superior laryngeal nerve (branch of CN X) divides into the internal laryngeal nerve (sensory above cords, enters larynx through thyrohyoid membrane) and the external laryngeal nerve (motor to cricothyroid only). The recurrent laryngeal nerve supplies all other intrinsic muscles and sensation below the cords.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_054",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "The surface markings of the trachea include:",
+    "options": [
+      "Origin at lower end of the cricoid at C4 vertebra",
+      "Origin at C6 vertebra level",
+      "Termination at T2 at expiration",
+      "Termination at T4 level at maximal inspiration",
+      "3rd to 5th rings covered anteriorly by isthmus of the thyroid"
+    ],
+    "answer": "Origin at C6 vertebra level",
+    "explanation": "The trachea commences at the lower border of the cricoid cartilage at the level of C6. It terminates at the carina at the level of T4-5 (sternal angle/angle of Louis). The thyroid isthmus overlies the 2nd-4th tracheal rings.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_055",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "What runs through the foramen spinosum?",
+    "options": [
+      "Internal carotid artery",
+      "Maxillary branch of the trigeminal nerve",
+      "Mandibular branch of the trigeminal nerve",
+      "Middle meningeal artery",
+      "Meningeal nerve"
+    ],
+    "answer": "Middle meningeal artery",
+    "explanation": "The foramen spinosum transmits the middle meningeal artery (and vein, plus the meningeal branch of the mandibular nerve). The middle meningeal artery is a branch of the maxillary artery. The mandibular nerve (V3) exits through the foramen ovale; the maxillary nerve (V2) through foramen rotundum.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_056",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The internal jugular vein:",
+    "options": [
+      "Drains into the subclavian vein on the left",
+      "Lies in the carotid sheath with the carotid artery and the sympathetic trunk",
+      "Lies lateral to the internal carotid artery at the base of the skull",
+      "Lies lateral to the carotid artery in the lower neck",
+      "Lies anterior to the sternocleidomastoid"
+    ],
+    "answer": "Lies lateral to the carotid artery in the lower neck",
+    "explanation": "The IJV lies lateral to the carotid artery throughout its course in the neck. At the base of the skull, the IJV is posterior to the ICA, but as it descends it moves to a lateral position. The IJV joins the subclavian to form the brachiocephalic vein. The sympathetic trunk is OUTSIDE the carotid sheath.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_057",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "The seventh cervical vertebra:",
+    "options": [
+      "Is a typical cervical vertebra",
+      "Has a bifid spinous process",
+      "Transmits the vertebral artery through the foramen in the transverse process",
+      "Has the supra-pleural membrane attached to the anterior tubercle",
+      "Has a short spinous process"
+    ],
+    "answer": "Has the supra-pleural membrane attached to the anterior tubercle",
+    "explanation": "C7 is atypical: it has a long, non-bifid spinous process (vertebra prominens), and its foramen transversarium is small and does not transmit the vertebral artery (which ascends through C1-C6). The suprapleural membrane (Sibson's fascia) attaches to the anterior tubercle of C7.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_058",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "The atlas (C1):",
+    "options": [
+      "Has no foramen in the transverse process",
+      "Is the narrowest cervical vertebra",
+      "Has a body",
+      "Has a posterior arch grooved by the vertebral artery",
+      "Has a short spinous process"
+    ],
+    "answer": "Has a posterior arch grooved by the vertebral artery",
+    "explanation": "The posterior arch of C1 has a groove on its superior surface through which the vertebral artery passes after exiting the C1 foramen transversarium. The atlas has no body (replaced by the dens of C2) and no spinous process \u2014 just a posterior tubercle. It does have foramina transversaria.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_059",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Branches of the external carotid artery include:",
+    "options": [
+      "Inferior thyroid artery",
+      "Ascending pharyngeal artery",
+      "Internal thoracic artery",
+      "Superficial cervical artery",
+      "Thymic artery"
+    ],
+    "answer": "Ascending pharyngeal artery",
+    "explanation": "The 8 branches of the ECA: superior thyroid, ascending pharyngeal, lingual, facial, occipital, posterior auricular, maxillary, and superficial temporal. The inferior thyroid artery is from the thyrocervical trunk of the subclavian. The internal thoracic (mammary) is also from the subclavian artery.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_060",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The blood supply to the nasal cavity:",
+    "options": [
+      "Is only from the external carotid",
+      "Mainly enters through the nostril",
+      "Does not communicate with intracranial vessels",
+      "Mainly enters the sphenopalatine foramen",
+      "Arrives to Little's area from ophthalmic artery branches"
+    ],
+    "answer": "Mainly enters the sphenopalatine foramen",
+    "explanation": "The sphenopalatine artery (branch of maxillary/ECA) is the dominant blood supply to the nasal cavity, entering through the sphenopalatine foramen. The anterior ethmoidal artery (from ophthalmic/ICA) also contributes. The nasal blood supply communicates intracranially via the ethmoidal arteries.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_061",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Protection of the airway during swallowing is NOT facilitated by:",
+    "options": [
+      "The sphincteric action of the aryepiglottic muscles",
+      "Closure of the glottis",
+      "Elevation of the larynx",
+      "Contraction of the cricothyroid muscle",
+      "Posterior bulging of the tongue assisting closure of the larynx"
+    ],
+    "answer": "Contraction of the cricothyroid muscle",
+    "explanation": "The cricothyroid muscle tenses the vocal cords for phonation \u2014 it does not play a role in airway protection during swallowing. Airway protection during deglutition involves laryngeal elevation (pulling under tongue), glottic closure (adduction of cords), epiglottis tilting, and aryepiglottic sphincter action.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_062",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Structure of the larynx includes:",
+    "options": [
+      "The inlet being bounded posteriorly by the epiglottis",
+      "The posterior cricoarytenoid being an adductor of the vocal cords",
+      "The aryepiglottic fold contains the cuneiform cartilage",
+      "The rima of the vestibule being the fissure between the two vocal cords",
+      "The cricoid cartilage not being circumferential"
+    ],
+    "answer": "The aryepiglottic fold contains the cuneiform cartilage",
+    "explanation": "The aryepiglottic folds contain the cuneiform and corniculate cartilages (and the aryepiglottic muscle). The laryngeal inlet is bounded anteriorly by the epiglottis (not posteriorly). The posterior cricoarytenoid is an ABDUCTOR. The rima vestibuli is between the vestibular (false) folds; the rima glottidis is between the true vocal cords.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_063",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "The trachea:",
+    "options": [
+      "Commences below the cricoid at the level of C5",
+      "Enters the thoracic inlet slightly to the left",
+      "Is marked at its lower end by the level of the sternal angle",
+      "Is supplied by the glossopharyngeal nerve",
+      "Drains to axillary lymph nodes"
+    ],
+    "answer": "Is marked at its lower end by the level of the sternal angle",
+    "explanation": "The trachea bifurcates at the carina at the level of the sternal angle (angle of Louis, T4-5). It commences at C6 and deviates slightly to the RIGHT (due to the aortic arch). It is supplied by the recurrent laryngeal and vagus nerves, not glossopharyngeal.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_064",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "All of the following are branches of the external carotid artery EXCEPT:",
+    "options": [
+      "Superior thyroid artery",
+      "Hypoglossal artery",
+      "Facial artery",
+      "Lingual artery",
+      "Ascending pharyngeal artery"
+    ],
+    "answer": "Hypoglossal artery",
+    "explanation": "The hypoglossal artery does not exist as a named branch of the ECA. The 8 ECA branches are: superior thyroid, ascending pharyngeal, lingual, facial, occipital, posterior auricular, superficial temporal, and maxillary arteries.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_065",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding triangles of the neck \u2014 all of the following structures are boundaries of the triangle named EXCEPT:",
+    "options": [
+      "Submental triangle \u2014 mandible",
+      "Anterior triangle \u2014 mandible",
+      "Digastric triangle \u2014 mandible",
+      "Carotid triangle \u2014 sternocleidomastoid",
+      "Anterior triangle \u2014 sternocleidomastoid"
+    ],
+    "answer": "Submental triangle \u2014 mandible",
+    "explanation": "The submental triangle is bounded by the two anterior bellies of the digastric muscles and the hyoid bone \u2014 NOT the mandible. The anterior triangle is bounded by the mandible superiorly, midline anteriorly, and SCM posteriorly. The digastric triangle is bounded by both bellies of digastric and the mandible.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_066",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "All of the following are contents of the posterior triangle of the neck EXCEPT:",
+    "options": [
+      "Occipital lymph nodes",
+      "Accessory nerve",
+      "Cervical plexus",
+      "Inferior belly of omohyoid",
+      "Transverse cervical vessels"
+    ],
+    "answer": "Occipital lymph nodes",
+    "explanation": "The occipital lymph nodes lie along the superior nuchal line at the apex of the posterior triangle \u2014 they are superficial and not truly within the triangle itself. All other options are genuine contents of the posterior triangle.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_067",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which one of the following opens into the inferior meatus of the nose?",
+    "options": [
+      "Frontal sinus",
+      "Ethmoidal sinus",
+      "Maxillary sinus",
+      "Nasolacrimal duct",
+      "Auditory tube"
+    ],
+    "answer": "Nasolacrimal duct",
+    "explanation": "The nasolacrimal duct opens into the inferior meatus of the nose. The maxillary sinus, anterior and middle ethmoid cells, and frontal sinus drain into the middle meatus (via the hiatus semilunaris). The posterior ethmoidal cells drain into the superior meatus. The sphenoidal sinus drains into the sphenoethmoidal recess.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_068",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "A fracture through the roof of the maxillary sinus might result in sensory loss to the:",
+    "options": [
+      "Tympanic membrane",
+      "Lacrimal gland",
+      "Upper molar teeth",
+      "Skin overlying the zygomatic bone",
+      "Upper incisors and canine teeth"
+    ],
+    "answer": "Upper incisors and canine teeth",
+    "explanation": "The roof of the maxillary sinus is the floor of the orbit. The anterior superior alveolar nerve (branch of infraorbital nerve, V2) runs in the anterior wall of the maxillary sinus supplying upper incisors and canines. A fracture of the anterior wall/roof could damage this nerve.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_069",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "All of the following structures pass through the jugular foramen EXCEPT:",
+    "options": [
+      "Jugular vein",
+      "Glossopharyngeal nerve",
+      "Hypoglossal nerve",
+      "Accessory nerve",
+      "Vagus nerve"
+    ],
+    "answer": "Hypoglossal nerve",
+    "explanation": "The hypoglossal nerve (CN XII) exits through the hypoglossal canal, not the jugular foramen. The jugular foramen transmits the IJV, CN IX (glossopharyngeal), CN X (vagus), CN XI (accessory), and the inferior petrosal sinus.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_070",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the basilar artery, all the below are true EXCEPT:",
+    "options": [
+      "Gives off branches to the anterior spinal artery",
+      "Divides to give off both posterior cerebral arteries",
+      "Supplies branches to the pons",
+      "Formed by the union of the vertebral arteries",
+      "Lies on the ventral aspect of the cerebral peduncle"
+    ],
+    "answer": "Gives off branches to the anterior spinal artery",
+    "explanation": "The anterior spinal artery is formed by branches from the two vertebral arteries (not the basilar). The basilar artery gives off pontine arteries, anterior inferior cerebellar arteries (AICA), superior cerebellar arteries, and terminates by dividing into the two posterior cerebral arteries.",
+    "category": "Head & Neck Anatomy",
+    "year": 3,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_071",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "In the circle of Willis:",
+    "options": [
+      "The basilar artery divides into right and left posterior cerebellar arteries",
+      "The middle cerebral arteries branch off and supply the motor but not sensory cortex",
+      "The anterior communicating artery unites the middle cerebral artery to the internal cerebral artery",
+      "It encircles the inferior brainstem at C2-3 level",
+      "The internal carotid artery gives off the ophthalmic artery before dividing into anterior and middle cerebral arteries"
+    ],
+    "answer": "The internal carotid artery gives off the ophthalmic artery before dividing into anterior and middle cerebral arteries",
+    "explanation": "The ICA gives off the ophthalmic artery as it exits the cavernous sinus, then terminates by dividing into the anterior and middle cerebral arteries. The basilar divides into posterior CEREBRAL arteries (not cerebellar). The circle of Willis encircles the pituitary stalk at the base of the brain.",
+    "category": "Head & Neck Anatomy",
+    "year": 3,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_072",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the facial vein, all of the following are true EXCEPT:",
+    "options": [
+      "It drains into the internal jugular vein",
+      "It has no valves",
+      "It communicates with the cavernous sinus via the ophthalmic vein",
+      "It runs inferoposteriorly anterior to the facial artery",
+      "It communicates with the pterygoid plexus via the deep facial vein"
+    ],
+    "answer": "It runs inferoposteriorly anterior to the facial artery",
+    "explanation": "The facial vein runs POSTERIOR to the facial artery (not anterior). It begins as the angular vein at the medial canthus of the eye. Being valveless, infections in the danger zone of the face can spread to the cavernous sinus via the superior ophthalmic vein \u2014 a clinically important concept.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_073",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "The 2nd cervical vertebra (axis):",
+    "options": [
+      "Has a very small spinous process",
+      "Articulates with the occiput",
+      "Has a bifid spinous process",
+      "Is referred to as the atlas",
+      "Has a dens that occupies the posterior 1/3 of the canal"
+    ],
+    "answer": "Has a bifid spinous process",
+    "explanation": "C2 (axis) has a large bifid spinous process. It articulates with C1 (atlas) at the atlantoaxial joint. The atlas (C1) articulates with the occiput at the atlanto-occipital joint. The dens of C2 occupies the anterior 1/3 of the spinal canal at this level.",
+    "category": "Head & Neck Anatomy",
+    "year": 1,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_074",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the larynx, which is correct?",
+    "options": [
+      "All muscles are supplied by the recurrent laryngeal nerve",
+      "Thyroarytenoid muscle alters the tension of the vocal cord",
+      "Recurrent laryngeal nerve passes anterior to the cricothyroid joint",
+      "During swallowing, the epiglottis acts as a passive flap",
+      "All of the larynx is covered by pseudostratified columnar epithelium"
+    ],
+    "answer": "Thyroarytenoid muscle alters the tension of the vocal cord",
+    "explanation": "The thyroarytenoid (vocalis) muscle relaxes/decreases tension in the vocal cords. The cricothyroid (supplied by external laryngeal nerve) is an exception to RLN supply. The epiglottis is actively tilted by muscles. The true vocal cords are covered by stratified squamous epithelium; the rest by respiratory epithelium.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_075",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the vertebral column, all are correct EXCEPT:",
+    "options": [
+      "The facet joints in the lumbar spine lie in an anteroposterior plane",
+      "The vertebral arteries ascend through the foramina in the transverse processes of the upper six cervical vertebrae",
+      "The spinous processes of the cervical vertebrae are usually bifid",
+      "Thoracic vertebrae I, II and XII have single costal facets on their pedicles",
+      "The sacrum has 5 sets of anterior and posterior sacral foramina"
+    ],
+    "answer": "The sacrum has 5 sets of anterior and posterior sacral foramina",
+    "explanation": "The sacrum has only 4 pairs of anterior (pelvic) and posterior sacral foramina, corresponding to S1-S4 spinal nerves. S5 exits through the sacral hiatus. Thoracic vertebrae I, X, XI and XII have single costal facets; II-IX have demifacets.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_076",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The internal jugular vein:",
+    "options": [
+      "Is surrounded by the thickest portion of carotid sheath",
+      "Receives drainage from all the parathyroid glands",
+      "Is crossed posteriorly by the accessory nerve",
+      "Is crossed anteriorly by the thoracic duct",
+      "Contains valves within its lumen"
+    ],
+    "answer": "Is crossed posteriorly by the accessory nerve",
+    "explanation": "The accessory nerve (CN XI) crosses superficially/posteriorly to the IJV (in about 75% of cases) as it passes from the jugular foramen to supply SCM and trapezius. This relationship is important during IJV cannulation and neck dissection. The IJV does contain valves (near its termination).",
+    "category": "Head & Neck Anatomy",
+    "year": 3,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_077",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Venous drainage of the face:",
+    "options": [
+      "Is both deep and superficial",
+      "Empties ultimately into the internal jugular vein alone",
+      "Communicates indirectly with the cavernous sinus via the deep facial vein",
+      "Communicates directly with the cavernous sinus via the supraorbital veins",
+      "All of the above"
+    ],
+    "answer": "Communicates indirectly with the cavernous sinus via the deep facial vein",
+    "explanation": "Facial venous drainage communicates with the cavernous sinus INDIRECTLY via the deep facial vein \u2192 pterygoid plexus \u2192 emissary veins \u2192 cavernous sinus. Direct communication is via the superior ophthalmic vein (from the angular vein, which is the commencement of the facial vein). Facial veins also drain to both IJV and external jugular.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_078",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The larynx:",
+    "options": [
+      "Is a respiratory organ whose essential function is phonation",
+      "Extends from the anterior upper border of the epiglottis to the level of C6",
+      "Consists of two single cartilages, the thyroid and cricoid",
+      "Is hauled up beneath the tongue with the epiglottis tilted anteriorly and upwards during swallowing",
+      "Is supplied by the external laryngeal nerve except for the cricothyroid which is supplied by the RLN"
+    ],
+    "answer": "Extends from the anterior upper border of the epiglottis to the level of C6",
+    "explanation": "The larynx extends from the tip of the epiglottis (C3-4) to the lower border of the cricoid (C6). Its essential function is airway protection (not phonation). It has three single cartilages (epiglottis, thyroid, cricoid) and three paired cartilages. During swallowing it moves up and forward (not just up).",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_079",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the larynx (nerve supply and blood supply):",
+    "options": [
+      "The external laryngeal nerve supplies the posterior cricoarytenoid muscle",
+      "The internal laryngeal nerve supplies cricothyroid",
+      "The blood supply above the vocal cords is by a branch of the internal carotid",
+      "Normal vocal cords are always covered by stratified squamous epithelium",
+      "The recurrent laryngeal nerve lies immediately behind the cricoarytenoid joint"
+    ],
+    "answer": "Normal vocal cords are always covered by stratified squamous epithelium",
+    "explanation": "The true vocal cords (folds) are covered by non-keratinising stratified squamous epithelium, which resists the physical stresses of phonation. The blood supply above the cords is from the superior laryngeal artery (branch of superior thyroid, from ECA). The RLN lies behind the cricothyroid joint.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_080",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "In the skull, which is true?",
+    "options": [
+      "The anterior fontanelle usually closes by 2 months",
+      "The pterion overlies the middle meningeal artery",
+      "The round foramen transmits the mandibular branch of the fifth cranial nerve",
+      "The cribriform plate is part of the sphenoid bone",
+      "All of the above are correct"
+    ],
+    "answer": "The pterion overlies the middle meningeal artery",
+    "explanation": "The pterion (junction of frontal, parietal, temporal, and sphenoid bones) is the thinnest part of the skull and overlies the anterior branch of the middle meningeal artery. Fracture here causes extradural haematoma. The anterior fontanelle closes by 18 months. The foramen rotundum (not round) transmits V2; foramen ovale transmits V3.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_081",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The orbit contains all of the following EXCEPT:",
+    "options": [
+      "Branches of the facial nerve",
+      "The optic nerve",
+      "The third cranial nerve",
+      "A subarachnoid space",
+      "The inferior rectus muscle"
+    ],
+    "answer": "Branches of the facial nerve",
+    "explanation": "The facial nerve (CN VII) does not enter the orbit. It exits the stylomastoid foramen and distributes over the face superficially. The orbit contains CN II (with its dural/subarachnoid sheath), CN III, IV, VI, the ophthalmic division of V, sympathetic fibres, all extraocular muscles, and the lacrimal gland.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_082",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Which is true of the trachea?",
+    "options": [
+      "Begins at the level of C7",
+      "Isthmus of the thyroid lies anterior to the 2nd, 3rd and 4th rings",
+      "Has 15-20 complete cartilaginous rings",
+      "Receives its blood supply from the inferior thyroid artery alone",
+      "Pulmonary artery bifurcates anterior to its lower end"
+    ],
+    "answer": "Isthmus of the thyroid lies anterior to the 2nd, 3rd and 4th rings",
+    "explanation": "The thyroid isthmus overlies the 2nd, 3rd and 4th tracheal rings. The trachea begins at C6 (not C7) and has 16-20 C-shaped (incomplete) cartilaginous rings. Blood supply is from both inferior thyroid arteries AND bronchial arteries. The pulmonary trunk bifurcates POSTERIOR to the tracheal bifurcation.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_083",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which does NOT travel through the jugular foramen?",
+    "options": [
+      "Hypoglossal nerve",
+      "Accessory nerve",
+      "Inferior petrosal sinus",
+      "Glossopharyngeal nerve",
+      "Vagus nerve"
+    ],
+    "answer": "Hypoglossal nerve",
+    "explanation": "The hypoglossal nerve (CN XII) exits the skull through the hypoglossal canal (anterior condylar canal), separate from the jugular foramen. The jugular foramen transmits CN IX, X, XI, the IJV, and the inferior petrosal sinus.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_084",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Which muscle controls vocal cord abduction in the larynx?",
+    "options": [
+      "Aryepiglottic",
+      "Posterior cricoarytenoid",
+      "Transverse arytenoids",
+      "Lateral cricoarytenoid",
+      "Cricothyroid"
+    ],
+    "answer": "Posterior cricoarytenoid",
+    "explanation": "The posterior cricoarytenoid is the only muscle that abducts the vocal cords (opens the glottis). It is essential for breathing. All adductors (lateral cricoarytenoid, transverse and oblique arytenoids) close the glottis for phonation and airway protection.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_085",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Lumbar vertebrae are distinguishable from thoracic because:",
+    "options": [
+      "They have transverse foramina",
+      "The bodies are concave from above down",
+      "Their bodies are kidney shaped and flatter posteriorly",
+      "They have costal facets",
+      "Their spinous processes project inferiorly with the tip lying at the body two vertebrae inferiorly"
+    ],
+    "answer": "Their bodies are kidney shaped and flatter posteriorly",
+    "explanation": "Lumbar vertebrae have large kidney-shaped bodies, massive blunt spinous processes projecting horizontally (not inferiorly like thoracic), no costal facets, no foramina transversaria (which are cervical), and large articular processes oriented in a sagittal/parasagittal plane.",
+    "category": "Head & Neck Anatomy",
+    "year": 1,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_086",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The internal carotid artery:",
+    "options": [
+      "Is medial to the external carotid artery at its origin",
+      "Gives rise to the superior thyroid artery",
+      "Lies outside the carotid sheath",
+      "Passes through the carotid canal in the base of the skull",
+      "Lies in the anterior part of the cavernous sinus"
+    ],
+    "answer": "Passes through the carotid canal in the base of the skull",
+    "explanation": "The ICA enters the skull through the carotid canal in the petrous temporal bone. It lies LATERAL (not medial) to the ECA at its origin. It has no branches in the neck. It lies within the carotid sheath. In the cavernous sinus it is embedded within (not anterior to) the sinus, giving the S-shaped carotid siphon on angiography.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_087",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "The C7 cervical vertebra is atypical in that:",
+    "options": [
+      "It has a bifid spinous process",
+      "The foramen in the transverse process does not transmit the vertebral artery",
+      "The anterior tubercle is large",
+      "It has kidney shaped facets",
+      "The posterior tubercle gives origin to scalenus anterior"
+    ],
+    "answer": "The foramen in the transverse process does not transmit the vertebral artery",
+    "explanation": "C7 (vertebra prominens) is atypical because: its foramen transversarium is very small and does not transmit the vertebral artery (only a small vein); it has a large, non-bifid spinous process; and it has the suprapleural membrane attached to its anterior tubercle. The vertebral artery enters at C6.",
+    "category": "Head & Neck Anatomy",
+    "year": 1,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_088",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the mandible, which is correct?",
+    "options": [
+      "The coronoid process is the attachment of temporalis and is posterior to the head of the mandible",
+      "It is a U-shaped bone without a symphysis",
+      "The facial artery can be palpated crossing the lower border just posterior to masseter",
+      "It has a mandibular foramen on its lateral surface",
+      "Buccinator is attached to the external oblique line"
+    ],
+    "answer": "The facial artery can be palpated crossing the lower border just posterior to masseter",
+    "explanation": "The facial artery crosses the lower border of the mandible at the anterior border of masseter (not posterior) and is palpable here. The coronoid process is anterior to the head. The mandible has a symphysis menti (fused by age 2). The mandibular foramen is on the MEDIAL surface. Buccinator attaches to the pterygomandibular raphe/alveolar processes.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_089",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The thyroid gland:",
+    "options": [
+      "Is penetrated by the recurrent laryngeal nerve",
+      "Is supplied by the middle thyroid artery",
+      "Has its isthmus adherent to the 3rd, 4th and 5th tracheal rings",
+      "Originates from the caudal end of the thyroglossal duct",
+      "Is contained within the prevertebral fascia"
+    ],
+    "answer": "Originates from the caudal end of the thyroglossal duct",
+    "explanation": "The thyroid develops from the foramen caecum at the base of the tongue and descends via the thyroglossal duct, with the gland forming at the caudal end. The isthmus overlies the 2nd-4th tracheal rings. There is no middle thyroid artery. The RLN runs posterior to the gland (not through it). It is enclosed in pretracheal (not prevertebral) fascia.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_090",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Which of the following combinations is correct regarding the paranasal sinuses and where they drain to?",
+    "options": [
+      "Maxillary sinus \u2014 middle meatus",
+      "Anterior ethmoidal air cells \u2014 inferior meatus",
+      "Posterior ethmoidal air cells \u2014 oral cavity",
+      "Sphenoid sinus \u2014 frontonasal recess",
+      "Frontal sinus \u2014 lacrimal duct"
+    ],
+    "answer": "Maxillary sinus \u2014 middle meatus",
+    "explanation": "Drainage of paranasal sinuses: Maxillary, frontal, and anterior ethmoidal cells \u2192 middle meatus (via hiatus semilunaris). Middle ethmoidal cells \u2192 middle meatus (on the ethmoidal bulla). Posterior ethmoidal cells \u2192 superior meatus. Sphenoidal sinus \u2192 sphenoethmoidal recess.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_091",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The inferior oblique muscle of the eye:",
+    "options": [
+      "Arises from the maxilla on the floor of the orbit, near the anterior margin",
+      "Is attached to the posterosuperior medial quadrant of the sclera",
+      "Is supplied by the abducent nerve (CN VI)",
+      "Turns the eye upwards and inwards",
+      "Is supplied by the posterior ciliary artery"
+    ],
+    "answer": "Arises from the maxilla on the floor of the orbit, near the anterior margin",
+    "explanation": "The inferior oblique uniquely arises from the orbital floor (maxilla), not from the apex/tendinous ring. It is supplied by CN III (inferior division). It elevates, abducts, and extorts the eye (turns it UP and OUT \u2014 not in). Its insertion is on the posterolateral sclera.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_092",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The recurrent laryngeal nerve:",
+    "options": [
+      "Lies in front of the pretracheal fascia",
+      "Approaches the thyroid gland from above",
+      "Runs in the groove between the trachea and oesophagus",
+      "Passes behind the cricothyroid joint",
+      "Contains only sensory fibres"
+    ],
+    "answer": "Passes behind the cricothyroid joint",
+    "explanation": "The RLN ascends in the tracheo-oesophageal groove and passes posterior (behind) the cricothyroid joint to enter the larynx. It carries both motor fibres (all intrinsic laryngeal muscles except cricothyroid) and sensory fibres (below the vocal cords). It approaches the thyroid from below, not above.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_093",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Regarding the larynx, which is correct?",
+    "options": [
+      "Continues with the trachea at C6",
+      "Its major role is for phonation",
+      "Lies behind the thyroid gland",
+      "All the muscles are supplied by the recurrent laryngeal nerve",
+      "Blood supply is from the inferior thyroid artery alone"
+    ],
+    "answer": "Continues with the trachea at C6",
+    "explanation": "The larynx opens into the trachea at the inferior border of the cricoid cartilage at the level of C6. The larynx lies anterior to the pharynx/hypopharynx. Its primary role is airway protection. Blood supply is from both superior laryngeal artery (above cords) and inferior laryngeal artery (below cords).",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_094",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which muscle abducts the vocal cords?",
+    "options": [
+      "Transverse arytenoids",
+      "Cricothyroid",
+      "Lateral cricoarytenoid",
+      "Posterior cricoarytenoid",
+      "Thyroarytenoid"
+    ],
+    "answer": "Posterior cricoarytenoid",
+    "explanation": "The posterior cricoarytenoid is the only abductor of the vocal folds. All other intrinsic laryngeal muscles adduct (close) the glottis or modify cord tension. Loss of both posterior cricoarytenoids causes life-threatening respiratory obstruction.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_095",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The cricoid cartilage:",
+    "options": [
+      "Articulates with the thyroid cartilage via fibrocartilage joints",
+      "Is an incomplete cartilaginous ring",
+      "Projects anteriorly as a quadrangular flat part",
+      "Provides attachment for the anterior cricoarytenoid muscle",
+      "Articulates superiorly with the inferior horn of the thyroid cartilage"
+    ],
+    "answer": "Articulates superiorly with the inferior horn of the thyroid cartilage",
+    "explanation": "The cricoid cartilage articulates with the inferior cornu (horn) of the thyroid cartilage at the cricothyroid joints (synovial joints). The cricoid is the only COMPLETE cartilaginous ring of the airway. Its anterior arch is narrow; the posterior lamina is tall and quadrangular. It articulates with the arytenoid cartilages superiorly.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_096",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The carotid triangle contains:",
+    "options": [
+      "Subclavian artery",
+      "Omohyoid muscle",
+      "Occipital artery",
+      "Internal laryngeal nerve",
+      "Anterior jugular vein"
+    ],
+    "answer": "Internal laryngeal nerve",
+    "explanation": "The carotid triangle contains the CCA bifurcation, ICA, ECA and its branches (superior thyroid, occipital, ascending pharyngeal, facial, lingual), IJV, CN X (vagus), CN XI, CN XII (hypoglossal), and the internal laryngeal nerve. The subclavian artery is in the posterior triangle/root of neck. The omohyoid is in the muscular triangle.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_097",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The cervical sympathetic trunk:",
+    "options": [
+      "Descends from the upper posterior triangle to the first rib",
+      "Runs lateral to the vertebral artery",
+      "Lies behind the carotid sheath",
+      "Lies behind the prevertebral fascia",
+      "Ends at the inferior cervical ganglion"
+    ],
+    "answer": "Lies behind the carotid sheath",
+    "explanation": "The cervical sympathetic trunk lies posterior to the carotid sheath, on the prevertebral muscles. It runs medial to the vertebral artery. It lies anterior to the prevertebral fascia (not behind it). It typically ends at the stellate ganglion (cervicothoracic ganglion = fusion of inferior cervical and first thoracic ganglia).",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_098",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The carotid sheath:",
+    "options": [
+      "Extends from the base of the skull to the bifurcation of the common carotid",
+      "Contains the stylohyoid ligament",
+      "Contains only three cranial nerves",
+      "Is attached to the aorta",
+      "Contains the sympathetic trunk"
+    ],
+    "answer": "Is attached to the aorta",
+    "explanation": "The carotid sheath extends from the base of the skull to the pericardium/arch of the aorta. It contains the CCA/ICA, IJV, and vagus nerve. It does NOT contain the sympathetic trunk. Only one cranial nerve is in it (CN X/vagus). The stylohyoid ligament lies outside the carotid sheath.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_099",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "Regarding the vertebrae, which is correct?",
+    "options": [
+      "Spinal nerves emerge through foramina between the vertebral laminae",
+      "The anterior longitudinal ligament extends from the anterior tubercle of the atlas to the upper part of the lumbar spine",
+      "Articular processes are joined to adjacent vertebrae by synovial joints",
+      "The ligamentum flavum joins borders of adjacent spinous processes",
+      "A typical thoracic vertebra has foramina in the transverse processes"
+    ],
+    "answer": "Articular processes are joined to adjacent vertebrae by synovial joints",
+    "explanation": "Zygapophyseal (facet) joints between the articular processes are synovial joints. Spinal nerves emerge through intervertebral foramina (between pedicles, not laminae). The anterior longitudinal ligament runs from occiput/atlas to the sacrum. Ligamentum flavum connects adjacent LAMINAE; the interspinous/supraspinous ligaments connect spinous processes.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_100",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "When performing a lumbar puncture, the spinal needle should NOT pass through the:",
+    "options": [
+      "Ligamentum flavum",
+      "Posterior longitudinal ligament",
+      "Supraspinous ligament",
+      "Interspinous ligament",
+      "Skin"
+    ],
+    "answer": "Posterior longitudinal ligament",
+    "explanation": "During lumbar puncture, the needle passes through (from superficial to deep): skin \u2192 subcutaneous fat \u2192 supraspinous ligament \u2192 interspinous ligament \u2192 ligamentum flavum \u2192 epidural space \u2192 dura \u2192 subdural space \u2192 arachnoid \u2192 subarachnoid space. The posterior longitudinal ligament is on the POSTERIOR surface of the vertebral bodies (anterior to the spinal cord) and is not in the needle's path.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_101",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "All the following are branches of the external carotid artery EXCEPT:",
+    "options": [
+      "Lingual artery",
+      "Facial artery",
+      "Ascending pharyngeal artery",
+      "Hypoglossal artery",
+      "Superior thyroid artery"
+    ],
+    "answer": "Hypoglossal artery",
+    "explanation": "The hypoglossal artery is not a named arterial branch. The external carotid artery has 8 branches: superior thyroid, ascending pharyngeal, lingual, facial, occipital, posterior auricular, maxillary, and superficial temporal arteries.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_102",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "The alar ligaments connect the:",
+    "options": [
+      "Bodies of the axis to the foramen magnum",
+      "Dens to the foramen magnum",
+      "Adjacent vertebral bodies posteriorly",
+      "Tips of adjacent spinous processes",
+      "Adjacent laminae"
+    ],
+    "answer": "Dens to the foramen magnum",
+    "explanation": "The alar ligaments (check ligaments) connect the sides of the dens (odontoid process) of C2 to the medial aspects of the occipital condyles (foramen magnum). They limit excessive rotation at the atlantoaxial joint. The transverse ligament of the atlas holds the dens against the anterior arch of C1.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_103",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "All the following are boundaries of the named triangle EXCEPT:",
+    "options": [
+      "Mandible and submental triangle",
+      "Mandible and anterior triangle",
+      "Mandible and digastric triangle",
+      "Sternocleidomastoid and carotid triangle",
+      "Sternocleidomastoid and anterior triangle"
+    ],
+    "answer": "Mandible and submental triangle",
+    "explanation": "The submental triangle is bounded by the hyoid bone (inferiorly), the midline (anteriorly), and the anterior belly of digastric (laterally) \u2014 NOT the mandible. The anterior triangle uses the mandible as its superior boundary. The digastric (submandibular) triangle uses the body of the mandible superiorly.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_104",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "All the following are contents of the posterior triangle EXCEPT:",
+    "options": [
+      "Accessory nerve",
+      "Cervical plexus",
+      "Inferior belly of omohyoid",
+      "Transverse cervical vessels",
+      "Occipital lymph nodes"
+    ],
+    "answer": "Occipital lymph nodes",
+    "explanation": "The occipital lymph nodes lie along the superior nuchal line at the apex of the posterior triangle but are superficial and not true contents within the triangle. Genuine contents include CN XI, cervical plexus branches, subclavian artery (3rd part), brachial plexus trunks, transverse cervical and suprascapular vessels, and the inferior belly of omohyoid.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_105",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which of the following enters the inferior meatus of the nose?",
+    "options": [
+      "Frontal sinus",
+      "Ethmoidal sinus",
+      "Maxillary sinus",
+      "Nasolacrimal duct",
+      "Auditory tube"
+    ],
+    "answer": "Nasolacrimal duct",
+    "explanation": "The nasolacrimal duct opens into the inferior meatus beneath the inferior concha. This is clinically relevant \u2014 tears drain through the lacrimal sac and nasolacrimal duct into the nose (hence a runny nose when crying).",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_106",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "hard",
+    "question": "A fracture through the roof of the maxillary sinus might result in sensory loss to the:",
+    "options": [
+      "Tympanic membrane",
+      "Lacrimal gland",
+      "Upper molar teeth",
+      "Upper incisors and canine teeth",
+      "Skin overlying the zygomatic bone"
+    ],
+    "answer": "Upper incisors and canine teeth",
+    "explanation": "The anterior superior alveolar nerve (branch of the infraorbital nerve from V2) runs in the anterior wall of the maxillary sinus. A fracture here could cause numbness of upper incisors and canines. The posterior superior alveolar nerve supplies the molars and premolars.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_107",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "All the following structures pass through the jugular foramen EXCEPT:",
+    "options": [
+      "Jugular vein",
+      "Glossopharyngeal nerve",
+      "Hypoglossal nerve",
+      "Accessory nerve",
+      "Vagus nerve"
+    ],
+    "answer": "Hypoglossal nerve",
+    "explanation": "CN XII (hypoglossal) exits through the anterior condylar (hypoglossal) canal, not the jugular foramen. The jugular foramen transmits CN IX, X, XI, the IJV, and the inferior petrosal sinus.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_108",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which is true of swallowing?",
+    "options": [
+      "It is entirely voluntary",
+      "The oropharyngeal portion is voluntary",
+      "Peristalsis speeds as the bolus descends",
+      "The voluntary stage commences as food enters the oesophagus",
+      "It is initially voluntary then involuntary"
+    ],
+    "answer": "It is initially voluntary then involuntary",
+    "explanation": "Swallowing has two stages: voluntary (oral phase \u2014 tongue pushes bolus posteriorly) and involuntary (pharyngeal and oesophageal phases, triggered reflexively once the bolus reaches the oropharynx). Peristaltic velocity is relatively constant and does not speed up as the bolus descends.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_109",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "What exits the stylomastoid foramen?",
+    "options": [
+      "Middle meningeal artery",
+      "Accessory nerve",
+      "Facial nerve",
+      "Artery to stapedius",
+      "Hypoglossal nerve"
+    ],
+    "answer": "Facial nerve",
+    "explanation": "The facial nerve (CN VII) exits the skull through the stylomastoid foramen before entering the parotid gland and dividing into its terminal branches. The artery to stapedius and chorda tympani are branches given off within the facial canal before the nerve exits the stylomastoid foramen.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
+  },
+  {
+    "id": "hn_110",
+    "type": "mcq",
+    "subject": "Anatomy",
+    "difficulty": "medium",
+    "question": "Which vessel supplies a branch which passes through the foramen spinosum?",
+    "options": [
+      "Internal carotid artery",
+      "Facial artery",
+      "Maxillary artery",
+      "Lingual artery",
+      "Superficial temporal artery"
+    ],
+    "answer": "Maxillary artery",
+    "explanation": "The middle meningeal artery \u2014 a branch of the maxillary artery (from the ECA) \u2014 passes through the foramen spinosum to supply the dura of the middle cranial fossa. The foramen spinosum also transmits the meningeal branch of V3.",
+    "category": "Head & Neck Anatomy",
+    "year": 2,
+    "source": "Anatomy H&N and CNS MCQs"
   }
 ]
