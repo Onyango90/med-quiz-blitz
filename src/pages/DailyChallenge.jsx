@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import { getDailyQuestions } from "../data/dailyChallengeQuestions";
+import { getDailyQuestions, getYearSubjectLabel } from "../data/dailyChallengeQuestions";
 import "./DailyChallenge.css";
 
 const DailyChallenge = () => {
@@ -16,6 +16,7 @@ const DailyChallenge = () => {
   const [userYear, setUserYear] = useState("");
   const [questionsCount, setQuestionsCount] = useState(20);
   const [timeUntilReset, setTimeUntilReset] = useState("");
+  const [subjectLabel, setSubjectLabel]     = useState("");
 
   useEffect(() => {
     loadDailyChallenge();
@@ -62,6 +63,7 @@ const DailyChallenge = () => {
       }[yearOfStudy] || `${yearOfStudy}th Year`;
       
       setUserYear(yearText);
+      setSubjectLabel(getYearSubjectLabel(yearOfStudy));
       
       const questions = getDailyQuestions(parseInt(yearOfStudy));
       setDailyQuestions(questions);
@@ -119,6 +121,9 @@ const DailyChallenge = () => {
           <h1 className="hero-title">Daily Challenge</h1>
           <p className="hero-subtitle">Test your knowledge with today's curated questions</p>
           <div className="hero-year-badge">{userYear}</div>
+          {subjectLabel && (
+            <div className="hero-subject-label">📚 {subjectLabel}</div>
+          )}
         </div>
         <div className="hero-decoration"></div>
       </div>
@@ -198,7 +203,7 @@ const DailyChallenge = () => {
         <div className="expect-grid">
           <div className="expect-item">
             <div className="expect-icon">🎓</div>
-            <div className="expect-text">Tailored to {userYear} curriculum</div>
+            <div className="expect-text">{subjectLabel || `Tailored to ${userYear}`}</div>
           </div>
           <div className="expect-item">
             <div className="expect-icon">⚡</div>
