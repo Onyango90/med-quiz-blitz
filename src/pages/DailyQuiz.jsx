@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { getDatabase, ref, get, set, update } from "firebase/database";
+import LevelComplete from "../components/LevelComplete";
 import correctSoundFile from "../sound/correct.wav";
 import wrongSoundFile from "../sound/wrong.wav";
 import "./DailyQuiz.css";
@@ -15,12 +16,13 @@ function DailyQuiz() {
   const {
     questions, isDailyChallenge, xpBonus, streak,
     topic, userYear, questionsCount,
+    levelNumber, levelConfig, totalLevels, completedLevels,
   } = location.state || {};
 
   const [index, setIndex]               = useState(0);
   const [userAnswer, setUserAnswer]      = useState("");
   const [showResult, setShowResult]      = useState(false);
-  const [status, setStatus]              = useState(null); // null | "correct" | "wrong" | "timeout"
+  const [status, setStatus]              = useState(null);
   const [timeLeft, setTimeLeft]          = useState(30);
   const [score, setScore]                = useState(0);
   const [quizCompleted, setQuizCompleted]= useState(false);
@@ -31,6 +33,7 @@ function DailyQuiz() {
   const [showReview, setShowReview]      = useState(false);
   const [cardKey, setCardKey]            = useState(0);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+  const [showLevelComplete, setShowLevelComplete] = useState(false);
 
   const inputRef    = useRef(null);
   const correctSound= useRef(new Audio(correctSoundFile));
@@ -122,6 +125,10 @@ function DailyQuiz() {
     if (isLast) {
       setQuizCompleted(true);
       saveResults();
+      // Show Meddy between-level screen if this is a daily challenge level
+      if (isDailyChallenge && levelNumber) {
+        setShowLevelComplete(true);
+      }
     } else {
       setIsAnimatingOut(true);
       setTimeout(() => {
@@ -132,16 +139,26 @@ function DailyQuiz() {
     }
   };
 
+  // ── Go to next level — back to DailyChallenge page ───────────────────────
+  const handleNextLevel = () => {
+    navigate("/daily-challenge");
+  };
+
+  // ── All done — back to dashboard ─────────────────────────────────────────
+  const handleAllDone = () => {
+    navigate("/home");
+  };
+
   // ── Save to Firebase ─────────────────────────────────────────────────────
   const saveResults = async () => {
     const user = auth.currentUser;
     if (!user) return;
-    const db  = getDatabase();
+    const db    = getDatabase();
     const today = new Date().toISOString().split("T")[0];
     const pct   = Math.round((correctCount / questions.length) * 100);
-    const newStreak   = pct >= 60 ? (streak || 0) + 1 : 0;
-    const bonusToAdd  = pct >= 60 ? (xpBonus || 0) : 0;
-    const finalXP     = totalXPEarned + bonusToAdd;
+    const newStreak  = pct >= 60 ? (streak || 0) + 1 : 0;
+    const bonusToAdd = (levelNumber === 1 && pct >= 60) ? (xpBonus || 0) : 0;
+    const finalXP    = totalXPEarned + bonusToAdd;
 
     const cleanAnswers = answersList.map((a) => ({
       question:      a.question || "",
@@ -152,19 +169,30 @@ function DailyQuiz() {
       xpEarned:      a.xpEarned || 0,
     }));
 
+    // Track per-level completion under the challenge doc
     const challengeRef = ref(db, `users/${user.uid}/dailyChallenges/${today}`);
+    const existingSnap = await get(challengeRef);
+    const existing     = existingSnap.exists() ? existingSnap.val() : {};
+    const prevLevels   = existing.levelsCompleted || 0;
+    const newLevels    = Math.max(prevLevels, levelNumber || 1);
+
     await set(challengeRef, {
-      date: today, score: correctCount,
-      totalQuestions: questions.length, percentage: pct,
-      xpEarned: finalXP, bonusXP: bonusToAdd, streak: newStreak,
-      completedAt: new Date().toISOString(), yearOfStudy: userYear,
-      answers: cleanAnswers,
+      ...existing,
+      date:            today,
+      levelsCompleted: newLevels,
+      score:           (existing.score || 0) + correctCount,
+      totalQuestions:  (existing.totalQuestions || 0) + questions.length,
+      xpEarned:        (existing.xpEarned || 0) + finalXP,
+      streak:          newStreak,
+      completedAt:     new Date().toISOString(),
+      yearOfStudy:     userYear,
+      [`level${levelNumber}Answers`]: cleanAnswers,
     });
 
     const userRef  = ref(db, `users/${user.uid}/stats`);
     const snapshot = await get(userRef);
     const cur      = snapshot.exists() ? snapshot.val() : {};
-    const newTotal = (cur.totalAttempted || 0) + questions.length;
+    const newTotal   = (cur.totalAttempted || 0) + questions.length;
     const newCorrect = (cur.totalCorrect || 0) + correctCount;
 
     await update(userRef, {
@@ -186,6 +214,22 @@ function DailyQuiz() {
     if (opt === userAnswer && opt !== question.answer) return "wrong";
     return "dim";
   };
+
+  // ════════════════════════════════════════════════════════════════════════
+  // MEDDY — between-level celebration screen
+  // ════════════════════════════════════════════════════════════════════════
+  if (quizCompleted && showLevelComplete && levelNumber) {
+    const isLastLevel = levelNumber >= (totalLevels || 4);
+    return (
+      <LevelComplete
+        level={levelNumber}
+        xpEarned={totalXPEarned}
+        totalXP={totalXPEarned}
+        onNext={handleNextLevel}
+        onDone={isLastLevel ? handleAllDone : handleAllDone}
+      />
+    );
+  }
 
   // ════════════════════════════════════════════════════════════════════════
   // COMPLETION — REVIEW SCREEN

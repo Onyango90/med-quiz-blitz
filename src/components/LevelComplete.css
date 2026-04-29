@@ -1,0 +1,257 @@
+/* src/components/LevelComplete.css */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
+/* ── Overlay ────────────────────────────────────────────────── */
+.lc-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(7, 9, 15, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.lc-overlay.lc-visible { opacity: 1; }
+
+/* ── Sheet slides up from bottom ───────────────────────────── */
+.lc-sheet {
+  width: 100%;
+  max-width: 440px;
+  background: #fff;
+  border-radius: 28px 28px 0 0;
+  padding: 32px 28px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+.lc-sheet-in { transform: translateY(0); }
+
+/* ── Confetti ───────────────────────────────────────────────── */
+.lc-confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.lc-confetti-piece {
+  position: absolute;
+  top: -20px;
+  border-radius: 2px;
+  animation: lc-fall linear infinite;
+}
+@keyframes lc-fall {
+  0%   { transform: translateY(-20px) rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(110vh)  rotate(720deg); opacity: 0; }
+}
+
+/* ── Meddy mascot ───────────────────────────────────────────── */
+.lc-meddy { position: relative; z-index: 2; }
+
+.lc-meddy-svg {
+  width: 100px;
+  height: 108px;
+  filter: drop-shadow(0 8px 20px rgba(245,158,11,0.35));
+}
+
+/* Mood-based animations */
+.lc-mood-happy    .lc-meddy-svg { animation: lc-bounce  0.8s cubic-bezier(0.22,1,0.36,1) both, lc-bob   3s ease-in-out 0.8s infinite; }
+.lc-mood-excited  .lc-meddy-svg { animation: lc-pop     0.6s cubic-bezier(0.22,1,0.36,1) both, lc-wiggle 1.2s ease-in-out 0.6s infinite; }
+.lc-mood-proud    .lc-meddy-svg { animation: lc-rise    0.7s cubic-bezier(0.22,1,0.36,1) both, lc-glow-pulse 2s ease-in-out 0.7s infinite; }
+.lc-mood-champion .lc-meddy-svg { animation: lc-explode 0.9s cubic-bezier(0.22,1,0.36,1) both, lc-spin-float 4s ease-in-out 0.9s infinite; }
+
+@keyframes lc-bounce {
+  0%   { transform: scale(0.3) translateY(30px); opacity: 0; }
+  60%  { transform: scale(1.18) translateY(-10px); opacity: 1; }
+  80%  { transform: scale(0.95) translateY(4px); }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+@keyframes lc-pop {
+  0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+  70%  { transform: scale(1.2) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes lc-rise {
+  0%   { transform: translateY(40px) scale(0.8); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+@keyframes lc-explode {
+  0%   { transform: scale(0.2) rotate(-20deg); opacity: 0; }
+  50%  { transform: scale(1.3) rotate(8deg); opacity: 1; }
+  75%  { transform: scale(0.92) rotate(-3deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes lc-bob        { 0%,100%{transform:translateY(0)}  50%{transform:translateY(-6px)} }
+@keyframes lc-wiggle      { 0%,100%{transform:rotate(0)}  25%{transform:rotate(-8deg)} 75%{transform:rotate(8deg)} }
+@keyframes lc-glow-pulse  { 0%,100%{filter:drop-shadow(0 8px 20px rgba(245,158,11,0.35))} 50%{filter:drop-shadow(0 8px 32px rgba(245,158,11,0.70))} }
+@keyframes lc-spin-float  { 0%,100%{transform:translateY(0) rotate(0)} 25%{transform:translateY(-8px) rotate(4deg)} 75%{transform:translateY(-4px) rotate(-3deg)} }
+
+/* ── Level badge ────────────────────────────────────────────── */
+.lc-level-badge {
+  background: linear-gradient(135deg, #0f2027, #2c5364);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 99px;
+}
+
+/* ── Title ──────────────────────────────────────────────────── */
+.lc-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.02em;
+  text-align: center;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* ── Quote line ─────────────────────────────────────────────── */
+.lc-line {
+  font-size: 14px;
+  color: #6b7280;
+  font-style: italic;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 300px;
+}
+
+/* ── XP block ───────────────────────────────────────────────── */
+.lc-xp-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.lc-xp-ring {
+  width: 82px; height: 82px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fef9c3, #fde68a);
+  border: 3px solid #f59e0b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 6px rgba(245,158,11,0.15), 0 6px 20px rgba(245,158,11,0.3);
+  animation: lc-xp-appear 0.5s cubic-bezier(0.22,1,0.36,1) 0.4s both;
+}
+@keyframes lc-xp-appear {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.lc-xp-num {
+  font-size: 22px;
+  font-weight: 800;
+  color: #92400e;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.lc-xp-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #b45309;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.lc-xp-total {
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ── Progress dots ──────────────────────────────────────────── */
+.lc-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.lc-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  transition: all 0.3s;
+}
+.lc-dot-done {
+  background: #0d9488;
+  box-shadow: 0 0 0 3px rgba(13,148,136,0.2);
+}
+.lc-dot-current {
+  width: 13px; height: 13px;
+  background: #0f2027;
+  box-shadow: 0 0 0 4px rgba(15,32,39,0.15);
+}
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.lc-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.18s;
+  letter-spacing: -0.01em;
+  animation: lc-btn-appear 0.4s cubic-bezier(0.22,1,0.36,1) 0.6s both;
+}
+@keyframes lc-btn-appear {
+  from { transform: translateY(16px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.lc-btn-next {
+  background: linear-gradient(135deg, #0f2027, #2c5364);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(15,32,39,0.3);
+}
+.lc-btn-next:hover  { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(15,32,39,0.4); }
+.lc-btn-next:active { transform: scale(0.98); }
+
+.lc-btn-champ {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(245,158,11,0.45);
+  animation: lc-champ-pulse 1.5s ease-in-out 1s infinite, lc-btn-appear 0.4s cubic-bezier(0.22,1,0.36,1) 0.6s both;
+}
+@keyframes lc-champ-pulse {
+  0%,100% { box-shadow: 0 6px 24px rgba(245,158,11,0.45); }
+  50%      { box-shadow: 0 8px 32px rgba(245,158,11,0.70); }
+}
+.lc-btn-champ:hover  { transform: translateY(-2px); }
+.lc-btn-champ:active { transform: scale(0.98); }
+
+.lc-skip {
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.15s;
+}
+.lc-skip:hover { color: #6b7280; }
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (min-width: 600px) {
+  .lc-overlay  { align-items: center; }
+  .lc-sheet    { border-radius: 28px; max-height: 90vh; overflow-y: auto; }
+}

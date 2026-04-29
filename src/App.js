@@ -22,6 +22,7 @@ import DailyChallenge from "./pages/DailyChallenge";
 import DailyQuiz from "./pages/DailyQuiz";
 import AIQuiz from "./pages/AIQuiz";
 import PastPaperImporter from "./pages/PastPaperImporter";
+import BossBattle from "./pages/BossBattle";
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
@@ -96,6 +97,7 @@ function App() {
 
           {/* Other pages */}
           <Route path="/battle" element={<BattleComingSoon />} />
+          <Route path="/boss-battle" element={<BossBattle /> } />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/stats" element={<Stats />} />
           <Route path="/settings" element={<Settings />} />

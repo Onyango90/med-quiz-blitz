@@ -12,6 +12,12 @@ const PRECLINICAL = [
     difficulty: "Medium", xp: 30, available: true, path: "/classic-challenge", accent: "#22d3ee", tag: "Speed",
   },
   {
+    id: "boss", icon: "⚔️", label: "Boss Battle",
+    tagline: "Defeat medical villains with your knowledge",
+    description: "Face 10 medical villains — each one harder than the last. Answer correctly to deal damage. One wrong answer costs a life. Lose all 3 lives and it's over. Year-aware questions tailored to your curriculum.",
+    difficulty: "Hard", xp: 50, available: true, path: "/boss-battle", accent: "#ef4444", tag: "Endless",
+  },
+  {
     id: "mcq-blitz", icon: "🎯", label: "MCQ Blitz",
     tagline: "High-yield questions, no time to think",
     description: "Single-line stem MCQs at pace. Pure knowledge tested against the clock — ideal for preclinical exam prep.",
@@ -22,12 +28,6 @@ const PRECLINICAL = [
     tagline: "Climb from Y1 to registrar",
     description: "Questions get harder as you climb. Each correct streak unlocks the next rung — wrong answer drops you back.",
     difficulty: "Variable", xp: 50, available: false, accent: "#fb923c", tag: "Progression",
-  },
-  {
-    id: "sprint", icon: "🏃", label: "Sprint Match",
-    tagline: "Match concepts before time runs out",
-    description: "Rapid matching of symptoms, drugs, or mechanisms. Great for pharmacology and anatomy revision.",
-    difficulty: "Easy", xp: 20, available: false, accent: "#4ade80", tag: "Speed",
   },
 ];
 
@@ -103,9 +103,9 @@ export default function GamesMode() {
           <h1 className="gm-hero-title">Test Your<br />Clinical Edge</h1>
           <p className="gm-hero-sub">Earn double XP on every game. Build speed, reasoning, and recall.</p>
           <div className="gm-hero-stats">
-            <div className="gm-hs"><span className="gm-hs-val">1</span><span className="gm-hs-lbl">Available</span></div>
+            <div className="gm-hs"><span className="gm-hs-val">2</span><span className="gm-hs-lbl">Available</span></div>
             <div className="gm-hdiv" />
-            <div className="gm-hs"><span className="gm-hs-val">7</span><span className="gm-hs-lbl">Coming soon</span></div>
+            <div className="gm-hs"><span className="gm-hs-val">6</span><span className="gm-hs-lbl">Coming soon</span></div>
             <div className="gm-hdiv" />
             <div className="gm-hs"><span className="gm-hs-val">2×</span><span className="gm-hs-lbl">XP boost</span></div>
           </div>

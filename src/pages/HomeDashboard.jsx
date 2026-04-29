@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useStats } from "../hooks/useStats";
-import { getDailyQuestions } from "../data/dailyChallengeQuestions";
+import { getDailyQuestions, getCurriculumLabel } from "../data/dailyChallengeQuestions";
 import {
   Gamepad2, Swords, BookOpen, Trophy,
   BarChart3, Settings, Flame, Sparkles,
@@ -50,8 +50,9 @@ export default function HomeDashboard() {
   const streak        = stats?.basic?.currentStreak  || 0;
   const accuracy      = stats?.basic?.accuracy       || 0;
   const totalAnswered = stats?.basic?.totalAttempted || 0;
-  const userYear      = userData?.profile?.year      || 2;
+  const userYear      = userData?.profile?.year || localStorage.getItem("userYear") || 1;
   const streakBonus   = Math.min(20 + streak * 2, 40);
+  const curriculumLabel = getCurriculumLabel(userYear);
 
   // Clock
   useEffect(() => {
@@ -274,6 +275,9 @@ export default function HomeDashboard() {
                 <h2 className="hd-daily-title">
                   {dailyPct === 100 ? "Challenge Complete! 🎉" : "Today's Blitz"}
                 </h2>
+
+                {/* Curriculum label — shows year-specific topic mix */}
+                <p className="hd-daily-curriculum">{curriculumLabel}</p>
 
                 {/* Progress bar */}
                 <div className="hd-daily-progress-wrap">
