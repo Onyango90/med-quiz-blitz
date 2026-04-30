@@ -97,14 +97,26 @@
 
 /* ── Voice section ── */
 .n3-voice-section { display: flex; flex-direction: column; gap: 8px; }
-.n3-mic-card { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--n3-card); border: 1px solid var(--n3-border); border-radius: var(--n3-radius); box-shadow: var(--n3-shadow); transition: border-color .2s; }
-.n3-mic--active { border-color: var(--n3-teal); background: var(--n3-teal-l); }
+.n3-mic-card { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; background: var(--n3-card); border: 1px solid var(--n3-border); border-radius: var(--n3-radius); box-shadow: var(--n3-shadow); transition: all .2s; }
+.n3-mic--active  { border-color: var(--n3-teal); background: var(--n3-teal-l); }
+.n3-mic--waiting { border-color: var(--n3-border); }
+.n3-mic--off     { border-color: var(--n3-border); background: #fafafa; opacity: .8; }
+
+.n3-mic-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
 .n3-mic-icon { position: relative; font-size: 24px; flex-shrink: 0; }
 .n3-mic-pulse { position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--n3-teal); animation: n3-ripple 1.2s ease-out infinite; }
 @keyframes n3-ripple { 0%{transform:scale(1);opacity:.7} 100%{transform:scale(2.2);opacity:0} }
 .n3-mic-info { flex: 1; min-width: 0; }
 .n3-mic-status { display: block; font-size: 13px; font-weight: 700; color: var(--n3-text); }
-.n3-mic-transcript { display: block; font-size: 12px; color: var(--n3-muted); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+.n3-mic-transcript { display: block; font-size: 11px; color: var(--n3-muted); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+
+/* Toggle button */
+.n3-mic-toggle { flex-shrink: 0; padding: 7px 14px; border-radius: 8px; border: none; font-family: var(--n3-font); font-size: 12px; font-weight: 700; cursor: pointer; transition: all .18s; white-space: nowrap; }
+.n3-mic-toggle--on  { background: var(--n3-coral); color: #fff; box-shadow: 0 2px 8px rgba(239,68,68,.25); }
+.n3-mic-toggle--on:hover  { background: #dc2626; transform: translateY(-1px); }
+.n3-mic-toggle--off { background: var(--n3-teal); color: #fff; box-shadow: 0 2px 8px rgba(13,148,136,.25); }
+.n3-mic-toggle--off:hover { background: #0f766e; transform: translateY(-1px); }
+
 .n3-voice-error { font-size: 12px; color: var(--n3-coral); background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 8px 12px; }
 
 /* ── Typed input ── */

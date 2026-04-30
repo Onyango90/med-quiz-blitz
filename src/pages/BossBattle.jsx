@@ -262,7 +262,7 @@ export default function BossBattle() {
             setQIndex(nextQ);
           }
         }
-      }, 900);
+      }, 9000);
 
     } else {
       // Wrong answer — lose a life
@@ -294,7 +294,7 @@ export default function BossBattle() {
             setQIndex(nextQ);
           }
         }
-      }, 900);
+      }, 5000);
     }
   }, [feedback, bossQuestions, qIndex, bossIndex, bossHPLeft, lives, comboCount, usedIds, runSeed, totalXP, defeatedBosses, processAnswer]);
 
