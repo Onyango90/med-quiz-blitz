@@ -24,6 +24,8 @@ import AIQuiz from "./pages/AIQuiz";
 import PastPaperImporter from "./pages/PastPaperImporter";
 import BossBattle from "./pages/BossBattle";
 import DiagnoseGame from "./pages/DiagnoseGame";
+import WardRound from "./pages/WardRound";
+import StudentPDFQuiz from "./pages/StudentPDFQuiz";
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
@@ -98,13 +100,17 @@ function App() {
 
           {/* Other pages */}
           <Route path="/battle" element={<BattleComingSoon />} />
-          <Route path="/boss-battle" element={<BossBattle /> } />
+          <Route path="/boss-battle" element={<BossBattle />} />
+          <Route path="/ward-round" element={<WardRound />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/stats" element={<Stats />} />
           <Route path="/settings" element={<Settings />} />
 
           {/* Diagnose in 3 Clues */}
           <Route path="/diagnose-game" element={<DiagnoseGame />} />
+
+          {/* Study PDF Quiz */}
+          <Route path="/study-pdf-quiz" element={<StudentPDFQuiz />} />
         </Routes>
       </Router>
     </AuthProvider>

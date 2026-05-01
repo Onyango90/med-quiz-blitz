@@ -39,6 +39,12 @@ const CLINICAL = [
     difficulty: "Hard", xp: 40, available: true, path: "/diagnose-game", accent: "#2a9d8f", tag: "Clinical Reasoning",
   },
   {
+    id: "ward", icon: "🏥", label: "Ward Round",
+    tagline: "One patient. Full case. Your decisions matter.",
+    description: "A real patient is waiting. Take the history, examine them, order investigations, make the diagnosis — and every wrong management decision has consequences. 6 cases across Medicine, Surgery, Paediatrics and Obstetrics.",
+    difficulty: "Expert", xp: 80, available: true, path: "/ward-round", accent: "#34d399", tag: "Clinical",
+  },
+  {
     id: "whoami", icon: "🧠", label: "Who Am I?",
     tagline: "The disease speaks — can you name it?",
     description: "A condition describes itself in cryptic clues. Listen carefully, think pathophysiology, name it before time expires.",
@@ -49,12 +55,6 @@ const CLINICAL = [
     tagline: "Incomplete data. Maximum reasoning.",
     description: "Work through clinical scenarios with deliberately limited information. Mirrors real ward decision-making under uncertainty.",
     difficulty: "Expert", xp: 60, available: false, accent: "#f87171", tag: "Clinical",
-  },
-  {
-    id: "ward", icon: "🏥", label: "Ward Round",
-    tagline: "5 patients. 3 minutes. Go.",
-    description: "Rapid-fire patient management decisions. Triage, investigate, prescribe — against the clock across 5 cases.",
-    difficulty: "Expert", xp: 70, available: false, accent: "#34d399", tag: "Clinical",
   },
 ];
 
@@ -103,9 +103,9 @@ export default function GamesMode() {
           <h1 className="gm-hero-title">Test Your<br />Clinical Edge</h1>
           <p className="gm-hero-sub">Earn double XP on every game. Build speed, reasoning, and recall.</p>
           <div className="gm-hero-stats">
-            <div className="gm-hs"><span className="gm-hs-val">3</span><span className="gm-hs-lbl">Available</span></div>
+            <div className="gm-hs"><span className="gm-hs-val">4</span><span className="gm-hs-lbl">Available</span></div>
             <div className="gm-hdiv" />
-            <div className="gm-hs"><span className="gm-hs-val">5</span><span className="gm-hs-lbl">Coming soon</span></div>
+            <div className="gm-hs"><span className="gm-hs-val">4</span><span className="gm-hs-lbl">Coming soon</span></div>
             <div className="gm-hdiv" />
             <div className="gm-hs"><span className="gm-hs-val">2×</span><span className="gm-hs-lbl">XP boost</span></div>
           </div>

@@ -9,7 +9,7 @@ import {
   BarChart3, Settings, Flame, Sparkles,
   FileText, ChevronRight, Zap, Target,
   Clock, TrendingUp, Star, Award, Menu,
-  MessageSquare
+  MessageSquare, FileUp
 } from "lucide-react";
 import "./HomeDashboard.css";
 import FeedbackForm from "../components/FeedbackForm";
@@ -114,14 +114,15 @@ export default function HomeDashboard() {
 
   // ── Nav items ───────────────────────────────────────────────────────────────
   const allNavItems = [
-    { icon: BookOpen,  label: "Study Centre",    path: "/study-dashboard",   accent: "#2a9d8f",  adminOnly: false },
-    { icon: Gamepad2,  label: "Game Modes",       path: "/games-dashboard",   accent: "#6366f1",  adminOnly: false },
-    { icon: Sparkles,  label: "AI Quiz",          path: "/ai-quiz",           accent: "#f59e0b",  adminOnly: false },
-    { icon: FileText,  label: "Import Questions", path: "/import-questions",  accent: "#10b981",  adminOnly: true  },
-    { icon: Swords,    label: "Battle",           path: "/battle",            accent: "#ef4444",  adminOnly: false },
-    { icon: Trophy,    label: "Leaderboard",      path: "/leaderboard",       accent: "#f97316",  adminOnly: false },
-    { icon: BarChart3, label: "My Stats",         path: "/stats",             accent: "#3b82f6",  adminOnly: false },
-    { icon: Settings,  label: "Settings",         path: "/settings",          accent: "#8b5cf6",  adminOnly: false },
+    { icon: BookOpen,  label: "Study Centre",    path: "/study-dashboard",   accent: "#2a9d8f",  adminOnly: false, special: false },
+    { icon: Gamepad2,  label: "Game Modes",       path: "/games-dashboard",   accent: "#6366f1",  adminOnly: false, special: false },
+    { icon: Sparkles,  label: "AI Quiz",          path: "/ai-quiz",           accent: "#f59e0b",  adminOnly: false, special: false },
+    { icon: FileUp,    label: "PDF Quiz",          path: "/study-pdf-quiz",    accent: "#0d9488",  adminOnly: false, special: true,  price: "15" },
+    { icon: FileText,  label: "Import Questions", path: "/import-questions",  accent: "#10b981",  adminOnly: true,  special: false },
+    { icon: Swords,    label: "Battle",           path: "/battle",            accent: "#ef4444",  adminOnly: false, special: false },
+    { icon: Trophy,    label: "Leaderboard",      path: "/leaderboard",       accent: "#f97316",  adminOnly: false, special: false },
+    { icon: BarChart3, label: "My Stats",         path: "/stats",             accent: "#3b82f6",  adminOnly: false, special: false },
+    { icon: Settings,  label: "Settings",         path: "/settings",          accent: "#8b5cf6",  adminOnly: false, special: false },
   ];
 
   const navItems = allNavItems.filter((item) => !item.adminOnly || isAdmin);
@@ -169,7 +170,7 @@ export default function HomeDashboard() {
           {navItems.map((item) => (
             <button
               key={item.path}
-              className="hd-nav-item"
+              className={`hd-nav-item ${item.special ? "hd-nav-item--pdf" : ""}`}
               style={{ "--accent": item.accent }}
               onClick={() => {
                 navigate(item.path);
@@ -178,7 +179,14 @@ export default function HomeDashboard() {
               title={item.label}
             >
               <item.icon size={18} className="hd-nav-icon" />
-              {sidebarOpen && <span className="hd-nav-label">{item.label}</span>}
+              {sidebarOpen && (
+                <>
+                  <span className="hd-nav-label">{item.label}</span>
+                  {item.price && (
+                    <span className="hd-nav-price">KES {item.price}</span>
+                  )}
+                </>
+              )}
             </button>
           ))}
         </nav>
@@ -257,7 +265,6 @@ export default function HomeDashboard() {
 
           {/* ── Daily Challenge hero ────────────────────────────────────── */}
           <div className="hd-daily hd-daily-thin">
-            {/* Background mesh */}
             <div className="hd-daily-bg" aria-hidden="true">
               <div className="hd-daily-orb hd-orb-1" />
               <div className="hd-daily-orb hd-orb-2" />
@@ -265,7 +272,6 @@ export default function HomeDashboard() {
             </div>
 
             <div className="hd-daily-inner">
-              {/* Left */}
               <div className="hd-daily-left">
                 <div className="hd-daily-badge">
                   <Zap size={10} />
@@ -276,20 +282,15 @@ export default function HomeDashboard() {
                   {dailyPct === 100 ? "Challenge Complete! 🎉" : "Today's Blitz"}
                 </h2>
 
-                {/* Curriculum label — shows year-specific topic mix */}
                 <p className="hd-daily-curriculum">{curriculumLabel}</p>
 
-                {/* Progress bar */}
                 <div className="hd-daily-progress-wrap">
                   <div className="hd-daily-progress-row">
                     <span className="hd-daily-count">{dailyProgress.answered} / {dailyProgress.total}</span>
                     <span className="hd-daily-pct">{dailyPct}%</span>
                   </div>
                   <div className="hd-daily-track">
-                    <div
-                      className="hd-daily-fill"
-                      style={{ width: `${dailyPct}%` }}
-                    />
+                    <div className="hd-daily-fill" style={{ width: `${dailyPct}%` }} />
                   </div>
                 </div>
 
@@ -306,7 +307,6 @@ export default function HomeDashboard() {
                 </button>
               </div>
 
-              {/* Right: streak & stats */}
               <div className="hd-daily-right">
                 <div className="hd-daily-streak-ring">
                   <div className="hd-daily-streak-inner">
@@ -329,7 +329,6 @@ export default function HomeDashboard() {
               </div>
             </div>
 
-            {/* Particles */}
             <div className="hd-daily-particles" aria-hidden="true">
               {Array.from({ length: 8 }).map((_, i) => (
                 <span
@@ -343,6 +342,21 @@ export default function HomeDashboard() {
                   }}
                 />
               ))}
+            </div>
+          </div>
+
+          {/* ── PDF Quiz promo — bright, conspicuous ─────────────────────── */}
+          <div className="hd-pdf-promo" onClick={() => navigate("/study-pdf-quiz")}>
+            <div className="hd-pdf-promo-left">
+              <div className="hd-pdf-promo-icon">📄</div>
+              <div>
+                <p className="hd-pdf-promo-title">Quiz from your own notes</p>
+                <p className="hd-pdf-promo-sub">Upload any PDF → AI generates questions → Play instantly</p>
+              </div>
+            </div>
+            <div className="hd-pdf-promo-right">
+              <div className="hd-pdf-promo-price">KES 15</div>
+              <span className="hd-pdf-promo-arrow">Tap to start →</span>
             </div>
           </div>
 
