@@ -1,71 +1,107 @@
-// src/pages/LandingPage.jsx — uses the "M" logo mark as the hero on the landing screen
-import React, { useEffect, useState } from "react";
+// src/pages/LandingPage.jsx
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
 
+// Loading messages shown during the bar fill
+const LOADING_MESSAGES = [
+  "Loading question banks…",
+  "Summoning bosses…",
+  "Preparing your curriculum…",
+  "Almost ready…",
+];
+
 export default function LandingPage() {
   const navigate = useNavigate();
-  const [showLogo, setShowLogo] = useState(false);
-  const [showText, setShowText] = useState(false);
-  const [showSecondWave, setShowSecondWave] = useState(false);
+
+  // Animation stages
+  const [ecgDone,      setEcgDone]      = useState(false);  // ECG fades out
+  const [logoShow,     setLogoShow]     = useState(false);  // M logo appears
+  const [brandShow,    setBrandShow]    = useState(false);  // MedBlitz text
+  const [loaderShow,   setLoaderShow]   = useState(false);  // loading bar
+  const [skipShow,     setSkipShow]     = useState(false);  // skip button
+  const [loadPct,      setLoadPct]      = useState(0);      // bar fill 0-100
+  const [loadMsg,      setLoadMsg]      = useState(LOADING_MESSAGES[0]);
+
+  const goToSignIn = useCallback(() => navigate("/signin"), [navigate]);
 
   useEffect(() => {
-    // Stage 1: ECG wave animation (3 seconds)
-    const waveTimer = setTimeout(() => {
-      setShowLogo(true);
-    }, 3000);
+    const timers = [];
+    const t = (fn, ms) => { const id = setTimeout(fn, ms); timers.push(id); };
 
-    // Stage 2: Logo stays, text fades in
-    const logoDisplayTimer = setTimeout(() => {
-      setShowText(true);
-    }, 9000);
+    // 0.0s — ECG starts drawing (CSS animation handles it)
+    // 2.4s — ECG fades, logo appears
+    t(() => { setEcgDone(true); setLogoShow(true); }, 2400);
+    // 3.0s — Brand name fades in
+    t(() => setBrandShow(true), 3000);
+    // 3.4s — Loading bar + skip appear
+    t(() => { setLoaderShow(true); setSkipShow(true); }, 3400);
 
-    // Stage 3: Exit wave
-    const secondWaveTimer = setTimeout(() => {
-      setShowSecondWave(true);
-    }, 13000);
+    // Loading bar increments: 0→25→50→75→100 over ~3 seconds
+    t(() => { setLoadPct(25);  setLoadMsg(LOADING_MESSAGES[0]); }, 3600);
+    t(() => { setLoadPct(50);  setLoadMsg(LOADING_MESSAGES[1]); }, 4400);
+    t(() => { setLoadPct(75);  setLoadMsg(LOADING_MESSAGES[2]); }, 5200);
+    t(() => { setLoadPct(100); setLoadMsg(LOADING_MESSAGES[3]); }, 5900);
 
-    // Stage 4: Navigate to signin
-    const navigateTimer = setTimeout(() => {
-      navigate("/signin");
-    }, 15000);
+    // 6.4s — Navigate to sign in
+    t(goToSignIn, 6400);
 
-    return () => {
-      clearTimeout(waveTimer);
-      clearTimeout(logoDisplayTimer);
-      clearTimeout(secondWaveTimer);
-      clearTimeout(navigateTimer);
-    };
-  }, [navigate]);
+    return () => timers.forEach(clearTimeout);
+  }, [goToSignIn]);
 
   return (
-    <div className="landing-container">
-      {/* First ECG Wave Animation */}
-      <div className={`ecg-container ${showLogo ? "wave-finished" : ""}`}>
-        <svg className="ecg-wave first-wave" viewBox="0 0 1200 200" preserveAspectRatio="none">
-          <path className="ecg-path" d="M0,100 L50,100 L70,50 L90,150 L110,100 L150,100 L170,80 L190,120 L210,100 L300,100 L320,60 L340,140 L360,100 L450,100 L470,80 L490,120 L510,100 L600,100 L620,70 L640,130 L660,100 L750,100 L770,90 L790,110 L810,100 L900,100 L920,80 L940,120 L960,100 L1050,100 L1070,50 L1090,150 L1110,100 L1200,100" />
+    <div className="lp-container">
+
+      {/* Ambient background orbs */}
+      <div className="lp-orb lp-orb-1" />
+      <div className="lp-orb lp-orb-2" />
+      <div className="lp-orb lp-orb-3" />
+
+      {/* ECG heartbeat wave */}
+      <div className={`lp-ecg-wrap ${ecgDone ? "lp-ecg--hide" : ""}`}>
+        <svg className="lp-ecg-svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path
+            className="lp-ecg-path"
+            d="M0,60 L80,60 L100,30 L120,90 L140,60
+               L240,60 L260,40 L280,80 L300,60
+               L420,60 L440,10 L460,110 L480,60
+               L580,60 L600,40 L620,80 L640,60
+               L760,60 L780,30 L800,90 L820,60
+               L920,60 L940,45 L960,75 L980,60
+               L1100,60 L1120,20 L1140,100 L1160,60 L1200,60"
+          />
         </svg>
       </div>
 
-      {/* Second ECG Wave Animation (exit wave) */}
-      <div className={`ecg-container exit-wave ${showSecondWave ? "wave-active" : ""}`}>
-        <svg className="ecg-wave second-wave" viewBox="0 0 1200 200" preserveAspectRatio="none">
-          <path className="ecg-path exit-path" d="M0,100 L50,100 L70,50 L90,150 L110,100 L150,100 L170,80 L190,120 L210,100 L300,100 L320,60 L340,140 L360,100 L450,100 L470,80 L490,120 L510,100 L600,100 L620,70 L640,130 L660,100 L750,100 L770,90 L790,110 L810,100 L900,100 L920,80 L940,120 L960,100 L1050,100 L1070,50 L1090,150 L1110,100 L1200,100" />
-        </svg>
-      </div>
-
-      {/* M Logo mark + brand name */}
-      <div className={`logo-wrapper ${showLogo ? "logo-enter" : ""}`}>
-        {/* The "M" mark — styled exactly like the sidebar logo mark, but bigger */}
-        <div className="landing-m-mark">
+      {/* Logo + brand + loader */}
+      <div className={`lp-logo-wrap ${logoShow ? "lp-logo--show" : ""}`}>
+        <div className="lp-m-mark">
           <span>M</span>
         </div>
 
-        <div className={`logo-text ${showText ? "text-enter" : ""}`}>
-          <span className="med-text">Med</span>
-          <span className="blitz-text">Blitz</span>
+        <div className={`lp-brand ${brandShow ? "lp-brand--show" : ""}`}>
+          <span className="lp-brand-med">Med</span>
+          <span className="lp-brand-blitz">Blitz</span>
+        </div>
+
+        <p className={`lp-tagline ${brandShow ? "lp-tagline--show" : ""}`}>
+          Your medical quiz companion
+        </p>
+
+        {/* Loading bar */}
+        <div className={`lp-loader-wrap ${loaderShow ? "lp-loader--show" : ""}`}>
+          <div className="lp-loader-track">
+            <div className="lp-loader-fill" style={{ width: `${loadPct}%` }} />
+          </div>
+          <p className="lp-loader-text">{loadMsg}</p>
         </div>
       </div>
+
+      {/* Skip button */}
+      <div className={`lp-skip ${skipShow ? "lp-skip--show" : ""}`}>
+        <button onClick={goToSignIn}>Skip intro</button>
+      </div>
+
     </div>
   );
 }
