@@ -26,6 +26,7 @@ import BossBattle from "./pages/BossBattle";
 import DiagnoseGame from "./pages/DiagnoseGame";
 import WardRound from "./pages/WardRound";
 import StudentPDFQuiz from "./pages/StudentPDFQuiz";
+import AdminDashboard from "./pages/AdminDashboard";
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
@@ -111,6 +112,9 @@ function App() {
 
           {/* Study PDF Quiz */}
           <Route path="/study-pdf-quiz" element={<StudentPDFQuiz />} />
+
+          {/* Admin — restricted to admin emails only */}
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </Router>
     </AuthProvider>
