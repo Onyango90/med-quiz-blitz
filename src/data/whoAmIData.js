@@ -1,0 +1,467 @@
+// src/data/whoAmIData.js
+// "Who Am I?" question bank — each entity speaks in first person.
+// 5 clues per case, ordered hardest → easiest.
+// XP: guess on clue 1 = 20 XP, clue 2 = 14 XP, clue 3 = 9 XP, clue 4 = 5 XP, clue 5 = 2 XP
+
+const WHO_AM_I = [
+
+  // ── DISEASES & CONDITIONS ─────────────────────────────────────────────────
+
+  {
+    id: "wai_001",
+    answer: "Tuberculosis",
+    category: "Disease",
+    subject: "Microbiology",
+    difficulty: "medium",
+    year: 3,
+    clues: [
+      "I have haunted humanity for millennia. Kings, poets, and peasants have all fallen to me.",
+      "I am caused by a slow-growing rod that wraps itself in a waxy coat to resist destruction.",
+      "I love the upper lobes of the lung, where oxygen is richest and I can thrive.",
+      "I hollow out cavities in the lung, causing cough, night sweats, and weight loss over months.",
+      "Four drugs — Rifampicin, Isoniazid, Pyrazinamide, Ethambutol — are needed to defeat me.",
+    ],
+    options: ["Tuberculosis", "Pneumonia", "Lung abscess", "Sarcoidosis"],
+    explanation: "TB is caused by Mycobacterium tuberculosis. Its waxy mycolic acid coat makes it acid-fast and resistant to many drugs. Upper lobe predilection is due to high oxygen tension. RIPE therapy for 6 months is the standard treatment.",
+  },
+
+  {
+    id: "wai_002",
+    answer: "Myocardial Infarction",
+    category: "Disease",
+    subject: "Cardiology",
+    difficulty: "easy",
+    year: 3,
+    clues: [
+      "I am the moment the heart cries out — but it cannot cry for long.",
+      "I begin when a plaque ruptures and a clot seals off a coronary artery completely.",
+      "My victims clutch their chest, sweat through their shirt, and feel pain radiating to the jaw.",
+      "Troponin rises in my wake, and the ECG tells my location — anterior, inferior, lateral.",
+      "Door-to-balloon time under 90 minutes is the race to save the muscle I am killing.",
+    ],
+    options: ["Myocardial Infarction", "Unstable Angina", "Aortic Dissection", "Pericarditis"],
+    explanation: "STEMI occurs when a ruptured atherosclerotic plaque causes complete coronary occlusion. Troponin is released from necrotic myocytes. Primary PCI (balloon angioplasty) within 90 minutes is the gold standard reperfusion strategy.",
+  },
+
+  {
+    id: "wai_003",
+    answer: "Diabetes Mellitus Type 1",
+    category: "Disease",
+    subject: "Endocrinology",
+    difficulty: "easy",
+    year: 2,
+    clues: [
+      "I am a betrayal — the body turning against itself, destroying the very cells that sustain it.",
+      "My targets are the beta cells of the islets of Langerhans, murdered by the immune system.",
+      "Without me being managed, glucose floods the blood while cells starve.",
+      "Young, thin patients — they collapse into DKA if I am missed for too long.",
+      "Insulin — every day, every meal, forever — is the only way to live with me.",
+    ],
+    options: ["Diabetes Mellitus Type 1", "Diabetes Mellitus Type 2", "MODY", "Cushing's Syndrome"],
+    explanation: "T1DM is an autoimmune destruction of pancreatic beta cells causing absolute insulin deficiency. It presents in younger patients, often with DKA. Lifelong exogenous insulin is required. Anti-GAD and anti-islet cell antibodies are present.",
+  },
+
+  {
+    id: "wai_004",
+    answer: "Rheumatoid Arthritis",
+    category: "Disease",
+    subject: "Rheumatology",
+    difficulty: "medium",
+    year: 3,
+    clues: [
+      "I am the great imitator of the joints — but I am never truly just about the joints.",
+      "I am driven by synovial inflammation that spreads like fire, eating cartilage and bone.",
+      "I prefer the small joints of the hands and feet, and I strike symmetrically.",
+      "Morning stiffness lasting more than an hour is my signature greeting.",
+      "Rheumatoid factor and anti-CCP antibodies mark me. Methotrexate is my nemesis.",
+    ],
+    options: ["Rheumatoid Arthritis", "Osteoarthritis", "Psoriatic Arthritis", "Gout"],
+    explanation: "RA is an autoimmune synovitis causing symmetrical small joint destruction. Morning stiffness >1 hour, RF, and anti-CCP are diagnostic hallmarks. DMARDs (methotrexate first-line) slow disease progression. Extra-articular features include nodules, lung disease, and vasculitis.",
+  },
+
+  {
+    id: "wai_005",
+    answer: "Pulmonary Embolism",
+    category: "Disease",
+    subject: "Respiratory",
+    difficulty: "medium",
+    year: 3,
+    clues: [
+      "I am a traveller — I begin my journey in the deep veins and end it catastrophically in the lung.",
+      "I block blood from reaching the alveoli, so oxygen cannot enter the blood.",
+      "Pleuritic chest pain, breathlessness, and haemoptysis — these are my dramatic announcements.",
+      "The Wells score predicts my arrival; D-dimer screens for me; CTPA confirms me.",
+      "S1Q3T3 on the ECG is my fingerprint. Anticoagulation is my antidote.",
+    ],
+    options: ["Pulmonary Embolism", "Pneumothorax", "Pleuritis", "Myocardial Infarction"],
+    explanation: "PE arises from DVT (Virchow's triad). It causes V/Q mismatch and hypoxia. CTPA is the gold standard investigation. S1Q3T3 reflects right heart strain. Treatment is anticoagulation (LMWH/DOACs); thrombolysis for massive PE.",
+  },
+
+  {
+    id: "wai_006",
+    answer: "Stroke",
+    category: "Disease",
+    subject: "Neurology",
+    difficulty: "easy",
+    year: 3,
+    clues: [
+      "I am the brain's equivalent of a heart attack — time is the only currency that matters.",
+      "I occur when a vessel is blocked or bursts, and neurons begin dying within minutes.",
+      "The face droops, the arm drifts, the speech slurs — FAST is the alarm I trigger.",
+      "An ischaemic version needs thrombolysis within 4.5 hours; a haemorrhagic one needs surgery.",
+      "CT head is done urgently — not to diagnose me, but to decide how to treat me.",
+    ],
+    options: ["Stroke", "TIA", "Hypertensive Encephalopathy", "Todd's Paresis"],
+    explanation: "Stroke is sudden focal neurological deficit from vascular occlusion (ischaemic, 85%) or haemorrhage (15%). Time-critical: IV alteplase within 4.5h for ischaemic. CT head differentiates type. FAST (Face, Arm, Speech, Time) is the recognition tool.",
+  },
+
+  {
+    id: "wai_007",
+    answer: "Appendicitis",
+    category: "Disease",
+    subject: "Surgery",
+    difficulty: "easy",
+    year: 2,
+    clues: [
+      "I am small and useless — until the day I am not, and then I become the most important thing in the abdomen.",
+      "I start with periumbilical pain that migrates — slowly, deliberately — to the right iliac fossa.",
+      "Nausea, vomiting, fever, and a raised white cell count follow in my wake.",
+      "Rovsing's sign, McBurney's point, psoas sign — these are my calling cards on examination.",
+      "An ultrasound or CT confirms my betrayal. A surgeon's knife ends it.",
+    ],
+    options: ["Appendicitis", "Ovarian Torsion", "Mesenteric Adenitis", "Crohn's Disease"],
+    explanation: "Appendicitis is obstruction of the appendicular lumen causing distension, infection, and potential perforation. Classic migration of pain to RIF (McBurney's point). Diagnosis: ultrasound (children/women), CT (adults). Treatment: appendicectomy (laparoscopic).",
+  },
+
+  {
+    id: "wai_008",
+    answer: "Sickle Cell Disease",
+    category: "Disease",
+    subject: "Haematology",
+    difficulty: "medium",
+    year: 2,
+    clues: [
+      "I am born of a mutation — a single amino acid swap that changes everything.",
+      "My red cells are shaped like crescent moons that jam and clump in small vessels.",
+      "Crisis strikes with bone pain so severe it sends patients to the emergency room.",
+      "I protect against malaria in heterozygotes — evolution's cruel bargain.",
+      "HbSS on electrophoresis names me. Hydroxyurea reduces my attacks.",
+    ],
+    options: ["Sickle Cell Disease", "Thalassaemia", "G6PD Deficiency", "Hereditary Spherocytosis"],
+    explanation: "SCD results from a point mutation (Glu→Val at position 6 of beta-globin). HbS polymerises under low O2, causing sickling. Vaso-occlusive crises cause severe pain. HbSS on electrophoresis confirms. Hydroxyurea increases HbF, reducing crises.",
+  },
+
+  // ── DRUGS & PHARMACOLOGY ──────────────────────────────────────────────────
+
+  {
+    id: "wai_009",
+    answer: "Warfarin",
+    category: "Drug",
+    subject: "Pharmacology",
+    difficulty: "easy",
+    year: 3,
+    clues: [
+      "I was born as a rat poison before doctors realised I could save human lives.",
+      "I block Vitamin K epoxide reductase, starving the liver of the cofactor it needs for clotting.",
+      "Factors II, VII, IX and X slowly disappear while I am active.",
+      "I am cheap and effective, but dangerous — my therapeutic window is razor-thin, measured by INR.",
+      "Antibiotics, alcohol, and aspirin can push me too high. Vitamin K brings me back down.",
+    ],
+    options: ["Warfarin", "Heparin", "Rivaroxaban", "Aspirin"],
+    explanation: "Warfarin inhibits VKORC1, blocking Vitamin K-dependent carboxylation of clotting factors II, VII, IX, X, protein C and S. INR monitoring is essential (target 2-3 for AF/DVT). Reversed with Vitamin K or FFP. Many drug-drug interactions via CYP2C9.",
+  },
+
+  {
+    id: "wai_010",
+    answer: "Morphine",
+    category: "Drug",
+    subject: "Pharmacology",
+    difficulty: "easy",
+    year: 3,
+    clues: [
+      "I have been extracted from poppies for thousands of years, and I am still the gold standard.",
+      "I bind to mu-opioid receptors in the brain, spinal cord, and periphery to silence pain.",
+      "I give euphoria, constipation, respiratory depression, and pinpoint pupils.",
+      "I can be reversed — quickly and completely — by naloxone.",
+      "I am the benchmark against which all other opioid analgesics are compared.",
+    ],
+    options: ["Morphine", "Pethidine", "Codeine", "Tramadol"],
+    explanation: "Morphine is the prototypical mu-opioid agonist and the reference standard for opioid analgesics. It produces analgesia, euphoria, miosis, constipation, and respiratory depression. Overdose causes the classic triad: coma, miosis, respiratory depression. Reversed by naloxone.",
+  },
+
+  {
+    id: "wai_011",
+    answer: "Metformin",
+    category: "Drug",
+    subject: "Pharmacology",
+    difficulty: "medium",
+    year: 3,
+    clues: [
+      "I am derived from French lilac, the herb used for centuries before anyone understood why it worked.",
+      "I activate AMPK, suppressing glucose production in the liver and improving insulin sensitivity.",
+      "I do not cause hypoglycaemia because I don't stimulate insulin release.",
+      "Lactic acidosis is my rare but feared side effect — I must be stopped before contrast scans.",
+      "I am the first-line drug for Type 2 diabetes in nearly every guideline on earth.",
+    ],
+    options: ["Metformin", "Glibenclamide", "Sitagliptin", "Insulin Glargine"],
+    explanation: "Metformin (a biguanide) activates AMP kinase, reducing hepatic gluconeogenesis and improving peripheral insulin sensitivity. It does not cause hypoglycaemia alone. Lactic acidosis risk increases in renal impairment. First-line for T2DM per NICE/ADA guidelines.",
+  },
+
+  {
+    id: "wai_012",
+    answer: "Penicillin",
+    category: "Drug",
+    subject: "Pharmacology",
+    difficulty: "easy",
+    year: 2,
+    clues: [
+      "I was discovered by accident — a contaminated petri dish that changed the history of medicine.",
+      "I target the transpeptidase enzyme, preventing the cross-linking of peptidoglycan in bacterial cell walls.",
+      "Without cell wall integrity, bacteria swell and burst — I am a bactericidal weapon.",
+      "I am useless against gram-negative bacteria that hide their cell wall behind an outer membrane.",
+      "Fleming found me in 1928. Beta-lactamases are the mechanism by which bacteria fight back.",
+    ],
+    options: ["Penicillin", "Vancomycin", "Erythromycin", "Tetracycline"],
+    explanation: "Penicillin inhibits transpeptidase (PBP), preventing peptidoglycan cross-linking in bacterial cell walls. Bactericidal against gram-positive organisms. Resistance via beta-lactamases (overcome by clavulanic acid). Discovered by Fleming (1928), developed by Florey and Chain.",
+  },
+
+  {
+    id: "wai_013",
+    answer: "Aspirin",
+    category: "Drug",
+    subject: "Pharmacology",
+    difficulty: "easy",
+    year: 2,
+    clues: [
+      "I am one of the oldest drugs in the world, yet I am still prescribed every single day.",
+      "I irreversibly inhibit COX-1 and COX-2, blocking thromboxane A2 and prostaglandin synthesis.",
+      "At low doses I prevent clots; at high doses I fight fever and inflammation.",
+      "I can cause Reye's syndrome in children — a rare but devastating combination.",
+      "The first thing given in a suspected heart attack, I am swallowed and chewed for fastest effect.",
+    ],
+    options: ["Aspirin", "Ibuprofen", "Paracetamol", "Clopidogrel"],
+    explanation: "Aspirin irreversibly acetylates COX-1/2. At low doses (75–300mg), it inhibits platelet TXA2 for antiplatelet effect (platelets have no nucleus to regenerate COX). Anti-inflammatory at higher doses. Avoided in children <16 due to Reye's syndrome risk.",
+  },
+
+  {
+    id: "wai_014",
+    answer: "Adrenaline (Epinephrine)",
+    category: "Drug",
+    subject: "Pharmacology",
+    difficulty: "medium",
+    year: 3,
+    clues: [
+      "I am both a hormone and a drug — the body makes me, and doctors inject me.",
+      "I activate alpha and beta adrenoceptors simultaneously, doing everything at once.",
+      "I raise heart rate, constrict vessels, dilate airways, and mobilise glucose in one surge.",
+      "I am the first drug given in anaphylaxis — the only one that can reverse the cascade.",
+      "In cardiac arrest, 1mg IV every 3–5 minutes is my dose. I buy time for the heart.",
+    ],
+    options: ["Adrenaline (Epinephrine)", "Noradrenaline", "Dobutamine", "Atropine"],
+    explanation: "Adrenaline (epinephrine) is an endogenous catecholamine that activates α1, α2, β1, β2 receptors. First-line for anaphylaxis (0.5mg IM into lateral thigh) and cardiac arrest (1mg IV). Effects: vasoconstriction (α1), increased HR/contractility (β1), bronchodilation (β2).",
+  },
+
+  // ── ANATOMICAL STRUCTURES ─────────────────────────────────────────────────
+
+  {
+    id: "wai_015",
+    answer: "The Liver",
+    category: "Anatomy",
+    subject: "Anatomy",
+    difficulty: "easy",
+    year: 1,
+    clues: [
+      "I am the largest solid organ in the body, sitting quietly under the right ribcage.",
+      "I receive blood from two sources — the portal vein brings nutrients, the hepatic artery brings oxygen.",
+      "I metabolise drugs, detoxify ammonia, synthesise clotting factors, and make bile.",
+      "I can regenerate — cut away two thirds of me and I will grow back.",
+      "Cirrhosis scars me into uselessness. Jaundice, ascites, and varices follow my failure.",
+    ],
+    options: ["The Liver", "The Spleen", "The Pancreas", "The Kidney"],
+    explanation: "The liver is the body's metabolic powerhouse. Dual blood supply: portal vein (75%) and hepatic artery (25%). Functions: metabolism, detoxification, protein synthesis (albumin, clotting factors), bile production. Unique regenerative capacity via hepatocyte proliferation.",
+  },
+
+  {
+    id: "wai_016",
+    answer: "The Hypothalamus",
+    category: "Anatomy",
+    subject: "Anatomy",
+    difficulty: "hard",
+    year: 2,
+    clues: [
+      "I am small — barely the size of an almond — yet I control almost everything.",
+      "I sit at the base of the brain, linking the nervous system to the endocrine system through the pituitary.",
+      "I regulate temperature, hunger, thirst, sleep, and circadian rhythm simultaneously.",
+      "I produce releasing hormones that tell the pituitary what to secrete.",
+      "Damage to me causes diabetes insipidus, temperature dysregulation, and profound hormonal chaos.",
+    ],
+    options: ["The Hypothalamus", "The Thalamus", "The Pituitary Gland", "The Amygdala"],
+    explanation: "The hypothalamus is the master regulator of homeostasis. It connects CNS and endocrine systems via the hypothalamic-pituitary axis. Produces TRH, GnRH, CRH, GHRH, somatostatin, ADH, oxytocin. Controls temperature, appetite, thirst, and circadian rhythm.",
+  },
+
+  {
+    id: "wai_017",
+    answer: "The Brachial Plexus",
+    category: "Anatomy",
+    subject: "Anatomy",
+    difficulty: "hard",
+    year: 1,
+    clues: [
+      "I am a network — a web of nerves that emerges from the neck and spreads into the arm.",
+      "I am formed from the ventral rami of C5 to T1, weaving into roots, trunks, divisions, and cords.",
+      "Erb's palsy damages my upper roots — the arm hangs limply in the 'waiter's tip' position.",
+      "Klumpke's palsy damages my lower roots — the hand becomes a claw.",
+      "Every muscle in the arm, every sensation in the hand, travels through me.",
+    ],
+    options: ["The Brachial Plexus", "The Cervical Plexus", "The Lumbosacral Plexus", "The Radial Nerve"],
+    explanation: "The brachial plexus (C5-T1) innervates the entire upper limb. RTDC mnemonic: Roots → Trunks → Divisions → Cords → Branches. Erb's palsy (C5/C6): waiter's tip position. Klumpke's (C8/T1): claw hand. Common injury in difficult deliveries or trauma.",
+  },
+
+  {
+    id: "wai_018",
+    answer: "The Nephron",
+    category: "Anatomy",
+    subject: "Physiology",
+    difficulty: "medium",
+    year: 2,
+    clues: [
+      "I am the kidney's fundamental unit — and there are over a million of me in each kidney.",
+      "I begin with a glomerulus that filters the blood under pressure, creating an ultrafiltrate.",
+      "I then reabsorb what the body needs — glucose, sodium, water — as the filtrate travels through me.",
+      "Aldosterone acts on my distal tubule; ADH acts on my collecting duct.",
+      "Damage enough of me and GFR falls, creatinine rises, and chronic kidney disease begins.",
+    ],
+    options: ["The Nephron", "The Glomerulus", "The Loop of Henle", "The Renal Tubule"],
+    explanation: "The nephron is the functional unit of the kidney. Filtration at glomerulus (Starling forces), reabsorption and secretion along PCT, loop of Henle, DCT, collecting duct. Aldosterone increases Na+ reabsorption in DCT; ADH increases water permeability in collecting duct.",
+  },
+
+  // ── MICROORGANISMS ────────────────────────────────────────────────────────
+
+  {
+    id: "wai_019",
+    answer: "Staphylococcus aureus",
+    category: "Microorganism",
+    subject: "Microbiology",
+    difficulty: "medium",
+    year: 2,
+    clues: [
+      "I am golden — my name says it — and I colonise the noses of a third of all humans harmlessly.",
+      "I am gram-positive, cluster in bunches like grapes, and make my own bubble of protection.",
+      "When I invade, I cause boils, abscesses, osteomyelitis, endocarditis, and toxic shock.",
+      "My MRSA cousin laughs at most antibiotics. Only vancomycin reliably stops him.",
+      "Coagulase-positive is my signature — it separates me from the lesser staph species.",
+    ],
+    options: ["Staphylococcus aureus", "Streptococcus pyogenes", "Staphylococcus epidermidis", "Enterococcus faecalis"],
+    explanation: "S. aureus is a coagulase-positive, gram-positive coccus that clusters in grapes. Carried asymptomatically in 30% of population (anterior nares). Virulence factors: toxins (TSST-1, exfoliatin), protein A (blocks IgG). MRSA resistant to beta-lactams; treated with vancomycin/linezolid.",
+  },
+
+  {
+    id: "wai_020",
+    answer: "Plasmodium falciparum",
+    category: "Microorganism",
+    subject: "Microbiology",
+    difficulty: "hard",
+    year: 3,
+    clues: [
+      "I am the most dangerous of my kind — the only one of my family that can kill within days.",
+      "I am transmitted by the female Anopheles mosquito at dusk and dawn.",
+      "I hide inside red blood cells, making them sticky so they clump in small brain vessels.",
+      "Cerebral malaria, severe anaemia, and blackwater fever are my most feared consequences.",
+      "On the blood film I show ring forms and banana-shaped gametocytes — my unique signature.",
+    ],
+    options: ["Plasmodium falciparum", "Plasmodium vivax", "Plasmodium malariae", "Plasmodium ovale"],
+    explanation: "P. falciparum causes the most severe malaria. It infects all RBC ages, causes cytoadherence (rosetting) leading to microvascular occlusion. Cerebral malaria mortality is 15-25% even with treatment. Diagnosed by thick/thin blood film or RDT. Banana-shaped gametocytes are pathognomonic.",
+  },
+
+  {
+    id: "wai_021",
+    answer: "HIV",
+    category: "Microorganism",
+    subject: "Microbiology",
+    difficulty: "easy",
+    year: 3,
+    clues: [
+      "I am a retrovirus — I carry RNA but I write myself into the DNA of the cells I infect.",
+      "My target is the CD4 T-helper cell — the conductor of the immune orchestra.",
+      "As I destroy CD4 cells, the immune system goes silent, and opportunistic infections move in.",
+      "My reverse transcriptase makes mistakes — and those mistakes make it very hard to create a vaccine.",
+      "Three drugs from two classes — that is the combination that keeps me suppressed but never cured.",
+    ],
+    options: ["HIV", "Hepatitis B", "Hepatitis C", "HTLV-1"],
+    explanation: "HIV is an RNA retrovirus (Lentivirus genus) that uses reverse transcriptase to integrate into host CD4+ T-cell DNA. Progressive CD4 depletion leads to AIDS (<200 cells/μL). ART (3-drug combination) suppresses viral load to undetectable, preventing transmission and AIDS-defining illness.",
+  },
+
+  {
+    id: "wai_022",
+    answer: "Mycobacterium leprae",
+    category: "Microorganism",
+    subject: "Microbiology",
+    difficulty: "hard",
+    year: 3,
+    clues: [
+      "I am one of the slowest-growing bacteria ever discovered — I divide only once every two weeks.",
+      "I cannot be grown in a laboratory dish — I need the cooler tissues of a living host.",
+      "I prefer the peripheral nerves and skin, causing numbness, patches, and deformity over years.",
+      "I have plagued humanity for thousands of years. Biblical texts call my victims outcasts.",
+      "Rifampicin, dapsone, and clofazimine together for 12 months are used to eliminate me.",
+    ],
+    options: ["Mycobacterium leprae", "Mycobacterium tuberculosis", "Treponema pallidum", "Mycobacterium ulcerans"],
+    explanation: "M. leprae causes leprosy (Hansen's disease). It has the longest doubling time of any bacterium (~14 days), cannot be cultured in vitro, and preferentially infects cooler peripheral nerves and skin. WHO MDT (rifampicin + dapsone + clofazimine) for 12 months is curative.",
+  },
+
+  {
+    id: "wai_023",
+    answer: "Candida albicans",
+    category: "Microorganism",
+    subject: "Microbiology",
+    difficulty: "medium",
+    year: 2,
+    clues: [
+      "I live peacefully in the mouths, guts, and genitals of most healthy humans.",
+      "I am a fungus — but I can switch between yeast and hyphal forms depending on my ambition.",
+      "When antibiotics wipe out my bacterial competition, I seize the opportunity and overgrow.",
+      "White plaques in the mouth, cottage-cheese vaginal discharge — these are my presentations.",
+      "In the immunocompromised, I invade the bloodstream and become life-threatening candidaemia.",
+    ],
+    options: ["Candida albicans", "Aspergillus fumigatus", "Cryptococcus neoformans", "Dermatophyte"],
+    explanation: "C. albicans is a dimorphic commensal fungus. Germ tube formation (37°C) is a diagnostic test. Virulence enhanced by switching to hyphal form. Causes oral/vaginal thrush in normal hosts; invasive candidiasis in immunocompromised. Treated with fluconazole (topical/systemic) or echinocandins (invasive).",
+  },
+
+  {
+    id: "wai_024",
+    answer: "Helicobacter pylori",
+    category: "Microorganism",
+    subject: "Microbiology",
+    difficulty: "medium",
+    year: 2,
+    clues: [
+      "I was thought impossible — no bacterium could survive in the acid of the stomach.",
+      "I proved everyone wrong, and my discoverer drank a broth of me to prove it.",
+      "I neutralise acid around me with urease, burrowing into the gastric mucosa.",
+      "I cause gastritis, peptic ulcers, and dramatically increase the risk of gastric cancer.",
+      "Triple therapy — a proton pump inhibitor plus two antibiotics — eradicates me.",
+    ],
+    options: ["Helicobacter pylori", "Campylobacter jejuni", "Clostridium difficile", "Salmonella typhi"],
+    explanation: "H. pylori colonises the gastric mucosa, producing urease to neutralise acid. Barry Marshall famously drank H. pylori broth in 1984 to prove it causes ulcers (Nobel Prize 2005). Causes 95% of duodenal ulcers. Eradication: PPI + clarithromycin + amoxicillin for 7 days.",
+  },
+
+  {
+    id: "wai_025",
+    answer: "The Vagus Nerve",
+    category: "Anatomy",
+    subject: "Anatomy",
+    difficulty: "hard",
+    year: 2,
+    clues: [
+      "I am the wanderer — my name in Latin means 'to wander', and I live up to it.",
+      "I am the longest cranial nerve, travelling from the brainstem all the way to the abdomen.",
+      "I carry parasympathetic fibres to the heart, lungs, and gut — slowing, calming, digesting.",
+      "Stimulate me at the neck and the heart slows — doctors use this to break supraventricular tachycardias.",
+      "I am cranial nerve X. Damage to me causes hoarseness, dysphagia, and a lost gag reflex.",
+    ],
+    options: ["The Vagus Nerve", "The Glossopharyngeal Nerve", "The Phrenic Nerve", "The Accessory Nerve"],
+    explanation: "CN X (Vagus) is the longest cranial nerve. It exits the medulla, passes through the jugular foramen, and innervates pharynx, larynx, heart, lungs, and GI tract. Major parasympathetic outflow: bradycardia, bronchoconstriction, increased GI motility. Carotid sinus massage stimulates it to terminate SVT.",
+  },
+];
+
+export default WHO_AM_I;

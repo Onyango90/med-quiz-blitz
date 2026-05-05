@@ -26,8 +26,10 @@ import BossBattle from "./pages/BossBattle";
 import DiagnoseGame from "./pages/DiagnoseGame";
 import WardRound from "./pages/WardRound";
 import StudentPDFQuiz from "./pages/StudentPDFQuiz";
+import WhoAmI from "./pages/WhoAmI";
 import AdminDashboard from "./pages/AdminDashboard";
 import MCQBlitz from "./pages/MCQBlitz";
+import DoctorLadder from "./pages/DoctorLadder";
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
@@ -70,10 +72,10 @@ function App() {
 
           {/* Study dashboards */}
           <Route path="/study-dashboard" element={<StudyDashboard />} />
-          
+
           {/* Main topic route */}
           <Route path="/study/:topic" element={<StudyMode />} />
-          
+
           {/* Subcategory route */}
           <Route path="/study/:topic/:subcategory" element={<SubcategoryStudyMode />} />
 
@@ -108,17 +110,17 @@ function App() {
           <Route path="/stats" element={<Stats />} />
           <Route path="/settings" element={<Settings />} />
 
-          {/* Diagnose in 3 Clues */}
-          <Route path="/diagnose-game" element={<DiagnoseGame />} />
+          {/* Game modes */}
+          <Route path="/diagnose-game"  element={<DiagnoseGame />} />
+          <Route path="/who-am-i"       element={<WhoAmI />} />
+          <Route path="/mcq-blitz"      element={<MCQBlitz />} />
+          <Route path="/doctor-ladder"  element={<DoctorLadder />} />
 
           {/* Study PDF Quiz */}
           <Route path="/study-pdf-quiz" element={<StudentPDFQuiz />} />
 
           {/* Admin — restricted to admin emails only */}
           <Route path="/admin" element={<AdminDashboard />} />
-
-          {/* MCQ Blitz */}
-          <Route path="/mcq-blitz" element={<MCQBlitz />} />
         </Routes>
       </Router>
     </AuthProvider>

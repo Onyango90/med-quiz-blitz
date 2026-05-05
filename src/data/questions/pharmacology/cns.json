@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "id": "pharm_cns_587700",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "difficulty": "hard",
+    "year": 6,
+    "question": "A 72‑year‑old woman presents with new‑onset unilateral temporal headache, scalp tenderness, and jaw claudication. ESR is markedly elevated. Which of the following is the most appropriate initial management?",
+    "answer": "High‑dose corticosteroids",
+    "explanation": "This presentation is classic for giant cell arteritis (temporal arteritis). Immediate initiation of high‑dose corticosteroids is critical to prevent irreversible vision loss. Temporal artery biopsy confirms the diagnosis but should not delay treatment.",
+    "options": [
+      "High‑dose corticosteroids",
+      "Low‑dose aspirin",
+      "Temporal artery biopsy before treatment",
+      "NSAIDs for pain relief"
+    ]
+  },
+  {
+    "id": "pharm_cns_587701",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "difficulty": "medium",
+    "year": 6,
+    "question": "A 25‑year‑old woman presents with recurrent unilateral throbbing headaches associated with photophobia and nausea. Which of the following is most effective for acute management?",
+    "answer": "Sumatriptan",
+    "explanation": "Triptans are first‑line for acute migraine attacks. Propranolol and amitriptyline are used for prophylaxis.",
+    "options": [
+      "Paracetamol",
+      "Sumatriptan",
+      "Propranolol",
+      "Amitriptyline"
+    ]
+  },
+  {
+    "id": "pharm_cns_587702",
+    "type": "mcq",
+    "subject": "Pharmacology",
+    "difficulty": "hard",
+    "year": 6,
+    "question": "A 32‑year‑old man presents with severe unilateral periorbital pain lasting 30 minutes, associated with lacrimation and nasal congestion. Which of the following is the best acute therapy?",
+    "answer": "High‑flow oxygen",
+    "explanation": "Cluster headaches respond rapidly to 100% oxygen or subcutaneous sumatriptan.",
+    "options": [
+      "High‑flow oxygen",
+      "Sumatriptan oral",
+      "NSAIDs",
+      "Amitriptyline"
+    ]
+  }
+]
