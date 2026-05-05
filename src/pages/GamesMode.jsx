@@ -20,8 +20,8 @@ const PRECLINICAL = [
   {
     id: "mcq-blitz", icon: "🎯", label: "MCQ Blitz",
     tagline: "High-yield questions, no time to think",
-    description: "Single-line stem MCQs at pace. Pure knowledge tested against the clock — ideal for preclinical exam prep.",
-    difficulty: "Medium", xp: 25, available: false, accent: "#818cf8", tag: "Exam Prep",
+    description: "20 MCQs. 15 seconds each. Build a streak to multiply your XP — but 3 wrong answers ends the run early. Year-aware questions tailored to your curriculum.",
+    difficulty: "Medium", xp: 25, available: true, path: "/mcq-blitz", accent: "#818cf8", tag: "Exam Prep",
   },
   {
     id: "ladder", icon: "🪜", label: "The Doctor Ladder",
@@ -103,9 +103,9 @@ export default function GamesMode() {
           <h1 className="gm-hero-title">Test Your<br />Clinical Edge</h1>
           <p className="gm-hero-sub">Earn double XP on every game. Build speed, reasoning, and recall.</p>
           <div className="gm-hero-stats">
-            <div className="gm-hs"><span className="gm-hs-val">4</span><span className="gm-hs-lbl">Available</span></div>
+            <div className="gm-hs"><span className="gm-hs-val">5</span><span className="gm-hs-lbl">Available</span></div>
             <div className="gm-hdiv" />
-            <div className="gm-hs"><span className="gm-hs-val">4</span><span className="gm-hs-lbl">Coming soon</span></div>
+            <div className="gm-hs"><span className="gm-hs-val">3</span><span className="gm-hs-lbl">Coming soon</span></div>
             <div className="gm-hdiv" />
             <div className="gm-hs"><span className="gm-hs-val">2×</span><span className="gm-hs-lbl">XP boost</span></div>
           </div>

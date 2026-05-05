@@ -27,6 +27,7 @@ import DiagnoseGame from "./pages/DiagnoseGame";
 import WardRound from "./pages/WardRound";
 import StudentPDFQuiz from "./pages/StudentPDFQuiz";
 import AdminDashboard from "./pages/AdminDashboard";
+import MCQBlitz from "./pages/MCQBlitz";
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
@@ -115,6 +116,9 @@ function App() {
 
           {/* Admin — restricted to admin emails only */}
           <Route path="/admin" element={<AdminDashboard />} />
+
+          {/* MCQ Blitz */}
+          <Route path="/mcq-blitz" element={<MCQBlitz />} />
         </Routes>
       </Router>
     </AuthProvider>
