@@ -53,8 +53,8 @@ const CLINICAL = [
   {
     id: "blackbox", icon: "⬛", label: "Clinical Black Box",
     tagline: "Incomplete data. Maximum reasoning.",
-    description: "Work through clinical scenarios with deliberately limited information. Mirrors real ward decision-making under uncertainty.",
-    difficulty: "Expert", xp: 60, available: false, accent: "#f87171", tag: "Clinical",
+    description: "A case with deliberately missing information. Spend tokens to unlock redacted panels — vitals, history, bloods, imaging. The less you need, the smarter you are. Watch out for red herrings.",
+    difficulty: "Expert", xp: 100, available: true, path: "/clinical-blackbox", accent: "#f87171", tag: "Clinical",
   },
 ];
 
@@ -103,9 +103,9 @@ export default function GamesMode() {
           <h1 className="gm-hero-title">Test Your<br />Clinical Edge</h1>
           <p className="gm-hero-sub">Earn double XP on every game. Build speed, reasoning, and recall.</p>
           <div className="gm-hero-stats">
-            <div className="gm-hs"><span className="gm-hs-val">7</span><span className="gm-hs-lbl">Available</span></div>
+            <div className="gm-hs"><span className="gm-hs-val">8</span><span className="gm-hs-lbl">Available</span></div>
             <div className="gm-hdiv" />
-            <div className="gm-hs"><span className="gm-hs-val">1</span><span className="gm-hs-lbl">Coming soon</span></div>
+            <div className="gm-hs"><span className="gm-hs-val">∞</span><span className="gm-hs-lbl">More coming</span></div>
             <div className="gm-hdiv" />
             <div className="gm-hs"><span className="gm-hs-val">2×</span><span className="gm-hs-lbl">XP boost</span></div>
           </div>

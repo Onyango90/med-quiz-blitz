@@ -503,3 +503,48 @@
   .dl-strip-dot   { width: 24px; height: 24px; font-size: 12px; }
   .dl-dot-current { width: 28px; height: 28px; font-size: 14px; }
 }
+
+/* ── Short Answer input ──────────────────────────────────────── */
+.dl-saq-wrap { display: flex; flex-direction: column; gap: 10px; }
+
+.dl-saq-row {
+  display: flex; gap: 10px; align-items: stretch;
+}
+
+.dl-saq-input {
+  flex: 1;
+  padding: 13px 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 11px;
+  font-family: var(--dl-font);
+  font-size: 15px; font-weight: 500;
+  color: #f1f5f9;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.dl-saq-input::placeholder { color: rgba(255,255,255,0.25); }
+.dl-saq-input:focus { border-color: var(--rc, #22c55e); background: rgba(255,255,255,0.09); }
+
+.dl-saq-correct { border-color: #22c55e !important; background: rgba(34,197,94,0.12) !important; color: #86efac !important; }
+.dl-saq-wrong   { border-color: #ef4444 !important; background: rgba(239,68,68,0.12)  !important; color: #fca5a5 !important; }
+
+.dl-saq-btn {
+  padding: 13px 20px;
+  background: var(--rc, #22c55e);
+  border: none; border-radius: 11px;
+  font-family: var(--dl-font); font-size: 14px; font-weight: 700;
+  color: #fff; cursor: pointer; transition: all 0.15s;
+  white-space: nowrap; flex-shrink: 0;
+}
+.dl-saq-btn:hover:not(:disabled) { transform: translateY(-1px); filter: brightness(1.1); }
+.dl-saq-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.dl-saq-answer {
+  padding: 10px 14px; border-radius: 10px;
+  font-size: 13px; font-weight: 600;
+  animation: dl-exp-in 0.2s ease;
+}
+.dl-saq-ok   { color: #86efac; }
+.dl-saq-fail { color: #fca5a5; }
+.dl-saq-fail strong { color: #fff; }

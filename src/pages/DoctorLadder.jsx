@@ -138,6 +138,9 @@ export default function DoctorLadder() {
   const correctSound = useRef(new Audio(correctSoundFile));
   const wrongSound   = useRef(new Audio(wrongSoundFile));
   const timerRef     = useRef(null);
+  const inputRef     = useRef(null);
+
+  const [typedAnswer, setTypedAnswer] = useState("");
 
   const rung     = RUNGS[rungIndex];
   const question = rung?.pool[qIndex % rung.pool.length];
@@ -211,14 +214,14 @@ export default function DoctorLadder() {
     }
 
     setShowExp(true);
-    // After 1.2s auto advance or show result
+    // After 1.4s auto advance
     setTimeout(() => {
       setFeedback(null);
       setSelected(null);
+      setTypedAnswer("");
       setShowExp(false);
       setQIndex(qi => qi + 1);
-      // Resume timer
-      setTimeLeft(t => t); // trigger useEffect re-run
+      setTimeLeft(t => t); // trigger timer useEffect re-run
     }, 1400);
   };
 
@@ -444,6 +447,42 @@ export default function DoctorLadder() {
                     </button>
                   );
                 })}
+              </div>
+            )}
+
+            {/* ── Short answer input ── */}
+            {!question?.options && (
+              <div className="dl-saq-wrap">
+                <div className="dl-saq-row">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    className={`dl-saq-input ${feedback === "correct" ? "dl-saq-correct" : feedback === "wrong" ? "dl-saq-wrong" : ""}`}
+                    value={typedAnswer}
+                    onChange={e => !feedback && setTypedAnswer(e.target.value)}
+                    onKeyDown={e => e.key === "Enter" && !feedback && typedAnswer.trim() && handleAnswer(typedAnswer.trim())}
+                    placeholder="Type your answer and press Enter…"
+                    disabled={!!feedback}
+                    autoFocus
+                  />
+                  {!feedback && (
+                    <button
+                      className="dl-saq-btn"
+                      onClick={() => typedAnswer.trim() && handleAnswer(typedAnswer.trim())}
+                      disabled={!typedAnswer.trim()}
+                    >
+                      Submit
+                    </button>
+                  )}
+                </div>
+                {feedback && (
+                  <div className="dl-saq-answer">
+                    {feedback === "correct"
+                      ? <span className="dl-saq-ok">✓ Correct!</span>
+                      : <span className="dl-saq-fail">✗ Answer: <strong>{question.answer}</strong></span>
+                    }
+                  </div>
+                )}
               </div>
             )}
 

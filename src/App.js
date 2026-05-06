@@ -30,6 +30,7 @@ import WhoAmI from "./pages/WhoAmI";
 import AdminDashboard from "./pages/AdminDashboard";
 import MCQBlitz from "./pages/MCQBlitz";
 import DoctorLadder from "./pages/DoctorLadder";
+import ClinicalBlackBox from "./pages/ClinicalBlackBox";
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
@@ -114,7 +115,8 @@ function App() {
           <Route path="/diagnose-game"  element={<DiagnoseGame />} />
           <Route path="/who-am-i"       element={<WhoAmI />} />
           <Route path="/mcq-blitz"      element={<MCQBlitz />} />
-          <Route path="/doctor-ladder"  element={<DoctorLadder />} />
+          <Route path="/doctor-ladder"    element={<DoctorLadder />} />
+          <Route path="/clinical-blackbox" element={<ClinicalBlackBox />} />
 
           {/* Study PDF Quiz */}
           <Route path="/study-pdf-quiz" element={<StudentPDFQuiz />} />
