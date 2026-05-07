@@ -134,6 +134,7 @@ export default function DoctorLadder() {
   const [highestRung,  setHighestRung] = useState(0);
   const [xpPopups,     setXpPopups]    = useState([]);
   const [dropAnim,     setDropAnim]    = useState(false);
+  const [lives,        setLives]       = useState(3);
 
   const correctSound = useRef(new Audio(correctSoundFile));
   const wrongSound   = useRef(new Audio(wrongSoundFile));
@@ -191,6 +192,8 @@ export default function DoctorLadder() {
   };
 
   // ── Answer ─────────────────────────────────────────────────────────────
+  const livesRef = useRef(3); // mirrors lives state, readable in closures
+
   const handleAnswer = (opt) => {
     if (feedback !== null) return;
     clearInterval(timerRef.current);
@@ -205,23 +208,31 @@ export default function DoctorLadder() {
       setCorrect(c => c + 1);
       setTotalXP(t => t + xp);
       correctSound.current.play().catch(() => {});
-      // XP popup
       const id = Date.now();
       setXpPopups(p => [...p, { id, xp }]);
       setTimeout(() => setXpPopups(p => p.filter(x => x.id !== id)), 1000);
     } else {
       wrongSound.current.play().catch(() => {});
+      livesRef.current = livesRef.current - 1;
+      setLives(livesRef.current);
     }
 
     setShowExp(true);
-    // After 1.4s auto advance
+
     setTimeout(() => {
       setFeedback(null);
       setSelected(null);
       setTypedAnswer("");
       setShowExp(false);
-      setQIndex(qi => qi + 1);
-      setTimeLeft(t => t); // trigger timer useEffect re-run
+
+      if (!isCorrect && livesRef.current <= 0) {
+        // No lives left — end rung (drops to previous)
+        endRung();
+      } else {
+        // Still alive — next question
+        setQIndex(qi => qi + 1);
+        setTimeLeft(t => t);
+      }
     }, 1400);
   };
 
@@ -271,6 +282,9 @@ export default function DoctorLadder() {
     setFeedback(null);
     setSelected(null);
     setShowExp(false);
+    setTypedAnswer("");
+    setLives(3);
+    livesRef.current = 3;
   };
 
   const resetAll = () => {
