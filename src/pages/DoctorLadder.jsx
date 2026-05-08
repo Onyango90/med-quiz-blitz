@@ -292,6 +292,8 @@ export default function DoctorLadder() {
     setCountdown(3);
     setTotalXP(0);
     setRungHistory([]);
+    setLives(3);
+    livesRef.current = 3;
     resetForRung();
   };
 

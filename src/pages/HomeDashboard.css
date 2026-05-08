@@ -480,6 +480,25 @@
   box-shadow: none;
 }
 
+/* Daily complete message */
+.hd-daily-complete-msg {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hd-daily-complete-msg p {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+}
+.hd-daily-reset-note {
+  font-size: 11px !important;
+  color: rgba(255,255,255,0.55) !important;
+  font-weight: 400 !important;
+}
+
 /* Streak ring — compact */
 .hd-daily-streak-ring {
   width: 54px; height: 54px;

@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useStats } from "../hooks/useStats";
 import { getDailyQuestions, getCurriculumLabel } from "../data/dailyChallengeQuestions";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getDatabase, ref, get } from "firebase/database";
 import {
   Gamepad2, Swords, BookOpen, Trophy,
   BarChart3, Settings, Flame, Sparkles,
@@ -33,6 +35,8 @@ export default function HomeDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 1024);
   const [quote] = useState(() => QUOTES[Math.floor(Math.random() * QUOTES.length)]);
   const [dailyProgress, setDailyProgress] = useState({ answered: 0, total: 20, xpEarned: 0 });
+  const [dailyComplete, setDailyComplete] = useState(false);
+  const [userYearResolved, setUserYearResolved] = useState(null);
   const [time, setTime] = useState(new Date());
   const [showFeedback, setShowFeedback] = useState(false);
 
@@ -50,8 +54,8 @@ export default function HomeDashboard() {
   const streak        = stats?.basic?.currentStreak  || 0;
   const accuracy      = stats?.basic?.accuracy       || 0;
   const totalAnswered = stats?.basic?.totalAttempted || 0;
-  const userYear      = userData?.profile?.year || localStorage.getItem("userYear") || 1;
-  const streakBonus   = Math.min(20 + streak * 2, 40);
+  const userYear        = userYearResolved || userData?.profile?.year || localStorage.getItem("userYear") || 1;
+  const streakBonus     = Math.min(20 + streak * 2, 40);
   const curriculumLabel = getCurriculumLabel(userYear);
 
   // Clock
@@ -60,12 +64,45 @@ export default function HomeDashboard() {
     return () => clearInterval(t);
   }, []);
 
-  // Daily progress
+  // Resolve user year + daily progress from Firebase
   useEffect(() => {
+    if (!currentUser) return;
     const today = new Date().toISOString().split("T")[0];
-    const data  = JSON.parse(localStorage.getItem("dailyChallenge")) || {};
-    if (data[today]) setDailyProgress(data[today]);
-  }, []);
+
+    const load = async () => {
+      try {
+        // 1. Get year of study from Firestore profile
+        const fs = getFirestore();
+        const userSnap = await getDoc(doc(fs, "users", currentUser.uid));
+        const year = userSnap.exists()
+          ? userSnap.data()?.profile?.year
+          : null;
+        const resolvedYear = year || localStorage.getItem("userYear") || 1;
+        setUserYearResolved(resolvedYear);
+
+        // 2. Get today's daily challenge progress from RTDB
+        const rtdb = getDatabase();
+        const chalSnap = await get(ref(rtdb, `users/${currentUser.uid}/dailyChallenges/${today}`));
+        if (chalSnap.exists()) {
+          const data = chalSnap.val();
+          const levelsCompleted = data.levelsCompleted || 0;
+          setDailyProgress({
+            answered: Math.min(levelsCompleted * 5, 20),
+            total:    20,
+            xpEarned: data.xpEarned || 0,
+          });
+          // All 4 levels done = fully complete for today
+          setDailyComplete(levelsCompleted >= 4);
+        }
+      } catch (e) {
+        // Fall back to localStorage silently
+        const data = JSON.parse(localStorage.getItem("dailyChallenge") || "{}");
+        if (data[today]) setDailyProgress(data[today]);
+      }
+    };
+
+    load();
+  }, [currentUser]);
 
   // Handle window resize for sidebar
   useEffect(() => {
@@ -279,7 +316,7 @@ export default function HomeDashboard() {
                 </div>
 
                 <h2 className="hd-daily-title">
-                  {dailyPct === 100 ? "Challenge Complete! 🎉" : "Today's Blitz"}
+                  {dailyComplete ? "You're done for today! 🎉" : "Today's Blitz"}
                 </h2>
 
                 <p className="hd-daily-curriculum">{curriculumLabel}</p>
@@ -294,17 +331,21 @@ export default function HomeDashboard() {
                   </div>
                 </div>
 
-                <button
-                  className="hd-daily-btn"
-                  onClick={startDaily}
-                  disabled={dailyPct === 100}
-                >
-                  {dailyPct === 0
-                    ? <><Zap size={14} /> Start</>
-                    : dailyPct === 100
-                    ? <><Award size={14} /> Done</>
-                    : <><Zap size={14} /> Continue</>}
-                </button>
+                {dailyComplete ? (
+                  <div className="hd-daily-complete-msg">
+                    <p>✅ You've finished all 20 questions for today.</p>
+                    <p className="hd-daily-reset-note">⏰ Fresh challenge resets at midnight</p>
+                  </div>
+                ) : (
+                  <button
+                    className="hd-daily-btn"
+                    onClick={startDaily}
+                  >
+                    {dailyPct === 0
+                      ? <><Zap size={14} /> Start</>
+                      : <><Zap size={14} /> Continue</>}
+                  </button>
+                )}
               </div>
 
               <div className="hd-daily-right">
