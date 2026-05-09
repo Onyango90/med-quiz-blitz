@@ -95,10 +95,12 @@ export default function FlashcardMode({ questions = [], subject = "Study", onExi
   };
   const onPointerUp = () => {
     if (dragStart === null) return;
-    if (dragDelta > 70)       markKnown();
-    else if (dragDelta < -70) markUnsure();
-    else { setDragDelta(0); }
+    const delta = dragDelta;
     setDragStart(null);
+    if (delta > 70)          { markKnown();  return; }
+    if (delta < -70)         { markUnsure(); return; }
+    if (Math.abs(delta) < 10) flip();  // tap = flip
+    setDragDelta(0);
   };
 
   // ── Reset ─────────────────────────────────────────────────────────────────
@@ -236,7 +238,6 @@ export default function FlashcardMode({ questions = [], subject = "Study", onExi
           ref={cardRef}
           className={`fc-card ${flipped ? "fc-card--flipped" : ""}`}
           style={cardStyle}
-          onClick={!dragStart ? flip : undefined}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}

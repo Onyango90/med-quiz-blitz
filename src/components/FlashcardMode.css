@@ -107,6 +107,7 @@
   display: flex; align-items: center; justify-content: center;
   padding: 20px 16px;
   position: relative;
+  perspective: 1200px;
 }
 
 /* Depth shadow beneath card */
@@ -129,17 +130,16 @@
   max-width: 400px;
   min-height: 320px;
   border-radius: 20px;
-  background: var(--fc-card);
-  box-shadow: var(--fc-shadow);
   cursor: pointer;
   transform-style: preserve-3d;
-  transition: transform .6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow .2s;
+  transition: box-shadow .2s;
   z-index: 1;
   touch-action: pan-y;
   border: 1.5px solid var(--fc-border);
+  box-shadow: var(--fc-shadow);
 }
 .fc-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.14); }
-.fc-card--flipped { transform: rotateY(180deg); }
+.fc-card--flipped { transform: rotateY(180deg) !important; }
 
 .fc-card-front, .fc-card-back {
   position: absolute; inset: 0;
@@ -150,7 +150,9 @@
   padding: 22px;
   overflow: hidden;
 }
-.fc-card-back { transform: rotateY(180deg); }
+.fc-card-back {
+  transform: rotateY(180deg);
+}
 
 /* Front styling */
 .fc-card-front {

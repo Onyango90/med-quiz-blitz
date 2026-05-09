@@ -166,9 +166,12 @@
   opacity: 0.5;
 }
 
+/* High-specificity selectors to beat App.css global input[type] rules */
+.auth-field .auth-input,
+.auth-form-card .auth-input,
 .auth-input {
   width: 100%;
-  padding: 11px 14px 11px 38px;
+  padding: 11px 14px 11px 42px !important; /* !important ensures global App.css input rules don't win */
   background: #f9fafb;
   border: 1px solid var(--au-border);
   border-radius: 10px;
@@ -176,20 +179,27 @@
   font-size: 14px;
   color: var(--au-text);
   outline: none;
+  box-sizing: border-box;
   transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
 }
+.auth-field .auth-input::placeholder,
 .auth-input::placeholder { color: var(--au-muted); }
+
+.auth-field .auth-input:focus,
 .auth-input:focus {
   background: #fff;
   border-color: var(--au-teal);
   box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
 }
+.auth-field .auth-input:disabled,
 .auth-input:disabled { opacity: 0.6; cursor: not-allowed; }
 
-/* Select */
+/* Select — same treatment */
+.auth-field .auth-select,
+.auth-form-card .auth-select,
 .auth-select {
   width: 100%;
-  padding: 11px 14px 11px 38px;
+  padding: 11px 36px 11px 42px !important;
   background: #f9fafb;
   border: 1px solid var(--au-border);
   border-radius: 10px;
@@ -198,9 +208,12 @@
   color: var(--au-text);
   outline: none;
   appearance: none;
+  -webkit-appearance: none;
   cursor: pointer;
+  box-sizing: border-box;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
+.auth-field .auth-select:focus,
 .auth-select:focus {
   background: #fff;
   border-color: var(--au-teal);
