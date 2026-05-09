@@ -1,25 +1,22 @@
-// src/pages/HomeDashboard.jsx — full redesign
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// src/pages/HomeDashboard.jsx — warm cream redesign with rotating spotlight
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useStats } from "../hooks/useStats";
 import { getDailyQuestions, getCurriculumLabel } from "../data/dailyChallengeQuestions";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { getDatabase, ref, get } from "firebase/database";
 import {
-  Gamepad2, Swords, BookOpen, Trophy,
-  BarChart3, Settings, Flame, Sparkles,
-  FileText, ChevronRight, Zap, Target,
-  Clock, TrendingUp, Star, Award, Menu,
-  MessageSquare, FileUp
+  Gamepad2, BookOpen, Trophy, BarChart3, Settings,
+  Flame, Sparkles, FileText, ChevronRight, ChevronLeft,
+  Zap, Target, Clock, Star, Award, Menu, MessageSquare,
+  FileUp, Swords, Home, TrendingUp,
 } from "lucide-react";
 import "./HomeDashboard.css";
 import FeedbackForm from "../components/FeedbackForm";
 
-// ── Admin email — only this user sees Import Questions ───────────────────────
 const ADMIN_EMAIL = process.env.REACT_APP_ADMIN_EMAIL || "admin@medblitz.app";
 
-// ── Motivational quotes ───────────────────────────────────────────────────────
 const QUOTES = [
   "The expert in anything was once a beginner.",
   "Every question you answer is a patient you'll save.",
@@ -28,105 +25,92 @@ const QUOTES = [
   "One question at a time. One day at a time.",
 ];
 
+// ── Spotlight feature cards ───────────────────────────────────────────────────
+const SPOTLIGHT_FEATURES = [
+  {
+    id: "daily",
+    icon: "⚡", emoji_bg: "#fef9c3",
+    label: "Daily Challenge",
+    tagline: "Your daily dose of medicine",
+    desc: "20 curated questions every day, tailored to your year. Build your streak, earn bonus XP, and stay consistent.",
+    accent: "#0d7c6e", accent_lt: "#e6f7f4",
+    action: "start-daily", cta: "Start Today's Challenge",
+    stats: ["20 questions", "Streak XP", "Year-aware"],
+  },
+  {
+    id: "games",
+    icon: "🎮", emoji_bg: "#ede9fe",
+    label: "Game Zone",
+    tagline: "8 game modes. All live.",
+    desc: "From Boss Battle to Diagnose in 3 Clues — every mode is a different way to test your knowledge under pressure.",
+    accent: "#6d28d9", accent_lt: "#f3f0ff",
+    action: "navigate", path: "/games-dashboard", cta: "Enter Game Zone",
+    stats: ["8 modes", "Double XP", "Preclinical + Clinical"],
+  },
+  {
+    id: "pdf",
+    icon: "📄", emoji_bg: "#dcfce7",
+    label: "PDF Quiz",
+    tagline: "Your notes. Your questions.",
+    desc: "Upload any PDF — lecture slides, past papers, textbook chapters. AI reads it and generates gamified questions instantly.",
+    accent: "#15803d", accent_lt: "#dcfce7",
+    action: "navigate", path: "/study-pdf-quiz", cta: "Upload & Play · KES 15",
+    stats: ["Any PDF", "AI-powered", "3 game modes"],
+  },
+  {
+    id: "ai",
+    icon: "✨", emoji_bg: "#fff7ed",
+    label: "AI Quiz",
+    tagline: "Custom questions on demand",
+    desc: "Pick a subject, topic, difficulty and year — Claude generates a fresh set of questions built just for you in seconds.",
+    accent: "#b45309", accent_lt: "#fef9c3",
+    action: "navigate", path: "/ai-quiz", cta: "Generate Questions",
+    stats: ["All subjects", "Any difficulty", "Instant"],
+  },
+  {
+    id: "study",
+    icon: "📚", emoji_bg: "#e0f7fa",
+    label: "Study Centre",
+    tagline: "Browse. Learn. Master.",
+    desc: "Topic-by-topic question banks across Anatomy, Physiology, Pharmacology, Pathology and more — filtered by year.",
+    accent: "#0891b2", accent_lt: "#e0f7fa",
+    action: "navigate", path: "/study-dashboard", cta: "Browse Topics",
+    stats: ["All subjects", "Flashcard mode", "Year filter"],
+  },
+];
+
 export default function HomeDashboard() {
-  const navigate = useNavigate();
+  const navigate  = useNavigate();
+  const location  = useLocation();
   const { currentUser, userData, loading: authLoading } = useAuth();
   const { stats, loading: statsLoading } = useStats();
-  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 1024);
-  const [quote] = useState(() => QUOTES[Math.floor(Math.random() * QUOTES.length)]);
-  const [dailyProgress, setDailyProgress] = useState({ answered: 0, total: 20, xpEarned: 0 });
-  const [dailyComplete, setDailyComplete] = useState(false);
-  const [userYearResolved, setUserYearResolved] = useState(null);
-  const [time, setTime] = useState(new Date());
-  const [showFeedback, setShowFeedback] = useState(false);
 
-  const isAdmin = currentUser?.email === ADMIN_EMAIL;
+  const [sidebarOpen,     setSidebarOpen]     = useState(window.innerWidth >= 1024);
+  const [quote]                               = useState(() => QUOTES[Math.floor(Math.random() * QUOTES.length)]);
+  const [dailyProgress,   setDailyProgress]   = useState({ answered: 0, total: 20, xpEarned: 0 });
+  const [dailyComplete,   setDailyComplete]   = useState(false);
+  const [userYearResolved,setUserYearResolved] = useState(null);
+  const [time,            setTime]            = useState(new Date());
+  const [showFeedback,    setShowFeedback]    = useState(false);
+  const [spotIdx,         setSpotIdx]         = useState(0);
+  const [spotAnim,        setSpotAnim]        = useState("in");
+  const [spotAnimating,   setSpotAnimating]   = useState(false);
+  const [isMobile,        setIsMobile]        = useState(window.innerWidth < 1024);
 
-  // Get actual user name
-  const userName =
-    currentUser?.displayName ||
-    userData?.profile?.name ||
-    localStorage.getItem("userName") ||
-    currentUser?.email?.split("@")[0] ||
-    "Doctor";
+  const isAdmin  = currentUser?.email === ADMIN_EMAIL;
+  const userName = currentUser?.displayName || userData?.profile?.name || localStorage.getItem("userName") || currentUser?.email?.split("@")[0] || "Doctor";
 
   const totalXP       = stats?.basic?.totalXP       || 0;
   const streak        = stats?.basic?.currentStreak  || 0;
   const accuracy      = stats?.basic?.accuracy       || 0;
   const totalAnswered = stats?.basic?.totalAttempted || 0;
-  const userYear        = userYearResolved || userData?.profile?.year || localStorage.getItem("userYear") || 1;
-  const streakBonus     = Math.min(20 + streak * 2, 40);
+  const userYear      = userYearResolved || userData?.profile?.year || localStorage.getItem("userYear") || 1;
+  const streakBonus   = Math.min(20 + streak * 2, 40);
   const curriculumLabel = getCurriculumLabel(userYear);
+  const dailyPct      = Math.round((dailyProgress.answered / dailyProgress.total) * 100);
 
-  // Clock
-  useEffect(() => {
-    const t = setInterval(() => setTime(new Date()), 60000);
-    return () => clearInterval(t);
-  }, []);
+  const spot = SPOTLIGHT_FEATURES[spotIdx];
 
-  // Resolve user year + daily progress from Firebase
-  useEffect(() => {
-    if (!currentUser) return;
-    const today = new Date().toISOString().split("T")[0];
-
-    const load = async () => {
-      try {
-        // 1. Get year of study from Firestore profile
-        const fs = getFirestore();
-        const userSnap = await getDoc(doc(fs, "users", currentUser.uid));
-        const year = userSnap.exists()
-          ? userSnap.data()?.profile?.year
-          : null;
-        const resolvedYear = year || localStorage.getItem("userYear") || 1;
-        setUserYearResolved(resolvedYear);
-
-        // 2. Get today's daily challenge progress from RTDB
-        const rtdb = getDatabase();
-        const chalSnap = await get(ref(rtdb, `users/${currentUser.uid}/dailyChallenges/${today}`));
-        if (chalSnap.exists()) {
-          const data = chalSnap.val();
-          const levelsCompleted = data.levelsCompleted || 0;
-          setDailyProgress({
-            answered: Math.min(levelsCompleted * 5, 20),
-            total:    20,
-            xpEarned: data.xpEarned || 0,
-          });
-          // All 4 levels done = fully complete for today
-          setDailyComplete(levelsCompleted >= 4);
-        }
-      } catch (e) {
-        // Fall back to localStorage silently
-        const data = JSON.parse(localStorage.getItem("dailyChallenge") || "{}");
-        if (data[today]) setDailyProgress(data[today]);
-      }
-    };
-
-    load();
-  }, [currentUser]);
-
-  // Handle window resize for sidebar
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setSidebarOpen(true);
-      } else {
-        setSidebarOpen(false);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  if (authLoading || statsLoading) {
-    return (
-      <div className="hd-loading">
-        <div className="hd-spinner" />
-        <p>Loading your dashboard…</p>
-      </div>
-    );
-  }
-
-  const dailyPct = Math.round((dailyProgress.answered / dailyProgress.total) * 100);
   const greeting = (() => {
     const h = time.getHours();
     if (h < 12) return "Good morning";
@@ -134,137 +118,210 @@ export default function HomeDashboard() {
     return "Good evening";
   })();
 
-  const startDaily = () => {
-    const questions = getDailyQuestions(parseInt(userYear));
-    navigate("/daily-quiz", {
-      state: {
-        questions,
-        isDailyChallenge: true,
-        xpBonus: streakBonus,
-        streak,
-        topic: "Daily Challenge",
-        userYear,
-        questionsCount: dailyProgress.total,
-      },
-    });
+  // Clock
+  useEffect(() => {
+    const t = setInterval(() => setTime(new Date()), 60000);
+    return () => clearInterval(t);
+  }, []);
+
+  // Resize
+  useEffect(() => {
+    const onResize = () => {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+      if (!mobile) setSidebarOpen(true);
+      else setSidebarOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  // Firebase load
+  useEffect(() => {
+    if (!currentUser) return;
+    const today = new Date().toISOString().split("T")[0];
+    const load = async () => {
+      try {
+        const fs = getFirestore();
+        const snap = await getDoc(doc(fs, "users", currentUser.uid));
+        const year = snap.exists() ? snap.data()?.profile?.year : null;
+        setUserYearResolved(year || localStorage.getItem("userYear") || 1);
+        const rtdb = getDatabase();
+        const chalSnap = await get(ref(rtdb, `users/${currentUser.uid}/dailyChallenges/${today}`));
+        if (chalSnap.exists()) {
+          const data = chalSnap.val();
+          const levelsCompleted = data.levelsCompleted || 0;
+          setDailyProgress({ answered: Math.min(levelsCompleted * 5, 20), total: 20, xpEarned: data.xpEarned || 0 });
+          setDailyComplete(levelsCompleted >= 4);
+        }
+      } catch {
+        const data = JSON.parse(localStorage.getItem("dailyChallenge") || "{}");
+        if (data[today]) setDailyProgress(data[today]);
+      }
+    };
+    load();
+  }, [currentUser]);
+
+  // Spotlight rotation
+  const goSpot = useCallback((dir) => {
+    if (spotAnimating) return;
+    setSpotAnimating(true);
+    setSpotAnim(dir === "right" ? "out-right" : "out-left");
+    setTimeout(() => {
+      setSpotIdx((i) => dir === "right"
+        ? (i + 1) % SPOTLIGHT_FEATURES.length
+        : (i - 1 + SPOTLIGHT_FEATURES.length) % SPOTLIGHT_FEATURES.length
+      );
+      setSpotAnim("in");
+      setSpotAnimating(false);
+    }, 220);
+  }, [spotAnimating]);
+
+  const goSpotTo = useCallback((idx) => {
+    if (idx === spotIdx || spotAnimating) return;
+    goSpot(idx > spotIdx ? "right" : "left");
+    // override index directly
+    setSpotAnimating(true);
+    setSpotAnim(idx > spotIdx ? "out-right" : "out-left");
+    setTimeout(() => {
+      setSpotIdx(idx);
+      setSpotAnim("in");
+      setSpotAnimating(false);
+    }, 220);
+  }, [spotIdx, spotAnimating]);
+
+  const handleSpotCTA = () => {
+    if (spot.action === "start-daily") {
+      const questions = getDailyQuestions(parseInt(userYear));
+      navigate("/daily-quiz", { state: { questions, isDailyChallenge: true, xpBonus: streakBonus, streak, topic: "Daily Challenge", userYear, questionsCount: dailyProgress.total } });
+    } else if (spot.path) {
+      navigate(spot.path);
+    }
   };
 
-  // ── Nav items ───────────────────────────────────────────────────────────────
+  // Swipe support
+  let touchX = 0;
+  const onTouchStart = (e) => { touchX = e.touches[0].clientX; };
+  const onTouchEnd   = (e) => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) goSpot(dx < 0 ? "right" : "left");
+  };
+
+  // Nav items
   const allNavItems = [
-    { icon: BookOpen,  label: "Study Centre",    path: "/study-dashboard",   accent: "#2a9d8f",  adminOnly: false, special: false },
-    { icon: Gamepad2,  label: "Game Modes",       path: "/games-dashboard",   accent: "#6366f1",  adminOnly: false, special: false },
-    { icon: Sparkles,  label: "AI Quiz",          path: "/ai-quiz",           accent: "#f59e0b",  adminOnly: false, special: false },
-    { icon: FileUp,    label: "PDF Quiz",          path: "/study-pdf-quiz",    accent: "#0d9488",  adminOnly: false, special: true,  price: "15" },
-    { icon: FileText,  label: "Import Questions", path: "/import-questions",  accent: "#10b981",  adminOnly: true,  special: false },
-    { icon: Swords,    label: "Battle",           path: "/battle",            accent: "#ef4444",  adminOnly: false, special: false },
-    { icon: Trophy,    label: "Leaderboard",      path: "/leaderboard",       accent: "#f97316",  adminOnly: false, special: false },
-    { icon: BarChart3, label: "My Stats",         path: "/stats",             accent: "#3b82f6",  adminOnly: false, special: false },
-    { icon: Settings,  label: "Settings",         path: "/settings",          accent: "#8b5cf6",  adminOnly: false, special: false },
+    { icon: BookOpen,  label: "Study Centre",    path: "/study-dashboard",  accent: "#0891b2", adminOnly: false, special: false },
+    { icon: Gamepad2,  label: "Game Modes",       path: "/games-dashboard",  accent: "#6d28d9", adminOnly: false, special: false },
+    { icon: Sparkles,  label: "AI Quiz",          path: "/ai-quiz",          accent: "#b45309", adminOnly: false, special: false },
+    { icon: FileUp,    label: "PDF Quiz",          path: "/study-pdf-quiz",   accent: "#15803d", adminOnly: false, special: true,  price: "15" },
+    { icon: FileText,  label: "Import Questions", path: "/import-questions", accent: "#10b981", adminOnly: true,  special: false },
+    { icon: Swords,    label: "Battle",           path: "/battle",           accent: "#dc2626", adminOnly: false, special: false },
+    { icon: Trophy,    label: "Leaderboard",      path: "/leaderboard",      accent: "#ea580c", adminOnly: false, special: false },
+    { icon: BarChart3, label: "My Stats",         path: "/stats",            accent: "#0891b2", adminOnly: false, special: false },
+    { icon: Settings,  label: "Settings",         path: "/settings",         accent: "#7c3aed", adminOnly: false, special: false },
+  ];
+  const navItems = allNavItems.filter((i) => !i.adminOnly || isAdmin);
+
+  // Bottom tab items (mobile)
+  const bottomTabs = [
+    { icon: Home,     label: "Home",   path: "/home" },
+    { icon: BookOpen, label: "Study",  path: "/study-dashboard" },
+    { icon: Gamepad2, label: "Games",  path: "/games-dashboard" },
+    { icon: BarChart3,label: "Stats",  path: "/stats" },
+    { icon: Settings, label: "More",   path: "/settings" },
   ];
 
-  const navItems = allNavItems.filter((item) => !item.adminOnly || isAdmin);
-
-  // ── Quick action cards ──────────────────────────────────────────────────────
-  const quickActions = [
-    {
-      icon: BookOpen, label: "Study Centre",
-      desc: "Browse topics & flashcards",
-      path: "/study-dashboard", color: "teal",
-    },
-    {
-      icon: Gamepad2, label: "Game Modes",
-      desc: "Rapid fire & timed quizzes",
-      path: "/games-dashboard", color: "indigo",
-    },
-    {
-      icon: Sparkles, label: "AI Quiz",
-      desc: "Generate custom questions",
-      path: "/ai-quiz", color: "amber",
-    },
-    {
-      icon: Trophy, label: "Leaderboard",
-      desc: "See how you rank",
-      path: "/leaderboard", color: "orange",
-    },
-  ];
+  if (authLoading || statsLoading) {
+    return (
+      <div className="hd-loading">
+        <div className="hd-loading-logo">M</div>
+        <div className="hd-spinner" />
+        <p>Loading your dashboard…</p>
+      </div>
+    );
+  }
 
   return (
-    <div className={`hd-root ${sidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
+    <div className={`hd-root ${sidebarOpen && !isMobile ? "hd-sidebar-open" : "hd-sidebar-closed"}`}>
 
-      {/* ── Mobile overlay (closes sidebar on tap) ──────────────────── */}
-      {sidebarOpen && window.innerWidth < 1024 && (
+      {/* Warm background */}
+      <div className="hd-bg" aria-hidden="true">
+        <div className="hd-bg-blob hd-bg-1" style={{ background: `radial-gradient(circle, ${spot.accent}18 0%, transparent 70%)` }} />
+        <div className="hd-bg-blob hd-bg-2" />
+        <div className="hd-bg-blob hd-bg-3" />
+      </div>
+
+      {/* Mobile overlay */}
+      {sidebarOpen && isMobile && (
         <div className="hd-overlay" onClick={() => setSidebarOpen(false)} />
       )}
 
-      {/* ── Sidebar ───────────────────────────────────────────────────────── */}
-      <aside className={`hd-sidebar ${sidebarOpen ? "open" : "closed"}`}>
-        <div className="hd-sidebar-logo">
-          <div className="hd-logo-mark">M</div>
-          {sidebarOpen && <span className="hd-logo-text">MedBlitz</span>}
-        </div>
+      {/* ════════════════════════════════════
+          SIDEBAR (desktop only)
+      ════════════════════════════════════ */}
+      {!isMobile && (
+        <aside className={`hd-sidebar ${sidebarOpen ? "hd-sb-open" : "hd-sb-closed"}`}>
+          <div className="hd-sb-logo">
+            <div className="hd-logo-mark">M</div>
+            {sidebarOpen && <span className="hd-logo-text">MedBlitz</span>}
+          </div>
 
-        <nav className="hd-nav">
-          {navItems.map((item) => (
-            <button
-              key={item.path}
-              className={`hd-nav-item ${item.special ? "hd-nav-item--pdf" : ""}`}
-              style={{ "--accent": item.accent }}
-              onClick={() => {
-                navigate(item.path);
-                if (window.innerWidth < 1024) setSidebarOpen(false);
-              }}
-              title={item.label}
-            >
-              <item.icon size={18} className="hd-nav-icon" />
-              {sidebarOpen && (
-                <>
-                  <span className="hd-nav-label">{item.label}</span>
-                  {item.price && (
-                    <span className="hd-nav-price">KES {item.price}</span>
-                  )}
-                </>
-              )}
-            </button>
-          ))}
-        </nav>
+          <nav className="hd-sb-nav">
+            {navItems.map((item) => (
+              <button
+                key={item.path}
+                className={`hd-sb-item ${item.special ? "hd-sb-item--special" : ""} ${location.pathname === item.path ? "hd-sb-item--active" : ""}`}
+                style={{ "--accent": item.accent }}
+                onClick={() => navigate(item.path)}
+                title={item.label}
+              >
+                <item.icon size={18} className="hd-sb-icon" />
+                {sidebarOpen && (
+                  <>
+                    <span className="hd-sb-label">{item.label}</span>
+                    {item.price && <span className="hd-sb-price">KES {item.price}</span>}
+                  </>
+                )}
+              </button>
+            ))}
+          </nav>
 
-        <button
-          className="hd-sidebar-toggle"
-          onClick={() => setSidebarOpen((v) => !v)}
-          title={sidebarOpen ? "Collapse" : "Expand"}
-        >
-          <ChevronRight size={16} className={`hd-chevron ${sidebarOpen ? "flipped" : ""}`} />
-        </button>
-      </aside>
+          <button
+            className="hd-sb-toggle"
+            onClick={() => setSidebarOpen((v) => !v)}
+          >
+            <ChevronRight size={15} className={`hd-sb-chevron ${sidebarOpen ? "flipped" : ""}`} />
+          </button>
+        </aside>
+      )}
 
-      {/* ── Main ─────────────────────────────────────────────────────────── */}
+      {/* ════════════════════════════════════
+          MAIN CONTENT
+      ════════════════════════════════════ */}
       <main className="hd-main">
 
-        {/* ── Top bar ─────────────────────────────────────────────────── */}
+        {/* ── Top bar ── */}
         <header className="hd-topbar">
           <div className="hd-topbar-left">
-            <button
-              className="hd-hamburger"
-              onClick={() => setSidebarOpen((v) => !v)}
-            >
-              <Menu size={20} />
-            </button>
+            {isMobile && (
+              <button className="hd-hamburger" onClick={() => setSidebarOpen((v) => !v)}>
+                <Menu size={20} />
+              </button>
+            )}
             <div className="hd-greeting">
               <p className="hd-greeting-sub">{greeting} 👋</p>
               <h1 className="hd-greeting-name">Dr. {userName}</h1>
             </div>
           </div>
-
           <div className="hd-topbar-right">
             {streak > 0 && (
               <div className="hd-streak-pill">
-                <Flame size={14} />
-                <span>{streak} day streak</span>
+                <Flame size={13} />
+                <span>{streak}d</span>
               </div>
             )}
             <div className="hd-xp-pill">
-              <Star size={14} />
-              <span>{totalXP.toLocaleString()} XP</span>
+              <Star size={13} />
+              <span>{totalXP.toLocaleString()}</span>
             </div>
             <div className="hd-time">
               {time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
@@ -274,24 +331,22 @@ export default function HomeDashboard() {
 
         <div className="hd-content">
 
-          {/* ── Quote banner ───────────────────────────────────────────── */}
+          {/* ── Quote ── */}
           <div className="hd-quote">
-            <span className="hd-quote-icon">💡</span>
+            <span>💡</span>
             <p>"{quote}"</p>
           </div>
 
-          {/* ── Stats row ──────────────────────────────────────────────── */}
+          {/* ── Stats row ── */}
           <div className="hd-stats-row">
             {[
-              { icon: Zap,       label: "Total XP",       value: totalXP.toLocaleString(),         color: "amber"  },
-              { icon: Target,    label: "Accuracy",        value: `${accuracy}%`,                   color: "teal"   },
-              { icon: Flame,     label: "Day Streak",      value: streak,                           color: "coral"  },
-              { icon: Clock,     label: "Qs Answered",     value: totalAnswered.toLocaleString(),   color: "indigo" },
+              { icon: Zap,    label: "XP",       value: totalXP.toLocaleString(), color: "#b45309", bg: "#fef9c3", border: "#fde68a" },
+              { icon: Target, label: "Accuracy",  value: `${accuracy}%`,           color: "#0d7c6e", bg: "#e6f7f4", border: "#a7f3d0" },
+              { icon: Flame,  label: "Streak",    value: `${streak}d`,             color: "#dc2626", bg: "#fee2e2", border: "#fecaca" },
+              { icon: Clock,  label: "Questions", value: totalAnswered.toLocaleString(), color: "#6d28d9", bg: "#f3f0ff", border: "#ddd6fe" },
             ].map((s) => (
-              <div key={s.label} className={`hd-stat-card hd-stat-${s.color}`}>
-                <div className="hd-stat-icon-wrap">
-                  <s.icon size={18} />
-                </div>
+              <div key={s.label} className="hd-stat-card" style={{ "--sc": s.color, "--sb": s.bg, "--sbd": s.border }}>
+                <div className="hd-stat-icon"><s.icon size={16} /></div>
                 <div>
                   <p className="hd-stat-value">{s.value}</p>
                   <p className="hd-stat-label">{s.label}</p>
@@ -300,171 +355,202 @@ export default function HomeDashboard() {
             ))}
           </div>
 
-          {/* ── Daily Challenge hero ────────────────────────────────────── */}
-          <div className="hd-daily hd-daily-thin">
-            <div className="hd-daily-bg" aria-hidden="true">
-              <div className="hd-daily-orb hd-orb-1" />
-              <div className="hd-daily-orb hd-orb-2" />
-              <div className="hd-daily-orb hd-orb-3" />
-            </div>
-
-            <div className="hd-daily-inner">
-              <div className="hd-daily-left">
-                <div className="hd-daily-badge">
-                  <Zap size={10} />
-                  <span>Daily Challenge</span>
-                </div>
-
-                <h2 className="hd-daily-title">
-                  {dailyComplete ? "You're done for today! 🎉" : "Today's Blitz"}
-                </h2>
-
-                <p className="hd-daily-curriculum">{curriculumLabel}</p>
-
-                <div className="hd-daily-progress-wrap">
-                  <div className="hd-daily-progress-row">
-                    <span className="hd-daily-count">{dailyProgress.answered} / {dailyProgress.total}</span>
-                    <span className="hd-daily-pct">{dailyPct}%</span>
-                  </div>
-                  <div className="hd-daily-track">
-                    <div className="hd-daily-fill" style={{ width: `${dailyPct}%` }} />
-                  </div>
-                </div>
-
-                {dailyComplete ? (
-                  <div className="hd-daily-complete-msg">
-                    <p>✅ You've finished all 20 questions for today.</p>
-                    <p className="hd-daily-reset-note">⏰ Fresh challenge resets at midnight</p>
-                  </div>
-                ) : (
+          {/* ══════════════════════════════════════════════
+              ROTATING SPOTLIGHT HERO
+          ══════════════════════════════════════════════ */}
+          <section className="hd-spot-section">
+            <div className="hd-spot-header">
+              <span className="hd-spot-heading">Featured</span>
+              <div className="hd-spot-dots">
+                {SPOTLIGHT_FEATURES.map((f, i) => (
                   <button
-                    className="hd-daily-btn"
-                    onClick={startDaily}
-                  >
-                    {dailyPct === 0
-                      ? <><Zap size={14} /> Start</>
-                      : <><Zap size={14} /> Continue</>}
-                  </button>
+                    key={f.id}
+                    className={`hd-spot-dot ${i === spotIdx ? "hd-spot-dot-on" : ""}`}
+                    style={i === spotIdx ? { background: spot.accent, width: 20 } : {}}
+                    onClick={() => goSpotTo(i)}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div
+              className="hd-spot-carousel"
+              onTouchStart={onTouchStart}
+              onTouchEnd={onTouchEnd}
+            >
+              <button className="hd-spot-arrow hd-spot-arrow-l" onClick={() => goSpot("left")} style={{ "--sa": spot.accent, "--sa-lt": spot.accent_lt }}>
+                <ChevronLeft size={18} />
+              </button>
+
+              <div className={`hd-spotlight hd-spot-${spotAnim}`} style={{ "--accent": spot.accent, "--accent-lt": spot.accent_lt }}>
+                {/* Top colour stripe */}
+                <div className="hd-spot-stripe" style={{ background: spot.accent }} />
+
+                {/* Counter */}
+                <div className="hd-spot-counter">{spotIdx + 1}/{SPOTLIGHT_FEATURES.length}</div>
+
+                {/* Decorative circle */}
+                <div className="hd-spot-deco" style={{ background: `${spot.accent}10` }} />
+
+                {/* Content */}
+                <div className="hd-spot-top">
+                  <div className="hd-spot-emoji-bubble" style={{ background: spot.emoji_bg, boxShadow: `0 6px 20px ${spot.accent}25` }}>
+                    <span className="hd-spot-emoji">{spot.icon}</span>
+                  </div>
+                  <div className="hd-spot-top-right">
+                    {/* Daily progress ring — only for daily card */}
+                    {spot.id === "daily" ? (
+                      <div className="hd-spot-daily-ring">
+                        <svg viewBox="0 0 44 44" className="hd-spot-ring-svg">
+                          <circle cx="22" cy="22" r="18" className="hd-spot-ring-bg" />
+                          <circle cx="22" cy="22" r="18" className="hd-spot-ring-fill"
+                            strokeDasharray={`${dailyPct * 1.131} 113.1`}
+                            stroke={spot.accent}
+                            transform="rotate(-90 22 22)"
+                          />
+                        </svg>
+                        <span className="hd-spot-ring-label">{dailyPct}%</span>
+                      </div>
+                    ) : null}
+                    <span className="hd-spot-tag" style={{ color: spot.accent, background: spot.accent_lt, border: `1.5px solid ${spot.accent}35` }}>
+                      {spot.label}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="hd-spot-body">
+                  <h2 className="hd-spot-title">{spot.tagline}</h2>
+                  <p className="hd-spot-desc">{spot.desc}</p>
+                </div>
+
+                {/* Stat pills */}
+                <div className="hd-spot-stats">
+                  {spot.stats.map((s) => (
+                    <div key={s} className="hd-spot-stat" style={{ borderColor: `${spot.accent}30`, background: spot.accent_lt }}>
+                      <Zap size={9} style={{ color: spot.accent }} />
+                      <span>{s}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Daily-specific progress bar */}
+                {spot.id === "daily" && (
+                  <div className="hd-spot-daily-bar">
+                    <div className="hd-spot-bar-row">
+                      <span className="hd-spot-bar-label">{curriculumLabel}</span>
+                      <span className="hd-spot-bar-count">{dailyProgress.answered}/{dailyProgress.total}</span>
+                    </div>
+                    <div className="hd-spot-bar-track">
+                      <div className="hd-spot-bar-fill" style={{ width: `${dailyPct}%`, background: spot.accent }} />
+                    </div>
+                  </div>
                 )}
+
+                {/* CTA */}
+                <button
+                  className="hd-spot-cta"
+                  style={{ background: spot.accent }}
+                  onClick={handleSpotCTA}
+                  disabled={spot.id === "daily" && dailyComplete}
+                >
+                  {spot.id === "daily" && dailyComplete ? (
+                    <><Award size={15} /> Done for today!</>
+                  ) : (
+                    <><Zap size={15} /> {spot.cta}</>
+                  )}
+                </button>
               </div>
 
-              <div className="hd-daily-right">
-                <div className="hd-daily-streak-ring">
-                  <div className="hd-daily-streak-inner">
-                    <Flame size={20} className="hd-daily-flame" />
-                    <span className="hd-daily-streak-num">{streak}</span>
-                    <span className="hd-daily-streak-label">day</span>
-                  </div>
-                </div>
-
-                <div className="hd-daily-mini-stats">
-                  <div className="hd-daily-mini">
-                    <TrendingUp size={12} />
-                    <span>+{streakBonus} XP</span>
-                  </div>
-                  <div className="hd-daily-mini">
-                    <Star size={12} />
-                    <span>{dailyProgress.xpEarned || 0} today</span>
-                  </div>
-                </div>
-              </div>
+              <button className="hd-spot-arrow hd-spot-arrow-r" onClick={() => goSpot("right")} style={{ "--sa": spot.accent, "--sa-lt": spot.accent_lt }}>
+                <ChevronRight size={18} />
+              </button>
             </div>
+          </section>
 
-            <div className="hd-daily-particles" aria-hidden="true">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <span
-                  key={i}
-                  className="hd-particle"
-                  style={{
-                    left: `${(i * 37 + 11) % 100}%`,
-                    top:  `${(i * 53 + 7)  % 100}%`,
-                    animationDelay: `${(i * 0.4) % 3}s`,
-                    animationDuration: `${2.5 + (i % 4) * 0.7}s`,
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* ── PDF Quiz promo — bright, conspicuous ─────────────────────── */}
-          <div className="hd-pdf-promo" onClick={() => navigate("/study-pdf-quiz")}>
-            <div className="hd-pdf-promo-left">
-              <div className="hd-pdf-promo-icon">📄</div>
-              <div>
-                <p className="hd-pdf-promo-title">Quiz from your own notes</p>
-                <p className="hd-pdf-promo-sub">Upload any PDF → AI generates questions → Play instantly</p>
-              </div>
-            </div>
-            <div className="hd-pdf-promo-right">
-              <div className="hd-pdf-promo-price">KES 15</div>
-              <span className="hd-pdf-promo-arrow">Tap to start →</span>
-            </div>
-          </div>
-
-          {/* ── Quick actions ───────────────────────────────────────────── */}
-          <section className="hd-section">
-            <h2 className="hd-section-title">Quick Actions</h2>
+          {/* ── Quick actions grid ── */}
+          <section className="hd-quick-section">
+            <h2 className="hd-section-label">Quick Access</h2>
             <div className="hd-quick-grid">
-              {quickActions.map((a) => (
+              {[
+                { icon: BookOpen,  label: "Study",    path: "/study-dashboard", color: "#0891b2", bg: "#e0f7fa" },
+                { icon: Gamepad2,  label: "Games",    path: "/games-dashboard", color: "#6d28d9", bg: "#f3f0ff" },
+                { icon: Sparkles,  label: "AI Quiz",  path: "/ai-quiz",         color: "#b45309", bg: "#fef9c3" },
+                { icon: BarChart3, label: "My Stats", path: "/stats",           color: "#15803d", bg: "#dcfce7" },
+              ].map((a) => (
                 <button
                   key={a.path}
-                  className={`hd-quick-card hd-quick-${a.color}`}
+                  className="hd-quick-card"
+                  style={{ "--qc": a.color, "--qb": a.bg }}
                   onClick={() => navigate(a.path)}
                 >
-                  <div className="hd-quick-icon">
-                    <a.icon size={22} />
-                  </div>
-                  <div className="hd-quick-text">
-                    <span className="hd-quick-label">{a.label}</span>
-                    <span className="hd-quick-desc">{a.desc}</span>
-                  </div>
-                  <ChevronRight size={16} className="hd-quick-arrow" />
+                  <div className="hd-quick-icon"><a.icon size={20} /></div>
+                  <span className="hd-quick-label">{a.label}</span>
                 </button>
               ))}
             </div>
           </section>
 
-          {/* ── Streak motivation ───────────────────────────────────────── */}
+          {/* ── Streak banner ── */}
           {streak >= 3 && (
-            <div className="hd-motivation">
-              <Flame size={18} />
-              <span>
-                {streak >= 14
-                  ? `🔥 ${streak} days strong! You're unstoppable!`
-                  : streak >= 7
-                  ? `🔥 ${streak} day streak! You're on fire!`
-                  : `🔥 ${streak} days in a row! Keep it up!`}
-              </span>
+            <div className="hd-streak-banner">
+              <div className="hd-streak-banner-left">
+                <span className="hd-streak-banner-icon">🔥</span>
+                <div>
+                  <p className="hd-streak-banner-title">{streak} day streak!</p>
+                  <p className="hd-streak-banner-sub">
+                    {streak >= 14 ? "You're unstoppable!" : streak >= 7 ? "You're on fire!" : "Keep it up!"}
+                  </p>
+                </div>
+              </div>
+              <div className="hd-streak-banner-xp">+{streakBonus} XP/day</div>
             </div>
           )}
 
-          {/* ── Feedback banner ─────────────────────────────────────────── */}
+          {/* ── Feedback banner ── */}
           <div className="hd-feedback-banner" onClick={() => setShowFeedback(true)}>
-            <div className="hd-feedback-banner-left">
-              <div className="hd-feedback-banner-icon">💬</div>
+            <div className="hd-fb-left">
+              <span className="hd-fb-icon">💬</span>
               <div>
-                <p className="hd-feedback-banner-title">Share your feedback</p>
-                <p className="hd-feedback-banner-sub">Help us make MedBlitz better — takes 2 minutes</p>
+                <p className="hd-fb-title">Share your feedback</p>
+                <p className="hd-fb-sub">Help us make MedBlitz better</p>
               </div>
             </div>
-            <button className="hd-feedback-banner-btn">
-              <MessageSquare size={15} />
-              Give Feedback
-            </button>
+            <button className="hd-fb-btn"><MessageSquare size={14} /> Give Feedback</button>
           </div>
 
         </div>
+
+        {/* Padding for bottom tabs on mobile */}
+        {isMobile && <div style={{ height: 80 }} />}
       </main>
 
-      {/* ── Floating feedback button ─────────────────────────────────── */}
+      {/* ════════════════════════════════════
+          BOTTOM TAB BAR (mobile only)
+      ════════════════════════════════════ */}
+      {isMobile && (
+        <nav className="hd-bottom-tabs">
+          {bottomTabs.map((t) => {
+            const active = location.pathname === t.path;
+            return (
+              <button
+                key={t.path}
+                className={`hd-bottom-tab ${active ? "hd-bt-active" : ""}`}
+                onClick={() => navigate(t.path)}
+              >
+                <t.icon size={20} />
+                <span>{t.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+      )}
+
+      {/* FAB */}
       <button className="hd-fab" onClick={() => setShowFeedback(true)} title="Give feedback">
-        <MessageSquare size={20} />
-        <span className="hd-fab-label">Feedback</span>
+        <MessageSquare size={19} />
       </button>
 
-      {/* ── Feedback modal ───────────────────────────────────────────── */}
       {showFeedback && <FeedbackForm onClose={() => setShowFeedback(false)} />}
-
     </div>
   );
 }

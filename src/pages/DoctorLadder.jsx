@@ -171,7 +171,7 @@ export default function DoctorLadder() {
   // ── Timer ──────────────────────────────────────────────────────────────
   const handleTimeUp = useCallback(() => {
     clearInterval(timerRef.current);
-    endRung();
+    endRung(true); // time ran out = survived = climb
   }, [rungIndex, correct, answered, totalXP]);
 
   useEffect(() => {
@@ -186,9 +186,31 @@ export default function DoctorLadder() {
   }, [screen, qIndex, feedback, handleTimeUp]);
 
   // ── End of a rung ─────────────────────────────────────────────────────
-  const endRung = () => {
+  // called by timer (survived = true) or lives=0 (survived = false)
+  const endRung = (survived = true) => {
     clearInterval(timerRef.current);
-    setScreen("result");
+    if (survived) {
+      // Time ran out with lives remaining → show result → climb
+      setScreen("result");
+    } else {
+      // Lives exhausted → drop back immediately
+      const prevRung = Math.max(0, rungIndex - 1);
+      setRungHistory(h => [...h, {
+        rung: rungIndex + 1, title: rung.title, correct, answered, xp: totalXP, result: "dropped"
+      }]);
+      setDropAnim(true);
+      setTimeout(() => {
+        setDropAnim(false);
+        if (prevRung === rungIndex) {
+          setScreen("gameover");
+          saveScore(rungIndex);
+        } else {
+          setRungIndex(prevRung);
+          resetForRung();
+          setScreen("countdown");
+        }
+      }, 1200);
+    }
   };
 
   // ── Answer ─────────────────────────────────────────────────────────────
@@ -226,8 +248,7 @@ export default function DoctorLadder() {
       setShowExp(false);
 
       if (!isCorrect && livesRef.current <= 0) {
-        // No lives left — end rung (drops to previous)
-        endRung();
+        endRung(false); // no lives left → drop
       } else {
         // Still alive — next question
         setQIndex(qi => qi + 1);
@@ -236,42 +257,21 @@ export default function DoctorLadder() {
     }, 1400);
   };
 
-  // ── Rung result: passed or failed ──────────────────────────────────────
+  // ── Result screen CTA: climb to next rung ────────────────────────────
   const handleRungResult = (passed) => {
-    const record = { rung: rungIndex + 1, title: rung.title, correct, answered, xp: totalXP };
-
-    if (!passed) {
-      // Drop back one rung
-      const prevRung = Math.max(0, rungIndex - 1);
-      setRungHistory(h => [...h, { ...record, result: "dropped" }]);
-      setDropAnim(true);
-      setTimeout(() => {
-        setDropAnim(false);
-        if (prevRung === rungIndex) {
-          // Already at rung 0 — game over
-          setScreen("gameover");
-          saveScore(rungIndex);
-        } else {
-          setRungIndex(prevRung);
-          resetForRung();
-          setScreen("playing");
-        }
-      }, 1200);
+    if (!passed) return; // shouldn't happen — drop handled in endRung
+    setRungHistory(h => [...h, {
+      rung: rungIndex + 1, title: rung.title, correct, answered, xp: totalXP, result: "climbed"
+    }]);
+    if (rungIndex + 1 > highestRung) setHighestRung(rungIndex + 1);
+    if (rungIndex >= RUNGS.length - 1) {
+      setScreen("complete");
+      saveScore(RUNGS.length);
     } else {
-      setRungHistory(h => [...h, { ...record, result: "climbed" }]);
-      // Check if highest rung reached
-      if (rungIndex + 1 > highestRung) setHighestRung(rungIndex + 1);
-
-      if (rungIndex >= RUNGS.length - 1) {
-        // Completed all rungs!
-        setScreen("complete");
-        saveScore(RUNGS.length);
-      } else {
-        setRungIndex(ri => ri + 1);
-        resetForRung();
-        setCountdown(3);
-        setScreen("countdown");
-      }
+      setRungIndex(ri => ri + 1);
+      resetForRung();
+      setCountdown(3);
+      setScreen("countdown");
     }
   };
 
@@ -414,7 +414,12 @@ export default function DoctorLadder() {
           <div className="dl-rung-badge" style={{ background: rung.color }}>
             {rung.icon} {rung.title}
           </div>
-          <div className="dl-score-pill">✓ {correct} | ⭐ {totalXP} XP</div>
+          <div className="dl-lives">
+            {[1,2,3].map(i => (
+              <span key={i} className={`dl-heart ${i <= lives ? "dl-heart-on" : "dl-heart-off"}`}>❤️</span>
+            ))}
+          </div>
+          <div className="dl-score-pill">⭐ {totalXP} XP</div>
         </header>
 
         {/* Timer bar */}
@@ -519,67 +524,57 @@ export default function DoctorLadder() {
   // ══════════════════════════════════════════════════════════
   if (screen === "result") {
     const pct    = answered > 0 ? Math.round((correct / answered) * 100) : 0;
-    const passed = correct > 0; // at least 1 correct = climbs
     const nextR  = RUNGS[rungIndex + 1];
-    const prevR  = RUNGS[Math.max(0, rungIndex - 1)];
+    const isLast = rungIndex >= RUNGS.length - 1;
 
     return (
       <div className="dl-page dl-result-page" style={{ "--rc": rung.color }}>
         <div className="dl-result-card">
-          <div className="dl-result-icon">{passed ? "🎉" : "📉"}</div>
+          <div className="dl-result-icon">{isLast ? "🏆" : "🎉"}</div>
 
           <div className="dl-result-rung">
-            <span style={{ color: rung.color }}>{rung.icon} {rung.title}</span>
+            <span style={{ color: rung.color }}>{rung.icon} {rung.title} — Cleared!</span>
           </div>
 
           <h2 className="dl-result-title">
-            {passed
-              ? rungIndex >= RUNGS.length - 1 ? "Legendary!" : `${nextR?.title} unlocked!`
-              : rungIndex === 0 ? "Game Over" : `Dropped to ${prevR?.title}`}
+            {isLast ? "You reached Professor!" : `${nextR?.title} unlocked!`}
           </h2>
 
           <div className="dl-result-stats">
             <div className="dl-rs"><span>{correct}/{answered}</span><small>Correct</small></div>
             <div className="dl-rs"><span>{pct}%</span><small>Accuracy</small></div>
             <div className="dl-rs"><span>+{correct * rung.xpPerQ}</span><small>XP</small></div>
+            <div className="dl-rs">
+              <span>{[1,2,3].map(i => <span key={i}>{i <= lives ? "❤️" : "🖤"}</span>)}</span>
+              <small>Lives left</small>
+            </div>
           </div>
 
-          {passed && nextR && (
+          {nextR && (
             <div className="dl-next-rung-preview" style={{ "--rc": nextR.color }}>
               <span>Next: {nextR.icon} {nextR.title}</span>
-              <span>+{nextR.xpPerQ} XP/Q</span>
-            </div>
-          )}
-
-          {!passed && rungIndex > 0 && (
-            <div className="dl-drop-banner">
-              ⬇ Dropping to {prevR?.icon} {prevR?.title}
+              <span>+{nextR.xpPerQ} XP/Q · 3 lives</span>
             </div>
           )}
 
           <div className="dl-result-actions">
-            {passed && rungIndex < RUNGS.length - 1 && (
-              <button className="dl-btn-climb" onClick={() => handleRungResult(true)}
+            {!isLast && (
+              <button className="dl-btn-climb"
+                onClick={() => handleRungResult(true)}
                 style={{ background: nextR?.color }}>
                 Climb to {nextR?.title} {nextR?.icon}
               </button>
             )}
-            {!passed && rungIndex > 0 && (
-              <button className="dl-btn-drop" onClick={() => handleRungResult(false)}>
-                ⬇ Drop to {prevR?.title}
-              </button>
-            )}
-            {(!passed && rungIndex === 0) && (
-              <button className="dl-btn-drop" onClick={() => { saveScore(0); setScreen("gameover"); }}>
-                See Results
-              </button>
-            )}
-            {passed && rungIndex >= RUNGS.length - 1 && (
-              <button className="dl-btn-climb" onClick={() => { setScreen("complete"); saveScore(RUNGS.length); }}
+            {isLast && (
+              <button className="dl-btn-climb"
+                onClick={() => { setScreen("complete"); saveScore(RUNGS.length); }}
                 style={{ background: rung.color }}>
                 Claim your title! 🎓
               </button>
             )}
+            <button className="dl-btn-home" onClick={() => { saveScore(rungIndex + 1); navigate("/home"); }}>
+              Save &amp; Exit
+            </button>
           </div>
         </div>
       </div>
