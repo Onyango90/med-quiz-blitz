@@ -60,21 +60,34 @@
 }
 
 /* ═══════════════════════════════════════════════════
-   SIDEBAR (desktop)
+   SIDEBAR (desktop + mobile collapsible)
 ═══════════════════════════════════════════════════ */
 .hd-sidebar {
   position: fixed; left: 0; top: 0; bottom: 0; z-index: 200;
   display: flex; flex-direction: column;
   background: var(--hd-sb-bg);
   border-right: 1px solid var(--hd-sb-border);
-  transition: width 0.25s cubic-bezier(0.4,0,0.2,1);
+  transition: width 0.25s cubic-bezier(0.4,0,0.2,1),
+              transform 0.25s cubic-bezier(0.4,0,0.2,1);
   overflow: hidden;
 }
 .hd-sb-open  { width: var(--hd-sb-w); }
 .hd-sb-closed{ width: var(--hd-sb-sm); }
 
+/* On desktop: push main content */
 .hd-sidebar-open  .hd-main { margin-left: var(--hd-sb-w); }
 .hd-sidebar-closed .hd-main { margin-left: var(--hd-sb-sm); }
+
+/* On mobile: always full-width, slides in/out over content */
+.hd-sb-mobile {
+  width: var(--hd-sb-w) !important;
+  transform: translateX(-100%);
+  box-shadow: none;
+}
+.hd-sb-mobile.hd-sb-open {
+  transform: translateX(0);
+  box-shadow: 4px 0 32px rgba(0,0,0,0.25);
+}
 
 .hd-sb-logo {
   display: flex; align-items: center; gap: 12px;

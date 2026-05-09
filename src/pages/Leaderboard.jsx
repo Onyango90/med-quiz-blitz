@@ -1,96 +1,147 @@
-// src/pages/Leaderboard.jsx — redesigned to match HomeDashboard
-import React, { useState } from "react";
+// src/pages/Leaderboard.jsx
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useStats } from "../hooks/useStats";
+import { getDatabase, ref, get } from "firebase/database";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { ArrowLeft, Trophy, Zap, Flame, BookOpen, Users, Share2 } from "lucide-react";
 import "./Leaderboard.css";
 
+const TIER_CONFIG = [
+  { min: 1000, label: "Elite",      icon: "👑", color: "#f59e0b" },
+  { min: 500,  label: "Gold",       icon: "🏆", color: "#f59e0b" },
+  { min: 200,  label: "Silver",     icon: "⭐", color: "#94a3b8" },
+  { min: 50,   label: "Bronze",     icon: "🌟", color: "#b45309" },
+  { min: 0,    label: "Starter",    icon: "🎓", color: "#0D7B65" },
+];
+
+const getTier = (xp) => TIER_CONFIG.find((t) => xp >= t.min) || TIER_CONFIG[TIER_CONFIG.length - 1];
+
+const TABS = [
+  { id: "xp",       label: "Top XP",     icon: <Zap size={13} /> },
+  { id: "questions",label: "Questions",  icon: <BookOpen size={13} /> },
+  { id: "streak",   label: "Streak",     icon: <Flame size={13} /> },
+];
+
 export default function Leaderboard() {
-  const navigate = useNavigate();
+  const navigate  = useNavigate();
   const { currentUser } = useAuth();
   const { stats, loading } = useStats();
-  const [activeTab, setActiveTab] = useState("xp");
+  const [activeTab, setActiveTab]   = useState("xp");
+  const [userName,  setUserName]    = useState("You");
+  const [copied,    setCopied]      = useState(false);
+
+  // Resolve display name from Firestore profile if needed
+  useEffect(() => {
+    if (!currentUser) return;
+    const resolve = async () => {
+      try {
+        const snap = await getDoc(doc(getFirestore(), "users", currentUser.uid));
+        const name = snap.exists()
+          ? snap.data()?.profile?.name
+          : null;
+        setUserName(
+          name ||
+          currentUser.displayName ||
+          currentUser.email?.split("@")[0] ||
+          "You"
+        );
+      } catch {
+        setUserName(currentUser.displayName || currentUser.email?.split("@")[0] || "You");
+      }
+    };
+    resolve();
+  }, [currentUser]);
 
   if (loading || !stats) {
     return (
       <div className="lb-loading">
         <div className="lb-spinner" />
-        <p>Loading leaderboard…</p>
+        <p>Loading your stats…</p>
       </div>
     );
   }
 
-  const { basic, subjects } = stats;
-  const topSubjects = subjects.slice(0, 3);
+  const { basic, subjects = [] } = stats;
+  const tier = getTier(basic.totalXP);
 
-  const getTier = (xp) => {
-    if (xp >= 1000) return "🏆 Elite Tier";
-    if (xp >= 500)  return "⭐ Gold Tier";
-    if (xp >= 200)  return "🌟 Silver Tier";
-    if (xp >= 50)   return "🌱 Bronze Tier";
-    return "🎓 Starter";
-  };
-
-  const nextMilestone = basic.totalXP >= 1000 ? 2000
-    : basic.totalXP >= 500 ? 1000
-    : basic.totalXP >= 200 ? 500
-    : basic.totalXP >= 50  ? 200 : 50;
+  const nextMilestone =
+    basic.totalXP >= 1000 ? 2000
+    : basic.totalXP >= 500  ? 1000
+    : basic.totalXP >= 200  ? 500
+    : basic.totalXP >= 50   ? 200 : 50;
   const xpPct = Math.min(Math.round((basic.totalXP / nextMilestone) * 100), 100);
 
-  const userName = currentUser?.displayName || currentUser?.email?.split("@")[0] || "You";
+  const scoreFor = {
+    xp:        `${basic.totalXP} XP`,
+    questions: `${basic.totalAttempted} Qs`,
+    streak:    `${basic.currentStreak} days`,
+  };
 
-  const tabs = [
-    { id: "xp",        label: "⭐ Top XP" },
-    { id: "questions", label: "📝 Questions" },
-    { id: "streak",    label: "🔥 Streak" },
-  ];
+  const topSubjects = [...subjects]
+    .filter((s) => s.attempted > 0)
+    .sort((a, b) => b.accuracy - a.accuracy)
+    .slice(0, 3);
 
-  const scoreFor = { xp: `${basic.totalXP} XP`, questions: `${basic.totalAttempted} Qs`, streak: `${basic.currentStreak} days` };
-  const subFor   = { xp: "Current position", questions: "Questions master", streak: "Consistency king" };
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.origin).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    });
+  };
 
   return (
-    <div className="leaderboard-page">
-      <div className="leaderboard-inner">
-
-        {/* ─ Header ─ */}
-        <div className="lb-page-header">
-          <h1 className="lb-page-title">🏆 Leaderboard</h1>
-          <button className="lb-back-btn" onClick={() => navigate("/home")}>
-            ← Dashboard
-          </button>
+    <div className="lb-page">
+      {/* Top bar */}
+      <header className="lb-topbar">
+        <button className="lb-back-btn" onClick={() => navigate("/home")}>
+          <ArrowLeft size={16} />
+        </button>
+        <div className="lb-topbar-title">
+          <Trophy size={16} />
+          <span>Leaderboard</span>
         </div>
+        <div className="lb-topbar-right" />
+      </header>
 
-        {/* ─ Your rank hero ─ */}
+      <div className="lb-scroll">
+
+        {/* ── Hero card ─────────────────────────────── */}
         <div className="lb-hero">
-          <div className="lb-hero-bg">
-            <div className="lb-hero-orb lb-orb-1" />
-            <div className="lb-hero-orb lb-orb-2" />
-          </div>
-          <div className="lb-hero-inner">
-            <div className="lb-avatar">👨‍⚕️</div>
-            <div className="lb-hero-info">
-              <div className="lb-hero-name">{userName}</div>
-              <span className="lb-hero-tier">{getTier(basic.totalXP)}</span>
+          <div className="lb-hero-glow" />
+
+          <div className="lb-hero-top">
+            <div className="lb-avatar">
+              <span>{(userName[0] || "?").toUpperCase()}</span>
+            </div>
+            <div className="lb-hero-id">
+              <p className="lb-hero-name">{userName}</p>
+              <span className="lb-hero-tier" style={{ color: tier.color }}>
+                {tier.icon} {tier.label} Tier
+              </span>
             </div>
           </div>
 
-          <div className="lb-hero-stats">
+          {/* Stats row */}
+          <div className="lb-stats-row">
             {[
-              { val: basic.totalXP,       label: "Total XP" },
-              { val: basic.totalAttempted, label: "Questions" },
-              { val: `${basic.accuracy}%`, label: "Accuracy" },
-              { val: basic.currentStreak,  label: "Streak" },
+              { val: basic.totalXP,         label: "Total XP",   accent: "#0D7B65" },
+              { val: basic.totalAttempted,   label: "Questions",  accent: "#7c3aed" },
+              { val: `${basic.accuracy}%`,   label: "Accuracy",   accent: "#f59e0b" },
+              { val: basic.currentStreak,    label: "Streak 🔥",  accent: "#dc2626" },
             ].map((s) => (
-              <div className="lb-hero-stat" key={s.label}>
-                <span className="lb-hero-stat-val">{s.val}</span>
-                <span className="lb-hero-stat-label">{s.label}</span>
+              <div className="lb-stat-pill" key={s.label}>
+                <span className="lb-stat-val" style={{ color: s.accent }}>{s.val}</span>
+                <span className="lb-stat-label">{s.label}</span>
               </div>
             ))}
           </div>
 
-          <div className="lb-xp-bar-wrap">
-            <div className="lb-xp-bar-labels">
-              <span>Next: {nextMilestone} XP</span>
+          {/* XP progress */}
+          <div className="lb-xp-section">
+            <div className="lb-xp-labels">
+              <span>Progress to {nextMilestone} XP</span>
               <span>{nextMilestone - basic.totalXP} XP to go</span>
             </div>
             <div className="lb-xp-track">
@@ -99,98 +150,117 @@ export default function Leaderboard() {
           </div>
         </div>
 
-        {/* ─ Tabs ─ */}
+        {/* ── Tabs ──────────────────────────────────── */}
         <div className="lb-tabs">
-          {tabs.map((t) => (
+          {TABS.map((t) => (
             <button
               key={t.id}
-              className={`lb-tab${activeTab === t.id ? " lb-tab--active" : ""}`}
+              className={`lb-tab ${activeTab === t.id ? "lb-tab--active" : ""}`}
               onClick={() => setActiveTab(t.id)}
             >
-              {t.label}
+              {t.icon}
+              <span>{t.label}</span>
             </button>
           ))}
         </div>
 
-        {/* ─ Leaderboard list ─ */}
-        <div className="lb-list-card">
-          <div className="lb-list-header">
-            <span className="lb-list-header-rank">#</span>
-            <span className="lb-list-header-name">Player</span>
-            <span className="lb-list-header-score">Score</span>
+        {/* ── Rankings card ─────────────────────────── */}
+        <div className="lb-card">
+          <div className="lb-card-header">
+            <span className="lb-col-rank">#</span>
+            <span className="lb-col-player">Player</span>
+            <span className="lb-col-score">Score</span>
           </div>
 
-          {/* Your entry */}
-          <div className="lb-item lb-item--1 lb-item--you">
-            <div className="lb-rank-num">🥇</div>
-            <div className="lb-item-info">
-              <span className="lb-item-name">{userName}</span>
-              <span className="lb-item-sub">{subFor[activeTab]}</span>
+          {/* You — always 1st for now */}
+          <div className="lb-row lb-row--you lb-row--gold">
+            <span className="lb-col-rank lb-medal">🥇</span>
+            <div className="lb-col-player lb-row-info">
+              <span className="lb-row-name">{userName}</span>
+              <span className="lb-row-sub">That's you! 🎉</span>
             </div>
-            <div className="lb-item-score">{scoreFor[activeTab]}</div>
+            <span className="lb-col-score lb-row-score">{scoreFor[activeTab]}</span>
           </div>
 
-          {/* Placeholder entries */}
-          {[2, 3].map((n) => (
-            <div className={`lb-item lb-item--${n} lb-empty-row`} key={n}>
-              <div className="lb-rank-num">{n === 2 ? "🥈" : "🥉"}</div>
-              <div className="lb-item-info">
-                <span className="lb-item-name">Coming Soon</span>
-                <span className="lb-item-sub">Invite friends to compete!</span>
-              </div>
-              <div className="lb-item-score">—</div>
+          <div className="lb-row lb-row--empty">
+            <span className="lb-col-rank lb-medal">🥈</span>
+            <div className="lb-col-player lb-row-info">
+              <span className="lb-row-name">Coming Soon</span>
+              <span className="lb-row-sub">Invite friends to compete!</span>
             </div>
-          ))}
+            <span className="lb-col-score lb-row-score lb-dash">—</span>
+          </div>
+
+          <div className="lb-row lb-row--empty">
+            <span className="lb-col-rank lb-medal">🥉</span>
+            <div className="lb-col-player lb-row-info">
+              <span className="lb-row-name">Coming Soon</span>
+              <span className="lb-row-sub">Invite friends to compete!</span>
+            </div>
+            <span className="lb-col-score lb-row-score lb-dash">—</span>
+          </div>
         </div>
 
-        {/* ─ Top subjects ─ */}
+        {/* ── Top subjects ──────────────────────────── */}
         {topSubjects.length > 0 && (
-          <div className="lb-subjects-card">
-            <p className="lb-section-title">Your Top Subjects</p>
+          <div className="lb-card lb-subjects-card">
+            <p className="lb-section-title">
+              <BookOpen size={14} /> Your Top Subjects
+            </p>
             {topSubjects.map((s, i) => (
               <div className="lb-subject-row" key={s.name}>
-                <span className="lb-subject-medal">{i === 0 ? "🥇" : i === 1 ? "🥈" : "🥉"}</span>
+                <span className="lb-subject-medal">
+                  {i === 0 ? "🥇" : i === 1 ? "🥈" : "🥉"}
+                </span>
                 <span className="lb-subject-name">{s.name}</span>
-                <span className="lb-subject-acc">{s.accuracy}%</span>
+                <div className="lb-subject-bar-wrap">
+                  <div
+                    className="lb-subject-bar"
+                    style={{ width: `${s.accuracy}%` }}
+                  />
+                </div>
+                <span className="lb-subject-pct">{s.accuracy}%</span>
               </div>
             ))}
           </div>
         )}
 
-        {/* ─ Achievement ─ */}
+        {/* ── Achievement badge ─────────────────────── */}
         {basic.longestStreak >= 7 && (
           <div className="lb-achievement">
-            <div className="lb-achievement-icon">🏆</div>
-            <div>
-              <h4>Weekly Warrior</h4>
-              <p>Maintained a {basic.longestStreak}-day streak!</p>
+            <span className="lb-achievement-icon">🏆</span>
+            <div className="lb-achievement-text">
+              <strong>Weekly Warrior</strong>
+              <span>You kept a {basic.longestStreak}-day streak!</span>
             </div>
           </div>
         )}
 
-        {/* ─ Invite banner ─ */}
+        {/* ── Invite banner ─────────────────────────── */}
         <div className="lb-invite">
-          <div className="lb-invite-left">
-            <h3>🚀 Invite friends, climb higher!</h3>
-            <p>Share MedBlitz with classmates and compete on the leaderboard</p>
+          <div className="lb-invite-copy">
+            <Users size={16} />
+            <div>
+              <strong>Climb higher — invite friends</strong>
+              <p>Share MedBlitz and compete on the board</p>
+            </div>
           </div>
-          <button
-            className="lb-invite-btn"
-            onClick={() => {
-              navigator.clipboard.writeText(window.location.origin);
-              alert("Link copied! Share with your friends 🎉");
-            }}
-          >
-            📤 Share MedBlitz
+          <button className="lb-invite-btn" onClick={handleShare}>
+            <Share2 size={14} />
+            {copied ? "Copied! 🎉" : "Share"}
           </button>
         </div>
 
-        {/* ─ Coming soon ─ */}
+        {/* ── Coming soon note ──────────────────────── */}
         <div className="lb-coming-note">
-          ✨ Multiplayer leaderboard with real-time rankings coming soon!
-          <span>Invite friends and get ready to compete</span>
+          <span className="lb-coming-icon">✨</span>
+          <div>
+            <strong>Real-time multiplayer leaderboard coming soon</strong>
+            <span>Invite classmates and get ready to compete</span>
+          </div>
         </div>
 
+        <div className="lb-bottom-pad" />
       </div>
     </div>
   );

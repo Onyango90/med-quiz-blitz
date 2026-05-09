@@ -54,7 +54,7 @@ const SPOTLIGHT_FEATURES = [
     tagline: "Your notes. Your questions.",
     desc: "Upload any PDF — lecture slides, past papers, textbook chapters. AI reads it and generates gamified questions instantly.",
     accent: "#15803d", accent_lt: "#dcfce7",
-    action: "navigate", path: "/study-pdf-quiz", cta: "Upload & Play · KES 15",
+    action: "navigate", path: "/study-pdf-quiz", cta: "Upload & Play",
     stats: ["Any PDF", "AI-powered", "3 game modes"],
   },
   {
@@ -62,7 +62,7 @@ const SPOTLIGHT_FEATURES = [
     icon: "✨", emoji_bg: "#fff7ed",
     label: "AI Quiz",
     tagline: "Custom questions on demand",
-    desc: "Pick a subject, topic, difficulty and year — Claude generates a fresh set of questions built just for you in seconds.",
+    desc: "Pick a subject, topic, difficulty and year —  AI generates a fresh set of questions built just for you in seconds.",
     accent: "#b45309", accent_lt: "#fef9c3",
     action: "navigate", path: "/ai-quiz", cta: "Generate Questions",
     stats: ["All subjects", "Any difficulty", "Instant"],
@@ -256,43 +256,47 @@ export default function HomeDashboard() {
       )}
 
       {/* ════════════════════════════════════
-          SIDEBAR (desktop only)
+          SIDEBAR (all screen sizes)
       ════════════════════════════════════ */}
-      {!isMobile && (
-        <aside className={`hd-sidebar ${sidebarOpen ? "hd-sb-open" : "hd-sb-closed"}`}>
-          <div className="hd-sb-logo">
-            <div className="hd-logo-mark">M</div>
-            {sidebarOpen && <span className="hd-logo-text">MedBlitz</span>}
-          </div>
+      <aside className={`hd-sidebar ${sidebarOpen ? "hd-sb-open" : "hd-sb-closed"} ${isMobile ? "hd-sb-mobile" : ""}`}>
+        <div className="hd-sb-logo">
+          <div className="hd-logo-mark">M</div>
+          {sidebarOpen && <span className="hd-logo-text">MedBlitz</span>}
+        </div>
 
-          <nav className="hd-sb-nav">
-            {navItems.map((item) => (
-              <button
-                key={item.path}
-                className={`hd-sb-item ${item.special ? "hd-sb-item--special" : ""} ${location.pathname === item.path ? "hd-sb-item--active" : ""}`}
-                style={{ "--accent": item.accent }}
-                onClick={() => navigate(item.path)}
-                title={item.label}
-              >
-                <item.icon size={18} className="hd-sb-icon" />
-                {sidebarOpen && (
-                  <>
-                    <span className="hd-sb-label">{item.label}</span>
-                    {item.price && <span className="hd-sb-price">KES {item.price}</span>}
-                  </>
-                )}
-              </button>
-            ))}
-          </nav>
+        <nav className="hd-sb-nav">
+          {navItems.map((item) => (
+            <button
+              key={item.path}
+              className={`hd-sb-item ${item.special ? "hd-sb-item--special" : ""} ${location.pathname === item.path ? "hd-sb-item--active" : ""}`}
+              style={{ "--accent": item.accent }}
+              onClick={() => {
+                navigate(item.path);
+                if (isMobile) setSidebarOpen(false);
+              }}
+              title={item.label}
+            >
+              <item.icon size={18} className="hd-sb-icon" />
+              {sidebarOpen && (
+                <>
+                  <span className="hd-sb-label">{item.label}</span>
+                  {item.price && <span className="hd-sb-price">KES {item.price}</span>}
+                </>
+              )}
+            </button>
+          ))}
+        </nav>
 
+        {/* Only show collapse toggle on desktop */}
+        {!isMobile && (
           <button
             className="hd-sb-toggle"
             onClick={() => setSidebarOpen((v) => !v)}
           >
             <ChevronRight size={15} className={`hd-sb-chevron ${sidebarOpen ? "flipped" : ""}`} />
           </button>
-        </aside>
-      )}
+        )}
+      </aside>
 
       {/* ════════════════════════════════════
           MAIN CONTENT
@@ -466,45 +470,6 @@ export default function HomeDashboard() {
               </button>
             </div>
           </section>
-
-          {/* ── Quick actions grid ── */}
-          <section className="hd-quick-section">
-            <h2 className="hd-section-label">Quick Access</h2>
-            <div className="hd-quick-grid">
-              {[
-                { icon: BookOpen,  label: "Study",    path: "/study-dashboard", color: "#0891b2", bg: "#e0f7fa" },
-                { icon: Gamepad2,  label: "Games",    path: "/games-dashboard", color: "#6d28d9", bg: "#f3f0ff" },
-                { icon: Sparkles,  label: "AI Quiz",  path: "/ai-quiz",         color: "#b45309", bg: "#fef9c3" },
-                { icon: BarChart3, label: "My Stats", path: "/stats",           color: "#15803d", bg: "#dcfce7" },
-              ].map((a) => (
-                <button
-                  key={a.path}
-                  className="hd-quick-card"
-                  style={{ "--qc": a.color, "--qb": a.bg }}
-                  onClick={() => navigate(a.path)}
-                >
-                  <div className="hd-quick-icon"><a.icon size={20} /></div>
-                  <span className="hd-quick-label">{a.label}</span>
-                </button>
-              ))}
-            </div>
-          </section>
-
-          {/* ── Streak banner ── */}
-          {streak >= 3 && (
-            <div className="hd-streak-banner">
-              <div className="hd-streak-banner-left">
-                <span className="hd-streak-banner-icon">🔥</span>
-                <div>
-                  <p className="hd-streak-banner-title">{streak} day streak!</p>
-                  <p className="hd-streak-banner-sub">
-                    {streak >= 14 ? "You're unstoppable!" : streak >= 7 ? "You're on fire!" : "Keep it up!"}
-                  </p>
-                </div>
-              </div>
-              <div className="hd-streak-banner-xp">+{streakBonus} XP/day</div>
-            </div>
-          )}
 
           {/* ── Feedback banner ── */}
           <div className="hd-feedback-banner" onClick={() => setShowFeedback(true)}>

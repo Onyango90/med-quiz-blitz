@@ -1,6 +1,7 @@
 ﻿import React, { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useStats } from "../hooks/useStats";
+import FlashcardMode from "./FlashcardMode";
 
 // Import anatomy categories
 import grossAnatomy from "../data/questions/gross_anatomy.json";
@@ -100,6 +101,7 @@ function StudyMode() {
   const [showBatchSummary, setShowBatchSummary] = useState(false);
   const [xpEarned, setXpEarned] = useState(0);
   const [sessionStarted, setSessionStarted] = useState(false);
+  const [studyView, setStudyView] = useState("quiz"); // "quiz" | "flashcards"
 
   const currentBatch = batches[currentBatchIndex] || [];
   const currentQuestion = currentBatch[currentIndex];
@@ -149,6 +151,51 @@ function StudyMode() {
         <button onClick={() => navigate("/study-dashboard")} style={{ marginTop: 20, padding: "10px 20px" }}>
           Back to Dashboard
         </button>
+      </div>
+    );
+  }
+
+  // ── Flashcard mode ───────────────────────────────────────────────────────
+  if (studyView === "flashcards") {
+    const subjectLabel = currentSubtopic || topic || "Study";
+    return (
+      <div>
+        {/* Mode switcher bar */}
+        <div style={{
+          display: "flex", alignItems: "center", gap: "8px",
+          padding: "10px 16px", background: "#fff",
+          borderBottom: "1px solid #e8eaed",
+        }}>
+          <button
+            onClick={() => setStudyView("quiz")}
+            style={{
+              padding: "7px 16px", borderRadius: "99px",
+              border: "1.5px solid #e5e7eb", background: "#f9fafb",
+              fontFamily: "inherit", fontSize: "13px", fontWeight: 600,
+              color: "#6b7280", cursor: "pointer",
+            }}
+          >
+            📝 Quiz Mode
+          </button>
+          <button
+            style={{
+              padding: "7px 16px", borderRadius: "99px",
+              border: "1.5px solid #6366f1", background: "#6366f1",
+              fontFamily: "inherit", fontSize: "13px", fontWeight: 700,
+              color: "#fff", cursor: "pointer",
+            }}
+          >
+            🃏 Flashcards
+          </button>
+          <span style={{ fontSize: "11px", color: "#9ca3af", marginLeft: "auto" }}>
+            {allQuestions.length} cards
+          </span>
+        </div>
+        <FlashcardMode
+          questions={allQuestions}
+          subject={subjectLabel.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase())}
+          onExit={() => setStudyView("quiz")}
+        />
       </div>
     );
   }
@@ -357,6 +404,41 @@ function StudyMode() {
 
   return (
     <div style={{ padding: "24px", maxWidth: "900px", margin: "0 auto", background: "#f8f9fa", minHeight: "100vh" }}>
+      {/* Mode switcher */}
+      <div style={{
+        display: "flex", alignItems: "center", gap: "8px",
+        marginBottom: "16px",
+        padding: "8px 12px",
+        background: "#fff", borderRadius: "12px",
+        border: "1px solid #e8eaed",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+      }}>
+        <button
+          style={{
+            padding: "7px 16px", borderRadius: "99px",
+            border: "1.5px solid #6366f1", background: "#6366f1",
+            fontFamily: "inherit", fontSize: "13px", fontWeight: 700,
+            color: "#fff", cursor: "pointer",
+          }}
+        >
+          📝 Quiz Mode
+        </button>
+        <button
+          onClick={() => setStudyView("flashcards")}
+          style={{
+            padding: "7px 16px", borderRadius: "99px",
+            border: "1.5px solid #e5e7eb", background: "#f9fafb",
+            fontFamily: "inherit", fontSize: "13px", fontWeight: 600,
+            color: "#6b7280", cursor: "pointer",
+          }}
+        >
+          🃏 Flashcards
+        </button>
+        <span style={{ fontSize: "11px", color: "#9ca3af", marginLeft: "auto" }}>
+          {allQuestions.length} questions
+        </span>
+      </div>
+
       {/* Header */}
       <div style={{ marginBottom: "24px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
