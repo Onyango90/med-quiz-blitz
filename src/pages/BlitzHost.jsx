@@ -15,7 +15,6 @@ import "./BlitzHost.css";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 const MICROSERVICE_URL = process.env.REACT_APP_MICROSERVICE_URL || "https://medblitz-microservice.up.railway.app";
-const ADMIN_EMAILS = ["chrisonyango25@gmail.com"];
 
 const QUIZ_TYPES   = ["MCQ", "SAQ", "Hybrid"];
 const DIFFICULTIES = ["Easy", "Medium", "Hard", "Mixed"];
@@ -48,11 +47,9 @@ export default function BlitzHost() {
   const { currentUser }        = useAuth();
   const db                     = getDatabase();
 
-  // ── Auth guard ─────────────────────────────────────────────────────────────
+  // ── Auth guard — any signed-in user can host ───────────────────────────────
   useEffect(() => {
-    if (currentUser && !ADMIN_EMAILS.includes(currentUser.email)) {
-      navigate("/home");
-    }
+    if (!currentUser) navigate("/signin");
   }, [currentUser, navigate]);
 
   // ── Tab state ──────────────────────────────────────────────────────────────

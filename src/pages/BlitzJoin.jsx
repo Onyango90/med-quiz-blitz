@@ -1,17 +1,15 @@
 // src/pages/BlitzJoin.jsx
 // Student-facing join page + live quiz experience for BlitzHost sessions
+// Open to everyone — no login required
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { getDatabase, ref, onValue, off, update, get } from "firebase/database";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { Clock, CheckCircle, XCircle, Trophy, Zap, Users, Megaphone } from "lucide-react";
 import "./BlitzJoin.css";
 
 export default function BlitzJoin() {
   const { code: urlCode } = useParams();
   const navigate           = useNavigate();
-  const { currentUser }    = useAuth();
   const db                 = getDatabase();
 
   // ── Join flow state ────────────────────────────────────────────────────────
@@ -25,36 +23,32 @@ export default function BlitzJoin() {
   const [session,      setSession]      = useState(null);
   const [currentQIdx,  setCurrentQIdx]  = useState(0);
   const [timeLeft,     setTimeLeft]     = useState(30);
-  const [selected,     setSelected]     = useState(null);  // index of chosen option
+  const [selected,     setSelected]     = useState(null);
   const [answered,     setAnswered]     = useState(false);
   const [showExplain,  setShowExplain]  = useState(false);
   const [announcement, setAnnouncement] = useState("");
   const [myScore,      setMyScore]      = useState(0);
   const [myRank,       setMyRank]       = useState(null);
-  const [answers,      setAnswers]      = useState([]);    // per-question answer log
-  const [times,        setTimes]        = useState([]);    // per-question time taken
+  const [answers,      setAnswers]      = useState([]);
+  const [times,        setTimes]        = useState([]);
   const [qStartTime,   setQStartTime]   = useState(Date.now());
 
-  const sessionRef    = useRef(null);
-  const participantId = useRef(currentUser?.uid || `guest_${Date.now()}`);
+  const sessionRef = useRef(null);
 
-  // ── Resolve nickname from profile ─────────────────────────────────────────
-  useEffect(() => {
-    if (!currentUser) return;
-    const resolve = async () => {
-      try {
-        const snap = await getDoc(doc(getFirestore(), "users", currentUser.uid));
-        const name = snap.exists() ? snap.data()?.profile?.name : null;
-        setNickname(name || currentUser.displayName || currentUser.email?.split("@")[0] || "");
-      } catch { /* ignore */ }
-    };
-    resolve();
-  }, [currentUser]);
+  // Stable guest ID persisted in sessionStorage so page refreshes don't create duplicates
+  const participantId = useRef(
+    sessionStorage.getItem("blitz_guest_id") || (() => {
+      const id = `guest_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+      sessionStorage.setItem("blitz_guest_id", id);
+      return id;
+    })()
+  );
 
-  // ── Auto-join if URL has code ──────────────────────────────────────────────
+  // ── Auto-join if URL has code and nickname already filled ────────────────
+  // For guests this never fires on mount (nickname is empty), they fill the form first
   useEffect(() => {
-    if (urlCode && nickname) joinSession();
-  }, [urlCode, nickname]); // eslint-disable-line
+    if (urlCode) setRoomCode(urlCode.toUpperCase());
+  }, [urlCode]);
 
   // ── Join session ──────────────────────────────────────────────────────────
   const joinSession = async () => {
@@ -403,7 +397,7 @@ export default function BlitzJoin() {
              "Keep practising — you've got this! 📚"}
           </p>
 
-          <button className="bj-btn-primary" onClick={() => navigate("/home")}>
+          <button className="bj-btn-primary" onClick={() => navigate("/")}>
             Back to MedBlitz
           </button>
         </div>

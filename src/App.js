@@ -126,10 +126,10 @@ function App() {
           {/* Admin — restricted to admin emails only */}
           <Route path="/admin" element={<AdminDashboard />} />
 
-          {/* BlitzHost Live — admin host dashboard */}
+          {/* BlitzHost Live — any signed-in user can host */}
           <Route path="/blitzhost" element={<BlitzHost />} />
 
-          {/* BlitzJoin — student join page (with or without code in URL) */}
+          {/* BlitzJoin — open to everyone, no login required */}
           <Route path="/join/:code" element={<BlitzJoin />} />
           <Route path="/join"       element={<BlitzJoin />} />
 

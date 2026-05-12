@@ -56,7 +56,6 @@ const SPOTLIGHT_FEATURES = [
     accent: "#0D7B65", accent_lt: "#d1fae5",
     action: "navigate", path: "/blitzhost", cta: "Host a Session",
     stats: ["Live sessions", "AI questions", "Real-time analytics"],
-    adminOnly: true,
   },
   {
     id: "pdf",
@@ -120,7 +119,7 @@ export default function HomeDashboard() {
   const curriculumLabel = getCurriculumLabel(userYear);
   const dailyPct      = Math.round((dailyProgress.answered / dailyProgress.total) * 100);
 
-  // Filter spotlight features — hide adminOnly cards for non-admins
+  // All spotlight features visible to all signed-in users
   const visibleSpotFeatures = SPOTLIGHT_FEATURES.filter(f => !f.adminOnly || isAdmin);
   const spot = visibleSpotFeatures[spotIdx] || visibleSpotFeatures[0];
 
@@ -225,7 +224,7 @@ export default function HomeDashboard() {
     { icon: Sparkles,  label: "AI Quiz",          path: "/ai-quiz",          accent: "#b45309", adminOnly: false, special: false },
     { icon: FileUp,    label: "PDF Quiz",          path: "/study-pdf-quiz",   accent: "#15803d", adminOnly: false, special: true,  price: "15" },
     { icon: FileText,  label: "Import Questions", path: "/import-questions", accent: "#10b981", adminOnly: true,  special: false },
-    { icon: Radio,     label: "BlitzHost Live",   path: "/blitzhost",        accent: "#0D7B65", adminOnly: true,  special: false },
+    { icon: Radio,     label: "BlitzHost Live",   path: "/blitzhost",        accent: "#0D7B65", adminOnly: false, special: false },
     { icon: Swords,    label: "Battle",           path: "/battle",           accent: "#dc2626", adminOnly: false, special: false },
     { icon: Trophy,    label: "Leaderboard",      path: "/leaderboard",      accent: "#ea580c", adminOnly: false, special: false },
     { icon: BarChart3, label: "My Stats",         path: "/stats",            accent: "#0891b2", adminOnly: false, special: false },
