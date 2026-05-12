@@ -10,7 +10,7 @@ import {
   Gamepad2, BookOpen, Trophy, BarChart3, Settings,
   Flame, Sparkles, FileText, ChevronRight, ChevronLeft,
   Zap, Target, Clock, Star, Award, Menu, MessageSquare,
-  FileUp, Swords, Home, TrendingUp,
+  FileUp, Swords, Home, TrendingUp, Radio,
 } from "lucide-react";
 import "./HomeDashboard.css";
 import FeedbackForm from "../components/FeedbackForm";
@@ -48,6 +48,17 @@ const SPOTLIGHT_FEATURES = [
     stats: ["8 modes", "Double XP", "Preclinical + Clinical"],
   },
   {
+    id: "blitzhost",
+    icon: "🔴", emoji_bg: "#fce7f3",
+    label: "BlitzHost Live",
+    tagline: "Host a live quiz session",
+    desc: "Create, upload and run live quiz sessions for your students. Upload PDFs, generate AI questions, and monitor everyone in real time.",
+    accent: "#0D7B65", accent_lt: "#d1fae5",
+    action: "navigate", path: "/blitzhost", cta: "Host a Session",
+    stats: ["Live sessions", "AI questions", "Real-time analytics"],
+    adminOnly: true,
+  },
+  {
     id: "pdf",
     icon: "📄", emoji_bg: "#dcfce7",
     label: "PDF Quiz",
@@ -62,7 +73,7 @@ const SPOTLIGHT_FEATURES = [
     icon: "✨", emoji_bg: "#fff7ed",
     label: "AI Quiz",
     tagline: "Custom questions on demand",
-    desc: "Pick a subject, topic, difficulty and year —  AI generates a fresh set of questions built just for you in seconds.",
+    desc: "Pick a subject, topic, difficulty and year — AI generates a fresh set of questions built just for you in seconds.",
     accent: "#b45309", accent_lt: "#fef9c3",
     action: "navigate", path: "/ai-quiz", cta: "Generate Questions",
     stats: ["All subjects", "Any difficulty", "Instant"],
@@ -109,7 +120,9 @@ export default function HomeDashboard() {
   const curriculumLabel = getCurriculumLabel(userYear);
   const dailyPct      = Math.round((dailyProgress.answered / dailyProgress.total) * 100);
 
-  const spot = SPOTLIGHT_FEATURES[spotIdx];
+  // Filter spotlight features — hide adminOnly cards for non-admins
+  const visibleSpotFeatures = SPOTLIGHT_FEATURES.filter(f => !f.adminOnly || isAdmin);
+  const spot = visibleSpotFeatures[spotIdx] || visibleSpotFeatures[0];
 
   const greeting = (() => {
     const h = time.getHours();
@@ -169,18 +182,16 @@ export default function HomeDashboard() {
     setSpotAnim(dir === "right" ? "out-right" : "out-left");
     setTimeout(() => {
       setSpotIdx((i) => dir === "right"
-        ? (i + 1) % SPOTLIGHT_FEATURES.length
-        : (i - 1 + SPOTLIGHT_FEATURES.length) % SPOTLIGHT_FEATURES.length
+        ? (i + 1) % visibleSpotFeatures.length
+        : (i - 1 + visibleSpotFeatures.length) % visibleSpotFeatures.length
       );
       setSpotAnim("in");
       setSpotAnimating(false);
     }, 220);
-  }, [spotAnimating]);
+  }, [spotAnimating, visibleSpotFeatures.length]);
 
   const goSpotTo = useCallback((idx) => {
     if (idx === spotIdx || spotAnimating) return;
-    goSpot(idx > spotIdx ? "right" : "left");
-    // override index directly
     setSpotAnimating(true);
     setSpotAnim(idx > spotIdx ? "out-right" : "out-left");
     setTimeout(() => {
@@ -214,6 +225,7 @@ export default function HomeDashboard() {
     { icon: Sparkles,  label: "AI Quiz",          path: "/ai-quiz",          accent: "#b45309", adminOnly: false, special: false },
     { icon: FileUp,    label: "PDF Quiz",          path: "/study-pdf-quiz",   accent: "#15803d", adminOnly: false, special: true,  price: "15" },
     { icon: FileText,  label: "Import Questions", path: "/import-questions", accent: "#10b981", adminOnly: true,  special: false },
+    { icon: Radio,     label: "BlitzHost Live",   path: "/blitzhost",        accent: "#0D7B65", adminOnly: true,  special: false },
     { icon: Swords,    label: "Battle",           path: "/battle",           accent: "#dc2626", adminOnly: false, special: false },
     { icon: Trophy,    label: "Leaderboard",      path: "/leaderboard",      accent: "#ea580c", adminOnly: false, special: false },
     { icon: BarChart3, label: "My Stats",         path: "/stats",            accent: "#0891b2", adminOnly: false, special: false },
@@ -256,7 +268,7 @@ export default function HomeDashboard() {
       )}
 
       {/* ════════════════════════════════════
-          SIDEBAR (all screen sizes)
+          SIDEBAR
       ════════════════════════════════════ */}
       <aside className={`hd-sidebar ${sidebarOpen ? "hd-sb-open" : "hd-sb-closed"} ${isMobile ? "hd-sb-mobile" : ""}`}>
         <div className="hd-sb-logo">
@@ -287,12 +299,8 @@ export default function HomeDashboard() {
           ))}
         </nav>
 
-        {/* Only show collapse toggle on desktop */}
         {!isMobile && (
-          <button
-            className="hd-sb-toggle"
-            onClick={() => setSidebarOpen((v) => !v)}
-          >
+          <button className="hd-sb-toggle" onClick={() => setSidebarOpen((v) => !v)}>
             <ChevronRight size={15} className={`hd-sb-chevron ${sidebarOpen ? "flipped" : ""}`} />
           </button>
         )}
@@ -366,7 +374,7 @@ export default function HomeDashboard() {
             <div className="hd-spot-header">
               <span className="hd-spot-heading">Featured</span>
               <div className="hd-spot-dots">
-                {SPOTLIGHT_FEATURES.map((f, i) => (
+                {visibleSpotFeatures.map((f, i) => (
                   <button
                     key={f.id}
                     className={`hd-spot-dot ${i === spotIdx ? "hd-spot-dot-on" : ""}`}
@@ -391,7 +399,7 @@ export default function HomeDashboard() {
                 <div className="hd-spot-stripe" style={{ background: spot.accent }} />
 
                 {/* Counter */}
-                <div className="hd-spot-counter">{spotIdx + 1}/{SPOTLIGHT_FEATURES.length}</div>
+                <div className="hd-spot-counter">{spotIdx + 1}/{visibleSpotFeatures.length}</div>
 
                 {/* Decorative circle */}
                 <div className="hd-spot-deco" style={{ background: `${spot.accent}10` }} />
@@ -402,7 +410,6 @@ export default function HomeDashboard() {
                     <span className="hd-spot-emoji">{spot.icon}</span>
                   </div>
                   <div className="hd-spot-top-right">
-                    {/* Daily progress ring — only for daily card */}
                     {spot.id === "daily" ? (
                       <div className="hd-spot-daily-ring">
                         <svg viewBox="0 0 44 44" className="hd-spot-ring-svg">
@@ -485,7 +492,6 @@ export default function HomeDashboard() {
 
         </div>
 
-        {/* Padding for bottom tabs on mobile */}
         {isMobile && <div style={{ height: 80 }} />}
       </main>
 

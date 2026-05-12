@@ -1,5 +1,5 @@
 // src/pages/DoctorLadder.jsx
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { getDatabase, ref, get, update } from "firebase/database";
@@ -169,21 +169,44 @@ export default function DoctorLadder() {
   }, [screen, countdown]);
 
   // ── Timer ──────────────────────────────────────────────────────────────
-  const handleTimeUp = useCallback(() => {
-    clearInterval(timerRef.current);
-    endRung(true); // time ran out = survived = climb
-  }, [rungIndex, correct, answered, totalXP]);
-
+  // ── Timer — single persistent interval ──────────────────────────────
   useEffect(() => {
-    if (screen !== "playing" || feedback !== null) return;
+    if (screen !== "playing") return;
+    clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
       setTimeLeft(t => {
-        if (t <= 1) { handleTimeUp(); return 0; }
+        if (t <= 1) {
+          clearInterval(timerRef.current);
+          // Use setTimeout to avoid calling endRung inside setState
+          setTimeout(() => endRung(true), 0);
+          return 0;
+        }
         return t - 1;
       });
     }, 1000);
     return () => clearInterval(timerRef.current);
-  }, [screen, qIndex, feedback, handleTimeUp]);
+  }, [screen]); // ← only restart when screen changes, NOT on every question
+
+  // Pause/resume timer when feedback shows (so reading time doesn't eat the clock)
+  useEffect(() => {
+    if (screen !== "playing") return;
+    if (feedback !== null) {
+      clearInterval(timerRef.current); // pause while feedback shown
+    } else if (timeLeft > 0) {
+      // Resume
+      timerRef.current = setInterval(() => {
+        setTimeLeft(t => {
+          if (t <= 1) {
+            clearInterval(timerRef.current);
+            setTimeout(() => endRung(true), 0);
+            return 0;
+          }
+          return t - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(timerRef.current);
+  }, [feedback, screen]);
 
   // ── End of a rung ─────────────────────────────────────────────────────
   // called by timer (survived = true) or lives=0 (survived = false)

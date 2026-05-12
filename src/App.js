@@ -31,6 +31,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import MCQBlitz from "./pages/MCQBlitz";
 import DoctorLadder from "./pages/DoctorLadder";
 import ClinicalBlackBox from "./pages/ClinicalBlackBox";
+import BlitzHost from "./pages/BlitzHost";
+import BlitzJoin from "./pages/BlitzJoin";
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
@@ -112,10 +114,10 @@ function App() {
           <Route path="/settings" element={<Settings />} />
 
           {/* Game modes */}
-          <Route path="/diagnose-game"  element={<DiagnoseGame />} />
-          <Route path="/who-am-i"       element={<WhoAmI />} />
-          <Route path="/mcq-blitz"      element={<MCQBlitz />} />
-          <Route path="/doctor-ladder"    element={<DoctorLadder />} />
+          <Route path="/diagnose-game"     element={<DiagnoseGame />} />
+          <Route path="/who-am-i"          element={<WhoAmI />} />
+          <Route path="/mcq-blitz"         element={<MCQBlitz />} />
+          <Route path="/doctor-ladder"     element={<DoctorLadder />} />
           <Route path="/clinical-blackbox" element={<ClinicalBlackBox />} />
 
           {/* Study PDF Quiz */}
@@ -123,6 +125,14 @@ function App() {
 
           {/* Admin — restricted to admin emails only */}
           <Route path="/admin" element={<AdminDashboard />} />
+
+          {/* BlitzHost Live — admin host dashboard */}
+          <Route path="/blitzhost" element={<BlitzHost />} />
+
+          {/* BlitzJoin — student join page (with or without code in URL) */}
+          <Route path="/join/:code" element={<BlitzJoin />} />
+          <Route path="/join"       element={<BlitzJoin />} />
+
         </Routes>
       </Router>
     </AuthProvider>
