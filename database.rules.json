@@ -1,0 +1,32 @@
+{
+  "rules": {
+
+    "users": {
+      "$uid": {
+        ".read":  "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+
+    "blitzhost": {
+      "$sessionCode": {
+        ".read":  true,
+        ".write": "auth !== null",
+
+        "participants": {
+          ".read": true,
+          "$participantId": {
+            ".read":  true,
+            ".write": true
+          }
+        }
+      }
+    },
+
+    "$other": {
+      ".read":  "auth !== null",
+      ".write": "auth !== null"
+    }
+
+  }
+}
