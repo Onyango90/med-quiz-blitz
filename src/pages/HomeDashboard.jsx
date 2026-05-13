@@ -1,5 +1,5 @@
 // src/pages/HomeDashboard.jsx — warm cream redesign with rotating spotlight
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useStats } from "../hooks/useStats";
@@ -11,6 +11,7 @@ import {
   Flame, Sparkles, FileText, ChevronRight, ChevronLeft,
   Zap, Target, Clock, Star, Award, Menu, MessageSquare,
   FileUp, Swords, Home, TrendingUp, Radio,
+  BrainCircuit, Layers, FileSearch, BookMarked, Tv2,
 } from "lucide-react";
 import "./HomeDashboard.css";
 import FeedbackForm from "../components/FeedbackForm";
@@ -26,10 +27,12 @@ const QUOTES = [
 ];
 
 // ── Spotlight feature cards ───────────────────────────────────────────────────
+// Icon components used inline — no emojis
 const SPOTLIGHT_FEATURES = [
   {
     id: "daily",
-    icon: "⚡", emoji_bg: "#fef9c3",
+    IconComponent: Zap,
+    emoji_bg: "#fef9c3",
     label: "Daily Challenge",
     tagline: "Your daily dose of medicine",
     desc: "20 curated questions every day, tailored to your year. Build your streak, earn bonus XP, and stay consistent.",
@@ -39,7 +42,8 @@ const SPOTLIGHT_FEATURES = [
   },
   {
     id: "games",
-    icon: "🎮", emoji_bg: "#ede9fe",
+    IconComponent: Gamepad2,
+    emoji_bg: "#ede9fe",
     label: "Game Zone",
     tagline: "8 game modes. All live.",
     desc: "From Boss Battle to Diagnose in 3 Clues — every mode is a different way to test your knowledge under pressure.",
@@ -49,7 +53,8 @@ const SPOTLIGHT_FEATURES = [
   },
   {
     id: "blitzhost",
-    icon: "🔴", emoji_bg: "#fce7f3",
+    IconComponent: Tv2,
+    emoji_bg: "#fce7f3",
     label: "BlitzHost Live",
     tagline: "Host a live quiz session",
     desc: "Create, upload and run live quiz sessions for your students. Upload PDFs, generate AI questions, and monitor everyone in real time.",
@@ -59,7 +64,8 @@ const SPOTLIGHT_FEATURES = [
   },
   {
     id: "pdf",
-    icon: "📄", emoji_bg: "#dcfce7",
+    IconComponent: FileSearch,
+    emoji_bg: "#dcfce7",
     label: "PDF Quiz",
     tagline: "Your notes. Your questions.",
     desc: "Upload any PDF — lecture slides, past papers, textbook chapters. AI reads it and generates gamified questions instantly.",
@@ -69,9 +75,10 @@ const SPOTLIGHT_FEATURES = [
   },
   {
     id: "ai",
-    icon: "✨", emoji_bg: "#fff7ed",
+    IconComponent: BrainCircuit,
+    emoji_bg: "#fff7ed",
     label: "AI Quiz",
-    tagline: "Custom questions on demand",
+    tagline: "AI Quiz",
     desc: "Pick a subject, topic, difficulty and year — AI generates a fresh set of questions built just for you in seconds.",
     accent: "#b45309", accent_lt: "#fef9c3",
     action: "navigate", path: "/ai-quiz", cta: "Generate Questions",
@@ -79,7 +86,8 @@ const SPOTLIGHT_FEATURES = [
   },
   {
     id: "study",
-    icon: "📚", emoji_bg: "#e0f7fa",
+    IconComponent: BookMarked,
+    emoji_bg: "#e0f7fa",
     label: "Study Centre",
     tagline: "Browse. Learn. Master.",
     desc: "Topic-by-topic question banks across Anatomy, Physiology, Pharmacology, Pathology and more — filtered by year.",
@@ -88,6 +96,9 @@ const SPOTLIGHT_FEATURES = [
     stats: ["All subjects", "Flashcard mode", "Year filter"],
   },
 ];
+
+// Auto-rotation interval in ms
+const AUTO_ROTATE_MS = 4500;
 
 export default function HomeDashboard() {
   const navigate  = useNavigate();
@@ -107,6 +118,8 @@ export default function HomeDashboard() {
   const [spotAnimating,   setSpotAnimating]   = useState(false);
   const [isMobile,        setIsMobile]        = useState(window.innerWidth < 1024);
 
+  const autoRotateTimer = useRef(null);
+
   const isAdmin  = currentUser?.email === ADMIN_EMAIL;
   const userName = currentUser?.displayName || userData?.profile?.name || localStorage.getItem("userName") || currentUser?.email?.split("@")[0] || "Doctor";
 
@@ -119,7 +132,6 @@ export default function HomeDashboard() {
   const curriculumLabel = getCurriculumLabel(userYear);
   const dailyPct      = Math.round((dailyProgress.answered / dailyProgress.total) * 100);
 
-  // All spotlight features visible to all signed-in users
   const visibleSpotFeatures = SPOTLIGHT_FEATURES.filter(f => !f.adminOnly || isAdmin);
   const spot = visibleSpotFeatures[spotIdx] || visibleSpotFeatures[0];
 
@@ -174,7 +186,7 @@ export default function HomeDashboard() {
     load();
   }, [currentUser]);
 
-  // Spotlight rotation
+  // ── Spotlight navigation ──
   const goSpot = useCallback((dir) => {
     if (spotAnimating) return;
     setSpotAnimating(true);
@@ -200,6 +212,24 @@ export default function HomeDashboard() {
     }, 220);
   }, [spotIdx, spotAnimating]);
 
+  // ── Auto-rotate ──
+  useEffect(() => {
+    const startTimer = () => {
+      autoRotateTimer.current = setInterval(() => {
+        goSpot("right");
+      }, AUTO_ROTATE_MS);
+    };
+    startTimer();
+    return () => clearInterval(autoRotateTimer.current);
+  }, [goSpot]);
+
+  // Reset auto-rotate on manual interaction
+  const resetAutoRotate = useCallback((action) => {
+    clearInterval(autoRotateTimer.current);
+    action();
+    autoRotateTimer.current = setInterval(() => goSpot("right"), AUTO_ROTATE_MS);
+  }, [goSpot]);
+
   const handleSpotCTA = () => {
     if (spot.action === "start-daily") {
       const questions = getDailyQuestions(parseInt(userYear));
@@ -214,14 +244,14 @@ export default function HomeDashboard() {
   const onTouchStart = (e) => { touchX = e.touches[0].clientX; };
   const onTouchEnd   = (e) => {
     const dx = e.changedTouches[0].clientX - touchX;
-    if (Math.abs(dx) > 50) goSpot(dx < 0 ? "right" : "left");
+    if (Math.abs(dx) > 50) resetAutoRotate(() => goSpot(dx < 0 ? "right" : "left"));
   };
 
   // Nav items
   const allNavItems = [
     { icon: BookOpen,  label: "Study Centre",    path: "/study-dashboard",  accent: "#0891b2", adminOnly: false, special: false },
     { icon: Gamepad2,  label: "Game Modes",       path: "/games-dashboard",  accent: "#6d28d9", adminOnly: false, special: false },
-    { icon: Sparkles,  label: "AI Quiz",          path: "/ai-quiz",          accent: "#b45309", adminOnly: false, special: false },
+    { icon: BrainCircuit, label: "AI Quiz",       path: "/ai-quiz",          accent: "#b45309", adminOnly: false, special: false },
     { icon: FileUp,    label: "PDF Quiz",          path: "/study-pdf-quiz",   accent: "#15803d", adminOnly: false, special: true,  price: "15" },
     { icon: FileText,  label: "Import Questions", path: "/import-questions", accent: "#10b981", adminOnly: true,  special: false },
     { icon: Radio,     label: "BlitzHost Live",   path: "/blitzhost",        accent: "#0D7B65", adminOnly: false, special: false },
@@ -250,6 +280,8 @@ export default function HomeDashboard() {
       </div>
     );
   }
+
+  const SpotIcon = spot.IconComponent;
 
   return (
     <div className={`hd-root ${sidebarOpen && !isMobile ? "hd-sidebar-open" : "hd-sidebar-closed"}`}>
@@ -378,7 +410,7 @@ export default function HomeDashboard() {
                     key={f.id}
                     className={`hd-spot-dot ${i === spotIdx ? "hd-spot-dot-on" : ""}`}
                     style={i === spotIdx ? { background: spot.accent, width: 20 } : {}}
-                    onClick={() => goSpotTo(i)}
+                    onClick={() => resetAutoRotate(() => goSpotTo(i))}
                   />
                 ))}
               </div>
@@ -389,7 +421,11 @@ export default function HomeDashboard() {
               onTouchStart={onTouchStart}
               onTouchEnd={onTouchEnd}
             >
-              <button className="hd-spot-arrow hd-spot-arrow-l" onClick={() => goSpot("left")} style={{ "--sa": spot.accent, "--sa-lt": spot.accent_lt }}>
+              <button
+                className="hd-spot-arrow hd-spot-arrow-l"
+                onClick={() => resetAutoRotate(() => goSpot("left"))}
+                style={{ "--sa": spot.accent, "--sa-lt": spot.accent_lt }}
+              >
                 <ChevronLeft size={18} />
               </button>
 
@@ -405,9 +441,14 @@ export default function HomeDashboard() {
 
                 {/* Content */}
                 <div className="hd-spot-top">
-                  <div className="hd-spot-emoji-bubble" style={{ background: spot.emoji_bg, boxShadow: `0 6px 20px ${spot.accent}25` }}>
-                    <span className="hd-spot-emoji">{spot.icon}</span>
+                  {/* Icon bubble — Lucide icon, no emoji */}
+                  <div
+                    className="hd-spot-emoji-bubble"
+                    style={{ background: spot.emoji_bg, boxShadow: `0 6px 20px ${spot.accent}25` }}
+                  >
+                    <SpotIcon size={26} color={spot.accent} strokeWidth={1.8} />
                   </div>
+
                   <div className="hd-spot-top-right">
                     {spot.id === "daily" ? (
                       <div className="hd-spot-daily-ring">
@@ -422,22 +463,30 @@ export default function HomeDashboard() {
                         <span className="hd-spot-ring-label">{dailyPct}%</span>
                       </div>
                     ) : null}
-                    <span className="hd-spot-tag" style={{ color: spot.accent, background: spot.accent_lt, border: `1.5px solid ${spot.accent}35` }}>
+                    <span
+                      className="hd-spot-tag"
+                      style={{ color: spot.accent, background: spot.accent_lt, border: `1.5px solid ${spot.accent}35` }}
+                    >
                       {spot.label}
                     </span>
                   </div>
                 </div>
 
                 <div className="hd-spot-body">
-                  <h2 className="hd-spot-title">{spot.tagline}</h2>
+                  {/* Title only — tagline for AI Quiz is now just "AI Quiz", no subtitle */}
+                  <h2 className="hd-spot-title hd-spot-title--clean">{spot.tagline}</h2>
                   <p className="hd-spot-desc">{spot.desc}</p>
                 </div>
 
-                {/* Stat pills */}
+                {/* Stat pills — Lucide icons instead of Zap for all */}
                 <div className="hd-spot-stats">
                   {spot.stats.map((s) => (
-                    <div key={s} className="hd-spot-stat" style={{ borderColor: `${spot.accent}30`, background: spot.accent_lt }}>
-                      <Zap size={9} style={{ color: spot.accent }} />
+                    <div
+                      key={s}
+                      className="hd-spot-stat"
+                      style={{ borderColor: `${spot.accent}30`, background: spot.accent_lt }}
+                    >
+                      <Star size={9} style={{ color: spot.accent }} />
                       <span>{s}</span>
                     </div>
                   ))}
@@ -456,38 +505,34 @@ export default function HomeDashboard() {
                   </div>
                 )}
 
-                {/* CTA */}
-                <button
-                  className="hd-spot-cta"
-                  style={{ background: spot.accent }}
-                  onClick={handleSpotCTA}
-                  disabled={spot.id === "daily" && dailyComplete}
-                >
-                  {spot.id === "daily" && dailyComplete ? (
-                    <><Award size={15} /> Done for today!</>
-                  ) : (
-                    <><Zap size={15} /> {spot.cta}</>
-                  )}
-                </button>
+                {/* CTA — compact, not full-width */}
+                <div className="hd-spot-cta-row">
+                  <button
+                    className="hd-spot-cta hd-spot-cta--compact"
+                    style={{ background: spot.accent }}
+                    onClick={handleSpotCTA}
+                    disabled={spot.id === "daily" && dailyComplete}
+                  >
+                    {spot.id === "daily" && dailyComplete ? (
+                      <><Award size={14} /> Done for today</>
+                    ) : (
+                      <><Zap size={14} /> {spot.cta}</>
+                    )}
+                  </button>
+                </div>
               </div>
 
-              <button className="hd-spot-arrow hd-spot-arrow-r" onClick={() => goSpot("right")} style={{ "--sa": spot.accent, "--sa-lt": spot.accent_lt }}>
+              <button
+                className="hd-spot-arrow hd-spot-arrow-r"
+                onClick={() => resetAutoRotate(() => goSpot("right"))}
+                style={{ "--sa": spot.accent, "--sa-lt": spot.accent_lt }}
+              >
                 <ChevronRight size={18} />
               </button>
             </div>
           </section>
 
-          {/* ── Feedback banner ── */}
-          <div className="hd-feedback-banner" onClick={() => setShowFeedback(true)}>
-            <div className="hd-fb-left">
-              <span className="hd-fb-icon">💬</span>
-              <div>
-                <p className="hd-fb-title">Share your feedback</p>
-                <p className="hd-fb-sub">Help us make MedBlitz better</p>
-              </div>
-            </div>
-            <button className="hd-fb-btn"><MessageSquare size={14} /> Give Feedback</button>
-          </div>
+          {/* ── Feedback banner REMOVED — FAB handles this ── */}
 
         </div>
 
@@ -515,9 +560,10 @@ export default function HomeDashboard() {
         </nav>
       )}
 
-      {/* FAB */}
-      <button className="hd-fab" onClick={() => setShowFeedback(true)} title="Give feedback">
+      {/* ── Feedback FAB — prominent, always visible ── */}
+      <button className="hd-fab hd-fab--prominent" onClick={() => setShowFeedback(true)} title="Give feedback">
         <MessageSquare size={19} />
+        <span className="hd-fab-label">Feedback</span>
       </button>
 
       {showFeedback && <FeedbackForm onClose={() => setShowFeedback(false)} />}
