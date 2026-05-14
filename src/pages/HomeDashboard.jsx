@@ -380,23 +380,7 @@ export default function HomeDashboard() {
             <p>"{quote}"</p>
           </div>
 
-          {/* ── Stats row ── */}
-          <div className="hd-stats-row">
-            {[
-              { icon: Zap,    label: "XP",       value: totalXP.toLocaleString(), color: "#b45309", bg: "#fef9c3", border: "#fde68a" },
-              { icon: Target, label: "Accuracy",  value: `${accuracy}%`,           color: "#0d7c6e", bg: "#e6f7f4", border: "#a7f3d0" },
-              { icon: Flame,  label: "Streak",    value: `${streak}d`,             color: "#dc2626", bg: "#fee2e2", border: "#fecaca" },
-              { icon: Clock,  label: "Questions", value: totalAnswered.toLocaleString(), color: "#6d28d9", bg: "#f3f0ff", border: "#ddd6fe" },
-            ].map((s) => (
-              <div key={s.label} className="hd-stat-card" style={{ "--sc": s.color, "--sb": s.bg, "--sbd": s.border }}>
-                <div className="hd-stat-icon"><s.icon size={16} /></div>
-                <div>
-                  <p className="hd-stat-value">{s.value}</p>
-                  <p className="hd-stat-label">{s.label}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* ── Stats row removed per request ── }
 
           {/* ══════════════════════════════════════════════
               ROTATING SPOTLIGHT HERO
