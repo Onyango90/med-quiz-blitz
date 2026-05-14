@@ -413,96 +413,82 @@ export default function HomeDashboard() {
                 <ChevronLeft size={18} />
               </button>
 
-              <div className={`hd-spotlight hd-spot-${spotAnim}`} style={{ "--accent": spot.accent, "--accent-lt": spot.accent_lt }}>
-                {/* Top colour stripe */}
-                <div className="hd-spot-stripe" style={{ background: spot.accent }} />
-
-                {/* Counter */}
-                <div className="hd-spot-counter">{spotIdx + 1}/{visibleSpotFeatures.length}</div>
-
-                {/* Decorative circle */}
-                <div className="hd-spot-deco" style={{ background: `${spot.accent}10` }} />
-
-                {/* Content */}
-                <div className="hd-spot-top">
-                  {/* Icon bubble — Lucide icon, no emoji */}
-                  <div
-                    className="hd-spot-emoji-bubble"
-                    style={{ background: spot.emoji_bg, boxShadow: `0 6px 20px ${spot.accent}25` }}
-                  >
-                    <SpotIcon size={26} color={spot.accent} strokeWidth={1.8} />
+              <div
+                className={`hd-spotlight hd-spot-${spotAnim}`}
+                style={{
+                  "--accent": spot.accent,
+                  "--accent-lt": spot.accent_lt,
+                  "--accent-glow": `${spot.accent}30`,
+                }}
+              >
+                {/* ── Coloured gradient header ── */}
+                <div className="hd-spot-header-block">
+                  <div className="hd-spot-header-left">
+                    <div className="hd-spot-emoji-bubble">
+                      <SpotIcon size={24} color="#ffffff" strokeWidth={1.8} />
+                    </div>
+                    <div className="hd-spot-header-titles">
+                      <span className="hd-spot-label-text">{spot.label}</span>
+                      <h2 className="hd-spot-title hd-spot-title--clean">{spot.tagline}</h2>
+                    </div>
                   </div>
 
-                  <div className="hd-spot-top-right">
-                    {spot.id === "daily" ? (
+                  <div className="hd-spot-header-right">
+                    <span className="hd-spot-counter">{spotIdx + 1}/{visibleSpotFeatures.length}</span>
+                    {spot.id === "daily" && (
                       <div className="hd-spot-daily-ring">
                         <svg viewBox="0 0 44 44" className="hd-spot-ring-svg">
                           <circle cx="22" cy="22" r="18" className="hd-spot-ring-bg" />
                           <circle cx="22" cy="22" r="18" className="hd-spot-ring-fill"
                             strokeDasharray={`${dailyPct * 1.131} 113.1`}
-                            stroke={spot.accent}
                             transform="rotate(-90 22 22)"
                           />
                         </svg>
                         <span className="hd-spot-ring-label">{dailyPct}%</span>
                       </div>
-                    ) : null}
-                    <span
-                      className="hd-spot-tag"
-                      style={{ color: spot.accent, background: spot.accent_lt, border: `1.5px solid ${spot.accent}35` }}
-                    >
-                      {spot.label}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="hd-spot-body">
-                  {/* Title only — tagline for AI Quiz is now just "AI Quiz", no subtitle */}
-                  <h2 className="hd-spot-title hd-spot-title--clean">{spot.tagline}</h2>
-                  <p className="hd-spot-desc">{spot.desc}</p>
-                </div>
-
-                {/* Stat pills — Lucide icons instead of Zap for all */}
-                <div className="hd-spot-stats">
-                  {spot.stats.map((s) => (
-                    <div
-                      key={s}
-                      className="hd-spot-stat"
-                      style={{ borderColor: `${spot.accent}30`, background: spot.accent_lt }}
-                    >
-                      <Star size={9} style={{ color: spot.accent }} />
-                      <span>{s}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Daily-specific progress bar */}
-                {spot.id === "daily" && (
-                  <div className="hd-spot-daily-bar">
-                    <div className="hd-spot-bar-row">
-                      <span className="hd-spot-bar-label">{curriculumLabel}</span>
-                      <span className="hd-spot-bar-count">{dailyProgress.answered}/{dailyProgress.total}</span>
-                    </div>
-                    <div className="hd-spot-bar-track">
-                      <div className="hd-spot-bar-fill" style={{ width: `${dailyPct}%`, background: spot.accent }} />
-                    </div>
-                  </div>
-                )}
-
-                {/* CTA — compact, not full-width */}
-                <div className="hd-spot-cta-row">
-                  <button
-                    className="hd-spot-cta hd-spot-cta--compact"
-                    style={{ background: spot.accent }}
-                    onClick={handleSpotCTA}
-                    disabled={spot.id === "daily" && dailyComplete}
-                  >
-                    {spot.id === "daily" && dailyComplete ? (
-                      <><Award size={14} /> Done for today</>
-                    ) : (
-                      <><Zap size={14} /> {spot.cta}</>
                     )}
-                  </button>
+                  </div>
+                </div>
+
+                {/* ── White body ── */}
+                <div className="hd-spot-body-block">
+                  <p className="hd-spot-desc">{spot.desc}</p>
+
+                  <div className="hd-spot-stats">
+                    {spot.stats.map((s) => (
+                      <div key={s} className="hd-spot-stat">
+                        <Star size={9} />
+                        <span>{s}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {spot.id === "daily" && (
+                    <div className="hd-spot-daily-bar">
+                      <div className="hd-spot-bar-row">
+                        <span className="hd-spot-bar-label">{curriculumLabel}</span>
+                        <span className="hd-spot-bar-count">{dailyProgress.answered}/{dailyProgress.total}</span>
+                      </div>
+                      <div className="hd-spot-bar-track">
+                        <div className="hd-spot-bar-fill" style={{ width: `${dailyPct}%`, background: spot.accent }} />
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="hd-spot-cta-row">
+                    <button
+                      className="hd-spot-cta hd-spot-cta--compact"
+                      style={{ background: spot.accent }}
+                      onClick={handleSpotCTA}
+                      disabled={spot.id === "daily" && dailyComplete}
+                    >
+                      {spot.id === "daily" && dailyComplete ? (
+                        <><Award size={14} /> Done for today</>
+                      ) : (
+                        <><Zap size={14} /> {spot.cta}</>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
 
