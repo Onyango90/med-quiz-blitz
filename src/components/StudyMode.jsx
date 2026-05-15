@@ -142,6 +142,8 @@ function StudyMode() {
   const [sessionStarted,    setSessionStarted]    = useState(false);
   const [studyView,         setStudyView]         = useState("quiz");
   const [hovered,           setHovered]           = useState(null);
+  const [showDeepStudy,     setShowDeepStudy]     = useState(false);
+  const [deepStudyQuestion, setDeepStudyQuestion] = useState(null);
 
   const currentBatch    = batches[currentBatchIndex] || [];
   const currentQuestion = currentBatch[currentIndex];
@@ -312,6 +314,7 @@ function StudyMode() {
 
   // ── Main quiz view ─────────────────────────────────────────────────────
   return (
+  <>
     <div style={{ background: C.bg, minHeight: "100vh", fontFamily: "'DM Sans', sans-serif", color: C.text }}>
 
       {/* Mode switcher */}
@@ -522,13 +525,7 @@ function StudyMode() {
         {/* ── Go Deeper button ── */}
         {showAnswer && (
           <button
-            onClick={() => navigate("/ai-quiz", {
-              state: {
-                prefillTopic: currentQuestion.topic || currentQuestion.subject || formatTopicLabel(currentSubtopic || topic),
-                prefillSubject: currentQuestion.subject || formatTopicLabel(topic),
-                prefillContext: questionText,
-              }
-            })}
+            onClick={() => { setDeepStudyQuestion(currentQuestion); setShowDeepStudy(true); }}
             style={{
               width: "100%", padding: "13px 24px", borderRadius: 14, marginBottom: 12,
               border: `1.5px solid ${C.accent}`,
@@ -542,7 +539,7 @@ function StudyMode() {
             onMouseLeave={e => { e.currentTarget.style.background = C.accentDim; e.currentTarget.style.color = C.accent; }}
           >
             <BookOpenText size={16} />
-            Go Deeper on this topic
+            Go Deeper — Read more about this topic
           </button>
         )}
 
@@ -565,6 +562,16 @@ function StudyMode() {
         )}
       </div>
     </div>
+
+    {/* ── Deep Study Panel ── */}
+    {showDeepStudy && deepStudyQuestion && (
+      <DeepStudyPanel
+        question={deepStudyQuestion}
+        topic={currentSubtopic || topic}
+        onClose={() => setShowDeepStudy(false)}
+      />
+    )}
+  </>
   );
 }
 
@@ -648,6 +655,332 @@ function EmptyState({ message, onBack }) {
           Back to Dashboard
         </button>
       )}
+    </div>
+  );
+}
+
+// ── Deep Study Panel ───────────────────────────────────────────────────────
+function DeepStudyPanel({ question, topic, onClose }) {
+  const [content,      setContent]      = useState("");
+  const [loading,      setLoading]      = useState(true);
+  const [error,        setError]        = useState(null);
+  const [flashcards,   setFlashcards]   = useState([]);
+  const [fcLoading,    setFcLoading]    = useState(false);
+  const [fcIndex,      setFcIndex]      = useState(0);
+  const [fcFlipped,    setFcFlipped]    = useState(false);
+  const [view,         setView]         = useState("reading"); // "reading" | "flashcards"
+
+  const questionText = question.text || question.question;
+  const topicLabel   = question.topic || question.subject || formatTopicLabel(topic);
+
+  // ── Fetch AI deep-study content on mount ──
+  useEffect(() => {
+    const fetch_ = async () => {
+      setLoading(true); setError(null);
+      try {
+        const res = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: "claude-sonnet-4-20250514",
+            max_tokens: 1000,
+            messages: [{
+              role: "user",
+              content: `You are a medical education expert. A student just answered this question:
+
+"${questionText}"
+
+The correct answer is: ${question.correctAnswer !== undefined && question.options
+  ? (typeof question.correctAnswer === "number" ? question.options[question.correctAnswer] : question.correctAnswer)
+  : question.answer || question.correctAnswer}
+
+Write a detailed, well-structured educational summary about the topic: "${topicLabel}". 
+
+Structure your response with these sections using markdown-style headers (##):
+## Overview
+## Key Concepts
+## Clinical Relevance
+## Important Points to Remember
+## Common Pitfalls
+
+Write in a clear, engaging style suitable for a medical student. Be thorough but concise. Do not use bullet points excessively — write in prose where possible. Include relevant clinical details, mechanisms, and examples.`,
+            }],
+          }),
+        });
+        const data = await res.json();
+        const text = data.content?.map(b => b.text || "").join("") || "";
+        setContent(text);
+      } catch (e) {
+        setError("Could not load content. Please check your connection.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetch_();
+  }, [question.id]);
+
+  // ── Generate flashcards from content ──
+  const generateFlashcards = async () => {
+    if (!content) return;
+    setFcLoading(true); setFlashcards([]); setFcIndex(0); setFcFlipped(false);
+    try {
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          messages: [{
+            role: "user",
+            content: `Based on this medical study content about "${topicLabel}", generate exactly 6 high-quality flashcards.
+
+Content:
+${content}
+
+Return ONLY a valid JSON array with no extra text, no markdown, no code fences. Format:
+[{"front":"Question or prompt here","back":"Concise answer or explanation here"},...]
+
+Make the fronts clinically-focused questions. Keep backs concise but complete.`,
+          }],
+        }),
+      });
+      const data = await res.json();
+      const raw  = data.content?.map(b => b.text || "").join("") || "[]";
+      const clean = raw.replace(/```json|```/g, "").trim();
+      const cards = JSON.parse(clean);
+      setFlashcards(cards);
+      setView("flashcards");
+    } catch {
+      setFlashcards([{ front: "Could not generate flashcards.", back: "Please try again." }]);
+      setView("flashcards");
+    } finally {
+      setFcLoading(false);
+    }
+  };
+
+  // ── Render content with basic markdown parsing ──
+  const renderContent = (text) => {
+    const lines = text.split("\n");
+    return lines.map((line, i) => {
+      if (line.startsWith("## ")) return (
+        <h3 key={i} style={{ fontSize: 14, fontWeight: 800, color: C.accent, letterSpacing: "0.04em", textTransform: "uppercase", margin: "20px 0 8px", fontFamily: "'Syne', sans-serif" }}>
+          {line.replace("## ", "")}
+        </h3>
+      );
+      if (line.startsWith("# ")) return (
+        <h2 key={i} style={{ fontSize: 17, fontWeight: 800, color: C.text, margin: "0 0 12px", fontFamily: "'Syne', sans-serif" }}>
+          {line.replace("# ", "")}
+        </h2>
+      );
+      if (line.startsWith("- ") || line.startsWith("* ")) return (
+        <div key={i} style={{ display: "flex", gap: 8, margin: "4px 0", alignItems: "flex-start" }}>
+          <span style={{ color: C.accent, fontWeight: 800, marginTop: 2, flexShrink: 0 }}>·</span>
+          <p style={{ fontSize: 14, lineHeight: 1.7, color: C.muted, margin: 0 }}>{line.replace(/^[-*] /, "")}</p>
+        </div>
+      );
+      if (line.trim() === "") return <div key={i} style={{ height: 6 }} />;
+      return <p key={i} style={{ fontSize: 14, lineHeight: 1.75, color: C.muted, margin: "3px 0" }}>{line}</p>;
+    });
+  };
+
+  return (
+    <div style={{
+      position: "fixed", inset: 0, zIndex: 999,
+      background: "rgba(0,0,0,0.45)", backdropFilter: "blur(4px)",
+      display: "flex", alignItems: "flex-end", justifyContent: "center",
+    }} onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+
+      <div style={{
+        width: "100%", maxWidth: 780,
+        maxHeight: "90vh",
+        background: "#fff",
+        borderRadius: "24px 24px 0 0",
+        display: "flex", flexDirection: "column",
+        boxShadow: "0 -8px 40px rgba(0,0,0,0.18)",
+        animation: "dsSlideUp 0.3s cubic-bezier(0.22,1,0.36,1)",
+      }}>
+        <style>{`@keyframes dsSlideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }`}</style>
+
+        {/* ── Panel header ── */}
+        <div style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          padding: "18px 24px 14px",
+          borderBottom: `1px solid ${C.border}`, flexShrink: 0,
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ width: 36, height: 36, borderRadius: 10, background: C.accentDim, color: C.accent, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <BookOpenText size={18} />
+            </div>
+            <div>
+              <p style={{ fontSize: 11, color: C.muted, fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase" }}>Go Deeper</p>
+              <p style={{ fontSize: 14, fontWeight: 700, color: C.text, fontFamily: "'Syne', sans-serif" }}>{topicLabel}</p>
+            </div>
+          </div>
+
+          {/* View toggle */}
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            {flashcards.length > 0 && (
+              <div style={{ display: "flex", background: C.bg, borderRadius: 99, padding: 3, border: `1px solid ${C.border}` }}>
+                {[{ key: "reading", label: "Read" }, { key: "flashcards", label: "Flashcards" }].map(({ key, label }) => (
+                  <button key={key} onClick={() => setView(key)} style={{
+                    padding: "5px 14px", borderRadius: 99, border: "none",
+                    background: view === key ? C.accent : "transparent",
+                    color: view === key ? "#fff" : C.muted,
+                    fontSize: 12, fontWeight: 700, cursor: "pointer", transition: "all 0.15s",
+                    fontFamily: "'DM Sans', sans-serif",
+                  }}>{label}</button>
+                ))}
+              </div>
+            )}
+            <button onClick={onClose} style={{
+              width: 32, height: 32, borderRadius: 99,
+              border: `1.5px solid ${C.border}`, background: C.bg,
+              color: C.muted, cursor: "pointer", fontSize: 18, fontWeight: 700,
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}>×</button>
+          </div>
+        </div>
+
+        {/* ── Context chip ── */}
+        <div style={{ padding: "10px 24px 0", flexShrink: 0 }}>
+          <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 10, padding: "8px 14px" }}>
+            <p style={{ fontSize: 11, color: C.muted, fontWeight: 600, marginBottom: 2, letterSpacing: "0.04em" }}>RELATED QUESTION</p>
+            <p style={{ fontSize: 13, color: C.text, lineHeight: 1.5, fontStyle: "italic" }}>{questionText}</p>
+          </div>
+        </div>
+
+        {/* ── Scrollable body ── */}
+        <div style={{ flex: 1, overflowY: "auto", padding: "16px 24px 24px" }}>
+
+          {/* Reading view */}
+          {view === "reading" && (
+            <>
+              {loading && (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "40px 0", gap: 12 }}>
+                  <div style={{
+                    width: 36, height: 36, borderRadius: "50%",
+                    border: `3px solid ${C.border}`, borderTopColor: C.accent,
+                    animation: "spin 0.75s linear infinite",
+                  }} />
+                  <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+                  <p style={{ fontSize: 13, color: C.muted }}>Generating detailed content…</p>
+                </div>
+              )}
+              {error && <p style={{ color: C.red, fontSize: 14, textAlign: "center", padding: 24 }}>{error}</p>}
+              {!loading && !error && (
+                <div style={{ paddingBottom: 8 }}>
+                  {renderContent(content)}
+                </div>
+              )}
+            </>
+          )}
+
+          {/* Flashcard view */}
+          {view === "flashcards" && (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, padding: "16px 0" }}>
+              {fcLoading && (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, padding: "32px 0" }}>
+                  <div style={{ width: 36, height: 36, borderRadius: "50%", border: `3px solid ${C.border}`, borderTopColor: C.accent, animation: "spin 0.75s linear infinite" }} />
+                  <p style={{ fontSize: 13, color: C.muted }}>Generating flashcards…</p>
+                </div>
+              )}
+
+              {!fcLoading && flashcards.length > 0 && (
+                <>
+                  {/* Card counter */}
+                  <p style={{ fontSize: 12, color: C.muted, fontWeight: 700 }}>
+                    {fcIndex + 1} / {flashcards.length}
+                  </p>
+
+                  {/* Flashcard */}
+                  <div
+                    onClick={() => setFcFlipped(f => !f)}
+                    style={{
+                      width: "100%", minHeight: 180,
+                      background: fcFlipped ? C.accentDim : C.surface,
+                      border: `2px solid ${fcFlipped ? C.accent : C.border}`,
+                      borderRadius: 18, padding: "28px 24px",
+                      cursor: "pointer", transition: "all 0.25s",
+                      display: "flex", flexDirection: "column",
+                      alignItems: "center", justifyContent: "center", textAlign: "center", gap: 12,
+                      boxShadow: fcFlipped ? `0 4px 20px ${C.accent}25` : "0 2px 8px rgba(0,0,0,0.06)",
+                    }}
+                  >
+                    <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: fcFlipped ? C.accent : C.muted }}>
+                      {fcFlipped ? "ANSWER" : "QUESTION — tap to reveal"}
+                    </span>
+                    <p style={{ fontSize: 15, fontWeight: fcFlipped ? 500 : 600, lineHeight: 1.6, color: fcFlipped ? C.accent : C.text, fontFamily: fcFlipped ? "'DM Sans', sans-serif" : "'Syne', sans-serif" }}>
+                      {fcFlipped ? flashcards[fcIndex].back : flashcards[fcIndex].front}
+                    </p>
+                  </div>
+
+                  {/* Navigation */}
+                  <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                    <button
+                      onClick={() => { setFcIndex(i => Math.max(0, i - 1)); setFcFlipped(false); }}
+                      disabled={fcIndex === 0}
+                      style={{ padding: "9px 20px", borderRadius: 10, border: `1.5px solid ${C.border}`, background: C.bg, color: C.muted, fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 700, cursor: fcIndex === 0 ? "default" : "pointer", opacity: fcIndex === 0 ? 0.4 : 1 }}
+                    >
+                      Previous
+                    </button>
+                    <button
+                      onClick={() => { setFcFlipped(false); }}
+                      style={{ padding: "9px 16px", borderRadius: 10, border: `1.5px solid ${C.border}`, background: C.bg, color: C.muted, fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 700, cursor: "pointer" }}
+                    >
+                      Flip
+                    </button>
+                    <button
+                      onClick={() => { setFcIndex(i => Math.min(flashcards.length - 1, i + 1)); setFcFlipped(false); }}
+                      disabled={fcIndex === flashcards.length - 1}
+                      style={{ padding: "9px 20px", borderRadius: 10, border: `1.5px solid ${C.border}`, background: C.bg, color: C.muted, fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 700, cursor: fcIndex === flashcards.length - 1 ? "default" : "pointer", opacity: fcIndex === flashcards.length - 1 ? 0.4 : 1 }}
+                    >
+                      Next
+                    </button>
+                  </div>
+
+                  {/* Progress dots */}
+                  <div style={{ display: "flex", gap: 6 }}>
+                    {flashcards.map((_, i) => (
+                      <div key={i} onClick={() => { setFcIndex(i); setFcFlipped(false); }} style={{ width: i === fcIndex ? 20 : 7, height: 7, borderRadius: 99, background: i === fcIndex ? C.accent : C.border, cursor: "pointer", transition: "all 0.2s" }} />
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* ── Footer actions ── */}
+        <div style={{ padding: "12px 24px 24px", borderTop: `1px solid ${C.border}`, display: "flex", gap: 10, flexShrink: 0 }}>
+          {view === "reading" && !loading && !error && (
+            <button
+              onClick={generateFlashcards}
+              disabled={fcLoading}
+              style={{
+                flex: 1, padding: "12px 20px", borderRadius: 12, border: "none",
+                background: `linear-gradient(135deg, ${C.accent}, #0a5c52)`,
+                color: "#fff", fontSize: 14, fontWeight: 700,
+                fontFamily: "'DM Sans', sans-serif", cursor: "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                boxShadow: `0 4px 16px ${C.accent}35`,
+              }}
+            >
+              <CreditCard size={15} />
+              Generate Flashcards from this Content
+            </button>
+          )}
+          {view === "flashcards" && (
+            <button onClick={() => setView("reading")} style={{
+              flex: 1, padding: "12px 20px", borderRadius: 12,
+              border: `1.5px solid ${C.border}`, background: C.bg,
+              color: C.muted, fontSize: 14, fontWeight: 700,
+              fontFamily: "'DM Sans', sans-serif", cursor: "pointer",
+            }}>
+              Back to Reading
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
