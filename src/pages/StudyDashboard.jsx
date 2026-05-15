@@ -1,25 +1,28 @@
-// src/pages/StudyDashboard.jsx — redesigned
+// src/pages/StudyDashboard.jsx — bright professional redesign
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, ChevronRight, ChevronDown, Sparkles, BookOpen } from "lucide-react";
+import {
+  ArrowLeft, ChevronRight, ChevronDown, BrainCircuit,
+  BookOpen, Bone, Microscope, Baby, FlaskConical,
+  Droplets, TestTube, Shield, HeartPulse, Wind,
+  Pill, Syringe, Heart, Brain, Activity,
+  Stethoscope, Sparkles, Layers, ClipboardList,
+} from "lucide-react";
 import "./StudyDashboard.css";
 
-import grossAnatomy      from "../data/questions/gross_anatomy.json";
-import histology         from "../data/questions/histology.json";
-import embryology        from "../data/questions/embryology.json";
-import pathologyQuestions from "../data/questions/pathology.json";
-import haematologyQuestions from "../data/questions/haematology.json";
+import grossAnatomy               from "../data/questions/gross_anatomy.json";
+import histology                  from "../data/questions/histology.json";
+import embryology                 from "../data/questions/embryology.json";
+import pathologyQuestions         from "../data/questions/pathology.json";
+import haematologyQuestions       from "../data/questions/haematology.json";
 import clinicalChemistryQuestions from "../data/questions/clinical_chemistry.json";
-import immunologyQuestions from "../data/questions/immunology.json";
-import physiologyLevel1   from "../data/questions/physiology_level1.json";
-import physiologyLevel2   from "../data/questions/physiology_level2.json";
+import immunologyQuestions        from "../data/questions/immunology.json";
+import physiologyLevel1           from "../data/questions/physiology_level1.json";
+import physiologyLevel2           from "../data/questions/physiology_level2.json";
+import clinicalSkillsQuestions    from "../data/questions/clinical_skills.json";
 import {
-  antibiotics,
-  antifungals,
-  antiparasitics,
-  cardiovascular as pharmaCardio,
-  cns,
-  disinfectants,
+  antibiotics, antifungals, antiparasitics,
+  cardiovascular as pharmaCardio, cns, disinfectants,
   endocrine as pharmaEndocrine,
 } from "../data/questions/pharmacology/index.js";
 
@@ -27,143 +30,108 @@ let clickSound;
 try { clickSound = new Audio(require("../sound/click.wav")); }
 catch { clickSound = null; }
 
-// ── Data ─────────────────────────────────────────────────────────────────────
+// ── Topic definitions — icons only, no emojis ─────────────────────────────
 const TOPICS = [
   {
+    id: "anatomy",
     name: "Anatomy",
-    icon: "🦴",
+    Icon: Bone,
     description: "Structures of the human body",
-    color: "coral",
-    path: "/study/anatomy",
+    accentVar: "--sd-coral",
+    accent: "#f97066",
     hasSubcategories: true,
     subcategories: [
-      { name: "Gross Anatomy", icon: "🦴", description: "Macroscopic structures", path: "/study/gross_anatomy", questions: grossAnatomy,  count: grossAnatomy?.length  || 0 },
-      { name: "Histology",     icon: "🔬", description: "Microscopic tissue",     path: "/study/histology",     questions: histology,     count: histology?.length     || 0 },
-      { name: "Embryology",    icon: "👶", description: "Development stages",     path: "/study/embryology",    questions: embryology,    count: embryology?.length    || 0 },
+      { name: "Gross Anatomy", Icon: Bone,       description: "Macroscopic body structures",  path: "/study/gross_anatomy",    questions: grossAnatomy,  count: grossAnatomy?.length  || 0 },
+      { name: "Histology",     Icon: Microscope,  description: "Microscopic tissue anatomy",   path: "/study/histology",         questions: histology,     count: histology?.length     || 0 },
+      { name: "Embryology",    Icon: Baby,        description: "Developmental biology",        path: "/study/embryology",        questions: embryology,    count: embryology?.length    || 0 },
     ],
-    get count() { return (grossAnatomy?.length || 0) + (histology?.length || 0) + (embryology?.length || 0); },
+    get count() { return (grossAnatomy?.length||0)+(histology?.length||0)+(embryology?.length||0); },
   },
   {
+    id: "pathology",
     name: "Pathology",
-    icon: "🧫",
-    description: "Disease mechanisms & processes",
-    color: "amber",
-    path: "/study/pathology",
+    Icon: FlaskConical,
+    description: "Disease mechanisms and processes",
+    accent: "#f59e0b",
     hasSubcategories: true,
     subcategories: [
-      {
-        name: "General Pathology",
-        icon: "🧫",
-        description: "Disease processes & mechanisms",
-        path: "/study/pathology",
-        questions: pathologyQuestions,
-        count: pathologyQuestions?.length || 0,
-      },
-      {
-        name: "Haematology",
-        icon: "🩸",
-        description: "Blood disorders, leukaemia & transfusion",
-        path: "/study/haematology",
-        questions: haematologyQuestions,
-        count: haematologyQuestions?.length || 0,
-      },
-      {
-        name: "Clinical Chemistry",
-        icon: "⚗️",
-        description: "Lab tests, biochemistry & interpretation",
-        path: "/study/clinical_chemistry",
-        questions: clinicalChemistryQuestions,
-        count: clinicalChemistryQuestions?.length || 0,
-      },
-      {
-        name: "Immunology",
-        icon: "🛡️",
-        description: "Immunity, hypersensitivity & autoimmunity",
-        path: "/study/immunology",
-        questions: immunologyQuestions,
-        count: immunologyQuestions?.length || 0,
-      },
+      { name: "General Pathology",  Icon: FlaskConical, description: "Disease processes & mechanisms",       path: "/study/pathology",         questions: pathologyQuestions,         count: pathologyQuestions?.length         || 0 },
+      { name: "Haematology",        Icon: Droplets,     description: "Blood disorders & transfusion",        path: "/study/haematology",       questions: haematologyQuestions,       count: haematologyQuestions?.length       || 0 },
+      { name: "Clinical Chemistry", Icon: TestTube,     description: "Lab tests & biochemical interpretation",path: "/study/clinical_chemistry",questions: clinicalChemistryQuestions, count: clinicalChemistryQuestions?.length || 0 },
+      { name: "Immunology",         Icon: Shield,       description: "Immunity, hypersensitivity & autoimmunity", path: "/study/immunology",    questions: immunologyQuestions,        count: immunologyQuestions?.length        || 0 },
     ],
     get count() {
-      return (
-        (pathologyQuestions?.length || 0) +
-        (haematologyQuestions?.length || 0) +
-        (clinicalChemistryQuestions?.length || 0) +
-        (immunologyQuestions?.length || 0)
-      );
+      return (pathologyQuestions?.length||0)+(haematologyQuestions?.length||0)+
+             (clinicalChemistryQuestions?.length||0)+(immunologyQuestions?.length||0);
     },
   },
   {
+    id: "physiology",
     name: "Physiology",
-    icon: "💓",
+    Icon: HeartPulse,
     description: "How the body functions",
-    color: "teal",
-    path: "/study/physiology",
+    accent: "#14b8a6",
     hasSubcategories: true,
     subcategories: [
-      {
-        name: "Level 1 Physiology",
-        icon: "💓",
-        description: "Core concepts & fundamentals",
-        path: "/study/physiology_level1",
-        questions: physiologyLevel1,
-        count: physiologyLevel1?.length || 0,
-      },
-      {
-        name: "Level 2 Physiology",
-        icon: "🫁",
-        description: "Respiratory, Renal & advanced",
-        path: "/study/physiology_level2",
-        questions: physiologyLevel2,
-        count: physiologyLevel2?.length || 0,
-      },
+      { name: "Level 1 Physiology", Icon: HeartPulse, description: "Core concepts & fundamentals",    path: "/study/physiology_level1", questions: physiologyLevel1, count: physiologyLevel1?.length || 0 },
+      { name: "Level 2 Physiology", Icon: Wind,       description: "Respiratory, renal & advanced",  path: "/study/physiology_level2", questions: physiologyLevel2, count: physiologyLevel2?.length || 0 },
     ],
-    count: (physiologyLevel1?.length || 0) + (physiologyLevel2?.length || 0),
+    count: (physiologyLevel1?.length||0)+(physiologyLevel2?.length||0),
   },
   {
+    id: "microbiology",
     name: "Microbiology",
-    icon: "🦠",
-    description: "Microbes & infections",
-    color: "red",
-    path: "/study/microbiology",
-    hasSubcategories: false,
-    count: 5,
+    Icon: Microscope,
+    description: "Microorganisms and infectious disease",
+    accent: "#ef4444",
+    hasSubcategories: true,
+    count: 0,
+    subcategories: [
+      { name: "Virology",      Icon: Microscope, description: "", path: "/study/virology",      questions: [], count: 0 },
+      { name: "Bacteriology",  Icon: TestTube,   description: "", path: "/study/bacteriology",  questions: [], count: 0 },
+      { name: "Mycology",      Icon: FlaskConical, description: "", path: "/study/mycology",    questions: [], count: 0 },
+      { name: "Parasitology",  Icon: Droplets,   description: "", path: "/study/parasitology",  questions: [], count: 0 },
+    ],
   },
   {
+    id: "pharmacology",
     name: "Pharmacology",
-    icon: "💊",
-    description: "Drugs & mechanisms of action",
-    color: "purple",
-    path: "/study/antibiotics",
+    Icon: Pill,
+    description: "Drugs, mechanisms of action and therapeutics",
+    accent: "#8b5cf6",
     hasSubcategories: true,
     subcategories: [
-      { name: "Antibiotics",     icon: "🧪", description: "Antibacterial agents",    path: "/study/antibiotics",    questions: antibiotics,    count: antibiotics?.length    || 0 },
-      { name: "Antifungals",     icon: "🍄", description: "Antifungal agents",        path: "/study/antifungals",    questions: antifungals,    count: antifungals?.length    || 0 },
-      { name: "Antiparasitics",  icon: "🦠", description: "Antiparasitic drugs",      path: "/study/antiparasitics", questions: antiparasitics, count: antiparasitics?.length || 0 },
-      { name: "Cardiovascular",  icon: "❤️", description: "Heart & BP medications",   path: "/study/cardiovascular", questions: pharmaCardio,   count: pharmaCardio?.length   || 0 },
-      { name: "CNS Drugs",       icon: "🧠", description: "Neuro & psych drugs",      path: "/study/cns",            questions: cns,            count: cns?.length            || 0 },
-      { name: "Disinfectants",   icon: "🧴", description: "Antiseptics & sterilants", path: "/study/disinfectants",  questions: disinfectants,  count: disinfectants?.length  || 0 },
-      { name: "Endocrine",       icon: "⚕️", description: "Hormones & diabetes",      path: "/study/endocrine",      questions: pharmaEndocrine,count: pharmaEndocrine?.length|| 0 },
+      { name: "Antimicrobials",  Icon: Syringe,      description: "", path: "/study/antibiotics",    questions: [...(antibiotics||[]), ...(antifungals||[]), ...(antiparasitics||[]), ...(disinfectants||[])], count: (antibiotics?.length||0)+(antifungals?.length||0)+(antiparasitics?.length||0)+(disinfectants?.length||0) },
+      { name: "Cardiovascular",  Icon: Heart,        description: "", path: "/study/cardiovascular", questions: pharmaCardio,    count: pharmaCardio?.length    || 0 },
+      { name: "CNS Drugs",       Icon: Brain,        description: "", path: "/study/cns",            questions: cns,             count: cns?.length             || 0 },
+      { name: "Endocrine",       Icon: Activity,     description: "", path: "/study/endocrine",      questions: pharmaEndocrine, count: pharmaEndocrine?.length || 0 },
+      { name: "Respiratory",     Icon: Wind,         description: "", path: "/study/respiratory",    questions: [],              count: 0 },
+      { name: "GIT",             Icon: FlaskConical, description: "", path: "/study/git",            questions: [],              count: 0 },
+      { name: "Renal",           Icon: Droplets,     description: "", path: "/study/renal",          questions: [],              count: 0 },
+      { name: "Immune System",   Icon: Shield,       description: "", path: "/study/immune",         questions: [],              count: 0 },
     ],
     get count() {
       return (antibiotics?.length||0)+(antifungals?.length||0)+(antiparasitics?.length||0)+
-             (pharmaCardio?.length||0)+(cns?.length||0)+(disinfectants?.length||0)+(pharmaEndocrine?.length||0);
+             (disinfectants?.length||0)+(pharmaCardio?.length||0)+(cns?.length||0)+(pharmaEndocrine?.length||0);
     },
   },
   {
+    id: "clinical_skills",
     name: "Clinical Skills",
-    icon: "🩺",
-    description: "Practical bedside skills",
-    color: "green",
-    path: "/study/clinical-skills",
+    Icon: Stethoscope,
+    description: "Practical bedside skills, examination and diagnostics",
+    accent: "#0d7c6e",
     hasSubcategories: false,
-    count: 0,
+    count: clinicalSkillsQuestions?.length || 0,
+    path: "/study/clinical_skills",
+    questions: clinicalSkillsQuestions,
+    comingSoon: false,
   },
 ];
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function StudyDashboard() {
-  const navigate = useNavigate();
+  const navigate  = useNavigate();
   const [expanded, setExpanded] = useState(null);
 
   const go = (path, questions = null) => {
@@ -172,7 +140,7 @@ export default function StudyDashboard() {
     else           navigate(path, { state: { originalPath: path } });
   };
 
-  const toggle = (name) => setExpanded((v) => (v === name ? null : name));
+  const toggle = (id) => setExpanded(v => v === id ? null : id);
 
   const totalQuestions = TOPICS.reduce((a, t) => a + (t.count || 0), 0);
 
@@ -182,94 +150,142 @@ export default function StudyDashboard() {
       {/* ── Header ── */}
       <header className="sd-header">
         <button className="sd-back" onClick={() => navigate("/home")}>
-          <ArrowLeft size={16} /> Back
+          <ArrowLeft size={15} />
+          <span>Back</span>
         </button>
+
         <div className="sd-header-center">
-          <div className="sd-header-icon"><BookOpen size={20} /></div>
+          <div className="sd-header-icon">
+            <BookOpen size={18} />
+          </div>
           <div>
             <h1 className="sd-title">Study Centre</h1>
-            <p className="sd-subtitle">{totalQuestions} questions across {TOPICS.length} subjects</p>
+            <p className="sd-subtitle">{totalQuestions.toLocaleString()} questions · {TOPICS.length} subjects</p>
           </div>
         </div>
+
         <button className="sd-ai-btn" onClick={() => navigate("/ai-quiz")}>
-          <Sparkles size={14} /> AI Quiz
+          <BrainCircuit size={14} />
+          <span>AI Quiz</span>
         </button>
       </header>
 
       {/* ── Body ── */}
       <div className="sd-body">
 
-        {/* Intro banner */}
-        <div className="sd-banner">
-          <span className="sd-banner-icon">💡</span>
-          <p>Choose a subject below to start studying. Topics with subcategories can be expanded.</p>
-        </div>
-
-        {/* Topic cards */}
-        <div className="sd-grid">
-          {TOPICS.map((topic) => (
-            <div key={topic.name} className="sd-topic-wrap">
-
-              {/* Main card */}
-              <div
-                className={`sd-card sd-card-${topic.color} ${expanded === topic.name ? "sd-card-expanded" : ""}`}
-                onClick={() => topic.hasSubcategories ? toggle(topic.name) : go(topic.path)}
-              >
-                {/* Left accent stripe */}
-                <div className="sd-card-stripe" />
-
-                <div className="sd-card-icon">{topic.icon}</div>
-
-                <div className="sd-card-body">
-                  <h2 className="sd-card-name">{topic.name}</h2>
-                  <p className="sd-card-desc">{topic.description}</p>
-                </div>
-
-                <div className="sd-card-right">
-                  <span className="sd-card-count">
-                    {topic.count > 0 ? `${topic.count} Qs` : "Coming soon"}
-                  </span>
-                  {topic.hasSubcategories
-                    ? <ChevronDown size={16} className={`sd-chevron ${expanded === topic.name ? "sd-chevron-open" : ""}`} />
-                    : <ChevronRight size={16} className="sd-chevron" />
-                  }
-                </div>
-              </div>
-
-              {/* Subcategories drawer */}
-              {topic.hasSubcategories && expanded === topic.name && (
-                <div className="sd-subs">
-                  {topic.subcategories.map((sub) => (
-                    <button
-                      key={sub.name}
-                      className="sd-sub-card"
-                      onClick={() => go(sub.path, sub.questions)}
-                    >
-                      <span className="sd-sub-icon">{sub.icon}</span>
-                      <div className="sd-sub-text">
-                        <span className="sd-sub-name">{sub.name}</span>
-                        <span className="sd-sub-desc">{sub.description}</span>
-                      </div>
-                      <span className="sd-sub-count">{sub.count > 0 ? `${sub.count} Qs` : "—"}</span>
-                      <ChevronRight size={14} className="sd-sub-arrow" />
-                    </button>
-                  ))}
-                </div>
-              )}
+        {/* Stats strip */}
+        <div className="sd-stats-strip">
+          {[
+            { Icon: Layers,        label: "Subjects",  value: TOPICS.length },
+            { Icon: ClipboardList, label: "Questions", value: totalQuestions.toLocaleString() },
+            { Icon: BookOpen,      label: "Modes",     value: "Quiz + Flash" },
+          ].map(({ Icon, label, value }) => (
+            <div key={label} className="sd-stat-item">
+              <Icon size={15} className="sd-stat-icon" />
+              <span className="sd-stat-value">{value}</span>
+              <span className="sd-stat-label">{label}</span>
             </div>
           ))}
+        </div>
+
+        {/* Topic list */}
+        <div className="sd-list">
+          {TOPICS.map((topic) => {
+            const isOpen = expanded === topic.id;
+            const TIcon  = topic.Icon;
+
+            return (
+              <div key={topic.id} className="sd-topic-wrap">
+
+                {/* Main row */}
+                <div
+                  className={`sd-card ${isOpen ? "sd-card--open" : ""} ${topic.comingSoon ? "sd-card--muted" : ""}`}
+                  style={{ "--accent": topic.accent }}
+                  onClick={() => {
+                    if (topic.comingSoon) return;
+                    if (topic.hasSubcategories) toggle(topic.id);
+                    else go(topic.path, topic.questions);
+                  }}
+                >
+                  {/* Left accent bar */}
+                  <div className="sd-card-bar" />
+
+                  {/* Icon */}
+                  <div className="sd-card-icon-wrap">
+                    <TIcon size={20} />
+                  </div>
+
+                  {/* Text */}
+                  <div className="sd-card-text">
+                    <div className="sd-card-name-row">
+                      <span className="sd-card-name">{topic.name}</span>
+                      {topic.comingSoon && <span className="sd-coming-badge">Coming soon</span>}
+                    </div>
+                    <p className="sd-card-desc">{topic.description}</p>
+                  </div>
+
+                  {/* Right */}
+                  <div className="sd-card-right">
+                    {!topic.comingSoon && (
+                      <span className="sd-card-count">
+                        {topic.count > 0 ? `${topic.count} Qs` : "—"}
+                      </span>
+                    )}
+                    {topic.hasSubcategories
+                      ? <ChevronDown size={16} className={`sd-chevron ${isOpen ? "sd-chevron--open" : ""}`} />
+                      : !topic.comingSoon && <ChevronRight size={16} className="sd-chevron" />
+                    }
+                  </div>
+                </div>
+
+                {/* Subcategory drawer */}
+                {topic.hasSubcategories && isOpen && (
+                  <div className="sd-drawer">
+                    {topic.subcategories.map((sub) => {
+                      const SIcon = sub.Icon;
+                      return (
+                        <button
+                          key={sub.name}
+                          className="sd-sub-row"
+                          style={{ "--accent": topic.accent }}
+                          onClick={() => go(sub.path, sub.questions)}
+                        >
+                          <div className="sd-sub-icon-wrap">
+                            <SIcon size={15} />
+                          </div>
+                          <div className="sd-sub-text">
+                            <span className="sd-sub-name">{sub.name}</span>
+                            <span className="sd-sub-desc">{sub.description}</span>
+                          </div>
+                          <span className="sd-sub-count">
+                            {sub.count > 0 ? `${sub.count} Qs` : "—"}
+                          </span>
+                          <ChevronRight size={13} className="sd-sub-arrow" />
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+
+              </div>
+            );
+          })}
         </div>
 
         {/* AI prompt card */}
         <div className="sd-ai-card" onClick={() => navigate("/ai-quiz")}>
           <div className="sd-ai-card-left">
-            <div className="sd-ai-orb">✨</div>
-            <div>
-              <h3>Can't find what you need?</h3>
-              <p>Use the AI Quiz to generate custom questions on any topic, difficulty, or question type.</p>
+            <div className="sd-ai-orb">
+              <BrainCircuit size={22} />
+            </div>
+            <div className="sd-ai-card-text">
+              <h3>Need custom questions?</h3>
+              <p>Generate questions on any topic, difficulty or year level using AI.</p>
             </div>
           </div>
-          <button className="sd-ai-card-btn">Generate Quiz <ChevronRight size={14} /></button>
+          <button className="sd-ai-card-btn">
+            Generate Quiz <ChevronRight size={14} />
+          </button>
         </div>
 
       </div>

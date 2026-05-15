@@ -1,0 +1,1197 @@
+[
+  {
+    "id": "cs_001",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "A 45-year-old man presents with central chest pain radiating to his left arm for 30 minutes. Which feature in the history is MOST important to establish first?",
+    "options": [
+      "Onset and duration of pain",
+      "Associated nausea or vomiting",
+      "Previous cardiac history",
+      "Current medications"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In a patient presenting with suspected acute coronary syndrome, establishing the onset, duration, and character of pain is the highest priority as it directly influences the urgency of management and thrombolytic therapy decisions.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_002",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "When auscultating the heart, which area is best for hearing the mitral valve?",
+    "options": [
+      "Right 2nd intercostal space, sternal border",
+      "Left 2nd intercostal space, sternal border",
+      "Left 5th intercostal space, midclavicular line",
+      "Left 4th intercostal space, sternal border"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The mitral (bicuspid) valve is best auscultated at the apex of the heart, located at the left 5th intercostal space in the midclavicular line. This is also called the mitral area or apical area.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_003",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Procedural Skills",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "Before performing a lumbar puncture, which of the following is the MOST important assessment?",
+    "options": [
+      "Blood glucose level",
+      "Fundoscopy for papilloedema",
+      "Full blood count",
+      "Blood pressure measurement"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Fundoscopy to check for papilloedema is critical before LP. Raised intracranial pressure (evidenced by papilloedema) is a contraindication to LP as it risks cerebellar tonsillar herniation (coning).",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_004",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Diagnostics and Investigations",
+    "year": 3,
+    "difficulty": "hard",
+    "question": "A 70-year-old woman has an ECG showing ST elevation in leads II, III, and aVF. Which coronary artery is most likely occluded?",
+    "options": [
+      "Left anterior descending artery",
+      "Left circumflex artery",
+      "Right coronary artery",
+      "Left main coronary artery"
+    ],
+    "correctAnswer": 2,
+    "explanation": "ST elevation in the inferior leads (II, III, aVF) indicates an inferior STEMI, most commonly caused by occlusion of the right coronary artery (RCA), which supplies the inferior wall of the left ventricle in most patients.",
+    "xpValue": 15
+  },
+  {
+    "id": "cs_005",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Communication Skills",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "When breaking bad news to a patient, which framework is most widely recommended?",
+    "options": [
+      "SBAR",
+      "SPIKES",
+      "ISBAR",
+      "SOAP"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The SPIKES protocol (Setting, Perception, Invitation, Knowledge, Emotions/Empathy, Strategy/Summary) is the internationally recognised framework for breaking bad news to patients and their families.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_006",
+    "type": "short",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Name the clinical sign where the liver dullness disappears on percussion due to free air under the diaphragm.",
+    "correctAnswer": "Loss of liver dullness",
+    "answer": "Loss of liver dullness",
+    "explanation": "Free air (pneumoperitoneum) under the right hemidiaphragm obliterates the normal dullness over the liver on percussion. This is a classic sign of a perforated viscus and is best confirmed with an erect chest X-ray showing air under the diaphragm.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_037",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "When assessing a patient with abdominal pain, which question helps identify peritonitis?",
+    "options": [
+      "Does the pain move around?",
+      "Does movement or coughing make the pain worse?",
+      "When did you last eat?",
+      "Are you allergic to pain relief?"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Movement and coughing exacerbating abdominal pain suggests peritoneal irritation (peritonitis). This is a key clinical pointer for serious intra-abdominal pathology.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_038",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "When examining the abdomen, which examination technique should be performed LAST?",
+    "options": [
+      "Inspection",
+      "Palpation",
+      "Percussion",
+      "Auscultation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Palpation should be performed last because it may cause bowel sounds to change, making auscultation less reliable. The correct order is: inspection, auscultation, percussion, palpation.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_039",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Procedural Skills",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "What is the correct depth for chest compressions in adult CPR?",
+    "options": [
+      "2-3 cm",
+      "3-4 cm",
+      "5-6 cm",
+      "7-8 cm"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The recommended compression depth for adults is 5-6 cm (or at least one-third of thoracic depth). This ensures adequate perfusion without excessive injury.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_040",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Diagnostics and Investigations",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "A patient has a urinalysis showing hematuria with RBC casts. What does this suggest?",
+    "options": [
+      "Urinary tract infection",
+      "Kidney stone",
+      "Glomerulonephritis",
+      "Bladder cancer"
+    ],
+    "correctAnswer": 2,
+    "explanation": "RBC casts in urine indicate glomerulonephritis or other glomerular disease. The presence of casts indicates the hematuria originates from the kidney, not the lower urinary tract.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_041",
+    "type": "short",
+    "subject": "Clinical Skills",
+    "topic": "Communication Skills",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "Define the term 'rapport' in the context of clinical communication.",
+    "correctAnswer": "A trusting and empathetic relationship between healthcare professional and patient",
+    "answer": "A trusting and empathetic relationship between healthcare professional and patient",
+    "explanation": "Rapport involves building trust, showing genuine interest, and demonstrating empathy. It forms the foundation for effective communication and patient cooperation.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_042",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 3,
+    "difficulty": "hard",
+    "question": "A patient with chronic cough refuses to disclose their smoking history. How should this be documented?",
+    "options": [
+      "Document as non-smoker since no confirmation was obtained",
+      "Document as smoker to cover all bases",
+      "Document that the patient refused to disclose",
+      "Omit the smoking history entirely"
+    ],
+    "correctAnswer": 2,
+    "explanation": "When a patient refuses to provide information, this refusal should be documented clearly. This is accurate documentation and maintains legal and clinical standards.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_043",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "Which vital sign abnormality is most concerning in a patient with acute stroke?",
+    "options": [
+      "Tachycardia (HR 100)",
+      "Bradycardia with hypertension",
+      "Hypotension",
+      "Tachypnea (RR 18)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Bradycardia with hypertension (Cushing's triad with bradycardia) can indicate increased intracranial pressure from a large stroke. This requires urgent intervention.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_044",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Procedural Skills",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "When taking a blood sample from a peripheral vein, which vein is generally preferred?",
+    "options": [
+      "Basilic vein",
+      "Cephalic vein",
+      "Median cubital vein",
+      "Radial artery"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The median cubital vein is the preferred site for venipuncture as it is superficial, easily accessible, relatively immobile, and away from nerves and arteries.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_045",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Diagnostics and Investigations",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "A patient with suspected deep vein thrombosis (DVT) has a normal D-dimer. What is the clinical significance?",
+    "options": [
+      "DVT is confirmed",
+      "DVT is ruled out",
+      "DVT is likely but not confirmed",
+      "Further imaging is not needed"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A normal D-dimer has high negative predictive value for DVT and can safely exclude DVT in low-risk patients. This helps reduce unnecessary imaging.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_046",
+    "type": "short",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "What is the name of the reflex tested by tapping just below the kneecap?",
+    "correctAnswer": "Patellar reflex or knee jerk reflex",
+    "answer": "Patellar reflex",
+    "explanation": "The patellar reflex (knee jerk) is tested by tapping the patellar tendon with a reflex hammer. It tests the L3-L4 nerve roots and is one of the deep tendon reflexes.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_047",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Communication Skills",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "A patient appears anxious during consultation. What is the most appropriate response?",
+    "options": [
+      "Tell them not to worry",
+      "Acknowledge their anxiety and explore the cause",
+      "Proceed quickly to finish the consultation",
+      "Prescribe anxiolytics immediately"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Acknowledging and exploring the patient's anxiety demonstrates empathy and may reveal important clinical information. It also helps reduce anxiety through validation.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_048",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "When taking a family history, how many generations should typically be explored?",
+    "options": [
+      "One generation (parents only)",
+      "Two generations (parents and grandparents)",
+      "Three generations (parents, grandparents, and siblings)",
+      "As far back as the patient can remember"
+    ],
+    "correctAnswer": 2,
+    "explanation": "A comprehensive family history should include at least three generations to identify inherited patterns and genetic predisposition to disease.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_049",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 3,
+    "difficulty": "hard",
+    "question": "A patient with aortic regurgitation presents with early diastolic and late systolic murmurs. What does this signify?",
+    "options": [
+      "Severe aortic regurgitation with functional mitral stenosis",
+      "Mixed aortic valve disease",
+      "Atrial septal defect",
+      "Patent ductus arteriosus"
+    ],
+    "correctAnswer": 0,
+    "explanation": "In severe aortic regurgitation, the diastolic murmur is heard, and the jet of regurgitant flow can cause functional mitral stenosis, producing a late systolic (Austin Flint) murmur.",
+    "xpValue": 15
+  },
+  {
+    "id": "cs_050",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Procedural Skills",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "What is the maximum time recommended for palpating for the carotid pulse during CPR?",
+    "options": [
+      "5-10 seconds",
+      "10-15 seconds",
+      "No longer than 10 seconds",
+      "60 seconds"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The carotid pulse should be checked for no longer than 10 seconds during cardiac arrest assessment. Current guidelines emphasize doing so quickly to avoid delays in starting compressions.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_051",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Diagnostics and Investigations",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "A patient has elevated serum creatinine with normal glomerular filtration rate. What might this indicate?",
+    "options": [
+      "Acute kidney injury",
+      "Chronic kidney disease",
+      "Increased muscle mass or rhabdomyolysis",
+      "Dehydration"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Elevated creatinine with normal GFR may indicate increased muscle mass (athletes) or muscle breakdown (rhabdomyolysis). Creatinine is not a reliable marker of kidney function in these situations.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_052",
+    "type": "short",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "Name the four domains of a comprehensive medication history.",
+    "correctAnswer": "Name, dose, frequency, indication; adverse effects; adherence; interactions",
+    "answer": "Name, dose, frequency, indication; adverse effects; adherence; interactions",
+    "explanation": "A complete medication history should cover: medication name, dose, frequency and indication; any adverse effects experienced; medication adherence; and potential drug interactions.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_053",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Communication Skills",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "A patient disagrees with a recommended treatment. What ethical principle should guide your response?",
+    "options": [
+      "Beneficence (doing what you think is best)",
+      "Respect for autonomy (patient's right to choose)",
+      "Justice (treating all patients equally)",
+      "Non-maleficence (avoiding harm)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Respect for autonomy is fundamental to modern medical ethics. Patients have the right to make informed decisions about their treatment, even if it differs from medical recommendations.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_054",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "Which finding on examination of the thyroid would suggest malignancy?",
+    "options": [
+      "Smooth, symmetrical enlargement",
+      "Tender, painful nodule",
+      "Hard, fixed nodule with irregular borders",
+      "Mobile, soft swelling"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Hard, fixed nodules with irregular borders that don't move with swallowing are red flags for malignancy. Smooth, mobile nodules are more likely benign.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_055",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Procedural Skills",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "What is the recommended compression-to-ventilation ratio in CPR?",
+    "options": [
+      "15:2",
+      "30:2",
+      "50:2",
+      "100:1"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The recommended ratio is 30 chest compressions to 2 rescue breaths (30:2). This ratio has been shown to improve outcomes and is easier to remember.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_056",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Diagnostics and Investigations",
+    "year": 3,
+    "difficulty": "hard",
+    "question": "A patient with new-onset atrial fibrillation presents with rapid ventricular response. What is the immediate priority?",
+    "options": [
+      "Start anticoagulation",
+      "Obtain anticoagulation reversal",
+      "Control ventricular rate",
+      "Perform DC cardioversion"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Initial management of rapid AF focuses on controlling the ventricular rate to prevent hemodynamic compromise and reduce myocardial ischemia. Other interventions follow once rate is controlled.",
+    "xpValue": 15
+  },
+  {
+    "id": "cs_057",
+    "type": "short",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "What is the term for an abnormal gait where the foot is raised high to clear it during the swing phase?",
+    "correctAnswer": "Steppage gait or foot drop gait",
+    "answer": "Steppage gait",
+    "explanation": "Steppage gait (or foot drop) is characteristic of foot drop, commonly seen with common peroneal nerve palsy or anterior tibial weakness.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_058",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "When assessing alcohol consumption, which term describes alcohol use disorder?",
+    "options": [
+      "Drinking any alcohol daily",
+      "Drinking more than recommended safe limits with harmful consequences",
+      "Drinking more than one unit per day",
+      "Drinking without food"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Alcohol use disorder is characterized by problematic alcohol use despite negative consequences, loss of control, tolerance, and withdrawal symptoms.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_059",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Communication Skills",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "Which non-verbal communication skill is most important during a clinical consultation?",
+    "options": [
+      "Speaking loudly and clearly",
+      "Maintaining appropriate eye contact and open body posture",
+      "Writing detailed notes",
+      "Using medical jargon appropriately"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Maintaining eye contact and open body posture convey attention, respect, and engagement. This facilitates better communication and builds rapport.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_060",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "A patient has clubbing of the nails. Which system is most likely affected?",
+    "options": [
+      "Gastrointestinal system only",
+      "Cardiovascular or respiratory system",
+      "Endocrine system",
+      "Musculoskeletal system"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Clubbing is associated with chronic hypoxia and is commonly seen in cardiovascular disease (cyanotic heart disease, endocarditis) and respiratory disease (lung cancer, bronchiectasis).",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_061",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Procedural Skills",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "Before central venous catheter insertion, what is the most critical step?",
+    "options": [
+      "Select the largest bore catheter available",
+      "Perform full aseptic technique and obtain informed consent",
+      "Position the patient supine",
+      "Apply local anesthetic"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Aseptic technique and informed consent are critical to prevent infection and respect patient autonomy. These should be completed before any procedural steps.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_062",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Diagnostics and Investigations",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "A chest X-ray shows a 'silhouette sign' on the right side. What does this suggest?",
+    "options": [
+      "Normal variant of cardiac silhouette",
+      "Consolidation in the middle lobe or right lower lobe",
+      "Pleural effusion",
+      "Pneumothorax"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The silhouette sign occurs when consolidation in the middle or lower lobe obscures the normal border of the heart or mediastinum on the CXR.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_063",
+    "type": "short",
+    "subject": "Clinical Skills",
+    "topic": "Communication Skills",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Define the term 'informed consent' in clinical practice.",
+    "correctAnswer": "Consent obtained after the patient understands the procedure, risks, benefits, and alternatives",
+    "answer": "Informed consent",
+    "explanation": "Informed consent is consent given voluntarily by a competent patient after understanding the nature, risks, benefits, and alternatives of a proposed treatment or procedure.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_064",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 3,
+    "difficulty": "hard",
+    "question": "A patient with depression requests that you don't discuss their mental health with their partner. How should you respond?",
+    "options": [
+      "Agree to keep it completely secret",
+      "Tell the partner anyway as it's important for their care",
+      "Respect confidentiality but discuss the potential benefits of involving the partner",
+      "Refuse to treat the patient"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Patient confidentiality should be respected, but discussing the benefits of partner involvement and exploring the patient's concerns is a respectful, patient-centered approach.",
+    "xpValue": 15
+  },
+  {
+    "id": "cs_065",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "When examining the respiratory system, what is 'bronchial breathing'?",
+    "options": [
+      "Normal breath sounds heard over the lungs",
+      "High-pitched breathing through the nose",
+      "Breath sounds similar to those heard over the trachea, heard over the lungs",
+      "Wheezing heard during expiration"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Bronchial breathing is harsh, high-pitched breathing similar to sounds over the trachea, heard over consolidated lung (pneumonia). It indicates increased consolidation.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_066",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Procedural Skills",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "What is the safest approach for needle insertion during a lumbar puncture?",
+    "options": [
+      "Midline approach between the spinous processes",
+      "Lateral approach avoiding the midline",
+      "Approach from the side of the patient's condition",
+      "Posterior approach at the level of L1-L2"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The midline approach between spinous processes at L3-L4 or L4-L5 is safest, as it avoids major vessels and allows identification of the ligamentum flavum.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_067",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Diagnostics and Investigations",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "A patient with chest pain has negative troponin at presentation. When should repeat testing be done?",
+    "options": [
+      "Not necessary if initial troponin is negative",
+      "3 hours after presentation",
+      "6 hours after symptom onset",
+      "Serial troponins at 0, 3, and 6 hours"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Serial troponin measurements at 0, 3, and 6 hours are recommended to detect the rise and fall pattern characteristic of MI, as single negative troponin doesn't rule out MI.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_068",
+    "type": "short",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "What does the acronym HEADS stand for in adolescent history taking?",
+    "correctAnswer": "Home, Education, Activities, Drugs, Sexuality",
+    "answer": "Home, Education, Activities, Drugs, Sexuality",
+    "explanation": "HEADS is a comprehensive screening tool for adolescent psychosocial history covering home environment, education, activities/peers, drug use, and sexual health.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_069",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Communication Skills",
+    "year": 3,
+    "difficulty": "hard",
+    "question": "A patient refuses a life-saving blood transfusion due to religious beliefs. What is the most appropriate action?",
+    "options": [
+      "Transfuse anyway to save their life",
+      "Refuse to treat the patient",
+      "Respect the refusal, document it, and explore alternatives",
+      "Ask the family to override the patient's wish"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Respecting patient autonomy and informed refusal is fundamental, even if it leads to harm. Document the discussion and explore alternatives like cell salvage or volume expansion.",
+    "xpValue": 15
+  },
+  {
+    "id": "cs_070",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "When examining a patient with suspected pulmonary embolism, what is the classic finding?",
+    "options": [
+      "Crackles at both lung bases",
+      "Unilateral reduced air entry with pleuritic friction rub",
+      "Bilateral wheezing",
+      "No abnormal findings (often normal)"
+    ],
+    "correctAnswer": 3,
+    "explanation": "PE often has no characteristic examination findings, which is why clinical suspicion and investigation (D-dimer, CT PE) are essential. Findings like unilateral reduced air entry suggest alternative diagnosis like pneumonia.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_071",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Procedural Skills",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "What is the most common serious complication of central venous catheterization?",
+    "options": [
+      "Infection",
+      "Pneumothorax",
+      "Air embolism",
+      "Thrombosis"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Pneumothorax is a common serious mechanical complication of CVC insertion, particularly with subclavian or internal jugular approaches. Risk increases with operator experience.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_072",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Diagnostics and Investigations",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "A patient has an LDH level of 500 U/L (normal 140-280). Which tissue damage is most likely?",
+    "options": [
+      "Liver damage only",
+      "Cardiac or skeletal muscle damage",
+      "Kidney damage",
+      "Pancreatic damage"
+    ],
+    "correctAnswer": 1,
+    "explanation": "LDH is elevated in myocardial infarction, hemolysis, and skeletal muscle injury. It's non-specific but useful in conjunction with other findings.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_073",
+    "type": "short",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "What is the eponym for the diastolic murmur heard at the left sternal border in aortic regurgitation?",
+    "correctAnswer": "Austin Flint murmur (when there is also mitral stenosis from the AR jet)",
+    "answer": "Early diastolic murmur of aortic regurgitation",
+    "explanation": "Aortic regurgitation produces a high-pitched, blowing early diastolic murmur best heard with the patient leaning forward. When severe, it can cause functional mitral stenosis.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_074",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "Which of the following is NOT part of the standard social history?",
+    "options": [
+      "Smoking status",
+      "Alcohol consumption",
+      "Occupation",
+      "Blood pressure readings"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Blood pressure readings are vital signs, not part of social history. Social history includes smoking, alcohol, drugs, occupation, living situation, and relationships.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_075",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Communication Skills",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "What is the benefit of using the 'teach-back' method in patient education?",
+    "options": [
+      "It makes the consultation shorter",
+      "It verifies the patient's understanding of health information",
+      "It reduces the need for written information",
+      "It increases the professional authority of the clinician"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The teach-back method involves asking patients to explain back what they've learned, allowing verification of understanding and identification of gaps in comprehension.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_076",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 3,
+    "difficulty": "hard",
+    "question": "A patient has a new murmur with hyperdynamic precordium and wide pulse pressure. What is most likely?",
+    "options": [
+      "Aortic stenosis",
+      "Mitral stenosis",
+      "Aortic regurgitation",
+      "Tricuspid stenosis"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Aortic regurgitation causes a hyperdynamic precordium, collapsing pulses, wide pulse pressure (high systolic, low diastolic), and an early diastolic murmur.",
+    "xpValue": 15
+  },
+  {
+    "id": "cs_077",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Procedural Skills",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "What is the correct position for performing an arterial blood gas (ABG) puncture from the radial artery?",
+    "options": [
+      "Wrist extended, palm down",
+      "Wrist extended, palm up",
+      "Wrist flexed, palm down",
+      "Wrist flexed, palm up"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The wrist should be extended (dorsiflex) and palm facing up. This positions the radial artery superficially at the wrist crease for easier access.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_078",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Diagnostics and Investigations",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "A patient with atypical chest pain has a negative troponin and normal ECG. What is the next appropriate step?",
+    "options": [
+      "Discharge without further investigation",
+      "Repeat troponin at 6 hours",
+      "Perform exercise stress test or coronary imaging",
+      "Start antiplatelet therapy"
+    ],
+    "correctAnswer": 2,
+    "explanation": "In patients with atypical symptoms and normal initial markers, further risk stratification is needed. Stress testing or coronary imaging may be appropriate depending on risk factors.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_079",
+    "type": "short",
+    "subject": "Clinical Skills",
+    "topic": "Communication Skills",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Define 'shared decision-making' in clinical practice.",
+    "correctAnswer": "A collaborative process where healthcare professionals and patients discuss treatment options and decide together based on patient values and preferences",
+    "answer": "Shared decision-making",
+    "explanation": "Shared decision-making involves clinicians presenting evidence-based options and patients expressing their preferences and values to reach a joint decision.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_080",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "A patient with multiple chronic conditions reports medication non-adherence. What is the best approach?",
+    "options": [
+      "Prescribe simpler medication regimens",
+      "Explore barriers to adherence and involve patient in problem-solving",
+      "Blame the patient for not following instructions",
+      "Refer to psychiatry for compliance issues"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Understanding barriers (cost, side effects, complexity, beliefs) and collaborative problem-solving is more effective than blame. This patient-centered approach improves outcomes.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_081",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "Which physical finding is most specific for heart failure?",
+    "options": [
+      "Peripheral edema alone",
+      "Raised JVP with hepatomegaly and peripheral edema",
+      "Tachycardia alone",
+      "Elevated respiratory rate"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The combination of raised JVP, hepatomegaly, and peripheral edema is specific for right heart failure. Single findings are non-specific.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_082",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Procedural Skills",
+    "year": 3,
+    "difficulty": "hard",
+    "question": "A patient experiences severe pain during a procedure despite adequate local anesthesia. What is the most appropriate action?",
+    "options": [
+      "Continue the procedure as planned",
+      "Tell them the pain is not real",
+      "Stop, reassess the anesthesia, and consider alternative approaches",
+      "Give IV anesthesia without discussing it"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Severe pain indicates inadequate anesthesia. The procedure should be stopped, anesthesia reassessed, and alternative approaches (deeper infiltration, systemic anesthesia) considered.",
+    "xpValue": 15
+  },
+  {
+    "id": "cs_083",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Diagnostics and Investigations",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "A patient with acute dyspnea has an ECG showing new T-wave inversion in leads II, III, aVF. What is the most likely diagnosis?",
+    "options": [
+      "Left anterior descending artery MI",
+      "Right coronary artery MI or ischemia",
+      "Pulmonary embolism",
+      "Anxiety"
+    ],
+    "correctAnswer": 1,
+    "explanation": "T-wave inversion in inferior leads suggests inferior wall MI or ischemia, typically from RCA occlusion. This requires urgent evaluation and treatment.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_084",
+    "type": "short",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "What is the normal range for the apical impulse (point of maximum impulse) location?",
+    "correctAnswer": "5th intercostal space, midclavicular line",
+    "answer": "5th intercostal space, midclavicular line",
+    "explanation": "The normal apical impulse is located at the 5th intercostal space in the midclavicular line, approximately 2 cm in diameter, and non-sustained.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_085",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Communication Skills",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "How should a clinician handle a patient who is angry or upset during a consultation?",
+    "options": [
+      "Match their anger to show empathy",
+      "Remain calm, listen actively, and acknowledge their feelings",
+      "Discharge them from the clinic immediately",
+      "Reduce the consultation time"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Remaining calm, listening actively, and validating emotions help defuse anger and facilitate better communication. This demonstrates professionalism and empathy.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_086",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "When assessing a patient with syncope, which question is most important?",
+    "options": [
+      "Was there loss of consciousness?",
+      "What were you doing immediately before you collapsed?",
+      "Did you fall to the ground?",
+      "Were there any warning signs or prodrome?"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Prodromal symptoms (dizziness, palpitations, chest pain) help distinguish syncope from other causes of collapse and narrow the differential diagnosis.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_087",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 3,
+    "difficulty": "hard",
+    "question": "A patient with cirrhosis has a palpable spleen extending 3 cm below the costal margin. What clinical sign does this represent?",
+    "options": [
+      "Hepatomegaly",
+      "Splenomegaly from portal hypertension",
+      "Renal mass",
+      "Left-sided heart failure"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Splenomegaly in cirrhosis indicates portal hypertension and is due to splenic vein congestion. The spleen may be palpable 1-2 cm below the costal margin.",
+    "xpValue": 15
+  },
+  {
+    "id": "cs_088",
+    "type": "short",
+    "subject": "Clinical Skills",
+    "topic": "Diagnostics and Investigations",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "What does a positive Rovsing's sign indicate in abdominal examination?",
+    "correctAnswer": "Appendicitis",
+    "answer": "Appendicitis",
+    "explanation": "Rovsing's sign is pain in the right lower quadrant elicited by palpation of the left lower quadrant. It suggests peritoneal inflammation from appendicitis.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_089",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Communication Skills",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "A patient asks 'Doctor, will I die from this condition?' How should you respond?",
+    "options": [
+      "No, you'll be absolutely fine",
+      "Nobody knows for certain what the future holds",
+      "Provide honest prognostic information based on evidence and offer support",
+      "Change the subject to tests and treatment"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Honesty, evidence-based prognostic information, and emotional support provide the patient with realistic expectations while maintaining hope and rapport.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_090",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "A patient with diabetes reports hypoglycemic episodes but denies symptoms. What is this condition called?",
+    "options": [
+      "Hyperglycemia unawareness",
+      "Hypoglycemia unawareness",
+      "Brittle diabetes",
+      "Dawn phenomenon"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hypoglycemia unawareness is a serious complication where patients don't recognize symptoms of low blood glucose, increasing risk of severe hypoglycemia and seizures.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_091",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Procedural Skills",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "What is the appropriate needle gauge for routine phlebotomy in adults?",
+    "options": [
+      "25 gauge",
+      "23 gauge",
+      "20 gauge",
+      "18 gauge"
+    ],
+    "correctAnswer": 1,
+    "explanation": "23 gauge needles are standard for routine phlebotomy as they provide good flow rates while minimizing vessel trauma and patient discomfort.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_092",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Diagnostics and Investigations",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "A patient with new-onset hypertension has elevated renin and low aldosterone. What is the likely diagnosis?",
+    "options": [
+      "Primary hyperaldosteronism",
+      "Secondary hypertension from renal artery stenosis",
+      "Cushing's syndrome",
+      "Essential hypertension"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Secondary hypertension from renal artery stenosis causes elevated renin with low aldosterone due to angiotensin-mediated hypertension without primary adrenal involvement.",
+    "xpValue": 15
+  },
+  {
+    "id": "cs_093",
+    "type": "short",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Name the clinical sign where squeezing the calf produces foot pain, suggestive of deep vein thrombosis.",
+    "correctAnswer": "Homan's sign",
+    "answer": "Homan's sign",
+    "explanation": "Homan's sign is calf pain elicited by dorsiflexing the foot. While suggestive of DVT, it has poor specificity and sensitivity. Proper imaging (ultrasound) is essential for diagnosis.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_094",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Communication Skills",
+    "year": 3,
+    "difficulty": "hard",
+    "question": "A competent adult patient requests that you withhold information about their diagnosis from their family. What is the ethical obligation?",
+    "options": [
+      "Respect the patient's wishes regarding confidentiality",
+      "Inform the family despite the patient's request",
+      "Refuse to treat the patient",
+      "Seek legal advice before deciding"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Respecting patient confidentiality and autonomy is paramount in medical ethics. Information should not be disclosed to family members without explicit consent from the competent patient.",
+    "xpValue": 15
+  },
+  {
+    "id": "cs_095",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "When taking a sexual history, which approach is most respectful and effective?",
+    "options": [
+      "Avoid asking about sexual activity to prevent embarrassment",
+      "Use direct, non-judgmental language and normalize the conversation",
+      "Ask in a dismissive manner to show clinical distance",
+      "Ask only if a sexual issue is obvious"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Using non-judgmental, respectful language normalizes discussions about sexual health and encourages patients to disclose important information.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_096",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Physical Examination",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "A patient with hyperthyroidism presents with tremor. Which type of tremor is characteristic?",
+    "options": [
+      "Coarse tremor at rest",
+      "Fine tremor with hands outstretched",
+      "Intention tremor",
+      "Irregular tremor with movement"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hyperthyroidism causes fine postural tremor (hands outstretched), due to increased sympathetic activity. This is different from Parkinsonian resting tremor.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_097",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Procedural Skills",
+    "year": 3,
+    "difficulty": "medium",
+    "question": "What is the recommended site for intraosseous access in pediatric resuscitation?",
+    "options": [
+      "Distal femur only",
+      "Proximal tibia (preferred) or proximal humerus",
+      "Distal tibia",
+      "Iliac crest"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Proximal tibia (2-3 cm below tibial tuberosity) is the preferred site for IO access in children. Proximal humerus is an alternative. These sites have good flow rates.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_098",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "Diagnostics and Investigations",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "A chest X-ray shows 'bat wing' appearance in the lungs. What does this indicate?",
+    "options": [
+      "Pneumonia",
+      "Pulmonary edema from acute heart failure",
+      "Pleural effusion",
+      "Pneumothorax"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The 'bat wing' or butterfly pattern in the central lung fields is characteristic of acute pulmonary edema, typically from acute decompensated heart failure.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_099",
+    "type": "short",
+    "subject": "Clinical Skills",
+    "topic": "Communication Skills",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "What is the purpose of 'silence' in therapeutic communication?",
+    "correctAnswer": "To allow the patient time to process and express their thoughts and feelings",
+    "answer": "To allow the patient time to process and express their thoughts and feelings",
+    "explanation": "Therapeutic silence gives patients space to think, process emotions, and elaborate on their concerns without feeling rushed. It demonstrates respect and active listening.",
+    "xpValue": 10
+  },
+  {
+    "id": "cs_100",
+    "type": "mcq",
+    "subject": "Clinical Skills",
+    "topic": "History Taking",
+    "year": 3,
+    "difficulty": "hard",
+    "question": "A patient with atrial fibrillation refuses anticoagulation despite high stroke risk. How should you respond?",
+    "options": [
+      "Start anticoagulation anyway for their own good",
+      "Discharge the patient if they won't comply",
+      "Document refusal, discuss risks/benefits again, and explore reasons for refusal",
+      "Tell them they will definitely have a stroke"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Respecting patient autonomy while documenting refusal and exploring reasons is ethically sound. Re-discussion of risks/benefits and barriers may lead to better adherence.",
+    "xpValue": 15
+  }
+]
