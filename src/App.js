@@ -33,6 +33,7 @@ import DoctorLadder from "./pages/DoctorLadder";
 import ClinicalBlackBox from "./pages/ClinicalBlackBox";
 import BlitzHost from "./pages/BlitzHost";
 import BlitzJoin from "./pages/BlitzJoin";
+import PharmaRoulette from "./pages/PharmaRoulette";
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
@@ -119,6 +120,7 @@ function App() {
           <Route path="/mcq-blitz"         element={<MCQBlitz />} />
           <Route path="/doctor-ladder"     element={<DoctorLadder />} />
           <Route path="/clinical-blackbox" element={<ClinicalBlackBox />} />
+          <Route path="/pharma-roulette"   element={<PharmaRoulette />} />
 
           {/* Study PDF Quiz */}
           <Route path="/study-pdf-quiz" element={<StudentPDFQuiz />} />

@@ -1,57 +1,1707 @@
 ﻿[
   {
-    "id": "embryo_001",
-    "text": "What is formed when a sperm fertilizes an ovum?",
-    "options": ["Morula", "Blastocyst", "Zygote", "Gamete"],
-    "correctAnswer": 2,
-    "xpValue": 2,
+    "id": "emb_001",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Germ Layers",
+    "year": 1,
     "difficulty": "easy",
-    "year": 1,
-    "category": "Embryology",
-    "explanation": "The fertilized egg is called a zygote."
+    "question": "Which germ layer gives rise to the nervous system?",
+    "options": [
+      "Ectoderm",
+      "Mesoderm",
+      "Endoderm",
+      "Notochord"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The ectoderm is the outer germ layer that gives rise to the central nervous system, peripheral nervous system, and skin epidermis. The process is called neurulation.",
+    "xpValue": 10
   },
   {
-    "id": "embryo_002",
-    "text": "What is the 16-cell stage called?",
-    "options": ["Zygote", "Blastocyst", "Morula", "Gastrula"],
-    "correctAnswer": 2,
-    "xpValue": 2,
+    "id": "emb_002",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Germ Layers",
+    "year": 1,
     "difficulty": "easy",
-    "year": 1,
-    "category": "Embryology",
-    "explanation": "The morula is the solid ball of 16-32 cells."
-  },
-  {
-    "id": "embryo_003",
-    "text": "Where does implantation normally occur?",
-    "options": ["Fallopian tube", "Cervix", "Fundus of uterus", "Ovary"],
-    "correctAnswer": 2,
-    "xpValue": 3,
-    "difficulty": "medium",
-    "year": 1,
-    "category": "Embryology",
-    "explanation": "Implantation typically occurs in the fundus of the uterus."
-  },
-  {
-    "id": "embryo_004",
-    "text": "What does the inner cell mass of the blastocyst become?",
-    "options": ["Placenta", "Embryo proper", "Amnion", "Chorion"],
+    "question": "The endoderm primarily forms which organ system?",
+    "options": [
+      "Skeletal system",
+      "Digestive system and respiratory system",
+      "Nervous system",
+      "Muscle system"
+    ],
     "correctAnswer": 1,
-    "xpValue": 5,
-    "difficulty": "hard",
-    "year": 1,
-    "category": "Embryology",
-    "explanation": "The inner cell mass develops into the embryo proper."
+    "explanation": "The endoderm gives rise to the lining of the digestive tract, respiratory tract, and associated organs (liver, pancreas). It forms the epithelial lining of these structures.",
+    "xpValue": 10
   },
   {
-    "id": "embryo_005",
-    "text": "What is the function of the placenta?",
-    "options": ["Produces hormones", "Exchanges nutrients and waste", "Protects the fetus", "All of the above"],
-    "correctAnswer": 3,
-    "xpValue": 3,
+    "id": "emb_003",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Cardiac Development",
+    "year": 2,
     "difficulty": "medium",
+    "question": "The heart develops from which tissue layer?",
+    "options": [
+      "Splanchnic mesoderm",
+      "Somatic mesoderm",
+      "Myotome",
+      "Sclerotome"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The heart develops from splanchnic mesoderm derived from the lateral plate mesoderm. The splanchnic layer forms the myocardium, epicardium, and endocardium.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_004",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Neural Development",
     "year": 1,
-    "category": "Embryology",
-    "explanation": "The placenta provides nutrient exchange, waste removal, and hormone production."
+    "difficulty": "medium",
+    "question": "Name the process by which the neural tube forms from the neural plate.",
+    "correctAnswer": "Neurulation",
+    "answer": "Neurulation",
+    "explanation": "Neurulation is the process where the neural plate folds to form the neural tube during weeks 3-4 of development. The neural crest cells also arise during this process.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_005",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Skeletal Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Bones of the skull develop from which embryonic origin?",
+    "options": [
+      "Somites only",
+      "Neural crest cells and mesoderm",
+      "Endoderm",
+      "Ectoderm only"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Skull bones develop from both neural crest cells (vault and facial bones) and mesoderm (base of skull). This mixed origin explains some developmental anomalies.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_006",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Limb Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Which structure gives rise to the skeletal elements of the limbs?",
+    "options": [
+      "Ectoderm",
+      "Lateral plate mesoderm",
+      "Somites",
+      "Endoderm"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Limb buds develop from lateral plate mesoderm. The musculature comes from somites, while the skeleton develops from mesenchyme in the limb buds.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_007",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Face Development",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "A cleft palate can result from failure of which embryonic structures to fuse?",
+    "options": [
+      "Maxillary and mandibular processes only",
+      "Palatal shelves with nasal septum and each other",
+      "Frontonasal process with maxillary processes",
+      "Mandibular processes only"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Cleft palate results from failure of the palatal shelves to fuse with each other and with the nasal septum during weeks 6-9 of development.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_008",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Pharyngeal Arches",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Name the nerve of the first pharyngeal arch.",
+    "correctAnswer": "Mandibular division of trigeminal nerve (CN V3)",
+    "answer": "Trigeminal nerve (CN V3)",
+    "explanation": "The mandibular division of the trigeminal nerve (CN V3) is the nerve of the first pharyngeal arch. It innervates muscles of mastication and provides sensory innervation.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_009",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Respiratory Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The lungs develop from which embryonic structure?",
+    "options": [
+      "Dorsal mesentery of esophagus",
+      "Ventral foregut diverticulum (laryngotracheal diverticulum)",
+      "Splanchnic mesoderm",
+      "Pharyngeal pouches"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The respiratory system develops from the laryngotracheal diverticulum, an outgrowth of the ventral foregut endoderm during week 4 of development.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_010",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Urogenital Development",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "Which structure is the embryonic origin of the penis and clitoris?",
+    "options": [
+      "Genital swellings",
+      "Labioscrotal swellings",
+      "Urethral folds",
+      "Genital tubercle"
+    ],
+    "correctAnswer": 3,
+    "explanation": "The genital tubercle elongates to form the penis in males and the clitoris in females. Sexual differentiation depends on hormonal influences during weeks 8-12.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_011",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Cardiovascular Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The ductus arteriosus is a fetal shunt connecting which two vessels?",
+    "options": [
+      "Superior vena cava to right atrium",
+      "Pulmonary artery to aorta",
+      "Left atrium to right atrium",
+      "Umbilical artery to umbilical vein"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The ductus arteriosus is a vascular shunt between the pulmonary artery and descending aorta that allows blood to bypass the fetal lungs. It normally closes after birth.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_012",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Heart Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Name the three regions of the primitive heart tube from cranial to caudal.",
+    "correctAnswer": "Truncus arteriosus, ventricle, atrium",
+    "answer": "Truncus arteriosus, ventricle, atrium",
+    "explanation": "The primitive heart tube has three regions: truncus arteriosus (cranial), ventricle (middle), and atrium (caudal). These undergo differential growth and looping to form the heart.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_013",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Neural Crest",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "Which of the following does NOT derive from neural crest cells?",
+    "options": [
+      "Melanocytes",
+      "Adrenal medulla",
+      "Connective tissue of the heart",
+      "Motor neurons of the spinal cord"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Motor neurons develop from the ventral neural tube (basal plate), not from neural crest. Neural crest cells form sensory neurons, autonomic neurons, and various other structures.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_014",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "GI Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "A Meckel's diverticulum results from incomplete closure of which embryonic structure?",
+    "options": [
+      "Omphalomesenteric duct",
+      "Allantois",
+      "Vitelline duct",
+      "Foregut"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Meckel's diverticulum results from incomplete obliteration of the omphalomesenteric (vitelline) duct. It's found in about 2% of the population and occurs about 2 feet from the ileocecal valve.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_015",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Muscle Development",
+    "year": 1,
+    "difficulty": "easy",
+    "question": "Skeletal muscles develop from which germ layer derivative?",
+    "options": [
+      "Ectoderm",
+      "Somites of mesoderm",
+      "Splanchnic mesoderm",
+      "Endoderm"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Skeletal muscles develop from the myotome portion of somites derived from paraxial mesoderm. Smooth muscle develops from splanchnic mesoderm.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_016",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Kidney Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The ureter develops from which embryonic outgrowth?",
+    "options": [
+      "Mesonephric duct",
+      "Ureteric bud (ureteric diverticulum)",
+      "Cloaca",
+      "Mesonephros"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The ureteric bud (ureteric diverticulum) is an outgrowth of the mesonephric duct that develops into the ureter, renal pelvis, major/minor calyces, and collecting ducts.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_017",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Diaphragm Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Name the four embryonic components that fuse to form the diaphragm.",
+    "correctAnswer": "Septum transversum, pleuroperitoneal membranes, dorsal mesentery of esophagus, muscularization from body wall",
+    "answer": "Septum transversum, pleuroperitoneal membranes, dorsal mesentery of esophagus, muscularization from body wall",
+    "explanation": "The diaphragm develops from four components: septum transversum (central tendon), pleuroperitoneal membranes, dorsal mesentery of esophagus, and muscularization of the body wall.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_018",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Eye Development",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "Which embryonic structure gives rise to the lens of the eye?",
+    "options": [
+      "Optic cup",
+      "Ectoderm of the head (surface ectoderm)",
+      "Neural tube",
+      "Mesenchyme"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The lens develops from surface ectoderm derived from the head ectoderm as an induction by the optic cup. It forms the lens placode during week 5.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_019",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Ear Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The ossicles of the middle ear (malleus, incus, stapes) develop from which pharyngeal arches?",
+    "options": [
+      "First arch only",
+      "First and second pharyngeal arches",
+      "All pharyngeal arches",
+      "Third and fourth arches only"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The malleus and incus develop from Reichert's cartilage of the second pharyngeal arch, while the stapes also develops from the second arch cartilage.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_020",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Thyroid Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The thyroid gland develops from which embryonic origin?",
+    "options": [
+      "Pharyngeal pouches",
+      "Endoderm of the foramen cecum region of the tongue",
+      "Neural crest",
+      "Mesodermal tissue"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The thyroid develops from an endodermal outgrowth at the foramen cecum at the base of the tongue (midline of the pharynx) during week 3-4. It descends to the lower neck.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_021",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Gonad Development",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "What is the embryonic origin of the gonadal germ cells?",
+    "options": [
+      "Genital ridge",
+      "Coelomic epithelium",
+      "Epiblast of the yolk sac (epiblast near the allantois)",
+      "Mesonephros"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Primordial germ cells originate from the epiblast near the allantois and migrate along the mesentery of the dorsal mesentery to reach the genital ridge by week 5-6.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_022",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Limb Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Name the three organizing regions of the limb bud that control limb development.",
+    "correctAnswer": "Apical ectodermal ridge, zone of polarizing activity, dorsoventral ectoderm",
+    "answer": "Apical ectodermal ridge (AER), zone of polarizing activity (ZPA), and dorsoventral ectoderm",
+    "explanation": "The AER (apical ectoderm) controls proximal-distal development, the ZPA (posterior mesenchyme) controls anteroposterior development, and the ectoderm controls dorsoventral development.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_023",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Fetal Circulation",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Which fetal shunt allows blood to bypass the liver?",
+    "options": [
+      "Ductus arteriosus",
+      "Foramen ovale",
+      "Ductus venosus",
+      "Umbilical artery"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The ductus venosus is a shunt in the liver that allows umbilical blood to bypass hepatic tissue and enter the inferior vena cava directly.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_024",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Dental Development",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "The enamel of the tooth develops from which embryonic origin?",
+    "options": [
+      "Neural crest mesenchyme (odontoblasts)",
+      "Ectoderm of the tooth bud",
+      "Dental follicle",
+      "Mesonephric tissue"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Enamel develops from the ameloblasts, which derive from the outer enamel epithelium of the tooth bud (ectoderm). Dentin develops from odontoblasts (neural crest).",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_025",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Sex Determination",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "The SRY gene on the Y chromosome encodes which protein?",
+    "options": [
+      "Androgen receptor",
+      "Testis-determining factor (TDF)",
+      "Müllerian inhibiting substance",
+      "Aromatase"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The SRY gene encodes testis-determining factor (TDF), which initiates testicular development. Without the Y chromosome, the default is ovarian development.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_026",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Vascular Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The aortic arch arteries develop from which embryonic origin?",
+    "options": [
+      "Somitic mesoderm",
+      "Pharyngeal arch arteries",
+      "Splanchnic mesoderm",
+      "Neural crest cells"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The aortic arches develop from pharyngeal arch arteries, which are endodermal tubes surrounded by neural crest mesenchyme. Different arches regress or persist to form major vessels.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_027",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Pancreas Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The pancreas develops from two outgrowths. Name them.",
+    "correctAnswer": "Dorsal and ventral pancreatic buds from the foregut",
+    "answer": "Dorsal and ventral pancreatic buds",
+    "explanation": "The pancreas develops from two endodermal outgrowths (dorsal and ventral buds) from the duodenum during week 4-5. They rotate and fuse to form the adult pancreas.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_028",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Nervous System Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Which cells give rise to the glial cells of the CNS?",
+    "options": [
+      "Neural crest cells",
+      "Ependymal cells of the neural tube",
+      "Both neural tube and neural crest",
+      "Sclerotome"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Most glial cells (oligodendrocytes, astrocytes, ependymal cells) develop from the neural tube (neuroepithelium), while some astrocytes develop from neural crest cells.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_029",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Conus Medullaris",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "At what vertebral level does the spinal cord normally end (conus medullaris)?",
+    "options": [
+      "T12-L1 intervertebral disc",
+      "L2-L3 intervertebral disc",
+      "L3-L4 intervertebral disc",
+      "L5-S1 intervertebral disc"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The conus medullaris normally terminates at the L2-L3 level in adults, though it may be higher in children. Spinal dysraphism can affect this position.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_030",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Placenta Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The placenta is derived from which embryonic tissues?",
+    "options": [
+      "Trophoblast only",
+      "Chorion only",
+      "Chorion (trophoblast) and maternal endometrium",
+      "Amnion and allantois"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The placenta develops from both fetal tissue (chorion from trophoblast) and maternal tissue (decidua, endometrium). The chorionic villi penetrate the decidua.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_031",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Parathyroid Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The parathyroid glands develop from which pharyngeal pouches?",
+    "options": [
+      "First pouch only",
+      "Third and fourth pouches",
+      "Second pouch only",
+      "All pharyngeal pouches"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The inferior parathyroids develop from the third pharyngeal pouch, while the superior parathyroids develop from the fourth pharyngeal pouch.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_032",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Umbilical Cord",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "Name the three blood vessels found in the umbilical cord.",
+    "correctAnswer": "Two umbilical arteries and one umbilical vein",
+    "answer": "Two umbilical arteries and one umbilical vein",
+    "explanation": "The umbilical cord contains two umbilical arteries (carrying deoxygenated blood from fetus to placenta) and one umbilical vein (carrying oxygenated blood from placenta to fetus).",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_033",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Foregut Derivatives",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "Which of the following is NOT a derivative of the foregut?",
+    "options": [
+      "Pharynx",
+      "Esophagus",
+      "Colon",
+      "Duodenum"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The colon is derived from the hindgut and midgut. The foregut gives rise to the pharynx, esophagus, stomach, duodenum (proximal part), liver, pancreas, and lungs.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_034",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Limb Rotation",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "The upper limb bud rotates laterally, causing which structure to move medially?",
+    "options": [
+      "Thumb",
+      "Fifth digit",
+      "Palm",
+      "Dorsum"
+    ],
+    "correctAnswer": 0,
+    "explanation": "During limb development, the upper limb rotates laterally at the shoulder, which causes the thumb (originally lateral) to move medially (toward the body's midline).",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_035",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Congenital Anomalies",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "A tracheoesophageal fistula results from improper division of which embryonic structure?",
+    "options": [
+      "Laryngotracheal diverticulum",
+      "Foregut endoderm",
+      "Pharyngeal pouch",
+      "Notochord"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Tracheoesophageal fistula results from incomplete separation of the foregut into the respiratory (ventral) and esophageal (dorsal) components during week 4-5.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_036",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Mesonephros",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The mesonephric duct becomes which structure in males?",
+    "options": [
+      "Ureter",
+      "Fallopian tube",
+      "Vas deferens, seminal vesicle, and ejaculatory duct",
+      "Gubernaculum"
+    ],
+    "correctAnswer": 2,
+    "explanation": "In males, the mesonephric (Wolffian) duct persists and becomes the vas deferens, seminal vesicle, and ejaculatory duct under the influence of testosterone.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_037",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Pharyngeal Arches",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Name the cartilage of the second pharyngeal arch.",
+    "correctAnswer": "Reichert's cartilage",
+    "answer": "Reichert's cartilage",
+    "explanation": "Reichert's cartilage is the cartilage template of the second pharyngeal arch. It gives rise to the stapes, incus, malleus, and other structures.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_038",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Blood Cell Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Where does hematopoiesis occur in the early embryo?",
+    "options": [
+      "Bone marrow only",
+      "Yolk sac, then liver, then bone marrow",
+      "Thymus only",
+      "Spleen only"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Hematopoiesis begins in the yolk sac during weeks 2-3, shifts to the liver during weeks 5-6, and finally to bone marrow around week 20.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_039",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Testis Development",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "Which embryonic structure gives rise to the seminiferous tubules and Leydig cells?",
+    "options": [
+      "Coelomic epithelium",
+      "Mesonephric tissue",
+      "Genital ridge coelomic epithelium and mesenchyme",
+      "Yolk sac"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The coelomic epithelium of the genital ridge forms Sertoli cells and seminiferous tubules, while the mesenchyme gives rise to Leydig cells under influence of TDF.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_040",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Notochord",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Which structure is derived from the notochord?",
+    "options": [
+      "Vertebral bodies",
+      "Nucleus pulposus of intervertebral discs",
+      "Spinal cord",
+      "Ribs"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The notochord gives rise to the nucleus pulposus of the intervertebral discs. Vertebral bodies develop from somitic sclerotome mesoderm.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_041",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Stomach Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The stomach forms from which embryonic structure during dorsal and ventral rotation?",
+    "options": [
+      "Foregut endoderm",
+      "Midgut",
+      "Duodenum",
+      "Splanchnic mesoderm"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The stomach develops from the foregut endoderm as a dilation around week 4-5. It rotates 90 degrees clockwise around the sagittal axis.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_042",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Neural Crest Derivatives",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Name three structures derived from neural crest cells.",
+    "correctAnswer": "Melanocytes, adrenal medulla, autonomic nervous system",
+    "answer": "Melanocytes, adrenal medulla, peripheral nervous system",
+    "explanation": "Neural crest cells give rise to melanocytes, adrenal medulla, peripheral ganglia, cranial nerves, Schwann cells, and connective tissue of head/neck.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_043",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Otic Placode",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The otic placode gives rise to which structure?",
+    "options": [
+      "External ear",
+      "Middle ear ossicles",
+      "Inner ear (membranous labyrinth)",
+      "Eustachian tube"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The otic placode is an ectodermal thickening that gives rise to the otic vesicle, which develops into the membranous labyrinth of the inner ear.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_044",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Branchial Cysts",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "A second branchial cleft cyst arises from remnants of which embryonic structure?",
+    "options": [
+      "First pharyngeal pouch",
+      "Second pharyngeal pouch (tonsillar fossa)",
+      "Reichert's cartilage",
+      "Mandibular arch"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Second branchial cleft cysts arise from remnants of the second pharyngeal pouch and the tonsillar fossa region.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_045",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Genital Ridge",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "At what stage do primordial germ cells reach the genital ridge?",
+    "options": [
+      "Week 2",
+      "Week 4",
+      "Week 5-6",
+      "Week 10"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Primordial germ cells migrate from the yolk sac along the mesentery and reach the genital ridge by the end of week 5 and beginning of week 6.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_046",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Pituitary Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The anterior pituitary (adenohypophysis) develops from which embryonic tissue?",
+    "correctAnswer": "Rathke's pouch (ectoderm)",
+    "answer": "Rathke's pouch",
+    "explanation": "The anterior pituitary develops from Rathke's pouch, an ectodermal outgrowth from the stomodeum (roof of the mouth), while the posterior pituitary develops from the neuroectoderm.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_047",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Heart Tube Looping",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "Which direction does the primitive heart tube loop during week 4?",
+    "options": [
+      "To the left and downward (dextral looping)",
+      "To the right and downward",
+      "Anterior and to the left",
+      "No looping occurs"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The primitive heart tube undergoes dextral (rightward) looping during week 4, bringing the ventricle ventrally and to the left, and the atrium dorsally and to the right.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_048",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Cloaca",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The cloaca is divided into how many parts by the cloacal septum?",
+    "options": [
+      "Two (rectum and urethra)",
+      "Three (rectum, urogenital sinus, and allantois)",
+      "Four",
+      "The cloaca is not divided"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The urorectal septum divides the cloaca into three parts: the rectum (dorsal), urogenital sinus (ventral), and allantois (cranial).",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_049",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Septation of the Heart",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "A ventricular septal defect (VSD) results from failure of which structure to develop?",
+    "options": [
+      "Foramen ovale septation",
+      "Interventricular septum formation",
+      "Bulbusventricular ridge",
+      "Aorticopulmonary septation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "VSD results from incomplete formation of the interventricular septum, which develops from the endocardial cushions and muscular portions of the ventricular wall.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_050",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Fetal Development",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "At what gestational age are the major organ systems formed?",
+    "options": [
+      "Week 2",
+      "Week 4-8 (organogenesis)",
+      "Week 12",
+      "Week 20"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Organogenesis occurs during weeks 4-8 when most major organ systems are formed. This is a critical period for teratogenic exposure.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_051",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Pronephros",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The pronephros is largely non-functional. Which kidney system is the first to function?",
+    "options": [
+      "Pronephros",
+      "Mesonephros",
+      "Metanephros",
+      "None of the above"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The mesonephros is the first functional kidney system during fetal life, although limited. The metanephros (permanent kidney) takes over after birth.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_052",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Aortic Arch Arteries",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Which aortic arch artery persists in adults and forms the pulmonary arteries?",
+    "correctAnswer": "Sixth aortic arch artery",
+    "answer": "Sixth aortic arch artery",
+    "explanation": "The sixth aortic arch arteries persist to form the pulmonary arteries. On the left, the ductus arteriosus connects the left pulmonary artery to the aorta.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_053",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Spermatogenesis",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Spermatogenesis begins at what age in males?",
+    "options": [
+      "Birth",
+      "Prenatal",
+      "Puberty (12-16 years)",
+      "Adulthood (20+ years)"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Spermatogenesis begins at puberty and continues throughout adult life. Before puberty, seminiferous tubules contain only Sertoli cells and undifferentiated spermatogonia.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_054",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Primordial Follicles",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Primordial follicles are formed from which cell types?",
+    "options": [
+      "Germ cells only",
+      "Support cells only",
+      "Primordial germ cells and surrounding coelomic epithelium (future granulosa cells)",
+      "Thecal cells"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Primordial follicles form from the association of primordial germ cells (oocytes) and surrounding coelomic epithelium-derived cells (future granulosa cells).",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_055",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Notochord Persistence",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "Persistence of notochord remnants can lead to which condition?",
+    "options": [
+      "Spondylolisthesis",
+      "Chordoma",
+      "Stenosis of spinal canal",
+      "Syringomyelia"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Chordomas are tumors arising from remnants of the notochord that persist in the body. They occur along the midline, most commonly in the sacrococcygeal region.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_056",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Epidermis Development",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "The epidermis develops from which germ layer?",
+    "options": [
+      "Mesoderm",
+      "Endoderm",
+      "Ectoderm",
+      "Splanchnic mesoderm"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The epidermis develops from the ectoderm (surface ectoderm), while the dermis develops from mesoderm (mesenchyme).",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_057",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Branchial Arch Nerves",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Name the nerves of the second, third, and fourth pharyngeal arches.",
+    "correctAnswer": "Facial nerve (CN VII), glossopharyngeal nerve (CN IX), vagus nerve (CN X)",
+    "answer": "Facial nerve (CN VII), glossopharyngeal nerve (CN IX), vagus nerve (CN X)",
+    "explanation": "Second arch: CN VII; Third arch: CN IX; Fourth-sixth arches: CN X (vagus). These are the pharyngeal arch nerves.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_058",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Thymus Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The thymus develops from which pharyngeal pouch?",
+    "options": [
+      "First pouch",
+      "Second pouch",
+      "Third pouch",
+      "Fourth pouch"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The thymus develops from the third pharyngeal pouch (dorsal wing). It is primarily involved in T-cell lymphocyte development.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_059",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Gubernaculum",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The gubernaculum testis guides the descent of the testis from which location?",
+    "options": [
+      "Mesonephros to pelvis",
+      "Mesonephros to scrotum",
+      "Retroperitoneum to scrotum",
+      "Abdomen to inguinal ring"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The gubernaculum is a mesenchymal condensation that guides testicular descent from the mesonephros through the inguinal canal to the scrotum.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_060",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Ligamentum Arteriosum",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The ligamentum arteriosum is a remnant of which fetal structure?",
+    "options": [
+      "Ductus venosus",
+      "Foramen ovale",
+      "Ductus arteriosus",
+      "Umbilical vein"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The ligamentum arteriosum is the fibrous remnant of the ductus arteriosus after it closes following birth.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_061",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Dura Mater",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The falx cerebri develops from which embryonic structure?",
+    "options": [
+      "Meninges",
+      "Dura mater (derived from neural crest and mesoderm)",
+      "Arachnoid mater",
+      "Pia mater"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The falx cerebri is a fold of dura mater derived from neural crest and mesoderm. It extends into the longitudinal fissure between the cerebral hemispheres.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_062",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Wharton's Jelly",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "Wharton's jelly is derived from which embryonic tissue?",
+    "correctAnswer": "Extraembryonic mesoderm",
+    "answer": "Extraembryonic mesoderm",
+    "explanation": "Wharton's jelly is a gelatinous connective tissue in the umbilical cord derived from extraembryonic mesoderm. It protects the umbilical vessels.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_063",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Epiblast",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "All three germ layers in humans are derived from which structure?",
+    "options": [
+      "Trophoblast",
+      "Epiblast",
+      "Hypoblast",
+      "Primitive streak"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The epiblast gives rise to all three germ layers (ectoderm, mesoderm, endoderm) through the primitive streak and other inductive processes.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_064",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Notochord Regression",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "In the normal developmental sequence, most of the notochord regresses by what week?",
+    "options": [
+      "Week 4",
+      "Week 8",
+      "Week 12",
+      "Week 16"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Most of the notochord regresses by week 8, except for remnants that contribute to the nucleus pulposus of intervertebral discs.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_065",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Müllerian Ducts",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "In females, the Müllerian (paramesonephric) ducts form which structures?",
+    "options": [
+      "Urethra and bladder",
+      "Ovaries and uterine tubes",
+      "Fallopian tubes, uterus, and upper third of vagina",
+      "Lower two-thirds of vagina"
+    ],
+    "correctAnswer": 2,
+    "explanation": "In females, the Müllerian ducts fuse to form the fallopian tubes, uterus, and upper third of the vagina. In males, MIS (Müllerian inhibiting substance) causes their regression.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_066",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Pharyngeal Pouches",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Which pharyngeal pouch gives rise to the tympanic cavity and Eustachian tube?",
+    "options": [
+      "First pouch",
+      "Second pouch",
+      "Third pouch",
+      "Fourth pouch"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The first pharyngeal pouch gives rise to the tympanic (middle ear) cavity and the Eustachian (auditory) tube.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_067",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Mesentery",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Define the dorsal mesentery and name two derivatives of it.",
+    "correctAnswer": "The dorsal mesentery is a peritoneal fold connecting viscera to the posterior body wall. Derivatives include mesentery proper, gastrocolic ligament, and omentum",
+    "answer": "Peritoneal fold connecting viscera to posterior body wall",
+    "explanation": "The dorsal mesentery is a fold of peritoneum that attaches organs to the posterior abdominal wall. It gives rise to various ligaments and the greater omentum.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_068",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Foramen Ovale",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The foramen ovale normally closes how long after birth?",
+    "options": [
+      "Within hours",
+      "Within days",
+      "Within weeks to months",
+      "May never completely close in some individuals"
+    ],
+    "correctAnswer": 3,
+    "explanation": "The foramen ovale may not completely close, and probe patency occurs in about 25% of the population. Functional closure occurs when left atrial pressure exceeds right.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_069",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Diaphragmatic Hernia",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "A congenital diaphragmatic hernia through the foramen of Bochdalek is due to failure of which structure?",
+    "options": [
+      "Septum transversum",
+      "Pleuroperitoneal membrane",
+      "Dorsal mesentery of esophagus",
+      "Muscularization of the body wall"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Foramen of Bochdalek hernias result from failure of the pleuroperitoneal (pleuroperitonal) membranes to close the posterolateral aspect of the diaphragm.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_070",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Cremasteric Reflex",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The cremasteric reflex in males is mediated by which nerve?",
+    "options": [
+      "Genitofemoral nerve (genital branch)",
+      "Ilioinguinal nerve",
+      "Pudendal nerve",
+      "Pelvic splanchnic nerve"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The cremasteric reflex is mediated by the genital branch of the genitofemoral nerve (L1-L2), which causes contraction of the cremaster muscle.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_071",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Kidney Migration",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The kidneys ascend from the pelvis to the abdomen during which weeks?",
+    "options": [
+      "Weeks 2-4",
+      "Weeks 4-6",
+      "Weeks 8-12",
+      "Weeks 12-16"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The metanephri (permanent kidneys) initially form in the pelvis and ascend to the abdomen during weeks 8-12 due to differential growth of the lumbar spine.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_072",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Ectodermal Derivatives",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Name three ectodermal derivatives besides the nervous system.",
+    "correctAnswer": "Epidermis, hair follicles, teeth enamel",
+    "answer": "Epidermis, hair follicles, teeth enamel",
+    "explanation": "Ectoderm derivatives include: nervous system, epidermis, hair, nails, tooth enamel, lining of oral cavity, sebaceous glands, and sweat glands.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_073",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Blastocyst",
+    "year": 1,
+    "difficulty": "easy",
+    "question": "The blastocyst consists of which two components?",
+    "options": [
+      "Epiblast and hypoblast",
+      "Trophoblast and inner cell mass",
+      "Syncytiotrophoblast and cytotrophoblast",
+      "Decidua and placenta"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The blastocyst consists of the trophoblast (outer layer that forms placenta) and the inner cell mass (forms the embryo).",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_074",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Primitive Pit",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The primitive pit is the cranial end of which embryonic structure?",
+    "options": [
+      "Primitive streak",
+      "Notochord",
+      "Neural plate",
+      "Amniotic cavity"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The primitive pit is the cranial end of the primitive streak. It connects to the notochordal process and is important for axis formation.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_075",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Gestation",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "Normal human gestation lasts approximately how many weeks?",
+    "options": [
+      "30 weeks",
+      "35 weeks",
+      "40 weeks",
+      "45 weeks"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Normal gestation is approximately 40 weeks (280 days from last menstrual period). Parturition typically occurs between weeks 38-42.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_076",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Somites",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "Somites are formed from which embryonic structure?",
+    "options": [
+      "Neural crest",
+      "Paraxial mesoderm",
+      "Lateral plate mesoderm",
+      "Splanchnic mesoderm"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Somites develop from paraxial mesoderm (mesoderm along the neural tube). Each somite gives rise to dermatome, myotome, and sclerotome.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_077",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Amnion",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "Amnion is derived from which embryonic tissue?",
+    "correctAnswer": "Epiblast (ectoderm)",
+    "answer": "Epiblast",
+    "explanation": "The amnion is derived from the epiblast and forms a fluid-filled sac that surrounds the developing embryo, providing cushioning and protection.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_078",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Parathyroid Descent",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The inferior parathyroids develop from the third pharyngeal pouch and descend to which vertebral level?",
+    "options": [
+      "C6 level",
+      "T1 level",
+      "T4 level",
+      "Remains near the neck"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The inferior parathyroids from the third pouch descend further than superior parathyroids, often reaching the T4 level, explaining ectopic parathyroid locations.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_079",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Gubernacular Ligament",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "In females, the gubernaculum attaches to which structure?",
+    "options": [
+      "Ovary",
+      "Uterus",
+      "Fallopian tube",
+      "Uterine fundus"
+    ],
+    "correctAnswer": 3,
+    "explanation": "In females, the gubernaculum attaches to the uterine fundus and becomes the ovarian ligament and uterine ligament.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_080",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Teratogenic Period",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The period of greatest teratogenic sensitivity is during which timeframe?",
+    "options": [
+      "Week 1-2",
+      "Weeks 3-8 (organogenesis)",
+      "Weeks 9-12",
+      "Weeks 16-20"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The teratogenic period is during organogenesis (weeks 3-8), when major organ systems are forming. Exposure during this period carries the highest risk.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_081",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Spinal Cord Segmentation",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "The spinal cord is divided into how many functional segments?",
+    "options": [
+      "20 segments",
+      "31 segments",
+      "33 segments",
+      "40 segments"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The spinal cord has 31 segments: 8 cervical, 12 thoracic, 5 lumbar, 5 sacral, and 1 coccygeal. Each corresponds to paired spinal nerves.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_082",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Optic Cup",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The optic cup gives rise to which retinal structures?",
+    "correctAnswer": "Neurosensory retina, retinal pigment epithelium, optic nerve",
+    "answer": "Neurosensory retina and retinal pigment epithelium",
+    "explanation": "The optic cup, derived from the diencephalon, forms the inner and outer layers of the retina. The optic stalk becomes the optic nerve.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_083",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Larynx Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The laryngeal cartilages develop primarily from which pharyngeal arch?",
+    "options": [
+      "Second arch",
+      "Third and fourth arches",
+      "First and second arches",
+      "All pharyngeal arches"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The laryngeal cartilages develop from the third and fourth pharyngeal arches. The third arch forms the stylopharyngeus and inferior pharyngeal constrictors.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_084",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Testes vs Ovaries",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "The primary difference between testis and ovary development is the presence of which cell type?",
+    "options": [
+      "Germ cells",
+      "Sertoli cells vs granulosa cells",
+      "Leydig cells",
+      "Theca cells"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Both testes and ovaries develop from the same indifferent gonad. The key difference is that Sertoli cells (testes) vs granulosa cells (ovaries) differentiate based on TDF.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_085",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Vertebral Column",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The vertebral bodies develop from which somitic derivative?",
+    "options": [
+      "Dermatome",
+      "Myotome",
+      "Sclerotome",
+      "Notochord"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The vertebral bodies develop from the sclerotome (ventromedial portion of somites). The notochord regresses except for nucleus pulposus formation.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_086",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Ductus Venosus Closure",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The ligamentum venosus is a remnant of which fetal vascular structure?",
+    "options": [
+      "Ductus arteriosus",
+      "Ductus venosus",
+      "Umbilical vein",
+      "Umbilical artery"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The ligamentum venosus is the fibrous remnant of the ductus venosus, which closed after birth when umbilical circulation ceases.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_087",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Ligamentum Teres",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The ligamentum teres hepatis is a remnant of which fetal vessel?",
+    "options": [
+      "Umbilical artery",
+      "Umbilical vein",
+      "Ductus venosus",
+      "Hepatic artery"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The ligamentum teres hepatis is the fibrous remnant of the umbilical vein after it closes following birth.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_088",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Medial Umbilical Ligaments",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The medial umbilical ligaments (remnants of umbilical arteries) form which adult structures?",
+    "options": [
+      "Round ligament",
+      "Lateral umbilical folds",
+      "Median umbilical ligament",
+      "Ligamentum venosus"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The medial (lateral) umbilical ligaments are remnants of the umbilical arteries. They form the lateral umbilical folds on the anterior abdominal wall.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_089",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Eyelids",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The eyelids develop from which structures?",
+    "options": [
+      "Pharyngeal arches",
+      "Surface ectoderm and neural crest",
+      "Endoderm",
+      "Mesodermal folds"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Eyelids develop from surface ectoderm and neural crest-derived mesenchyme. They completely cover the eye by week 9.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_090",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Spinal Nerves",
+    "year": 2,
+    "difficulty": "easy",
+    "question": "How many pairs of cervical spinal nerves exit above their corresponding vertebra?",
+    "options": [
+      "6 pairs",
+      "7 pairs",
+      "8 pairs",
+      "All cervical nerves"
+    ],
+    "correctAnswer": 2,
+    "explanation": "There are 8 cervical spinal nerves (C1-C8), all of which exit above their corresponding vertebrae. C1 exits above C1, C8 exits between C7 and T1.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_091",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Primitive Streak",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The primitive streak gives rise to which germ layers?",
+    "correctAnswer": "Mesoderm and endoderm",
+    "answer": "Mesoderm and endoderm",
+    "explanation": "The primitive streak (appearing week 3) is the site of ingression for epiblast cells that give rise to mesoderm and endoderm. Ectoderm is derived from remaining epiblast.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_092",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Aortic Arch Derivatives",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "The aortic arch itself (proximal portion) develops from which aortic arch artery?",
+    "options": [
+      "Third arch artery",
+      "Fourth arch artery",
+      "Fifth arch artery",
+      "Sixth arch artery"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The fourth aortic arch artery on the left persists to form the proximal aortic arch. The right fourth arch forms the right subclavian artery.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_093",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Pulmonary Arteries",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The main pulmonary artery and right pulmonary artery develop from which structure?",
+    "options": [
+      "Truncus arteriosus",
+      "Ventral aorta",
+      "Sixth aortic arch artery",
+      "Pulmonary outflow tract"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The pulmonary arteries develop from the sixth aortic arch arteries. The left sixth arch also forms the ductus arteriosus.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_094",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Recurrent Laryngeal Nerve",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "Why does the recurrent laryngeal nerve loop under the aortic arch on the left?",
+    "options": [
+      "Normal anatomical variation",
+      "Evolutionary remnant from the fourth aortic arch",
+      "Developmental anomaly",
+      "Muscle development during growth"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The recurrent laryngeal nerve loops under the ligamentum arteriosum (patent ductus arteriosus remnant) on the left, reflecting embryological development.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_095",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Abdominal Wall Muscles",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The abdominal wall muscles develop from which embryonic origin?",
+    "options": [
+      "Somites",
+      "Lateral plate mesoderm",
+      "Myotomes of somites",
+      "Splanchnic mesoderm"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The abdominal wall muscles develop from myotomes of the thoracic and lumbar somites during myogenic differentiation.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_096",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Esophagus Development",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The esophagus is derived from which embryonic structure?",
+    "options": [
+      "Foregut endoderm",
+      "Midgut endoderm",
+      "Hindgut endoderm",
+      "Splanchnic mesoderm"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The esophagus develops from the foregut endoderm during week 4. It elongates as the heart and lungs develop and descend.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_097",
+    "type": "short",
+    "subject": "Embryology",
+    "topic": "Lesser Omentum",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The lesser omentum and gastrocolic ligament are derivatives of which embryonic structure?",
+    "correctAnswer": "Ventral mesentery of the foregut",
+    "answer": "Ventral mesentery",
+    "explanation": "The lesser omentum and hepatogastric ligament develop from the ventral mesentery (pericardioperitoneal membrane) of the stomach and duodenum.",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_098",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Midgut Rotation",
+    "year": 2,
+    "difficulty": "hard",
+    "question": "The midgut rotates around which vessel during weeks 6-10?",
+    "options": [
+      "Superior mesenteric artery",
+      "Inferior mesenteric artery",
+      "Hepatic portal vein",
+      "Aorta"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The midgut rotates 270 degrees counterclockwise around the superior mesenteric artery (SMA) during weeks 6-10, causing the colon to move to its final position.",
+    "xpValue": 15
+  },
+  {
+    "id": "emb_099",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Adrenal Gland",
+    "year": 2,
+    "difficulty": "medium",
+    "question": "The adrenal gland develops from two embryonic origins. Name them.",
+    "options": [
+      "Neural crest and mesonephros",
+      "Coelomic epithelium and neural crest",
+      "Splanchnic mesoderm and neural crest",
+      "Endoderm and mesoderm"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The adrenal cortex develops from coelomic epithelium (mesodermal), while the adrenal medulla develops from neural crest cells (neuroectoderm).",
+    "xpValue": 10
+  },
+  {
+    "id": "emb_100",
+    "type": "mcq",
+    "subject": "Embryology",
+    "topic": "Bilaminar Disc",
+    "year": 1,
+    "difficulty": "easy",
+    "question": "The bilaminar disc consists of which two layers?",
+    "options": [
+      "Ectoderm and mesoderm",
+      "Epiblast and hypoblast",
+      "Trophoblast and inner cell mass",
+      "Syncytiotrophoblast and cytotrophoblast"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The bilaminar disc (formed week 2) consists of the epiblast (dorsal) and hypoblast (ventral). The amniotic cavity is above the epiblast.",
+    "xpValue": 10
   }
 ]

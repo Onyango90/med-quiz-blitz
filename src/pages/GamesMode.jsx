@@ -46,6 +46,16 @@ const ALL_GAMES = [
     accent: "#ea580c", accent_lt: "#fff7ed", tag: "Progression",
     stats: ["6 levels", "60s per rung", "Climb up"],
   },
+  {
+    id: "pharma-roulette", category: "preclinical",
+    icon: "💊", emoji_bg: "#f3f0ff",
+    label: "PharmaRoulette",
+    tagline: "Spin the wheel. Name the drug.",
+    description: "A wheel of 8 drug categories spins and lands on a random class — Antibiotics, Cardiovascular, CNS, Endocrine, Respiratory, GI, Analgesics, or Antimalarials. A specific drug is revealed and you must answer questions about it under pressure.",
+    difficulty: "Medium", xp: 35, available: true, path: "/pharma-roulette",
+    accent: "#6d28d9", accent_lt: "#ede9fe", tag: "Pharmacology",
+    stats: ["8 categories", "Random drug", "Kenya-relevant"],
+  },
   // ── CLINICAL ───────────────────────────────────────────────────────────────
   {
     id: "clues", category: "clinical",
@@ -169,7 +179,7 @@ export default function GamesMode() {
         </button>
         <div className="gm-topbar-center">
           <span className="gm-topbar-title">🎮 Game Zone</span>
-          <span className="gm-topbar-sub">8 games · Double XP active</span>
+          <span className="gm-topbar-sub">{ALL_GAMES.length} games · Double XP active</span>
         </div>
         <div className="gm-xp-pill">
           <Flame size={13} />
@@ -186,7 +196,7 @@ export default function GamesMode() {
           >
             <FlaskConical size={13} />
             Preclinical
-            <span className="gm-tab-count">4</span>
+            <span className="gm-tab-count">{CAT_GAMES.preclinical.length}</span>
           </button>
           <button
             className={`gm-tab ${activeTab === "clinical" ? "active" : ""}`}
@@ -194,7 +204,7 @@ export default function GamesMode() {
           >
             <Stethoscope size={13} />
             Clinical
-            <span className="gm-tab-count">4</span>
+            <span className="gm-tab-count">{CAT_GAMES.clinical.length}</span>
           </button>
         </div>
         <p className="gm-tab-hint">

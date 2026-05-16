@@ -1,12 +1,15 @@
-﻿import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useStats } from "../hooks/useStats";
+import { useAuth } from "../context/AuthContext";
+import { useStudyProgress } from "../hooks/useStudyProgress";
 import FlashcardMode from "./FlashcardMode";
 import {
   ChevronRight, BookOpen, Layers, Clock, Star,
   CheckCircle, XCircle, AlertCircle, ArrowRight,
   BarChart2, RotateCcw, Home, Zap, AlignLeft,
   CreditCard, ClipboardList, BookOpenText,
+  Lock, PlayCircle, RotateCcw as Restart, Sparkles,
 } from "lucide-react";
 
 // Import anatomy categories
@@ -123,27 +126,81 @@ function StudyMode() {
   const location  = useLocation();
   const navigate  = useNavigate();
   const { startSession, processAnswer, endSession } = useStats();
+  const { currentUser, userData } = useAuth();
+
+  // ── Pro status — check Firestore userData ──
+  const isPro    = userData?.subscription?.isPro === true || userData?.isPro === true;
+  const uid      = currentUser?.uid || null;
+  const topicKey = [topic, subtopic].filter(Boolean).join("__");
 
   const isRetry          = location.state?.isRetry || false;
   const currentSubtopic  = subtopic || location.state?.subtopic;
   const allQuestions     = getQuestions(topic, currentSubtopic, location) || [];
   const batches          = getBatches(allQuestions, 15);
-  const initialBatchIndex = location.state?.batchIndex || 0;
 
-  const [currentBatchIndex, setCurrentBatchIndex] = useState(initialBatchIndex);
-  const [currentIndex,      setCurrentIndex]      = useState(0);
-  const [selectedAnswer,    setSelectedAnswer]    = useState("");
-  const [showAnswer,        setShowAnswer]        = useState(false);
-  const [timeLeft,          setTimeLeft]          = useState(45);
-  const [answerStatus,      setAnswerStatus]      = useState(null); // "correct"|"wrong"|"timeout"
-  const [batchResults,      setBatchResults]      = useState([]);
-  const [showBatchSummary,  setShowBatchSummary]  = useState(false);
-  const [xpEarned,          setXpEarned]          = useState(0);
-  const [sessionStarted,    setSessionStarted]    = useState(false);
-  const [studyView,         setStudyView]         = useState("quiz");
-  const [hovered,           setHovered]           = useState(null);
-  const [showDeepStudy,     setShowDeepStudy]     = useState(false);
-  const [deepStudyQuestion, setDeepStudyQuestion] = useState(null);
+  // ── Progress hook ──
+  const { progress, loadingProg, saveProgress, clearProgress, saveError } =
+    useStudyProgress({ uid, isPro, topicKey });
+
+  // ── Resume state ──
+  const [resumeDecided,   setResumeDecided]   = useState(!isPro); // non-pro skips resume prompt
+  const [showResumePrompt,setShowResumePrompt]= useState(false);
+
+  // ── Determine starting batch/question ──
+  const initialBatchIndex    = location.state?.batchIndex || 0;
+  const [currentBatchIndex,  setCurrentBatchIndex]  = useState(initialBatchIndex);
+  const [currentIndex,       setCurrentIndex]       = useState(0);
+  const [selectedAnswer,     setSelectedAnswer]     = useState("");
+  const [showAnswer,         setShowAnswer]         = useState(false);
+  const [timeLeft,           setTimeLeft]           = useState(45);
+  const [answerStatus,       setAnswerStatus]       = useState(null);
+  const [batchResults,       setBatchResults]       = useState([]);
+  const [showBatchSummary,   setShowBatchSummary]   = useState(false);
+  const [xpEarned,           setXpEarned]           = useState(0);
+  const [sessionStarted,     setSessionStarted]     = useState(false);
+  const [studyView,          setStudyView]          = useState("quiz");
+  const [hovered,            setHovered]            = useState(null);
+  const [showDeepStudy,      setShowDeepStudy]      = useState(false);
+  const [deepStudyQuestion,  setDeepStudyQuestion]  = useState(null);
+  const [totalAnswered,      setTotalAnswered]       = useState(0);
+  const [totalCorrect,       setTotalCorrect]        = useState(0);
+  const [completedBatches,   setCompletedBatches]   = useState([]);
+
+  // ── Show resume prompt once progress loads ──
+  useEffect(() => {
+    if (!loadingProg && isPro) {
+      if (progress && (progress.batchIndex > 0 || progress.questionIndex > 0)) {
+        setShowResumePrompt(true);
+      } else {
+        setResumeDecided(true);
+      }
+    }
+  }, [loadingProg, isPro, progress]);
+
+  // ── Resume: restore saved position ──
+  const handleResume = () => {
+    if (progress) {
+      setCurrentBatchIndex(progress.batchIndex || 0);
+      setCurrentIndex(progress.questionIndex || 0);
+      setTotalAnswered(progress.totalAnswered || 0);
+      setTotalCorrect(progress.totalCorrect || 0);
+      setCompletedBatches(progress.completedBatches || []);
+    }
+    setShowResumePrompt(false);
+    setResumeDecided(true);
+  };
+
+  // ── Start fresh: clear Firestore progress ──
+  const handleStartFresh = async () => {
+    await clearProgress();
+    setCurrentBatchIndex(0);
+    setCurrentIndex(0);
+    setTotalAnswered(0);
+    setTotalCorrect(0);
+    setCompletedBatches([]);
+    setShowResumePrompt(false);
+    setResumeDecided(true);
+  };
 
   const currentBatch    = batches[currentBatchIndex] || [];
   const currentQuestion = currentBatch[currentIndex];
@@ -171,7 +228,87 @@ function StudyMode() {
   if (!topic) return <EmptyState message="No topic selected." onBack={() => navigate("/study-dashboard")} />;
   if (!allQuestions.length) return <EmptyState message={`No questions found for ${formatTopicLabel(topic)}.`} onBack={() => navigate("/study-dashboard")} />;
 
-  // ── Flashcard view ────────────────────────────────────────────────────
+  // ── Loading progress from Firestore ──
+  if (isPro && loadingProg) {
+    return (
+      <div style={{ minHeight: "100vh", background: C.bg, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 14, fontFamily: "'DM Sans', sans-serif" }}>
+        <div style={{ width: 36, height: 36, borderRadius: "50%", border: `3px solid ${C.border}`, borderTopColor: C.accent, animation: "spin 0.75s linear infinite" }} />
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        <p style={{ color: C.muted, fontSize: 14 }}>Loading your progress…</p>
+      </div>
+    );
+  }
+
+  // ── Resume prompt ──
+  if (showResumePrompt && progress) {
+    const lastDate = progress.lastStudied?.toDate?.()?.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) || "recently";
+    const pct = progress.totalAnswered > 0 ? Math.round((progress.totalCorrect / progress.totalAnswered) * 100) : 0;
+    return (
+      <div style={{ minHeight: "100vh", background: C.bg, display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "'DM Sans', sans-serif" }}>
+        <div style={{ width: "100%", maxWidth: 480, background: C.surface, borderRadius: 24, padding: "36px 32px", boxShadow: "0 8px 32px rgba(0,0,0,0.10)", border: `1.5px solid ${C.border}` }}>
+          {/* Header */}
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+            <div style={{ width: 46, height: 46, borderRadius: 13, background: C.accentDim, color: C.accent, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <PlayCircle size={22} />
+            </div>
+            <div>
+              <p style={{ fontSize: 12, color: C.muted, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Welcome back</p>
+              <h2 style={{ fontSize: 18, fontWeight: 800, color: C.text, fontFamily: "'Syne', sans-serif", letterSpacing: "-0.01em" }}>
+                {formatTopicLabel(currentSubtopic || topic)}
+              </h2>
+            </div>
+          </div>
+
+          {/* Progress stats */}
+          <div style={{ background: C.bg, borderRadius: 14, padding: "16px 18px", marginBottom: 24, border: `1px solid ${C.border}` }}>
+            <p style={{ fontSize: 12, color: C.muted, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 12 }}>Your last session · {lastDate}</p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+              {[
+                { label: "Batch",     value: `${(progress.batchIndex || 0) + 1} / ${batches.length}` },
+                { label: "Answered",  value: progress.totalAnswered || 0 },
+                { label: "Accuracy",  value: `${pct}%` },
+              ].map(({ label, value }) => (
+                <div key={label} style={{ textAlign: "center" }}>
+                  <p style={{ fontSize: 20, fontWeight: 800, color: C.accent, fontFamily: "'Syne', sans-serif" }}>{value}</p>
+                  <p style={{ fontSize: 11, color: C.muted, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.04em" }}>{label}</p>
+                </div>
+              ))}
+            </div>
+            {/* Batch progress bar */}
+            <div style={{ marginTop: 14 }}>
+              <ProgressBar value={((progress.batchIndex || 0) / batches.length) * 100} color={C.accent} height={5} />
+              <p style={{ fontSize: 11, color: C.muted, marginTop: 5, fontWeight: 500 }}>
+                {(progress.completedBatches || []).length} of {batches.length} batches completed
+              </p>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <button onClick={handleResume} style={{
+              padding: "14px 20px", borderRadius: 12, border: "none",
+              background: `linear-gradient(135deg, ${C.accent}, #0a5c52)`,
+              color: "#fff", fontSize: 15, fontWeight: 700,
+              fontFamily: "'DM Sans', sans-serif", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+              boxShadow: `0 4px 16px ${C.accent}35`,
+            }}>
+              <PlayCircle size={17} /> Resume where I left off
+            </button>
+            <button onClick={handleStartFresh} style={{
+              padding: "13px 20px", borderRadius: 12,
+              border: `1.5px solid ${C.border}`, background: C.bg,
+              color: C.muted, fontSize: 14, fontWeight: 700,
+              fontFamily: "'DM Sans', sans-serif", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+            }}>
+              <RotateCcw size={15} /> Start from the beginning
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
   if (studyView === "flashcards") {
     return (
       <div style={{ background: C.bg, minHeight: "100vh" }}>
@@ -218,6 +355,23 @@ function StudyMode() {
     if (isCorrect) { setAnswerStatus("correct"); if (!isRetry) setXpEarned(p => p + xpToAdd); correctSound.play(); }
     else           { setAnswerStatus("wrong");   wrongSound.play(); }
     if (!isRetry) processAnswer({ ...currentQuestion, subject: currentQuestion.subject || topic }, isCorrect, 0, "study");
+
+    const newTotalAnswered = totalAnswered + 1;
+    const newTotalCorrect  = totalCorrect + (isCorrect ? 1 : 0);
+    setTotalAnswered(newTotalAnswered);
+    setTotalCorrect(newTotalCorrect);
+
+    // ── Auto-save progress to Firestore (Pro only) ──
+    if (isPro && !isRetry) {
+      saveProgress({
+        batchIndex:       currentBatchIndex,
+        questionIndex:    currentIndex,
+        completedBatches,
+        totalAnswered:    newTotalAnswered,
+        totalCorrect:     newTotalCorrect,
+      });
+    }
+
     setBatchResults(p => [...p, {
       id: currentQuestion.id, question: questionText,
       userAnswer: answer, correctAnswer: correctAnswerText,
@@ -236,8 +390,18 @@ function StudyMode() {
   };
 
   const handleNextBatch = () => {
+    const newCompleted = [...new Set([...completedBatches, currentBatchIndex])];
+    setCompletedBatches(newCompleted);
     setBatchResults([]); setShowBatchSummary(false);
-    setCurrentBatchIndex(p => p + 1);
+    const nextBatch = currentBatchIndex + 1;
+    setCurrentBatchIndex(nextBatch);
+    if (isPro && !isRetry) {
+      saveProgress({
+        batchIndex: nextBatch, questionIndex: 0,
+        completedBatches: newCompleted,
+        totalAnswered, totalCorrect,
+      });
+    }
   };
 
   const handleReviewBatch = () => {
