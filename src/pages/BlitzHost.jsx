@@ -10,6 +10,7 @@ import {
   SkipForward, StopCircle, Users, Clock, Zap,
   ChevronRight, Eye, EyeOff, Megaphone, Trash2,
   BarChart2, CheckCircle, AlertCircle, Copy, RefreshCw,
+  AlignLeft, List,
 } from "lucide-react";
 import "./BlitzHost.css";
 
@@ -33,7 +34,36 @@ function shuffle(arr) {
   return a;
 }
 
-// ── Tabs ──────────────────────────────────────────────────────────────────────
+// ── Key points scoring ────────────────────────────────────────────────────────
+// Returns { matched: number, total: number, score: 0-100, matchedPoints: string[] }
+export function scoreKeyPoints(studentAnswer, keyPoints = []) {
+  if (!keyPoints.length) {
+    // No key points defined — fall back to loose string match
+    return { matched: 0, total: 0, score: 0, matchedPoints: [] };
+  }
+  const normalise = (s) => s.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
+  const normAnswer = normalise(studentAnswer || "");
+  const matchedPoints = [];
+
+  keyPoints.forEach(kp => {
+    if (!kp.trim()) return;
+    // Check if any word/phrase from the key point appears in the student answer
+    const normKp = normalise(kp);
+    // Split key point into individual words and check all are present
+    const words = normKp.split(/\s+/).filter(w => w.length > 2); // skip tiny words
+    const allPresent = words.every(w => normAnswer.includes(w));
+    if (allPresent || normAnswer.includes(normKp)) {
+      matchedPoints.push(kp);
+    }
+  });
+
+  const matched = matchedPoints.length;
+  const total   = keyPoints.filter(k => k.trim()).length;
+  const score   = total > 0 ? Math.round((matched / total) * 100) : 0;
+  return { matched, total, score, matchedPoints };
+}
+
+
 const TABS = ["setup", "questions", "live", "analytics"];
 const TAB_LABELS = {
   setup:     "⚙️ Setup",
@@ -42,26 +72,55 @@ const TAB_LABELS = {
   analytics: "📊 Analytics",
 };
 
+// ── Question type toggle ──────────────────────────────────────────────────────
+function QuestionTypeToggle({ value, onChange }) {
+  return (
+    <div style={{
+      display: "flex", gap: 0, background: "#f5f7f6",
+      border: "1.5px solid #e4eae8", borderRadius: 10,
+      overflow: "hidden", width: "fit-content",
+    }}>
+      {[
+        { key: "mcq", label: "MCQ", icon: <List size={13} /> },
+        { key: "saq", label: "SAQ", icon: <AlignLeft size={13} /> },
+      ].map(({ key, label, icon }) => (
+        <button
+          key={key}
+          onClick={() => onChange(key)}
+          style={{
+            display: "flex", alignItems: "center", gap: 5,
+            padding: "6px 14px", border: "none",
+            background: value === key ? "#0d7c6e" : "transparent",
+            color: value === key ? "#fff" : "#6b7e79",
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: 12, fontWeight: 700, cursor: "pointer",
+            transition: "all 0.15s",
+          }}
+        >
+          {icon} {label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export default function BlitzHost() {
   const navigate               = useNavigate();
   const { currentUser }        = useAuth();
   const db                     = getDatabase();
 
-  // ── Auth guard — any signed-in user can host ───────────────────────────────
   useEffect(() => {
     if (!currentUser) navigate("/signin");
   }, [currentUser, navigate]);
 
-  // ── Tab state ──────────────────────────────────────────────────────────────
   const [tab, setTab] = useState("setup");
 
-  // ── Session config ─────────────────────────────────────────────────────────
   const [config, setConfig] = useState({
     title:          "Medical Quiz Session",
     quizType:       "MCQ",
     totalQuestions: 20,
     timePerQ:       30,
-    totalDuration:  0,         // 0 = derived from timePerQ
+    totalDuration:  0,
     difficulty:     "Mixed",
     backtracking:   false,
     examMode:       false,
@@ -73,21 +132,20 @@ export default function BlitzHost() {
     anonymousBoard: true,
   });
 
-  // ── Questions state ────────────────────────────────────────────────────────
-  const [questions, setQuestions]   = useState([]);
-  const [aiLoading, setAiLoading]   = useState(false);
-  const [aiTopic,   setAiTopic]     = useState("");
-  const [aiCount,   setAiCount]     = useState(10);
-  const [pdfText,   setPdfText]     = useState("");
-  const [pdfName,   setPdfName]     = useState("");
-  const [pdfLoading, setPdfLoading] = useState(false);
-  const [editIdx,   setEditIdx]     = useState(null);
-  const fileRef                     = useRef();
+  const [questions,   setQuestions]   = useState([]);
+  const [aiLoading,   setAiLoading]   = useState(false);
+  const [aiTopic,     setAiTopic]     = useState("");
+  const [aiCount,     setAiCount]     = useState(10);
+  // AI generation type — separate from session-level config.quizType
+  const [aiGenType,   setAiGenType]   = useState("mcq"); // "mcq" | "saq"
+  const [pdfName,     setPdfName]     = useState("");
+  const [pdfLoading,  setPdfLoading]  = useState(false);
+  const [editIdx,     setEditIdx]     = useState(null);
+  const fileRef                       = useRef();
 
-  // ── Session live state ─────────────────────────────────────────────────────
   const [roomCode,      setRoomCode]      = useState("");
   const [sessionActive, setSessionActive] = useState(false);
-  const [sessionStatus, setSessionStatus] = useState("idle"); // idle | waiting | running | paused | ended
+  const [sessionStatus, setSessionStatus] = useState("idle");
   const [currentQIdx,   setCurrentQIdx]   = useState(0);
   const [timeLeft,      setTimeLeft]      = useState(0);
   const [participants,  setParticipants]  = useState({});
@@ -96,28 +154,36 @@ export default function BlitzHost() {
   const [sessionRef,    setSessionRef]    = useState(null);
   const timerRef = useRef(null);
 
-  // ── Analytics state ────────────────────────────────────────────────────────
   const [analytics, setAnalytics] = useState(null);
 
-  // ── Config helpers ─────────────────────────────────────────────────────────
   const updateConfig = (k, v) => setConfig(c => ({ ...c, [k]: v }));
 
-  // ── AI question generation from topic ─────────────────────────────────────
+  // ── Switch question type (MCQ ↔ SAQ) and reset fields accordingly ──────────
+  const switchQuestionType = (idx, newType) => {
+    setQuestions(prev => prev.map((q, i) => {
+      if (i !== idx) return q;
+      if (newType === "saq") {
+        // SAQ: remove options, set correctAnswer to string, init keyPoints
+        return { ...q, type: "saq", options: [], correctAnswer: "", keyPoints: q.keyPoints || [] };
+      } else {
+        // MCQ: restore 5 blank options, set correctAnswer to index
+        return { ...q, type: "mcq", options: ["", "", "", "", ""], correctAnswer: 0 };
+      }
+    }));
+  };
+
+  // ── AI generation — respects aiGenType ────────────────────────────────────
   const generateFromTopic = async () => {
     if (!aiTopic.trim()) return;
     setAiLoading(true);
     try {
-      const prompt = `Generate exactly ${aiCount} medical ${config.quizType === "SAQ" ? "short answer" : "MCQ"} questions about "${aiTopic}" for medical students.
-Return ONLY a JSON array. Each item:
-{
-  "question": "...",
-  "options": ["A", "B", "C", "D"],
-  "correctAnswer": 0,
-  "explanation": "...",
-  "difficulty": "medium",
-  "topic": "${aiTopic}"
-}
-For SAQ omit options and set correctAnswer to a string answer.`;
+      const isSAQ = aiGenType === "saq";
+      const prompt = `Generate exactly ${aiCount} medical ${isSAQ ? "short answer (SAQ)" : "MCQ"} questions about "${aiTopic}" for medical students.
+Return ONLY a valid JSON array, no markdown, no code fences. Each item:
+${isSAQ
+  ? `{ "question": "...", "correctAnswer": "concise model answer here", "explanation": "...", "difficulty": "medium", "topic": "${aiTopic}" }`
+  : `{ "question": "...", "options": ["A", "B", "C", "D", "E"], "correctAnswer": 0, "explanation": "...", "difficulty": "medium", "topic": "${aiTopic}" }`
+}`;
 
       const res  = await fetch(`${MICROSERVICE_URL}/api/generateQuestions`, {
         method: "POST",
@@ -127,13 +193,13 @@ For SAQ omit options and set correctAnswer to a string answer.`;
       const data = await res.json();
       const qs   = (data.questions || []).map((q, i) => ({
         id: `ai_${Date.now()}_${i}`,
-        type: config.quizType === "SAQ" ? "saq" : "mcq",
-        question: q.question || q.text || "",
-        options:  q.options  || [],
-        correctAnswer: q.correctAnswer ?? 0,
-        explanation:   q.explanation   || "",
-        difficulty:    q.difficulty    || "medium",
-        topic:         q.topic         || aiTopic,
+        type: aiGenType,
+        question:      q.question || q.text || "",
+        options:       isSAQ ? [] : (q.options || []),
+        correctAnswer: isSAQ ? (q.correctAnswer || "") : (q.correctAnswer ?? 0),
+        explanation:   q.explanation || "",
+        difficulty:    q.difficulty  || "medium",
+        topic:         q.topic       || aiTopic,
         source: "AI",
       }));
       setQuestions(prev => [...prev, ...qs]);
@@ -143,31 +209,23 @@ For SAQ omit options and set correctAnswer to a string answer.`;
     setAiLoading(false);
   };
 
-  // ── PDF upload → extract text → AI generates questions ──────────────────
+  // ── PDF upload ─────────────────────────────────────────────────────────────
   const handlePdfUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setPdfName(file.name);
     setPdfLoading(true);
-
     try {
-      // Read file as base64 and send to microservice
       const reader = new FileReader();
       reader.onload = async (ev) => {
         const base64 = ev.target.result.split(",")[1];
-        const prompt = `You are a medical educator. A student uploaded a PDF called "${file.name}".
-The encoded content is below (base64, first 3000 chars truncated for prompt size).
-Generate exactly ${aiCount} high-quality MCQ questions from this material.
-Return ONLY a JSON array:
-[{
-  "question": "...",
-  "options": ["A","B","C","D"],
-  "correctAnswer": 0,
-  "explanation": "...",
-  "difficulty": "medium",
-  "topic": "derived from content"
-}]
-Content hint (filename): ${file.name}
+        const isSAQ  = aiGenType === "saq";
+        const prompt = `You are a medical educator. Generate exactly ${aiCount} high-quality ${isSAQ ? "SAQ" : "MCQ"} questions from the uploaded content (filename: "${file.name}").
+Return ONLY a valid JSON array:
+${isSAQ
+  ? `[{ "question": "...", "correctAnswer": "model answer", "explanation": "...", "difficulty": "medium", "topic": "derived" }]`
+  : `[{ "question": "...", "options": ["A","B","C","D","E"], "correctAnswer": 0, "explanation": "...", "difficulty": "medium", "topic": "derived" }]`
+}
 Base64 snippet: ${base64.substring(0, 500)}`;
 
         const res  = await fetch(`${MICROSERVICE_URL}/api/generateQuestions`, {
@@ -178,13 +236,13 @@ Base64 snippet: ${base64.substring(0, 500)}`;
         const data = await res.json();
         const qs = (data.questions || []).map((q, i) => ({
           id: `pdf_${Date.now()}_${i}`,
-          type: "mcq",
-          question: q.question || q.text || "",
-          options:  q.options  || [],
-          correctAnswer: q.correctAnswer ?? 0,
-          explanation:   q.explanation   || "",
-          difficulty:    q.difficulty    || "medium",
-          topic:         q.topic         || file.name.replace(".pdf", ""),
+          type: isSAQ ? "saq" : "mcq",
+          question:      q.question || q.text || "",
+          options:       isSAQ ? [] : (q.options || []),
+          correctAnswer: isSAQ ? (q.correctAnswer || "") : (q.correctAnswer ?? 0),
+          explanation:   q.explanation || "",
+          difficulty:    q.difficulty  || "medium",
+          topic:         q.topic       || file.name.replace(".pdf", ""),
           source: `PDF: ${file.name}`,
         }));
         setQuestions(prev => [...prev, ...qs]);
@@ -197,18 +255,20 @@ Base64 snippet: ${base64.substring(0, 500)}`;
     }
   };
 
-  // ── Manual question add ────────────────────────────────────────────────────
-  const addBlankQuestion = () => {
+  // ── Manual add — now respects aiGenType so you can add a blank SAQ ─────────
+  const addBlankQuestion = (type = aiGenType) => {
+    const isSAQ = type === "saq";
     const blank = {
       id: `manual_${Date.now()}`,
-      type: "mcq",
-      question: "",
-      options: ["", "", "", ""],
-      correctAnswer: 0,
-      explanation: "",
-      difficulty: "medium",
-      topic: "",
-      source: "Manual",
+      type,
+      question:      "",
+      options:       isSAQ ? [] : ["", "", "", "", ""],
+      correctAnswer: isSAQ ? "" : 0,
+      keyPoints:     isSAQ ? [] : null,
+      explanation:   "",
+      difficulty:    "medium",
+      topic:         "",
+      source:        "Manual",
     };
     setQuestions(prev => [...prev, blank]);
     setEditIdx(questions.length);
@@ -240,23 +300,27 @@ Base64 snippet: ${base64.substring(0, 500)}`;
     }
     const code = genCode();
     setRoomCode(code);
-
-    const selectedQs = shuffle(questions).slice(0, config.totalQuestions);
+    const selectedQs = shuffle(questions).slice(0, config.totalQuestions).map(q => ({
+      ...q,
+      // Firebase rejects undefined — normalise optional fields
+      keyPoints:   q.keyPoints   ?? null,
+      explanation: q.explanation ?? "",
+      topic:       q.topic       ?? "",
+      source:      q.source      ?? "",
+    }));
     const sRef = ref(db, `blitzhost/${code}`);
     setSessionRef(sRef);
 
     const sessionData = {
       code,
-      hostUid: currentUser.uid,
-      title: config.title,
-      config: { ...config },
-      questions: selectedQs.map(q => ({
-        ...q,
-        // hide answers from RTDB node participants read — stored separately
-      })),
-      answers: selectedQs.map(q => ({
+      hostUid:  currentUser.uid,
+      title:    config.title,
+      config:   { ...config },
+      questions: selectedQs,
+      answers:   selectedQs.map(q => ({
         correctAnswer: q.correctAnswer,
         explanation:   q.explanation,
+        type:          q.type,
       })),
       status:       "waiting",
       currentQIdx:  0,
@@ -268,11 +332,8 @@ Base64 snippet: ${base64.substring(0, 500)}`;
 
     await set(sRef, sessionData);
 
-    // Listen for participant joins
     const partRef = ref(db, `blitzhost/${code}/participants`);
-    onValue(partRef, snap => {
-      setParticipants(snap.val() || {});
-    });
+    onValue(partRef, snap => { setParticipants(snap.val() || {}); });
 
     setSessionStatus("waiting");
     setSessionActive(true);
@@ -281,7 +342,6 @@ Base64 snippet: ${base64.substring(0, 500)}`;
     setTab("live");
   };
 
-  // ── Start quiz (host presses Play after waiting) ───────────────────────────
   const startQuiz = async () => {
     if (!sessionRef) return;
     await update(sessionRef, { status: "running", currentQIdx: 0, timeLeft: config.timePerQ });
@@ -289,15 +349,11 @@ Base64 snippet: ${base64.substring(0, 500)}`;
     startTimer();
   };
 
-  // ── Timer ──────────────────────────────────────────────────────────────────
   const startTimer = () => {
     clearInterval(timerRef.current);
     timerRef.current = setInterval(async () => {
       setTimeLeft(prev => {
-        if (prev <= 1) {
-          advanceQuestion();
-          return config.timePerQ;
-        }
+        if (prev <= 1) { advanceQuestion(); return config.timePerQ; }
         return prev - 1;
       });
     }, 1000);
@@ -318,20 +374,9 @@ Base64 snippet: ${base64.substring(0, 500)}`;
     });
   }, [sessionRef, questions.length, config.totalQuestions, config.timePerQ]);
 
-  // ── Host controls ──────────────────────────────────────────────────────────
-  const pauseSession = async () => {
-    clearInterval(timerRef.current);
-    setSessionStatus("paused");
-    await update(sessionRef, { status: "paused" });
-  };
-
-  const resumeSession = async () => {
-    setSessionStatus("running");
-    await update(sessionRef, { status: "running" });
-    startTimer();
-  };
-
-  const skipQuestion = () => advanceQuestion();
+  const pauseSession  = async () => { clearInterval(timerRef.current); setSessionStatus("paused"); await update(sessionRef, { status: "paused" }); };
+  const resumeSession = async () => { setSessionStatus("running"); await update(sessionRef, { status: "running" }); startTimer(); };
+  const skipQuestion  = () => advanceQuestion();
 
   const extendTimer = async (extra = 15) => {
     const newTime = timeLeft + extra;
@@ -343,10 +388,7 @@ Base64 snippet: ${base64.substring(0, 500)}`;
     setShowExplain(true);
     await update(sessionRef, { showExplain: true });
     if (config.explainDuration > 0) {
-      setTimeout(() => {
-        setShowExplain(false);
-        update(sessionRef, { showExplain: false });
-      }, config.explainDuration * 1000);
+      setTimeout(() => { setShowExplain(false); update(sessionRef, { showExplain: false }); }, config.explainDuration * 1000);
     }
   };
 
@@ -364,57 +406,44 @@ Base64 snippet: ${base64.substring(0, 500)}`;
     setTab("analytics");
   };
 
-  // ── Analytics ──────────────────────────────────────────────────────────────
   const buildAnalytics = () => {
-    const parts  = Object.values(participants);
+    const parts = Object.values(participants);
     if (parts.length === 0) { setAnalytics(null); return; }
-
     const sorted = [...parts].sort((a, b) => (b.score || 0) - (a.score || 0));
-
-    // Per-question analysis
     const qStats = questions.slice(0, config.totalQuestions).map((q, qi) => {
       const answers = parts.map(p => p.answers?.[qi]);
       const correct = answers.filter(a => a === q.correctAnswer).length;
-      const avgTime = answers.reduce((s, a, i) => s + (parts[i]?.times?.[qi] || 0), 0) / (answers.length || 1);
       return {
         question:   q.question.substring(0, 60) + "…",
+        type:       q.type,
         correctPct: parts.length ? Math.round((correct / parts.length) * 100) : 0,
-        avgTime:    Math.round(avgTime),
       };
     });
-
     setAnalytics({
-      leaderboard: sorted,
+      leaderboard:       sorted,
       qStats,
       totalParticipants: parts.length,
-      avgScore: Math.round(parts.reduce((s, p) => s + (p.score || 0), 0) / parts.length),
-      completionRate: Math.round((parts.filter(p => p.completed).length / parts.length) * 100),
+      avgScore:          Math.round(parts.reduce((s, p) => s + (p.score || 0), 0) / parts.length),
+      completionRate:    Math.round((parts.filter(p => p.completed).length / parts.length) * 100),
     });
   };
 
-  // ── Copy room link ─────────────────────────────────────────────────────────
-  const copyLink = () => {
-    const link = `${window.location.origin}/join/${roomCode}`;
-    navigator.clipboard.writeText(link);
-  };
+  const copyLink = () => navigator.clipboard.writeText(`${window.location.origin}/join/${roomCode}`);
 
-  // ── Cleanup on unmount ─────────────────────────────────────────────────────
   useEffect(() => {
-    return () => {
-      clearInterval(timerRef.current);
-      if (sessionRef) off(sessionRef);
-    };
+    return () => { clearInterval(timerRef.current); if (sessionRef) off(sessionRef); };
   }, [sessionRef]);
 
-  const activeQs  = questions.slice(0, config.totalQuestions);
-  const partList  = Object.values(participants);
-  const currentQ  = questions[currentQIdx];
+  const partList = Object.values(participants);
+  const currentQ = questions[currentQIdx];
 
-  // ─────────────────────────────────────────────────────────────────────────
+  // ── MCQ count and SAQ count summary ─────────────────────────────────────────
+  const mcqCount = questions.filter(q => q.type === "mcq").length;
+  const saqCount = questions.filter(q => q.type === "saq").length;
+
   return (
     <div className="bh-page">
 
-      {/* Top bar */}
       <header className="bh-topbar">
         <button className="bh-back" onClick={() => navigate("/home")}>
           <ArrowLeft size={16} />
@@ -431,14 +460,9 @@ Base64 snippet: ${base64.substring(0, 500)}`;
         )}
       </header>
 
-      {/* Tab bar */}
       <div className="bh-tabs">
         {TABS.map(t => (
-          <button
-            key={t}
-            className={`bh-tab ${tab === t ? "bh-tab--active" : ""}`}
-            onClick={() => setTab(t)}
-          >
+          <button key={t} className={`bh-tab ${tab === t ? "bh-tab--active" : ""}`} onClick={() => setTab(t)}>
             {TAB_LABELS[t]}
           </button>
         ))}
@@ -451,18 +475,13 @@ Base64 snippet: ${base64.substring(0, 500)}`;
           <div className="bh-panel">
             <h2 className="bh-section-title">Session Configuration</h2>
 
-            {/* Title */}
             <div className="bh-field">
               <label>Session Title</label>
-              <input
-                className="bh-input"
-                value={config.title}
+              <input className="bh-input" value={config.title}
                 onChange={e => updateConfig("title", e.target.value)}
-                placeholder="e.g. Pharmacology Exam Prep"
-              />
+                placeholder="e.g. Pharmacology Exam Prep" />
             </div>
 
-            {/* Quiz type + difficulty */}
             <div className="bh-row2">
               <div className="bh-field">
                 <label>Quiz Type</label>
@@ -478,7 +497,6 @@ Base64 snippet: ${base64.substring(0, 500)}`;
               </div>
             </div>
 
-            {/* Questions + time */}
             <div className="bh-row2">
               <div className="bh-field">
                 <label>Number of Questions</label>
@@ -494,7 +512,6 @@ Base64 snippet: ${base64.substring(0, 500)}`;
               </div>
             </div>
 
-            {/* Explanation controls */}
             <div className="bh-field">
               <label>Show Explanations</label>
               <select className="bh-select" value={config.explainWhen} onChange={e => updateConfig("explainWhen", e.target.value)}>
@@ -511,29 +528,24 @@ Base64 snippet: ${base64.substring(0, 500)}`;
               </div>
             )}
 
-            {/* Toggles */}
             <div className="bh-toggles">
               {[
-                { key: "backtracking",  label: "Allow backtracking" },
-                { key: "examMode",      label: "Exam simulation mode (no feedback during quiz)" },
-                { key: "adaptiveDiff",  label: "Adaptive difficulty" },
-                { key: "aiRemediation", label: "AI remediation on wrong answers" },
-                { key: "followUpQs",    label: "AI follow-up practice questions" },
-                { key: "anonymousBoard",label: "Anonymous leaderboard (students see rank, not names)" },
+                { key: "backtracking",   label: "Allow backtracking" },
+                { key: "examMode",       label: "Exam simulation mode (no feedback during quiz)" },
+                { key: "adaptiveDiff",   label: "Adaptive difficulty" },
+                { key: "aiRemediation",  label: "AI remediation on wrong answers" },
+                { key: "followUpQs",     label: "AI follow-up practice questions" },
+                { key: "anonymousBoard", label: "Anonymous leaderboard" },
               ].map(({ key, label }) => (
                 <label key={key} className="bh-toggle">
-                  <input type="checkbox" checked={config[key]}
-                    onChange={e => updateConfig(key, e.target.checked)} />
+                  <input type="checkbox" checked={config[key]} onChange={e => updateConfig(key, e.target.checked)} />
                   <span className="bh-toggle-track" />
                   <span className="bh-toggle-label">{label}</span>
                 </label>
               ))}
             </div>
 
-            <button
-              className="bh-btn-primary"
-              onClick={() => setTab("questions")}
-            >
+            <button className="bh-btn-primary" onClick={() => setTab("questions")}>
               Next: Add Questions <ChevronRight size={16} />
             </button>
           </div>
@@ -543,9 +555,22 @@ Base64 snippet: ${base64.substring(0, 500)}`;
         {tab === "questions" && (
           <div className="bh-panel">
 
+            {/* ── Question type selector for generation ── */}
+            <div className="bh-card">
+              <p className="bh-card-title" style={{ marginBottom: 8 }}>Question Type for Generation</p>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <QuestionTypeToggle value={aiGenType} onChange={setAiGenType} />
+                <span style={{ fontSize: 12, color: "#6b7e79" }}>
+                  {aiGenType === "mcq"
+                    ? "Multiple choice — 5 options, one correct"
+                    : "Short answer — typed response with model answer"}
+                </span>
+              </div>
+            </div>
+
             {/* AI from topic */}
             <div className="bh-card">
-              <p className="bh-card-title"><Zap size={14} /> Generate from Topic</p>
+              <p className="bh-card-title"><Zap size={14} /> Generate {aiGenType.toUpperCase()} from Topic</p>
               <div className="bh-row2">
                 <input className="bh-input" placeholder="e.g. Beta blockers, Cardiac physiology…"
                   value={aiTopic} onChange={e => setAiTopic(e.target.value)} />
@@ -553,13 +578,18 @@ Base64 snippet: ${base64.substring(0, 500)}`;
                   value={aiCount} onChange={e => setAiCount(Number(e.target.value))} />
               </div>
               <button className="bh-btn-primary" onClick={generateFromTopic} disabled={aiLoading || !aiTopic.trim()}>
-                {aiLoading ? <><RefreshCw size={14} className="bh-spin" /> Generating…</> : <><Zap size={14} /> Generate {aiCount} Questions</>}
+                {aiLoading
+                  ? <><RefreshCw size={14} className="bh-spin" /> Generating…</>
+                  : <><Zap size={14} /> Generate {aiCount} {aiGenType.toUpperCase()} Questions</>}
               </button>
             </div>
 
             {/* PDF upload */}
             <div className="bh-card">
               <p className="bh-card-title"><Upload size={14} /> Upload PDF / Notes</p>
+              <p style={{ fontSize: 12, color: "#6b7e79", marginBottom: 8 }}>
+                Will generate <strong>{aiGenType.toUpperCase()}</strong> questions from your uploaded content.
+              </p>
               <div className="bh-upload-zone" onClick={() => fileRef.current.click()}>
                 {pdfLoading
                   ? <><RefreshCw size={18} className="bh-spin" /><span>Generating questions from your notes…</span></>
@@ -571,26 +601,46 @@ Base64 snippet: ${base64.substring(0, 500)}`;
                 style={{ display: "none" }} onChange={handlePdfUpload} />
             </div>
 
-            {/* Manual add */}
-            <button className="bh-btn-outline" onClick={addBlankQuestion}>
-              <Plus size={14} /> Add Question Manually
-            </button>
+            {/* Manual add — two buttons for MCQ and SAQ */}
+            <div style={{ display: "flex", gap: 8 }}>
+              <button className="bh-btn-outline" onClick={() => addBlankQuestion("mcq")}>
+                <List size={14} /> Add MCQ Manually
+              </button>
+              <button className="bh-btn-outline" onClick={() => addBlankQuestion("saq")}>
+                <AlignLeft size={14} /> Add SAQ Manually
+              </button>
+            </div>
 
-            {/* Question list */}
-            <div className="bh-q-header">
-              <span>{questions.length} question{questions.length !== 1 ? "s" : ""} ready</span>
-              {questions.length > 0 && (
+            {/* Question count summary */}
+            {questions.length > 0 && (
+              <div className="bh-q-header">
+                <span>
+                  {questions.length} question{questions.length !== 1 ? "s" : ""} —&nbsp;
+                  <span style={{ color: "#0d7c6e", fontWeight: 700 }}>{mcqCount} MCQ</span>
+                  {saqCount > 0 && <span style={{ color: "#7c3aed", fontWeight: 700 }}> · {saqCount} SAQ</span>}
+                </span>
                 <button className="bh-btn-ghost" onClick={() => setQuestions([])}>
                   <Trash2 size={13} /> Clear all
                 </button>
-              )}
-            </div>
+              </div>
+            )}
 
+            {/* Question list */}
             <div className="bh-q-list">
               {questions.map((q, idx) => (
                 <div key={q.id} className={`bh-q-item ${editIdx === idx ? "bh-q-item--open" : ""}`}>
                   <div className="bh-q-row" onClick={() => setEditIdx(editIdx === idx ? null : idx)}>
                     <span className="bh-q-num">{idx + 1}</span>
+                    {/* Type badge */}
+                    <span style={{
+                      fontSize: 10, fontWeight: 800, padding: "2px 7px", borderRadius: 99,
+                      background: q.type === "saq" ? "#f3f0ff" : "#e0f7f4",
+                      color: q.type === "saq" ? "#7c3aed" : "#0d7c6e",
+                      border: `1px solid ${q.type === "saq" ? "#ddd6fe" : "#a7f3d0"}`,
+                      flexShrink: 0, textTransform: "uppercase",
+                    }}>
+                      {q.type}
+                    </span>
                     <span className="bh-q-text">{q.question || <em>Empty question</em>}</span>
                     <span className={`bh-q-badge bh-diff--${q.difficulty}`}>{q.difficulty}</span>
                     <span className="bh-q-source">{q.source}</span>
@@ -599,27 +649,147 @@ Base64 snippet: ${base64.substring(0, 500)}`;
                     </button>
                   </div>
 
+                  {/* Expanded editor */}
                   {editIdx === idx && (
                     <div className="bh-q-edit">
+
+                      {/* ── Type toggle inside editor ── */}
+                      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                        <span style={{ fontSize: 12, fontWeight: 700, color: "#6b7e79" }}>Question type:</span>
+                        <QuestionTypeToggle
+                          value={q.type}
+                          onChange={(newType) => switchQuestionType(idx, newType)}
+                        />
+                      </div>
+
                       <textarea className="bh-input bh-textarea"
                         value={q.question}
                         onChange={e => updateQuestion(idx, "question", e.target.value)}
                         placeholder="Question text…" rows={3} />
 
-                      {q.type === "mcq" && q.options.map((opt, oi) => (
-                        <div key={oi} className="bh-opt-row">
-                          <input
-                            type="radio"
-                            name={`correct_${idx}`}
-                            checked={q.correctAnswer === oi}
-                            onChange={() => updateQuestion(idx, "correctAnswer", oi)}
-                          />
-                          <input className="bh-input bh-input--opt"
-                            value={opt}
-                            onChange={e => updateOption(idx, oi, e.target.value)}
-                            placeholder={`Option ${String.fromCharCode(65 + oi)}`} />
+                      {/* MCQ options */}
+                      {q.type === "mcq" && (
+                        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                          <p style={{ fontSize: 11, fontWeight: 700, color: "#6b7e79", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                            Options — select the correct answer
+                          </p>
+                          {(q.options || ["", "", "", ""]).map((opt, oi) => (
+                            <div key={oi} className="bh-opt-row">
+                              <input
+                                type="radio"
+                                name={`correct_${idx}`}
+                                checked={q.correctAnswer === oi}
+                                onChange={() => updateQuestion(idx, "correctAnswer", oi)}
+                              />
+                              <span style={{
+                                width: 22, height: 22, borderRadius: 6,
+                                background: q.correctAnswer === oi ? "#0d7c6e" : "#f5f7f6",
+                                border: `1.5px solid ${q.correctAnswer === oi ? "#0d7c6e" : "#e4eae8"}`,
+                                display: "flex", alignItems: "center", justifyContent: "center",
+                                fontSize: 11, fontWeight: 800,
+                                color: q.correctAnswer === oi ? "#fff" : "#6b7e79",
+                                flexShrink: 0,
+                              }}>
+                                {String.fromCharCode(65 + oi)}
+                              </span>
+                              <input className="bh-input bh-input--opt"
+                                value={opt}
+                                onChange={e => updateOption(idx, oi, e.target.value)}
+                                placeholder={`Option ${String.fromCharCode(65 + oi)}`} />
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      )}
+
+                      {/* SAQ — model answer + key points array */}
+                      {q.type === "saq" && (
+                        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+
+                          {/* Model answer */}
+                          <div>
+                            <p style={{ fontSize: 11, fontWeight: 700, color: "#7c3aed", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 6 }}>
+                              Model Answer <span style={{ fontWeight: 500, textTransform: "none", color: "#9aaeaa" }}>(shown to students after time is up)</span>
+                            </p>
+                            <textarea className="bh-input bh-textarea"
+                              value={q.correctAnswer || ""}
+                              onChange={e => updateQuestion(idx, "correctAnswer", e.target.value)}
+                              placeholder="Write the full model answer here…"
+                              rows={3} />
+                          </div>
+
+                          {/* Key points array */}
+                          <div>
+                            <p style={{ fontSize: 11, fontWeight: 700, color: "#7c3aed", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 4 }}>
+                              Key Points for Marking
+                            </p>
+                            <p style={{ fontSize: 11, color: "#6b7e79", marginBottom: 8, lineHeight: 1.5 }}>
+                              Add each accepted answer or key concept separately. The student scores 1 point per key point matched in their response. Synonyms and partial phrases are accepted.
+                            </p>
+
+                            {/* Existing key points */}
+                            {(q.keyPoints || []).map((kp, ki) => (
+                              <div key={ki} style={{ display: "flex", gap: 6, marginBottom: 6, alignItems: "center" }}>
+                                <span style={{
+                                  width: 22, height: 22, borderRadius: 6, flexShrink: 0,
+                                  background: "#f3f0ff", border: "1.5px solid #ddd6fe",
+                                  display: "flex", alignItems: "center", justifyContent: "center",
+                                  fontSize: 10, fontWeight: 800, color: "#7c3aed",
+                                }}>
+                                  {ki + 1}
+                                </span>
+                                <input
+                                  className="bh-input"
+                                  value={kp}
+                                  onChange={e => {
+                                    const updated = [...(q.keyPoints || [])];
+                                    updated[ki] = e.target.value;
+                                    updateQuestion(idx, "keyPoints", updated);
+                                  }}
+                                  placeholder={`Key point ${ki + 1} e.g. "loss of liver dullness"`}
+                                  style={{ flex: 1 }}
+                                />
+                                <button
+                                  onClick={() => {
+                                    const updated = (q.keyPoints || []).filter((_, i) => i !== ki);
+                                    updateQuestion(idx, "keyPoints", updated);
+                                  }}
+                                  style={{
+                                    width: 28, height: 28, borderRadius: 7, flexShrink: 0,
+                                    background: "#fee2e2", border: "1.5px solid #fecaca",
+                                    color: "#dc2626", cursor: "pointer",
+                                    display: "flex", alignItems: "center", justifyContent: "center",
+                                  }}
+                                >
+                                  <Trash2 size={12} />
+                                </button>
+                              </div>
+                            ))}
+
+                            {/* Add key point button */}
+                            <button
+                              className="bh-btn-outline"
+                              style={{ marginTop: 4, fontSize: 12, padding: "7px 14px" }}
+                              onClick={() => {
+                                const updated = [...(q.keyPoints || []), ""];
+                                updateQuestion(idx, "keyPoints", updated);
+                              }}
+                            >
+                              <Plus size={12} /> Add Key Point
+                            </button>
+
+                            {/* Scoring summary */}
+                            {(q.keyPoints || []).length > 0 && (
+                              <div style={{
+                                marginTop: 10, padding: "8px 12px",
+                                background: "#f3f0ff", border: "1.5px solid #ddd6fe",
+                                borderRadius: 10, fontSize: 12, color: "#7c3aed", fontWeight: 600,
+                              }}>
+                                Scoring: {(q.keyPoints || []).length} key point{(q.keyPoints || []).length !== 1 ? "s" : ""} — student scores 1 mark per point matched
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
 
                       <textarea className="bh-input bh-textarea"
                         value={q.explanation}
@@ -647,7 +817,6 @@ Base64 snippet: ${base64.substring(0, 500)}`;
         {/* ══ LIVE TAB ═════════════════════════════════════════════════════ */}
         {tab === "live" && (
           <div className="bh-panel">
-
             {!sessionActive ? (
               <div className="bh-empty">
                 <p>No active session. Go to Questions tab and launch a session.</p>
@@ -655,24 +824,21 @@ Base64 snippet: ${base64.substring(0, 500)}`;
               </div>
             ) : (
               <>
-                {/* Room info bar */}
                 <div className="bh-room-bar">
                   <div className="bh-room-info">
                     <span className="bh-room-code">{roomCode}</span>
-                    <span className="bh-room-status bh-status--{sessionStatus}">{sessionStatus.toUpperCase()}</span>
+                    <span className={`bh-room-status bh-status--${sessionStatus}`}>{sessionStatus.toUpperCase()}</span>
                   </div>
                   <div className="bh-room-actions">
                     <button className="bh-icon-btn" onClick={copyLink} title="Copy join link"><Copy size={16} /></button>
                   </div>
                 </div>
 
-                {/* Join link callout */}
                 <div className="bh-join-callout">
                   <span>Students join at:</span>
                   <strong>{window.location.origin}/join/{roomCode}</strong>
                 </div>
 
-                {/* Participants */}
                 <div className="bh-part-bar">
                   <Users size={14} />
                   <span>{partList.length} participant{partList.length !== 1 ? "s" : ""} connected</span>
@@ -686,7 +852,6 @@ Base64 snippet: ${base64.substring(0, 500)}`;
                   </div>
                 </div>
 
-                {/* Waiting state */}
                 {sessionStatus === "waiting" && (
                   <div className="bh-waiting">
                     <div className="bh-waiting-icon">⏳</div>
@@ -698,36 +863,53 @@ Base64 snippet: ${base64.substring(0, 500)}`;
                   </div>
                 )}
 
-                {/* Running / Paused state */}
                 {(sessionStatus === "running" || sessionStatus === "paused") && currentQ && (
                   <div className="bh-live-content">
-                    {/* Progress + timer */}
                     <div className="bh-live-meta">
-                      <span className="bh-q-progress">Q {currentQIdx + 1} / {Math.min(questions.length, config.totalQuestions)}</span>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        <span className="bh-q-progress">Q {currentQIdx + 1} / {Math.min(questions.length, config.totalQuestions)}</span>
+                        {/* Show question type badge in live view */}
+                        <span style={{
+                          fontSize: 10, fontWeight: 800, padding: "2px 7px", borderRadius: 99,
+                          background: currentQ.type === "saq" ? "#f3f0ff" : "#e0f7f4",
+                          color: currentQ.type === "saq" ? "#7c3aed" : "#0d7c6e",
+                        }}>
+                          {currentQ.type?.toUpperCase()}
+                        </span>
+                      </div>
                       <div className={`bh-timer ${timeLeft <= 5 ? "bh-timer--urgent" : ""}`}>
-                        <Clock size={14} />
-                        <span>{timeLeft}s</span>
+                        <Clock size={14} /><span>{timeLeft}s</span>
                       </div>
                     </div>
 
-                    {/* Timer bar */}
                     <div className="bh-timer-track">
-                      <div className="bh-timer-fill"
-                        style={{ width: `${(timeLeft / config.timePerQ) * 100}%` }} />
+                      <div className="bh-timer-fill" style={{ width: `${(timeLeft / config.timePerQ) * 100}%` }} />
                     </div>
 
-                    {/* Current question */}
                     <div className="bh-live-q">
                       <p className="bh-live-q-text">{currentQ.question}</p>
-                      {currentQ.options?.map((opt, oi) => (
+
+                      {/* MCQ options in live view */}
+                      {currentQ.type === "mcq" && currentQ.options?.map((opt, oi) => (
                         <div key={oi} className={`bh-live-opt ${oi === currentQ.correctAnswer && showExplain ? "bh-live-opt--correct" : ""}`}>
                           <span className="bh-opt-letter">{String.fromCharCode(65 + oi)}</span>
                           <span>{opt}</span>
                         </div>
                       ))}
+
+                      {/* SAQ model answer — only shown when explanation is revealed */}
+                      {currentQ.type === "saq" && showExplain && (
+                        <div style={{
+                          marginTop: 12, padding: "12px 16px",
+                          background: "#e0f7f4", border: "1.5px solid #0d7c6e",
+                          borderRadius: 10,
+                        }}>
+                          <p style={{ fontSize: 11, fontWeight: 800, color: "#0d7c6e", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 4 }}>Model Answer</p>
+                          <p style={{ fontSize: 14, color: "#065f46", lineHeight: 1.6 }}>{currentQ.correctAnswer}</p>
+                        </div>
+                      )}
                     </div>
 
-                    {/* Explanation */}
                     {showExplain && currentQ.explanation && (
                       <div className="bh-explanation">
                         <p className="bh-explanation-title">💡 Explanation</p>
@@ -735,7 +917,6 @@ Base64 snippet: ${base64.substring(0, 500)}`;
                       </div>
                     )}
 
-                    {/* Host controls */}
                     <div className="bh-controls">
                       {sessionStatus === "running"
                         ? <button className="bh-ctrl-btn" onClick={pauseSession}><Pause size={16} /> Pause</button>
@@ -752,26 +933,19 @@ Base64 snippet: ${base64.substring(0, 500)}`;
                       </button>
                     </div>
 
-                    {/* Live mini leaderboard */}
                     {partList.length > 0 && (
                       <div className="bh-mini-board">
                         <p className="bh-mini-board-title"><BarChart2 size={13} /> Live Standings</p>
-                        {[...partList]
-                          .sort((a, b) => (b.score || 0) - (a.score || 0))
-                          .slice(0, 5)
-                          .map((p, i) => (
-                            <div key={i} className="bh-mini-row">
-                              <span className="bh-mini-rank">#{i + 1}</span>
-                              <span className="bh-mini-name">
-                                {config.anonymousBoard ? `Student ${i + 1}` : (p.name || "Unknown")}
-                              </span>
-                              <span className="bh-mini-score">{p.score || 0} pts</span>
-                            </div>
-                          ))}
+                        {[...partList].sort((a, b) => (b.score || 0) - (a.score || 0)).slice(0, 5).map((p, i) => (
+                          <div key={i} className="bh-mini-row">
+                            <span className="bh-mini-rank">#{i + 1}</span>
+                            <span className="bh-mini-name">{config.anonymousBoard ? `Student ${i + 1}` : (p.name || "Unknown")}</span>
+                            <span className="bh-mini-score">{p.score || 0} pts</span>
+                          </div>
+                        ))}
                       </div>
                     )}
 
-                    {/* Announcement */}
                     <div className="bh-announce">
                       <input className="bh-input" placeholder="Send announcement to all participants…"
                         value={announcement} onChange={e => setAnnouncement(e.target.value)}
@@ -783,7 +957,6 @@ Base64 snippet: ${base64.substring(0, 500)}`;
                   </div>
                 )}
 
-                {/* Ended */}
                 {sessionStatus === "ended" && (
                   <div className="bh-ended">
                     <CheckCircle size={40} color="#0D7B65" />
@@ -808,11 +981,10 @@ Base64 snippet: ${base64.substring(0, 500)}`;
               </div>
             ) : (
               <>
-                {/* Summary cards */}
                 <div className="bh-analytics-summary">
                   {[
                     { label: "Participants", val: analytics.totalParticipants, icon: "👥" },
-                    { label: "Avg Score",    val: `${analytics.avgScore} pts`, icon: "⭐" },
+                    { label: "Avg Score",    val: `${analytics.avgScore} pts`,  icon: "⭐" },
                     { label: "Completion",   val: `${analytics.completionRate}%`, icon: "✅" },
                   ].map(s => (
                     <div key={s.label} className="bh-summary-card">
@@ -823,7 +995,6 @@ Base64 snippet: ${base64.substring(0, 500)}`;
                   ))}
                 </div>
 
-                {/* Full leaderboard */}
                 <div className="bh-card">
                   <p className="bh-card-title">🏆 Final Leaderboard</p>
                   {analytics.leaderboard.map((p, i) => (
@@ -839,12 +1010,17 @@ Base64 snippet: ${base64.substring(0, 500)}`;
                   ))}
                 </div>
 
-                {/* Per-question breakdown */}
                 <div className="bh-card">
                   <p className="bh-card-title">📊 Question Breakdown</p>
                   {analytics.qStats.map((qs, i) => (
                     <div key={i} className="bh-qs-row">
                       <span className="bh-qs-num">Q{i + 1}</span>
+                      <span style={{
+                        fontSize: 9, fontWeight: 800, padding: "1px 5px", borderRadius: 99,
+                        background: qs.type === "saq" ? "#f3f0ff" : "#e0f7f4",
+                        color: qs.type === "saq" ? "#7c3aed" : "#0d7c6e",
+                        flexShrink: 0,
+                      }}>{qs.type?.toUpperCase()}</span>
                       <span className="bh-qs-text">{qs.question}</span>
                       <div className="bh-qs-bar-wrap">
                         <div className={`bh-qs-bar ${qs.correctPct < 40 ? "bh-qs-bar--hard" : qs.correctPct > 70 ? "bh-qs-bar--easy" : ""}`}

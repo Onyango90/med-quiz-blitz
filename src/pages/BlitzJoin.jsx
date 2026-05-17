@@ -1,30 +1,61 @@
 // src/pages/BlitzJoin.jsx
 // Student-facing join page + live quiz experience for BlitzHost sessions
-// Open to everyone — no login required
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDatabase, ref, onValue, off, update, get } from "firebase/database";
-import { Clock, CheckCircle, XCircle, Trophy, Zap, Users, Megaphone } from "lucide-react";
+import { Clock, CheckCircle, XCircle, Trophy, Zap, Users, Megaphone, AlignLeft } from "lucide-react";
 import "./BlitzJoin.css";
+
+// ── Key points scoring (mirrors BlitzHost logic) ───────────────────────────
+function scoreKeyPoints(studentAnswer, keyPoints = []) {
+  if (!keyPoints || keyPoints.length === 0) {
+    // No key points — fall back to loose string match against correctAnswer
+    return { matched: 0, total: 0, score: 0, matchedPoints: [] };
+  }
+  const normalise = (s) =>
+    (s || "").toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
+  const normAnswer   = normalise(studentAnswer);
+  const matchedPoints = [];
+
+  keyPoints.forEach(kp => {
+    if (!kp || !kp.trim()) return;
+    const normKp = normalise(kp);
+    // All meaningful words of the key point must appear in the student answer
+    const words = normKp.split(/\s+/).filter(w => w.length > 2);
+    const allPresent = words.length > 0
+      ? words.every(w => normAnswer.includes(w))
+      : normAnswer.includes(normKp);
+    if (allPresent || normAnswer.includes(normKp)) {
+      matchedPoints.push(kp);
+    }
+  });
+
+  const matched = matchedPoints.length;
+  const total   = keyPoints.filter(k => k && k.trim()).length;
+  const score   = total > 0 ? Math.round((matched / total) * 100) : 0;
+  return { matched, total, score, matchedPoints };
+}
 
 export default function BlitzJoin() {
   const { code: urlCode } = useParams();
   const navigate           = useNavigate();
   const db                 = getDatabase();
 
-  // ── Join flow state ────────────────────────────────────────────────────────
-  const [phase,     setPhase]     = useState("entry");  // entry | waiting | quiz | result
+  // ── Join flow ──────────────────────────────────────────────────────────────
+  const [phase,     setPhase]     = useState("entry");
   const [roomCode,  setRoomCode]  = useState(urlCode || "");
   const [nickname,  setNickname]  = useState("");
   const [joinError, setJoinError] = useState("");
   const [joining,   setJoining]   = useState(false);
 
-  // ── Session state ──────────────────────────────────────────────────────────
+  // ── Session ────────────────────────────────────────────────────────────────
   const [session,      setSession]      = useState(null);
   const [currentQIdx,  setCurrentQIdx]  = useState(0);
   const [timeLeft,     setTimeLeft]     = useState(30);
-  const [selected,     setSelected]     = useState(null);
+  const [selected,     setSelected]     = useState(null);   // MCQ: option index
+  const [saqText,      setSaqText]      = useState("");     // SAQ: typed answer
   const [answered,     setAnswered]     = useState(false);
+  const [saqResult,    setSaqResult]    = useState(null);   // { matched, total, score, matchedPoints }
   const [showExplain,  setShowExplain]  = useState(false);
   const [announcement, setAnnouncement] = useState("");
   const [myScore,      setMyScore]      = useState(0);
@@ -34,8 +65,8 @@ export default function BlitzJoin() {
   const [qStartTime,   setQStartTime]   = useState(Date.now());
 
   const sessionRef = useRef(null);
+  const timerRef   = useRef(null);
 
-  // Stable guest ID persisted in sessionStorage so page refreshes don't create duplicates
   const participantId = useRef(
     sessionStorage.getItem("blitz_guest_id") || (() => {
       const id = `guest_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
@@ -44,47 +75,35 @@ export default function BlitzJoin() {
     })()
   );
 
-  // ── Auto-join if URL has code and nickname already filled ────────────────
-  // For guests this never fires on mount (nickname is empty), they fill the form first
   useEffect(() => {
     if (urlCode) setRoomCode(urlCode.toUpperCase());
   }, [urlCode]);
 
-  // ── Join session ──────────────────────────────────────────────────────────
+  // ── Join ───────────────────────────────────────────────────────────────────
   const joinSession = async () => {
     const code = roomCode.trim().toUpperCase();
-    if (!code) { setJoinError("Please enter a room code."); return; }
-    if (!nickname.trim()) { setJoinError("Please enter your name."); return; }
-    setJoining(true);
-    setJoinError("");
+    if (!code)          { setJoinError("Please enter a room code."); return; }
+    if (!nickname.trim()){ setJoinError("Please enter your name."); return; }
+    setJoining(true); setJoinError("");
 
     try {
-      const sRef  = ref(db, `blitzhost/${code}`);
-      const snap  = await get(sRef);
+      const sRef = ref(db, `blitzhost/${code}`);
+      const snap = await get(sRef);
 
       if (!snap.exists()) {
         setJoinError("Room not found. Check the code and try again.");
-        setJoining(false);
-        return;
+        setJoining(false); return;
       }
-
       const data = snap.val();
       if (data.status === "ended") {
         setJoinError("This session has already ended.");
-        setJoining(false);
-        return;
+        setJoining(false); return;
       }
 
-      // Register participant
       const partRef = ref(db, `blitzhost/${code}/participants/${participantId.current}`);
       await update(partRef, {
-        name:      nickname.trim(),
-        uid:       participantId.current,
-        score:     0,
-        answers:   {},
-        times:     {},
-        joined:    Date.now(),
-        completed: false,
+        name: nickname.trim(), uid: participantId.current,
+        score: 0, answers: {}, times: {}, joined: Date.now(), completed: false,
       });
 
       sessionRef.current = sRef;
@@ -93,23 +112,20 @@ export default function BlitzJoin() {
       setTimeLeft(data.timeLeft || data.config?.timePerQ || 30);
       setPhase("waiting");
 
-      // Subscribe to session changes
       onValue(sRef, (s) => {
         const d = s.val();
         if (!d) return;
         setSession(d);
 
-        if (d.status === "ended") {
-          finishSession(d);
-          return;
-        }
+        if (d.status === "ended") { finishSession(d); return; }
 
-        // Question advanced by host
         if (d.currentQIdx !== undefined) {
           setCurrentQIdx(prev => {
             if (d.currentQIdx !== prev) {
               setAnswered(false);
               setSelected(null);
+              setSaqText("");
+              setSaqResult(null);
               setShowExplain(false);
               setQStartTime(Date.now());
             }
@@ -117,11 +133,10 @@ export default function BlitzJoin() {
           });
         }
 
-        if (d.timeLeft !== undefined) setTimeLeft(d.timeLeft);
+        if (d.timeLeft    !== undefined) setTimeLeft(d.timeLeft);
         if (d.showExplain !== undefined) setShowExplain(d.showExplain);
-        if (d.announcement) setAnnouncement(d.announcement);
-        if (d.status === "running" && phase === "waiting") setPhase("quiz");
-        if (d.status === "running") setPhase("quiz");
+        if (d.announcement)              setAnnouncement(d.announcement);
+        if (d.status === "running")      setPhase("quiz");
       });
 
     } catch (e) {
@@ -131,8 +146,8 @@ export default function BlitzJoin() {
     setJoining(false);
   };
 
-  // ── Answer a question ──────────────────────────────────────────────────────
-  const submitAnswer = async (optionIdx) => {
+  // ── Submit MCQ answer ──────────────────────────────────────────────────────
+  const submitMCQ = async (optionIdx) => {
     if (answered || !session) return;
     setSelected(optionIdx);
     setAnswered(true);
@@ -141,55 +156,99 @@ export default function BlitzJoin() {
     const timeTaken = Math.round((Date.now() - qStartTime) / 1000);
     const correct   = session.answers?.[currentQIdx]?.correctAnswer;
     const isCorrect = optionIdx === correct;
-
-    // Score: faster = more points (max 100, min 20)
-    const timeBonus = Math.max(0, session.config?.timePerQ - timeTaken);
+    const timeBonus = Math.max(0, (session.config?.timePerQ || 30) - timeTaken);
     const pts       = isCorrect ? Math.round(20 + (timeBonus / (session.config?.timePerQ || 30)) * 80) : 0;
 
-    const newScore = myScore + pts;
-    setMyScore(newScore);
-
+    const newScore   = myScore + pts;
     const newAnswers = [...answers, optionIdx];
     const newTimes   = [...times, timeTaken];
+    setMyScore(newScore);
     setAnswers(newAnswers);
     setTimes(newTimes);
 
-    // Update participant record in RTDB
     const partRef = ref(db, `blitzhost/${code}/participants/${participantId.current}`);
     await update(partRef, {
-      score:                   newScore,
+      score:                      newScore,
       [`answers/${currentQIdx}`]: optionIdx,
       [`times/${currentQIdx}`]:   timeTaken,
     });
 
-    // Auto-show explanation if configured
-    if (session.config?.explainWhen === "After each question") {
-      setShowExplain(true);
-    }
+    if (session.config?.explainWhen === "After each question") setShowExplain(true);
   };
 
-  // ── Finish session ─────────────────────────────────────────────────────────
+  // ── Submit SAQ answer ──────────────────────────────────────────────────────
+  const submitSAQ = async () => {
+    if (answered || !session || !saqText.trim()) return;
+    setAnswered(true);
+
+    const code      = roomCode.trim().toUpperCase() || urlCode;
+    const timeTaken = Math.round((Date.now() - qStartTime) / 1000);
+
+    // ── Key points scoring ──
+    const q         = session.questions?.[currentQIdx];
+    const keyPoints = session.answers?.[currentQIdx]?.keyPoints
+                   || q?.keyPoints
+                   || [];
+    const modelAnswer = session.answers?.[currentQIdx]?.correctAnswer || q?.correctAnswer || "";
+
+    let result;
+    if (keyPoints && keyPoints.filter(k => k && k.trim()).length > 0) {
+      // Score against key points array
+      result = scoreKeyPoints(saqText, keyPoints);
+    } else {
+      // No key points — do a loose match against the model answer
+      const normalise = s => (s || "").toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
+      const normStudent = normalise(saqText);
+      const normModel   = normalise(modelAnswer);
+      const words       = normModel.split(/\s+/).filter(w => w.length > 2);
+      const matched     = words.filter(w => normStudent.includes(w)).length;
+      const score       = words.length > 0 ? Math.round((matched / words.length) * 100) : 0;
+      result = { matched, total: words.length, score, matchedPoints: [] };
+    }
+
+    setSaqResult(result);
+
+    // Award points based on score percentage
+    const timePenalty = Math.max(0, (session.config?.timePerQ || 30) - timeTaken);
+    const basePoints  = Math.round((result.score / 100) * 100); // up to 100 pts
+    const timeBonus   = Math.round((timePenalty / (session.config?.timePerQ || 30)) * 20);
+    const pts         = result.score >= 60 ? basePoints + timeBonus : Math.round(basePoints * 0.5);
+
+    const newScore   = myScore + pts;
+    const newAnswers = [...answers, saqText];
+    const newTimes   = [...times, timeTaken];
+    setMyScore(newScore);
+    setAnswers(newAnswers);
+    setTimes(newTimes);
+
+    const partRef = ref(db, `blitzhost/${code}/participants/${participantId.current}`);
+    await update(partRef, {
+      score:                      newScore,
+      [`answers/${currentQIdx}`]: saqText,
+      [`times/${currentQIdx}`]:   timeTaken,
+    });
+
+    if (session.config?.explainWhen === "After each question") setShowExplain(true);
+  };
+
+  // ── Finish ─────────────────────────────────────────────────────────────────
   const finishSession = async (d = session) => {
     clearInterval(timerRef.current);
-    const code  = roomCode.trim().toUpperCase() || urlCode;
-    const parts = Object.values(d?.participants || {});
+    const code   = roomCode.trim().toUpperCase() || urlCode;
+    const parts  = Object.values(d?.participants || {});
     const sorted = [...parts].sort((a, b) => (b.score || 0) - (a.score || 0));
     const rank   = sorted.findIndex(p => p.uid === participantId.current) + 1;
     setMyRank(rank);
 
-    // Mark completed
     const partRef = ref(db, `blitzhost/${code}/participants/${participantId.current}`);
     await update(partRef, { completed: true });
-
     setPhase("result");
   };
 
-  // ── Timer countdown (driven by RTDB timeLeft, local interpolation) ─────────
-  const timerRef = useRef(null);
+  // ── Timer ──────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (phase !== "quiz" || session?.status === "paused") {
-      clearInterval(timerRef.current);
-      return;
+      clearInterval(timerRef.current); return;
     }
     timerRef.current = setInterval(() => {
       setTimeLeft(prev => Math.max(0, prev - 1));
@@ -197,51 +256,39 @@ export default function BlitzJoin() {
     return () => clearInterval(timerRef.current);
   }, [phase, session?.status, currentQIdx]);
 
-  // ── Cleanup ────────────────────────────────────────────────────────────────
   useEffect(() => {
-    return () => {
-      clearInterval(timerRef.current);
-      if (sessionRef.current) off(sessionRef.current);
-    };
+    return () => { clearInterval(timerRef.current); if (sessionRef.current) off(sessionRef.current); };
   }, []);
 
-  const currentQ     = session?.questions?.[currentQIdx];
-  const correctIdx   = session?.answers?.[currentQIdx]?.correctAnswer;
-  const explanation  = session?.answers?.[currentQIdx]?.explanation;
-  const totalQs      = session ? Math.min(session.questions?.length || 0, session.config?.totalQuestions || 20) : 0;
-  const pct          = totalQs ? Math.round((currentQIdx / totalQs) * 100) : 0;
+  const currentQ    = session?.questions?.[currentQIdx];
+  const correctIdx  = session?.answers?.[currentQIdx]?.correctAnswer;
+  const explanation = session?.answers?.[currentQIdx]?.explanation;
+  const modelAnswer = session?.answers?.[currentQIdx]?.correctAnswer;
+  const keyPoints   = session?.answers?.[currentQIdx]?.keyPoints || currentQ?.keyPoints || [];
+  const totalQs     = session ? Math.min(session.questions?.length || 0, session.config?.totalQuestions || 20) : 0;
+  const pct         = totalQs ? Math.round((currentQIdx / totalQs) * 100) : 0;
+  const timePerQ    = session?.config?.timePerQ || 30;
 
   // ─────────────────────────────────────────────────────────────────────────
   return (
     <div className="bj-page">
 
-      {/* ── ENTRY PHASE ──────────────────────────────────────────────── */}
+      {/* ── ENTRY ── */}
       {phase === "entry" && (
         <div className="bj-entry">
-          <div className="bj-entry-logo">
-            <span>⚡</span>
-          </div>
+          <div className="bj-entry-logo">⚡</div>
           <h1 className="bj-entry-title">Join BlitzHost</h1>
           <p className="bj-entry-sub">Enter the room code your host shared with you</p>
-
           <div className="bj-entry-form">
-            <input
-              className="bj-input bj-input--code"
+            <input className="bj-input bj-input--code"
               value={roomCode}
               onChange={e => setRoomCode(e.target.value.toUpperCase())}
-              placeholder="ROOM CODE"
-              maxLength={6}
-            />
-            <input
-              className="bj-input"
+              placeholder="ROOM CODE" maxLength={6} />
+            <input className="bj-input"
               value={nickname}
               onChange={e => setNickname(e.target.value)}
-              placeholder="Your name"
-              maxLength={30}
-            />
-            {joinError && (
-              <div className="bj-error"><XCircle size={14} />{joinError}</div>
-            )}
+              placeholder="Your name" maxLength={30} />
+            {joinError && <div className="bj-error"><XCircle size={14} />{joinError}</div>}
             <button className="bj-btn-primary" onClick={joinSession} disabled={joining}>
               {joining ? "Joining…" : "Join Session ⚡"}
             </button>
@@ -249,7 +296,7 @@ export default function BlitzJoin() {
         </div>
       )}
 
-      {/* ── WAITING PHASE ────────────────────────────────────────────── */}
+      {/* ── WAITING ── */}
       {phase === "waiting" && (
         <div className="bj-waiting">
           <div className="bj-waiting-pulse">⏳</div>
@@ -264,18 +311,13 @@ export default function BlitzJoin() {
         </div>
       )}
 
-      {/* ── QUIZ PHASE ───────────────────────────────────────────────── */}
+      {/* ── QUIZ ── */}
       {phase === "quiz" && currentQ && (
         <div className="bj-quiz">
 
-          {/* Announcement banner */}
           {announcement && (
-            <div className="bj-announce-banner">
-              <Megaphone size={14} /> {announcement}
-            </div>
+            <div className="bj-announce-banner"><Megaphone size={14} /> {announcement}</div>
           )}
-
-          {/* Paused banner */}
           {session?.status === "paused" && (
             <div className="bj-paused-banner">⏸ Host paused the session</div>
           )}
@@ -284,8 +326,7 @@ export default function BlitzJoin() {
           <div className="bj-quiz-header">
             <span className="bj-q-label">Q {currentQIdx + 1} / {totalQs}</span>
             <div className={`bj-timer ${timeLeft <= 5 ? "bj-timer--urgent" : ""}`}>
-              <Clock size={13} />
-              <span>{timeLeft}s</span>
+              <Clock size={13} /><span>{timeLeft}s</span>
             </div>
             <span className="bj-score"><Zap size={13} />{myScore} pts</span>
           </div>
@@ -298,27 +339,34 @@ export default function BlitzJoin() {
           {/* Timer bar */}
           <div className="bj-timer-track">
             <div className={`bj-timer-fill ${timeLeft <= 5 ? "bj-timer-fill--urgent" : ""}`}
-              style={{ width: `${(timeLeft / (session?.config?.timePerQ || 30)) * 100}%` }} />
+              style={{ width: `${(timeLeft / timePerQ) * 100}%` }} />
           </div>
+
+          {/* Question type badge */}
+          {currentQ.type === "saq" && (
+            <div className="bj-q-type-badge">
+              <AlignLeft size={11} /> Short Answer Question
+            </div>
+          )}
 
           {/* Question */}
           <div className="bj-question-card">
             <p className="bj-q-text">{currentQ.question}</p>
           </div>
 
-          {/* Options */}
+          {/* ── MCQ options ── */}
           {currentQ.type !== "saq" && currentQ.options?.map((opt, oi) => {
             let cls = "bj-option";
             if (answered) {
-              if (oi === correctIdx)     cls += " bj-option--correct";
-              else if (oi === selected)  cls += " bj-option--wrong";
-              else                       cls += " bj-option--dim";
+              if (oi === correctIdx)    cls += " bj-option--correct";
+              else if (oi === selected) cls += " bj-option--wrong";
+              else                      cls += " bj-option--dim";
             } else if (selected === oi) {
               cls += " bj-option--selected";
             }
             return (
               <button key={oi} className={cls}
-                onClick={() => submitAnswer(oi)}
+                onClick={() => submitMCQ(oi)}
                 disabled={answered || session?.status === "paused"}>
                 <span className="bj-opt-letter">{String.fromCharCode(65 + oi)}</span>
                 <span className="bj-opt-text">{opt}</span>
@@ -328,51 +376,112 @@ export default function BlitzJoin() {
             );
           })}
 
-          {/* SAQ input */}
+          {/* ── SAQ input + result ── */}
           {currentQ.type === "saq" && (
             <div className="bj-saq">
-              <textarea className="bj-input bj-textarea" rows={4}
+              <textarea
+                className="bj-input bj-textarea"
+                rows={4}
                 placeholder="Type your answer here…"
-                disabled={answered} />
+                value={saqText}
+                onChange={e => setSaqText(e.target.value)}
+                disabled={answered}
+              />
+
               {!answered && (
-                <button className="bj-btn-primary" onClick={() => { setAnswered(true); setShowExplain(true); }}>
+                <button
+                  className="bj-btn-primary"
+                  onClick={submitSAQ}
+                  disabled={!saqText.trim()}
+                >
                   Submit Answer
                 </button>
+              )}
+
+              {/* SAQ result panel */}
+              {answered && saqResult && (
+                <div className={`bj-saq-result ${saqResult.score >= 60 ? "bj-saq-result--pass" : "bj-saq-result--fail"}`}>
+                  {/* Score ring */}
+                  <div className="bj-saq-score-row">
+                    <div className="bj-saq-score-ring" style={{
+                      background: `conic-gradient(${saqResult.score >= 60 ? "#0d7c6e" : "#dc2626"} ${saqResult.score * 3.6}deg, #e4eae8 0deg)`,
+                    }}>
+                      <div className="bj-saq-score-inner">
+                        <span style={{ fontSize: 18, fontWeight: 800, color: saqResult.score >= 60 ? "#0d7c6e" : "#dc2626" }}>
+                          {saqResult.score}%
+                        </span>
+                      </div>
+                    </div>
+                    <div className="bj-saq-score-info">
+                      <p style={{ fontWeight: 700, fontSize: 15, color: "#1a1f1e" }}>
+                        {saqResult.score >= 80 ? "Excellent!" : saqResult.score >= 60 ? "Good answer" : saqResult.score >= 30 ? "Partial credit" : "Needs improvement"}
+                      </p>
+                      {saqResult.total > 0 && (
+                        <p style={{ fontSize: 13, color: "#6b7e79" }}>
+                          {saqResult.matched} of {saqResult.total} key point{saqResult.total !== 1 ? "s" : ""} matched
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Matched key points */}
+                  {saqResult.total > 0 && (
+                    <div className="bj-saq-keypoints">
+                      {keyPoints.filter(k => k && k.trim()).map((kp, ki) => {
+                        const matched = saqResult.matchedPoints.includes(kp);
+                        return (
+                          <div key={ki} className={`bj-saq-kp ${matched ? "bj-saq-kp--matched" : "bj-saq-kp--missed"}`}>
+                            {matched ? <CheckCircle size={12} /> : <XCircle size={12} />}
+                            <span>{kp}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* Model answer */}
+                  {modelAnswer && (
+                    <div className="bj-saq-model">
+                      <p className="bj-saq-model-label">Model Answer</p>
+                      <p className="bj-saq-model-text">{modelAnswer}</p>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           )}
 
           {/* Explanation */}
           {showExplain && explanation && (
-            <div className={`bj-explanation ${answered && selected === correctIdx ? "bj-explanation--correct" : "bj-explanation--wrong"}`}>
-              <p className="bj-expl-title">
-                {answered && selected === correctIdx ? "✅ Correct!" : "❌ Not quite"}
-              </p>
+            <div className={`bj-explanation ${
+              currentQ.type === "saq"
+                ? saqResult?.score >= 60 ? "bj-explanation--correct" : "bj-explanation--wrong"
+                : answered && selected === correctIdx ? "bj-explanation--correct" : "bj-explanation--wrong"
+            }`}>
+              <p className="bj-expl-title">💡 Explanation</p>
               <p className="bj-expl-text">{explanation}</p>
             </div>
           )}
 
-          {/* Waiting for next */}
-          {answered && !showExplain && (
+          {/* Waiting for next (MCQ only) */}
+          {answered && !showExplain && currentQ.type !== "saq" && (
             <div className="bj-answered-note">
               {selected === correctIdx
-                ? <><CheckCircle size={16} color="#0D7B65" /> Correct! +{myScore > 0 ? "" : "0"} pts — waiting for next question</>
-                : <><XCircle size={16} color="#dc2626" /> Moving on… waiting for next question</>}
+                ? <><CheckCircle size={16} color="#0d7c6e" /> Correct! Waiting for next question</>
+                : <><XCircle size={16} color="#dc2626" /> Waiting for next question…</>}
             </div>
           )}
         </div>
       )}
 
-      {/* ── RESULT PHASE ─────────────────────────────────────────────── */}
+      {/* ── RESULT ── */}
       {phase === "result" && (
         <div className="bj-result">
           <div className="bj-result-trophy">
             {myRank === 1 ? "🏆" : myRank === 2 ? "🥈" : myRank === 3 ? "🥉" : "🎓"}
           </div>
-
           <h2 className="bj-result-title">Session Complete!</h2>
           <p className="bj-result-name">{nickname}</p>
-
           <div className="bj-result-stats">
             <div className="bj-result-stat">
               <span className="bj-result-val">{myScore}</span>
@@ -384,19 +493,21 @@ export default function BlitzJoin() {
             </div>
             <div className="bj-result-stat">
               <span className="bj-result-val">
-                {answers.filter((a, i) => a === session?.answers?.[i]?.correctAnswer).length}/{totalQs}
+                {answers.filter((a, i) => {
+                  const q = session?.questions?.[i];
+                  if (q?.type === "saq") return false; // SAQ scored separately
+                  return a === session?.answers?.[i]?.correctAnswer;
+                }).length}/{totalQs}
               </span>
               <span className="bj-result-label">Correct</span>
             </div>
           </div>
-
           <p className="bj-result-msg">
             {myRank === 1 ? "🎉 You topped the leaderboard!" :
              myRank <= 3  ? "Great performance — top 3! 🔥" :
              myScore > 50 ? "Good effort! Keep studying 💪" :
              "Keep practising — you've got this! 📚"}
           </p>
-
           <button className="bj-btn-primary" onClick={() => navigate("/")}>
             Back to MedBlitz
           </button>
