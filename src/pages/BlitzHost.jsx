@@ -132,7 +132,17 @@ export default function BlitzHost() {
     anonymousBoard: true,
   });
 
-  const [questions,   setQuestions]   = useState([]);
+  const [questions,   setQuestions]   = useState(() => {
+    // ── Restore questions from localStorage on mount ──
+    try {
+      const saved = localStorage.getItem("blitzhost_draft_questions");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch {}
+    return [];
+  });
   const [aiLoading,   setAiLoading]   = useState(false);
   const [aiTopic,     setAiTopic]     = useState("");
   const [aiCount,     setAiCount]     = useState(10);
@@ -141,6 +151,7 @@ export default function BlitzHost() {
   const [pdfName,     setPdfName]     = useState("");
   const [pdfLoading,  setPdfLoading]  = useState(false);
   const [editIdx,     setEditIdx]     = useState(null);
+  const [draftSaved,  setDraftSaved]  = useState(false); // shows "Saved" indicator
   const fileRef                       = useRef();
 
   const [roomCode,      setRoomCode]      = useState("");
@@ -157,6 +168,22 @@ export default function BlitzHost() {
   const [analytics, setAnalytics] = useState(null);
 
   const updateConfig = (k, v) => setConfig(c => ({ ...c, [k]: v }));
+
+  // ── Auto-save questions to localStorage whenever they change ───────────────
+  useEffect(() => {
+    if (questions.length === 0) return;
+    try {
+      localStorage.setItem("blitzhost_draft_questions", JSON.stringify(questions));
+      setDraftSaved(true);
+      const t = setTimeout(() => setDraftSaved(false), 2000);
+      return () => clearTimeout(t);
+    } catch {}
+  }, [questions]);
+
+  // ── Clear draft after a successful session launch ──────────────────────────
+  const clearDraft = () => {
+    localStorage.removeItem("blitzhost_draft_questions");
+  };
 
   // ── Switch question type (MCQ ↔ SAQ) and reset fields accordingly ──────────
   const switchQuestionType = (idx, newType) => {
@@ -298,11 +325,19 @@ Base64 snippet: ${base64.substring(0, 500)}`;
       alert("Add at least one question before starting.");
       return;
     }
+
+    // ── Refresh token FIRST — prevents 401 after long editing sessions ──
+    try {
+      await currentUser.getIdToken(true);
+    } catch (e) {
+      alert("Session expired. Please sign in again.");
+      return;
+    }
+
     const code = genCode();
     setRoomCode(code);
     const selectedQs = shuffle(questions).slice(0, config.totalQuestions).map(q => ({
       ...q,
-      // Firebase rejects undefined — normalise optional fields
       keyPoints:   q.keyPoints   ?? null,
       explanation: q.explanation ?? "",
       topic:       q.topic       ?? "",
@@ -321,6 +356,8 @@ Base64 snippet: ${base64.substring(0, 500)}`;
         correctAnswer: q.correctAnswer,
         explanation:   q.explanation,
         type:          q.type,
+        // Include keyPoints so BlitzJoin can score SAQ answers
+        keyPoints:     q.keyPoints ?? null,
       })),
       status:       "waiting",
       currentQIdx:  0,
@@ -331,6 +368,9 @@ Base64 snippet: ${base64.substring(0, 500)}`;
     };
 
     await set(sRef, sessionData);
+
+    // Clear the draft now that it's live in Firebase
+    clearDraft();
 
     const partRef = ref(db, `blitzhost/${code}/participants`);
     onValue(partRef, snap => { setParticipants(snap.val() || {}); });
@@ -554,6 +594,28 @@ Base64 snippet: ${base64.substring(0, 500)}`;
         {/* ══ QUESTIONS TAB ════════════════════════════════════════════════ */}
         {tab === "questions" && (
           <div className="bh-panel">
+
+            {/* ── Draft restore notice ── */}
+            {questions.length > 0 && (
+              <div style={{
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+                padding: "10px 14px", borderRadius: 10, marginBottom: 4,
+                background: "#e0f7f4", border: "1.5px solid #0d7c6e",
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <CheckCircle size={14} color="#0d7c6e" />
+                  <span style={{ fontSize: 13, fontWeight: 600, color: "#0d7c6e" }}>
+                    {draftSaved ? "Draft saved automatically" : `${questions.length} question${questions.length !== 1 ? "s" : ""} — auto-saved. Safe to refresh.`}
+                  </span>
+                </div>
+                <button
+                  onClick={() => { setQuestions([]); clearDraft(); }}
+                  style={{ fontSize: 11, color: "#dc2626", fontWeight: 700, background: "none", border: "none", cursor: "pointer" }}
+                >
+                  Clear draft
+                </button>
+              </div>
+            )}
 
             {/* ── Question type selector for generation ── */}
             <div className="bh-card">
