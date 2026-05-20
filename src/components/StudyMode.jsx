@@ -37,6 +37,9 @@ import {
 // Import clinical skills
 import clinicalSkillsQuestions from "../data/questions/clinical_skills.json";
 
+// Import bacteriology questions
+import bacteriologyQuestions from "../data/questions/bacteriology.json";  // ← ADDED THIS LINE
+
 import correctSoundFile from "../sound/correct.wav";
 import wrongSoundFile   from "../sound/wrong.wav";
 
@@ -63,6 +66,7 @@ function getQuestions(topic, subtopic, locationState) {
     case "disinfectants":      return disinfectants;
     case "endocrine":          return pharmaEndocrine;
     case "clinical_skills":    return clinicalSkillsQuestions;
+    case "bacteriology":       return bacteriologyQuestions;  // ← ADDED THIS CASE
     default:                   return [];
   }
 }

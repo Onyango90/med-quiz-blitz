@@ -20,6 +20,7 @@ import immunologyQuestions        from "../data/questions/immunology.json";
 import physiologyLevel1           from "../data/questions/physiology_level1.json";
 import physiologyLevel2           from "../data/questions/physiology_level2.json";
 import clinicalSkillsQuestions    from "../data/questions/clinical_skills.json";
+import bacteriologyQuestions      from "../data/questions/bacteriology.json";
 import {
   antibiotics, antifungals, antiparasitics,
   cardiovascular as pharmaCardio, cns, disinfectants,
@@ -55,7 +56,7 @@ const TOPICS = [
     accent: "#f59e0b",
     hasSubcategories: true,
     subcategories: [
-      { name: "General Pathology",  Icon: FlaskConical, description: "Disease processes & mechanisms",       path: "/study/pathology",         questions: pathologyQuestions,         count: pathologyQuestions?.length         || 0 },
+      { name: "Anatomical Pathology",  Icon: FlaskConical, description: "Disease processes & mechanisms",       path: "/study/pathology",         questions: pathologyQuestions,         count: pathologyQuestions?.length         || 0 },
       { name: "Haematology",        Icon: Droplets,     description: "Blood disorders & transfusion",        path: "/study/haematology",       questions: haematologyQuestions,       count: haematologyQuestions?.length       || 0 },
       { name: "Clinical Chemistry", Icon: TestTube,     description: "Lab tests & biochemical interpretation",path: "/study/clinical_chemistry",questions: clinicalChemistryQuestions, count: clinicalChemistryQuestions?.length || 0 },
       { name: "Immunology",         Icon: Shield,       description: "Immunity, hypersensitivity & autoimmunity", path: "/study/immunology",    questions: immunologyQuestions,        count: immunologyQuestions?.length        || 0 },
@@ -85,12 +86,12 @@ const TOPICS = [
     description: "Microorganisms and infectious disease",
     accent: "#ef4444",
     hasSubcategories: true,
-    count: 0,
+    get count() { return (bacteriologyQuestions?.length || 0); },
     subcategories: [
-      { name: "Virology",      Icon: Microscope, description: "", path: "/study/virology",      questions: [], count: 0 },
-      { name: "Bacteriology",  Icon: TestTube,   description: "", path: "/study/bacteriology",  questions: [], count: 0 },
-      { name: "Mycology",      Icon: FlaskConical, description: "", path: "/study/mycology",    questions: [], count: 0 },
-      { name: "Parasitology",  Icon: Droplets,   description: "", path: "/study/parasitology",  questions: [], count: 0 },
+      { name: "Virology",      Icon: Microscope,     description: "Coming soon", path: "/study/virology",      questions: [], count: 0 },
+      { name: "Bacteriology",  Icon: TestTube,       description: "Bacteria & their diseases", path: "/study/bacteriology",  questions: bacteriologyQuestions, count: bacteriologyQuestions?.length || 0 },
+      { name: "Mycology",      Icon: FlaskConical,   description: "Coming soon", path: "/study/mycology",    questions: [], count: 0 },
+      { name: "Parasitology",  Icon: Droplets,       description: "Coming soon", path: "/study/parasitology",  questions: [], count: 0 },
     ],
   },
   {

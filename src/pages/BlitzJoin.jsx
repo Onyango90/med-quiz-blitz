@@ -3,6 +3,10 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDatabase, ref, onValue, off, update, get } from "firebase/database";
+import {
+  getFirestore, doc, setDoc, serverTimestamp,
+} from "firebase/firestore";
+import { useAuth } from "../context/AuthContext";
 import { Clock, CheckCircle, XCircle, Trophy, Zap, Users, Megaphone, AlignLeft } from "lucide-react";
 import "./BlitzJoin.css";
 
@@ -40,6 +44,8 @@ export default function BlitzJoin() {
   const { code: urlCode } = useParams();
   const navigate           = useNavigate();
   const db                 = getDatabase();
+  const fsDb               = getFirestore();
+  const { currentUser }    = useAuth();
 
   // ── Join flow ──────────────────────────────────────────────────────────────
   const [phase,     setPhase]     = useState("entry");
@@ -240,8 +246,41 @@ export default function BlitzJoin() {
     const rank   = sorted.findIndex(p => p.uid === participantId.current) + 1;
     setMyRank(rank);
 
+    // Mark completed in RTDB
     const partRef = ref(db, `blitzhost/${code}/participants/${participantId.current}`);
     await update(partRef, { completed: true });
+
+    // ── Save exam history to Firestore (for signed-in students) ──────────
+    if (currentUser) {
+      try {
+        const histDoc = doc(fsDb, "users", currentUser.uid, "examHistory", code);
+        await setDoc(histDoc, {
+          sessionCode:  code,
+          title:        d?.title || "BlitzHost Session",
+          date:         serverTimestamp(),
+          role:         "student",
+          score:        myScore,
+          rank:         rank,
+          totalStudents: parts.length,
+          totalQs:      totalQs,
+          questions:    (d?.questions || []).map((q, qi) => ({
+            question:      q.question,
+            type:          q.type,
+            options:       q.options   ?? null,
+            correctAnswer: d?.answers?.[qi]?.correctAnswer ?? null,
+            keyPoints:     d?.answers?.[qi]?.keyPoints     ?? null,
+            explanation:   d?.answers?.[qi]?.explanation   ?? "",
+            studentAnswer: answers[qi] ?? null,
+            correct:       q.type === "mcq"
+              ? answers[qi] === d?.answers?.[qi]?.correctAnswer
+              : null, // SAQ correctness shown via key points
+          })),
+        });
+      } catch (e) {
+        console.warn("Could not save exam history:", e);
+      }
+    }
+
     setPhase("result");
   };
 
@@ -511,6 +550,15 @@ export default function BlitzJoin() {
           <button className="bj-btn-primary" onClick={() => navigate("/")}>
             Back to MedBlitz
           </button>
+          {currentUser && (
+            <button
+              className="bj-btn-primary"
+              style={{ background: "#fff", color: "#0d7c6e", border: "1.5px solid #0d7c6e", marginTop: 0 }}
+              onClick={() => navigate("/my-exams")}
+            >
+              📋 Review My Answers
+            </button>
+          )}
         </div>
       )}
 

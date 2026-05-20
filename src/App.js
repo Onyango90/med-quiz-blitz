@@ -34,6 +34,7 @@ import ClinicalBlackBox from "./pages/ClinicalBlackBox";
 import BlitzHost from "./pages/BlitzHost";
 import BlitzJoin from "./pages/BlitzJoin";
 import PharmaRoulette from "./pages/PharmaRoulette";
+import MyExams from "./pages/MyExams";  // ← ADDED THIS LINE
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
@@ -124,6 +125,9 @@ function App() {
 
           {/* Study PDF Quiz */}
           <Route path="/study-pdf-quiz" element={<StudentPDFQuiz />} />
+
+          {/* My Exams */}
+          <Route path="/my-exams" element={<MyExams />} />  {/* ← ADDED THIS ROUTE */}
 
           {/* Admin — restricted to admin emails only */}
           <Route path="/admin" element={<AdminDashboard />} />

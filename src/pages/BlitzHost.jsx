@@ -3,14 +3,18 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { getDatabase, ref, set, onValue, off, update, push, remove } from "firebase/database";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getDatabase, ref, set, onValue, off, update } from "firebase/database";
+import {
+  getFirestore, doc, getDoc, setDoc, collection,
+  getDocs, deleteDoc, serverTimestamp, query, orderBy,
+} from "firebase/firestore";
 import {
   ArrowLeft, Plus, Upload, Settings, Play, Pause,
   SkipForward, StopCircle, Users, Clock, Zap,
   ChevronRight, Eye, EyeOff, Megaphone, Trash2,
   BarChart2, CheckCircle, AlertCircle, Copy, RefreshCw,
-  AlignLeft, List,
+  AlignLeft, List, BookMarked, Save, FolderOpen, X,
+  Calendar, BookOpen, Download,
 } from "lucide-react";
 import "./BlitzHost.css";
 
@@ -64,12 +68,13 @@ export function scoreKeyPoints(studentAnswer, keyPoints = []) {
 }
 
 
-const TABS = ["setup", "questions", "live", "analytics"];
+const TABS = ["setup", "questions", "live", "analytics", "sessions"];
 const TAB_LABELS = {
   setup:     "⚙️ Setup",
   questions: "📝 Questions",
   live:      "🔴 Live",
   analytics: "📊 Analytics",
+  sessions:  "📁 My Sessions",
 };
 
 // ── Question type toggle ──────────────────────────────────────────────────────
@@ -167,6 +172,54 @@ export default function BlitzHost() {
 
   const [analytics, setAnalytics] = useState(null);
 
+  // ── Question banks (My Question Banks) ────────────────────────────────────
+  const [banks,          setBanks]          = useState([]);
+  const [banksLoading,   setBanksLoading]   = useState(false);
+  const [showBankModal,  setShowBankModal]  = useState(false);
+  const [showLoadModal,  setShowLoadModal]  = useState(false);
+  const [bankName,       setBankName]       = useState("");
+  const [bankSubject,    setBankSubject]    = useState("");
+  const [savingBank,     setSavingBank]     = useState(false);
+
+  // ── My Sessions (exam history) ────────────────────────────────────────────
+  const [myExams,        setMyExams]        = useState([]);
+  const [examsLoading,   setExamsLoading]   = useState(false);
+  const [expandedExam,   setExpandedExam]   = useState(null);
+
+  const fsDb = getFirestore();
+
+  // ── Load user's saved question banks on mount ─────────────────────────────
+  useEffect(() => {
+    if (!currentUser) return;
+    const loadBanks = async () => {
+      setBanksLoading(true);
+      try {
+        const col  = collection(fsDb, "users", currentUser.uid, "questionBanks");
+        const q    = query(col, orderBy("createdAt", "desc"));
+        const snap = await getDocs(q);
+        setBanks(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      } catch (e) { console.warn("Could not load question banks:", e); }
+      setBanksLoading(false);
+    };
+    loadBanks();
+  }, [currentUser]);
+
+  // ── Load exam history when sessions tab is opened ─────────────────────────
+  useEffect(() => {
+    if (tab !== "sessions" || !currentUser) return;
+    const loadExams = async () => {
+      setExamsLoading(true);
+      try {
+        const col  = collection(fsDb, "users", currentUser.uid, "examHistory");
+        const q    = query(col, orderBy("date", "desc"));
+        const snap = await getDocs(q);
+        setMyExams(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      } catch (e) { console.warn("Could not load exam history:", e); }
+      setExamsLoading(false);
+    };
+    loadExams();
+  }, [tab, currentUser]);
+
   const updateConfig = (k, v) => setConfig(c => ({ ...c, [k]: v }));
 
   // ── Auto-save questions to localStorage whenever they change ───────────────
@@ -183,6 +236,99 @@ export default function BlitzHost() {
   // ── Clear draft after a successful session launch ──────────────────────────
   const clearDraft = () => {
     localStorage.removeItem("blitzhost_draft_questions");
+  };
+
+  // ── Save current questions as a named bank to Firestore ──────────────────
+  const saveBank = async () => {
+    if (!bankName.trim() || questions.length === 0 || !currentUser) return;
+    setSavingBank(true);
+    try {
+      const bankId  = `bank_${Date.now()}`;
+      const bankDoc = doc(fsDb, "users", currentUser.uid, "questionBanks", bankId);
+      const data = {
+        title:     bankName.trim(),
+        subject:   bankSubject.trim() || "General",
+        questions: questions.map(q => ({
+          ...q,
+          keyPoints:   q.keyPoints   ?? null,
+          explanation: q.explanation ?? "",
+          topic:       q.topic       ?? "",
+          source:      q.source      ?? "",
+        })),
+        count:     questions.length,
+        createdAt: serverTimestamp(),
+        lastUsed:  serverTimestamp(),
+      };
+      await setDoc(bankDoc, data);
+      setBanks(prev => [{ id: bankId, ...data, createdAt: new Date() }, ...prev]);
+      setShowBankModal(false);
+      setBankName("");
+      setBankSubject("");
+    } catch (e) {
+      console.error("Failed to save bank:", e);
+      alert("Failed to save. Please try again.");
+    }
+    setSavingBank(false);
+  };
+
+  // ── Load a saved bank into the editor ────────────────────────────────────
+  const loadBank = async (bank) => {
+    setQuestions(bank.questions || []);
+    // Update lastUsed timestamp
+    try {
+      const bankDoc = doc(fsDb, "users", currentUser.uid, "questionBanks", bank.id);
+      await setDoc(bankDoc, { lastUsed: serverTimestamp() }, { merge: true });
+    } catch {}
+    setShowLoadModal(false);
+    setTab("questions");
+  };
+
+  // ── Delete exam from history ───────────────────────────────────────────────
+  const deleteExam = async (examId) => {
+    if (!window.confirm("Remove this session from your history?")) return;
+    try {
+      await deleteDoc(doc(fsDb, "users", currentUser.uid, "examHistory", examId));
+      setMyExams(prev => prev.filter(e => e.id !== examId));
+    } catch (e) { console.error("Delete failed:", e); }
+  };
+
+  // ── Download exam as text ──────────────────────────────────────────────────
+  const downloadExam = (exam) => {
+    const lines = [
+      `MedBlitz Session Record — ${exam.title}`,
+      `Date: ${exam.date?.toDate?.()?.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) || "—"}`,
+      `Participants: ${exam.participants || 0} | Questions: ${exam.questions?.length || 0}`,
+      ``,
+      ...(exam.questions || []).map((q, i) => [
+        `Q${i + 1}. [${q.type?.toUpperCase()}] ${q.question}`,
+        q.type === "mcq" && q.options
+          ? (q.options || []).map((o, oi) => `   ${String.fromCharCode(65+oi)}. ${o}${oi === q.correctAnswer ? " ✓" : ""}`).join("\n")
+          : `   Model answer: ${q.correctAnswer || "—"}`,
+        q.keyPoints?.filter(k=>k?.trim()).length > 0
+          ? `   Key points: ${q.keyPoints.filter(k=>k?.trim()).join(", ")}`
+          : "",
+        q.explanation ? `   Explanation: ${q.explanation}` : "",
+        "",
+      ].filter(Boolean).join("\n")),
+    ].join("\n");
+    const blob = new Blob([lines], { type: "text/plain" });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href     = url;
+    a.download = `${(exam.title||"session").replace(/\s+/g,"_")}_${exam.sessionCode||exam.id}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // ── Delete a saved bank ────────────────────────────────────────────────────
+  const deleteBank = async (bankId) => {
+    if (!window.confirm("Delete this question bank? This cannot be undone.")) return;
+    try {
+      await deleteDoc(doc(fsDb, "users", currentUser.uid, "questionBanks", bankId));
+      setBanks(prev => prev.filter(b => b.id !== bankId));
+    } catch (e) {
+      console.error("Failed to delete bank:", e);
+    }
   };
 
   // ── Switch question type (MCQ ↔ SAQ) and reset fields accordingly ──────────
@@ -443,6 +589,37 @@ Base64 snippet: ${base64.substring(0, 500)}`;
     setSessionStatus("ended");
     if (sessionRef) await update(sessionRef, { status: "ended" });
     buildAnalytics();
+
+    // ── Save session record to host's examHistory ─────────────────────────
+    try {
+      const histDoc = doc(
+        fsDb, "users", currentUser.uid, "examHistory", roomCode
+      );
+      await setDoc(histDoc, {
+        sessionCode:  roomCode,
+        title:        config.title,
+        date:         serverTimestamp(),
+        totalQs:      Math.min(questions.length, config.totalQuestions),
+        participants: Object.keys(participants).length,
+        role:         "host",
+        questions:    questions.slice(0, config.totalQuestions).map(q => ({
+          question:      q.question,
+          type:          q.type,
+          correctAnswer: q.correctAnswer,
+          explanation:   q.explanation ?? "",
+          keyPoints:     q.keyPoints   ?? null,
+          options:       q.options     ?? null,
+        })),
+        participantResults: Object.values(participants).map(p => ({
+          name:      p.name || "Anonymous",
+          score:     p.score || 0,
+          completed: p.completed || false,
+        })),
+      });
+    } catch (e) {
+      console.warn("Could not save exam history:", e);
+    }
+
     setTab("analytics");
   };
 
@@ -594,6 +771,23 @@ Base64 snippet: ${base64.substring(0, 500)}`;
         {/* ══ QUESTIONS TAB ════════════════════════════════════════════════ */}
         {tab === "questions" && (
           <div className="bh-panel">
+
+            {/* ── My Question Banks toolbar ── */}
+            <div style={{ display: "flex", gap: 8, marginBottom: 4 }}>
+              <button className="bh-btn-outline" onClick={() => setShowLoadModal(true)} style={{ flex: 1 }}>
+                <FolderOpen size={14} /> Load from My Banks
+                {banks.length > 0 && (
+                  <span style={{ marginLeft: 4, background: "#0d7c6e", color: "#fff", borderRadius: 99, padding: "1px 7px", fontSize: 11, fontWeight: 800 }}>
+                    {banks.length}
+                  </span>
+                )}
+              </button>
+              {questions.length > 0 && (
+                <button className="bh-btn-outline" onClick={() => setShowBankModal(true)} style={{ flex: 1 }}>
+                  <Save size={14} /> Save to My Banks
+                </button>
+              )}
+            </div>
 
             {/* ── Draft restore notice ── */}
             {questions.length > 0 && (
@@ -1097,7 +1291,371 @@ Base64 snippet: ${base64.substring(0, 500)}`;
           </div>
         )}
 
+        {/* ══ MY SESSIONS TAB ══════════════════════════════════════════════ */}
+        {tab === "sessions" && (
+          <div className="bh-panel">
+
+            {examsLoading && (
+              <div className="bh-empty">
+                <RefreshCw size={28} className="bh-spin" color="#9aaeaa" />
+                <p style={{ fontSize: 13, color: "#6b7e79", marginTop: 8 }}>Loading your sessions…</p>
+              </div>
+            )}
+
+            {!examsLoading && myExams.length === 0 && (
+              <div className="bh-empty">
+                <BarChart2 size={40} color="#d0d9d6" />
+                <p>No sessions yet.</p>
+                <p style={{ fontSize: 12, color: "#9aaeaa", marginTop: 4 }}>
+                  Sessions you host will appear here after they end.
+                </p>
+              </div>
+            )}
+
+            {!examsLoading && myExams.map(exam => {
+              const isOpen = expandedExam === exam.id;
+              const formatDate = (ts) => {
+                if (!ts) return "—";
+                const d = ts.toDate?.() || new Date(ts);
+                return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+              };
+
+              return (
+                <div key={exam.id} style={{
+                  background: "#fff", border: `1.5px solid ${isOpen ? "#0d7c6e" : "#e4eae8"}`,
+                  borderRadius: 16, overflow: "hidden",
+                  boxShadow: isOpen ? "0 4px 20px rgba(0,0,0,0.08)" : "0 1px 4px rgba(0,0,0,0.05)",
+                  marginBottom: 10, transition: "all 0.2s",
+                }}>
+
+                  {/* Row header */}
+                  <div
+                    onClick={() => setExpandedExam(isOpen ? null : exam.id)}
+                    style={{
+                      display: "flex", alignItems: "center", gap: 12,
+                      padding: "14px 16px", cursor: "pointer",
+                    }}
+                  >
+                    {/* Teal dot */}
+                    <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#0d7c6e", flexShrink: 0 }} />
+
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <p style={{ fontSize: 14, fontWeight: 700, color: "#1a1f1e", marginBottom: 3 }}>{exam.title}</p>
+                      <div style={{ display: "flex", gap: 10, fontSize: 11, color: "#6b7e79", flexWrap: "wrap" }}>
+                        <span style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                          <Calendar size={10} /> {formatDate(exam.date)}
+                        </span>
+                        <span style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                          <Users size={10} /> {exam.participants || 0} students
+                        </span>
+                        <span style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                          <BookOpen size={10} /> {exam.questions?.length || exam.totalQs || 0} questions
+                        </span>
+                      </div>
+                    </div>
+
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <span style={{
+                        fontSize: 10, fontWeight: 800, padding: "3px 9px", borderRadius: 99,
+                        background: "#e0f7f4", color: "#0d7c6e", border: "1px solid #a7f3d0",
+                        textTransform: "uppercase", letterSpacing: "0.04em",
+                      }}>Host</span>
+                      {isOpen
+                        ? <ChevronRight size={16} color="#6b7e79" style={{ transform: "rotate(90deg)" }} />
+                        : <ChevronRight size={16} color="#6b7e79" />}
+                    </div>
+                  </div>
+
+                  {/* Expanded content */}
+                  {isOpen && (
+                    <div style={{ borderTop: "1px solid #e4eae8", padding: "16px 16px 18px" }}>
+
+                      {/* Participant results */}
+                      {exam.participantResults?.length > 0 && (
+                        <div style={{ marginBottom: 16 }}>
+                          <p style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#6b7e79", marginBottom: 8 }}>
+                            Participant Results
+                          </p>
+                          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                            {[...exam.participantResults]
+                              .sort((a, b) => (b.score || 0) - (a.score || 0))
+                              .map((p, i) => (
+                                <div key={i} style={{
+                                  display: "flex", alignItems: "center", gap: 10,
+                                  padding: "8px 12px", background: "#f5f7f6",
+                                  border: "1px solid #e4eae8", borderRadius: 10,
+                                }}>
+                                  <span style={{ fontSize: 11, fontWeight: 800, color: "#9aaeaa", width: 24 }}>#{i + 1}</span>
+                                  <span style={{ flex: 1, fontSize: 13, fontWeight: 600, color: "#1a1f1e" }}>{p.name || "Anonymous"}</span>
+                                  <span style={{ fontSize: 13, fontWeight: 800, color: "#0d7c6e" }}>{p.score || 0} pts</span>
+                                  <div style={{ width: 80, height: 5, background: "#e4eae8", borderRadius: 99, overflow: "hidden" }}>
+                                    <div style={{
+                                      height: "100%", borderRadius: 99, background: "#0d7c6e",
+                                      width: `${exam.participantResults[0]?.score ? ((p.score||0) / exam.participantResults[0].score) * 100 : 0}%`,
+                                    }} />
+                                  </div>
+                                </div>
+                              ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Questions list */}
+                      {exam.questions?.length > 0 && (
+                        <div style={{ marginBottom: 16 }}>
+                          <p style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#6b7e79", marginBottom: 8 }}>
+                            Questions ({exam.questions.length})
+                          </p>
+                          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                            {exam.questions.map((q, qi) => (
+                              <div key={qi} style={{
+                                background: "#f5f7f6", border: "1px solid #e4eae8",
+                                borderRadius: 12, padding: "12px 14px",
+                              }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                                  <span style={{ fontSize: 10, fontWeight: 800, color: "#9aaeaa" }}>Q{qi + 1}</span>
+                                  <span style={{
+                                    fontSize: 9, fontWeight: 800, padding: "2px 7px", borderRadius: 99,
+                                    background: q.type === "saq" ? "#f3f0ff" : "#e0f7f4",
+                                    color: q.type === "saq" ? "#7c3aed" : "#0d7c6e",
+                                  }}>{q.type?.toUpperCase()}</span>
+                                </div>
+                                <p style={{ fontSize: 13, fontWeight: 600, color: "#1a1f1e", lineHeight: 1.5, marginBottom: q.explanation ? 8 : 0 }}>
+                                  {q.question}
+                                </p>
+                                {q.type === "mcq" && q.options && (
+                                  <div style={{ display: "flex", flexDirection: "column", gap: 4, marginTop: 8 }}>
+                                    {q.options.map((opt, oi) => (
+                                      <div key={oi} style={{
+                                        display: "flex", alignItems: "center", gap: 8,
+                                        fontSize: 12, padding: "5px 10px", borderRadius: 8,
+                                        background: oi === q.correctAnswer ? "#dcfce7" : "#fff",
+                                        border: `1px solid ${oi === q.correctAnswer ? "#86efac" : "#e4eae8"}`,
+                                        color: oi === q.correctAnswer ? "#15803d" : "#6b7e79",
+                                        fontWeight: oi === q.correctAnswer ? 700 : 400,
+                                      }}>
+                                        <span style={{ fontWeight: 800, fontSize: 10 }}>{String.fromCharCode(65+oi)}</span>
+                                        {opt}
+                                        {oi === q.correctAnswer && <CheckCircle size={12} style={{ marginLeft: "auto" }} />}
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                                {q.type === "saq" && q.correctAnswer && (
+                                  <div style={{ marginTop: 8, padding: "8px 10px", background: "#e0f7f4", borderRadius: 8, fontSize: 12, color: "#065f46" }}>
+                                    <span style={{ fontWeight: 700 }}>Model answer: </span>{q.correctAnswer}
+                                  </div>
+                                )}
+                                {q.keyPoints?.filter(k => k?.trim()).length > 0 && (
+                                  <div style={{ marginTop: 6, display: "flex", flexWrap: "wrap", gap: 5 }}>
+                                    {q.keyPoints.filter(k => k?.trim()).map((kp, ki) => (
+                                      <span key={ki} style={{
+                                        fontSize: 10, fontWeight: 600, padding: "2px 8px", borderRadius: 99,
+                                        background: "#f3f0ff", color: "#7c3aed", border: "1px solid #ddd6fe",
+                                      }}>{kp}</span>
+                                    ))}
+                                  </div>
+                                )}
+                                {q.explanation && (
+                                  <div style={{ marginTop: 8, padding: "8px 10px", borderLeft: "3px solid #0d7c6e", background: "#fff", borderRadius: "0 8px 8px 0", fontSize: 12, color: "#6b7e79" }}>
+                                    <span style={{ fontWeight: 700, color: "#0d7c6e" }}>Explanation: </span>{q.explanation}
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Actions */}
+                      <div style={{ display: "flex", gap: 10 }}>
+                        <button
+                          onClick={() => downloadExam(exam)}
+                          style={{
+                            display: "flex", alignItems: "center", gap: 7,
+                            padding: "9px 16px", borderRadius: 10, border: "none",
+                            background: "#0d7c6e", color: "#fff",
+                            fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 700,
+                            cursor: "pointer",
+                          }}
+                        >
+                          <Download size={14} /> Download Paper
+                        </button>
+                        <button
+                          onClick={() => {
+                            // Load questions back into editor
+                            if (exam.questions?.length > 0) {
+                              setQuestions(exam.questions);
+                              setTab("questions");
+                            }
+                          }}
+                          className="bh-btn-outline"
+                          style={{ fontSize: 13, padding: "9px 16px" }}
+                        >
+                          <RefreshCw size={13} /> Reuse Questions
+                        </button>
+                        <button
+                          onClick={() => deleteExam(exam.id)}
+                          style={{
+                            display: "flex", alignItems: "center", gap: 7,
+                            padding: "9px 14px", borderRadius: 10,
+                            border: "1.5px solid #fecaca", background: "#fee2e2",
+                            color: "#dc2626", fontFamily: "'DM Sans', sans-serif",
+                            fontSize: 13, fontWeight: 700, cursor: "pointer",
+                          }}
+                        >
+                          <Trash2 size={13} />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
       </div>
+
+      {/* ══ SAVE BANK MODAL ════════════════════════════════════════════ */}
+      {showBankModal && (
+        <div style={{
+          position: "fixed", inset: 0, zIndex: 999,
+          background: "rgba(0,0,0,0.35)", backdropFilter: "blur(4px)",
+          display: "flex", alignItems: "center", justifyContent: "center", padding: 20,
+        }} onClick={e => { if (e.target === e.currentTarget) setShowBankModal(false); }}>
+          <div style={{
+            width: "100%", maxWidth: 420, background: "#fff",
+            borderRadius: 20, padding: "28px 24px",
+            boxShadow: "0 8px 40px rgba(0,0,0,0.15)",
+            border: "1.5px solid #e4eae8",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ width: 36, height: 36, borderRadius: 10, background: "#e0f7f4", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <BookMarked size={18} color="#0d7c6e" />
+                </div>
+                <div>
+                  <p style={{ fontSize: 12, color: "#6b7e79", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>Save to My Banks</p>
+                  <p style={{ fontSize: 15, fontWeight: 800, color: "#1a1f1e" }}>{questions.length} questions</p>
+                </div>
+              </div>
+              <button onClick={() => setShowBankModal(false)} style={{ background: "none", border: "none", cursor: "pointer", color: "#6b7e79" }}>
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="bh-field" style={{ marginBottom: 12 }}>
+              <label>Bank name</label>
+              <input className="bh-input" value={bankName}
+                onChange={e => setBankName(e.target.value)}
+                placeholder="e.g. Pharmacology Exam 2025" autoFocus />
+            </div>
+            <div className="bh-field" style={{ marginBottom: 20 }}>
+              <label>Subject / tag</label>
+              <input className="bh-input" value={bankSubject}
+                onChange={e => setBankSubject(e.target.value)}
+                placeholder="e.g. Pharmacology, Anatomy…" />
+            </div>
+
+            <div style={{ display: "flex", gap: 10 }}>
+              <button className="bh-btn-outline" onClick={() => setShowBankModal(false)} style={{ flex: 1 }}>Cancel</button>
+              <button className="bh-btn-primary" onClick={saveBank}
+                disabled={savingBank || !bankName.trim()} style={{ flex: 2 }}>
+                {savingBank ? <><RefreshCw size={14} className="bh-spin" /> Saving…</> : <><Save size={14} /> Save Bank</>}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ══ LOAD BANK MODAL ════════════════════════════════════════════ */}
+      {showLoadModal && (
+        <div style={{
+          position: "fixed", inset: 0, zIndex: 999,
+          background: "rgba(0,0,0,0.35)", backdropFilter: "blur(4px)",
+          display: "flex", alignItems: "center", justifyContent: "center", padding: 20,
+        }} onClick={e => { if (e.target === e.currentTarget) setShowLoadModal(false); }}>
+          <div style={{
+            width: "100%", maxWidth: 520, background: "#fff",
+            borderRadius: 20, padding: "28px 24px",
+            boxShadow: "0 8px 40px rgba(0,0,0,0.15)",
+            border: "1.5px solid #e4eae8",
+            maxHeight: "80vh", display: "flex", flexDirection: "column",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20, flexShrink: 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ width: 36, height: 36, borderRadius: 10, background: "#e0f7f4", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <FolderOpen size={18} color="#0d7c6e" />
+                </div>
+                <div>
+                  <p style={{ fontSize: 12, color: "#6b7e79", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>My Question Banks</p>
+                  <p style={{ fontSize: 15, fontWeight: 800, color: "#1a1f1e" }}>{banks.length} saved bank{banks.length !== 1 ? "s" : ""}</p>
+                </div>
+              </div>
+              <button onClick={() => setShowLoadModal(false)} style={{ background: "none", border: "none", cursor: "pointer", color: "#6b7e79" }}>
+                <X size={20} />
+              </button>
+            </div>
+
+            <div style={{ overflowY: "auto", flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+              {banksLoading && <p style={{ color: "#6b7e79", textAlign: "center", padding: 20 }}>Loading your banks…</p>}
+              {!banksLoading && banks.length === 0 && (
+                <div style={{ textAlign: "center", padding: "32px 0", color: "#6b7e79" }}>
+                  <BookMarked size={36} color="#e4eae8" style={{ marginBottom: 10 }} />
+                  <p style={{ fontSize: 14 }}>No saved banks yet.</p>
+                  <p style={{ fontSize: 12, marginTop: 4 }}>Build a question set and save it to reuse later.</p>
+                </div>
+              )}
+              {banks.map(bank => (
+                <div key={bank.id} style={{
+                  background: "#f5f7f6", border: "1.5px solid #e4eae8",
+                  borderRadius: 14, padding: "14px 16px",
+                  display: "flex", alignItems: "center", gap: 12,
+                }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ fontSize: 14, fontWeight: 700, color: "#1a1f1e", marginBottom: 2 }}>{bank.title}</p>
+                    <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                      <span style={{ fontSize: 11, fontWeight: 600, color: "#0d7c6e", background: "#e0f7f4", padding: "2px 8px", borderRadius: 99 }}>
+                        {bank.subject}
+                      </span>
+                      <span style={{ fontSize: 11, color: "#6b7e79" }}>{bank.count} questions</span>
+                      <span style={{ fontSize: 11, color: "#9aaeaa" }}>
+                        {bank.createdAt?.toDate?.()?.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) || ""}
+                      </span>
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
+                    <button
+                      onClick={() => loadBank(bank)}
+                      style={{
+                        padding: "7px 14px", borderRadius: 9, border: "none",
+                        background: "#0d7c6e", color: "#fff",
+                        fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 700,
+                        cursor: "pointer",
+                      }}
+                    >
+                      Load
+                    </button>
+                    <button
+                      onClick={() => deleteBank(bank.id)}
+                      style={{
+                        width: 32, height: 32, borderRadius: 9,
+                        border: "1.5px solid #fecaca", background: "#fee2e2",
+                        color: "#dc2626", cursor: "pointer",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                      }}
+                    >
+                      <Trash2 size={13} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
