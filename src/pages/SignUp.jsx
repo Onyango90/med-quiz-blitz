@@ -1,9 +1,9 @@
-// src/pages/SignUp.jsx — redesigned to match HomeDashboard
-import React, { useState, useEffect } from "react";
+// src/pages/SignUp.jsx
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   getAuth, createUserWithEmailAndPassword, updateProfile,
-  GoogleAuthProvider, signInWithRedirect, getRedirectResult,
+  GoogleAuthProvider, signInWithPopup,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import "./Auth.css";
@@ -13,49 +13,34 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const [loading,       setLoading]       = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
-  const [error,         setError]         = useState("");
-  const [year,          setYear]          = useState("");
-
-  // Handle Google redirect result on return
-  useEffect(() => {
-    const auth = getAuth();
-    const db   = getFirestore();
-    setGoogleLoading(true);
-    getRedirectResult(auth)
-      .then(async (result) => {
-        if (result?.user) {
-          const user = result.user;
-          await setDoc(doc(db, "users", user.uid), {
-            profile: {
-              name:  user.displayName || user.email.split("@")[0],
-              email: user.email,
-              year:  1,
-              photo: user.photoURL || "",
-            },
-            createdAt: new Date().toISOString(),
-          }, { merge: true });
-          localStorage.setItem("userName",  user.displayName || user.email.split("@")[0]);
-          localStorage.setItem("userEmail", user.email);
-          localStorage.setItem("userYear",  "1");
-          navigate("/home");
-        }
-      })
-      .catch((err) => {
-        if (err.code !== "auth/no-current-user") {
-          setError("Google sign-in failed. Please try again.");
-        }
-      })
-      .finally(() => setGoogleLoading(false));
-  }, [navigate]);
+  const [loading, setLoading] = useState(false);
+  const [error,   setError]   = useState("");
+  const [year,    setYear]    = useState("");
 
   const handleGoogleSignUp = async () => {
     setError("");
+    const authFB = getAuth();
+    const db     = getFirestore();
     try {
-      await signInWithRedirect(getAuth(), googleProvider);
-    } catch {
-      setError("Could not start Google sign-in. Please try again.");
+      const result = await signInWithPopup(authFB, googleProvider);
+      const user = result.user;
+      await setDoc(doc(db, "users", user.uid), {
+        profile: {
+          name:  user.displayName || user.email.split("@")[0],
+          email: user.email,
+          year:  1,
+          photo: user.photoURL || "",
+        },
+        createdAt: new Date().toISOString(),
+      }, { merge: true });
+      localStorage.setItem("userName",  user.displayName || user.email.split("@")[0]);
+      localStorage.setItem("userEmail", user.email);
+      localStorage.setItem("userYear",  "1");
+      navigate("/home");
+    } catch (err) {
+      if (err.code !== "auth/popup-closed-by-user") {
+        setError("Google sign-in failed. Please try again.");
+      }
     }
   };
 
@@ -197,7 +182,7 @@ export default function SignUp() {
               className={`auth-submit${loading ? " loading" : ""}`}
               disabled={loading}
             >
-              {loading ? "Creating account" : "Create Account"}
+              {loading ? "Creating account…" : "Create Account"}
             </button>
           </form>
 

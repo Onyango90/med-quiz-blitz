@@ -1,11 +1,10 @@
 // src/pages/SignIn.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
+  signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../firebase";
 import "./Auth.css";
@@ -15,48 +14,37 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const [loading,       setLoading]       = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
-  const [error,         setError]         = useState("");
-
-  // Handle return from Google redirect
-  useEffect(() => {
-    setGoogleLoading(true);
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result?.user) {
-          const user = result.user;
-          localStorage.setItem("userName",  user.displayName || user.email.split("@")[0]);
-          localStorage.setItem("userEmail", user.email);
-          navigate("/home");
-        }
-      })
-      .catch((err) => {
-        if (err.code !== "auth/no-current-user") {
-          setError("Google sign-in failed. Please try again.");
-        }
-      })
-      .finally(() => setGoogleLoading(false));
-  }, [navigate]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const email    = e.target.email.value.trim();
+    const email = e.target.email.value.trim();
     const password = e.target.password.value.trim();
+
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
-      localStorage.setItem("userName",  result.user.displayName || email.split("@")[0]);
+      localStorage.setItem("userName", result.user.displayName || email.split("@")[0]);
       localStorage.setItem("userEmail", email);
       navigate("/home");
     } catch (err) {
       switch (err.code) {
-        case "auth/user-not-found":    setError("No account found with this email."); break;
-        case "auth/wrong-password":    setError("Incorrect password. Please try again."); break;
-        case "auth/invalid-email":     setError("Please enter a valid email address."); break;
-        case "auth/too-many-requests": setError("Too many attempts. Please try again later."); break;
-        default:                       setError("Failed to sign in. Please check your connection.");
+        case "auth/user-not-found":
+          setError("No account found with this email.");
+          break;
+        case "auth/wrong-password":
+          setError("Incorrect password. Please try again.");
+          break;
+        case "auth/invalid-email":
+          setError("Please enter a valid email address.");
+          break;
+        case "auth/too-many-requests":
+          setError("Too many attempts. Please try again later.");
+          break;
+        default:
+          setError("Failed to sign in. Please check your connection.");
       }
       setLoading(false);
     }
@@ -65,22 +53,17 @@ export default function SignIn() {
   const handleGoogleSignIn = async () => {
     setError("");
     try {
-      await signInWithRedirect(auth, googleProvider);
-    } catch {
-      setError("Could not start Google sign-in. Please try again.");
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      localStorage.setItem("userName", user.displayName || user.email.split("@")[0]);
+      localStorage.setItem("userEmail", user.email);
+      navigate("/home");
+    } catch (err) {
+      if (err.code !== "auth/popup-closed-by-user") {
+        setError("Google sign-in failed. Please try again.");
+      }
     }
   };
-
-  if (googleLoading) {
-    return (
-      <div className="auth-page">
-        <div className="auth-loading-state">
-          <div className="auth-spinner" />
-          <p>Signing you in…</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="auth-page">
