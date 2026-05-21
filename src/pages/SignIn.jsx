@@ -59,8 +59,11 @@ export default function SignIn() {
       localStorage.setItem("userEmail", user.email);
       navigate("/home");
     } catch (err) {
+      console.error("🔴 Google sign-in error code:", err.code);
+      console.error("🔴 Google sign-in error message:", err.message);
+      console.error("🔴 Full error:", err);
       if (err.code !== "auth/popup-closed-by-user") {
-        setError("Google sign-in failed. Please try again.");
+        setError(`Google sign-in failed: ${err.code}`);
       }
     }
   };
