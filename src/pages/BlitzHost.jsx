@@ -296,7 +296,7 @@ export default function BlitzHost() {
   const downloadExam = (exam) => {
     const lines = [
       `MedBlitz Session Record — ${exam.title}`,
-      `Date: ${exam.date?.toDate?.()?.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) || "—"}`,
+      `Date: ${exam.date?.toDate?.()?.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) || exam.date || "—"}`,
       `Participants: ${exam.participants || 0} | Questions: ${exam.questions?.length || 0}`,
       ``,
       ...(exam.questions || []).map((q, i) => [
@@ -584,6 +584,7 @@ Base64 snippet: ${base64.substring(0, 500)}`;
     setAnnouncement("");
   };
 
+  // ── END SESSION - FIXED VERSION ─────────────────────────────────────────
   const endSession = async () => {
     clearInterval(timerRef.current);
     setSessionStatus("ended");
@@ -592,32 +593,58 @@ Base64 snippet: ${base64.substring(0, 500)}`;
 
     // ── Save session record to host's examHistory ─────────────────────────
     try {
-      const histDoc = doc(
-        fsDb, "users", currentUser.uid, "examHistory", roomCode
-      );
-      await setDoc(histDoc, {
-        sessionCode:  roomCode,
-        title:        config.title,
-        date:         serverTimestamp(),
-        totalQs:      Math.min(questions.length, config.totalQuestions),
+      // Use roomCode as document ID
+      const examId = roomCode || `session_${Date.now()}`;
+      const histDoc = doc(fsDb, "users", currentUser.uid, "examHistory", examId);
+      
+      // Get current timestamp
+      const now = new Date();
+      
+      // Prepare questions for storage (limit to the number used in session)
+      const totalQsUsed = Math.min(questions.length, config.totalQuestions);
+      const usedQuestions = questions.slice(0, totalQsUsed);
+      
+      // Ensure participant results are properly formatted
+      const participantResults = Object.values(participants).map(p => ({
+        name: p.name || "Anonymous",
+        score: p.score || 0,
+        completed: p.completed || false,
+        answers: p.answers || {}
+      }));
+      
+      const sessionData = {
+        sessionCode: roomCode || examId,
+        title: config.title,
+        date: now,
+        totalQs: totalQsUsed,
         participants: Object.keys(participants).length,
-        role:         "host",
-        questions:    questions.slice(0, config.totalQuestions).map(q => ({
-          question:      q.question,
-          type:          q.type,
+        role: "host",
+        questions: usedQuestions.map(q => ({
+          id: q.id,
+          question: q.question,
+          type: q.type,
           correctAnswer: q.correctAnswer,
-          explanation:   q.explanation ?? "",
-          keyPoints:     q.keyPoints   ?? null,
-          options:       q.options     ?? null,
+          explanation: q.explanation || "",
+          keyPoints: q.keyPoints || null,
+          options: q.options || null,
+          difficulty: q.difficulty,
+          topic: q.topic,
         })),
-        participantResults: Object.values(participants).map(p => ({
-          name:      p.name || "Anonymous",
-          score:     p.score || 0,
-          completed: p.completed || false,
-        })),
-      });
+        participantResults: participantResults,
+        createdAt: now,
+      };
+      
+      await setDoc(histDoc, sessionData);
+      console.log("Session saved successfully to examHistory:", examId);
+      
+      // Refresh the myExams list
+      const col = collection(fsDb, "users", currentUser.uid, "examHistory");
+      const q = query(col, orderBy("date", "desc"));
+      const snap = await getDocs(q);
+      setMyExams(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      
     } catch (e) {
-      console.warn("Could not save exam history:", e);
+      console.error("Could not save exam history:", e);
     }
 
     setTab("analytics");

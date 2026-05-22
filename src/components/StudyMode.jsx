@@ -1,8 +1,9 @@
-﻿import React, { useState, useEffect, useCallback, useRef } from "react";
+﻿import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useStats } from "../hooks/useStats";
 import { useAuth } from "../context/AuthContext";
 import { useStudyProgress } from "../hooks/useStudyProgress";
+import { useSeenQuestions, sortQuestionsByUnseen } from "../hooks/useSeenQuestions";
 import FlashcardMode from "./FlashcardMode";
 import {
   ChevronRight, BookOpen, Layers, Clock, Star,
@@ -38,7 +39,7 @@ import {
 import clinicalSkillsQuestions from "../data/questions/clinical_skills.json";
 
 // Import bacteriology questions
-import bacteriologyQuestions from "../data/questions/bacteriology.json";  // ← ADDED THIS LINE
+import bacteriologyQuestions from "../data/questions/bacteriology.json";
 
 import correctSoundFile from "../sound/correct.wav";
 import wrongSoundFile   from "../sound/wrong.wav";
@@ -66,7 +67,7 @@ function getQuestions(topic, subtopic, locationState) {
     case "disinfectants":      return disinfectants;
     case "endocrine":          return pharmaEndocrine;
     case "clinical_skills":    return clinicalSkillsQuestions;
-    case "bacteriology":       return bacteriologyQuestions;  // ← ADDED THIS CASE
+    case "bacteriology":       return bacteriologyQuestions;
     default:                   return [];
   }
 }
@@ -139,8 +140,25 @@ function StudyMode() {
 
   const isRetry          = location.state?.isRetry || false;
   const currentSubtopic  = subtopic || location.state?.subtopic;
-  const allQuestions     = getQuestions(topic, currentSubtopic, location) || [];
-  const batches          = getBatches(allQuestions, 15);
+  const rawQuestions     = getQuestions(topic, currentSubtopic, location) || [];
+
+  // ── Seen questions tracking ───────────────────────────────────────────────
+  const {
+    seenIds,
+    loading:   seenLoading,
+    markSeen,
+    resetSeen,
+    getProgress,
+  } = useSeenQuestions({ uid, topicKey });
+
+  // Sort: unseen first, then seen — memoised so the timer tick never causes a re-sort
+  const allQuestions = useMemo(() => {
+    if (seenLoading) return rawQuestions;
+    return sortQuestionsByUnseen(rawQuestions, seenIds);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seenLoading, seenIds.length, topic, currentSubtopic]);
+
+  const batches = useMemo(() => getBatches(allQuestions, 15), [allQuestions]);
 
   // ── Progress hook ──
   const { progress, loadingProg, saveProgress, clearProgress, saveError } =
@@ -210,8 +228,13 @@ function StudyMode() {
   const currentQuestion = currentBatch[currentIndex];
   const isLastInBatch   = currentIndex === currentBatch.length - 1;
 
-  const correctSound = new Audio(correctSoundFile);
-  const wrongSound   = new Audio(wrongSoundFile);
+  const correctSound = useRef(null);
+  const wrongSound   = useRef(null);
+
+  useEffect(() => {
+    try { correctSound.current = new Audio(correctSoundFile); } catch {}
+    try { wrongSound.current   = new Audio(wrongSoundFile);   } catch {}
+  }, []);
 
   useEffect(() => {
     if (!isRetry && !sessionStarted) { startSession("study"); setSessionStarted(true); }
@@ -224,7 +247,7 @@ function StudyMode() {
 
   useEffect(() => {
     if (!currentQuestion || showAnswer) return;
-    if (timeLeft <= 0) { setShowAnswer(true); setAnswerStatus("timeout"); wrongSound.play(); return; }
+    if (timeLeft <= 0) { setShowAnswer(true); setAnswerStatus("timeout"); wrongSound.current?.play?.().catch(() => {}); return; }
     const t = setInterval(() => setTimeLeft(p => p - 1), 1000);
     return () => clearInterval(t);
   }, [timeLeft, currentQuestion, showAnswer]);
@@ -232,8 +255,8 @@ function StudyMode() {
   if (!topic) return <EmptyState message="No topic selected." onBack={() => navigate("/study-dashboard")} />;
   if (!allQuestions.length) return <EmptyState message={`No questions found for ${formatTopicLabel(topic)}.`} onBack={() => navigate("/study-dashboard")} />;
 
-  // ── Loading progress from Firestore ──
-  if (isPro && loadingProg) {
+  // ── Wait for both progress AND seen questions to load ──
+  if ((isPro && loadingProg) || seenLoading) {
     return (
       <div style={{ minHeight: "100vh", background: C.bg, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 14, fontFamily: "'DM Sans', sans-serif" }}>
         <div style={{ width: 36, height: 36, borderRadius: "50%", border: `3px solid ${C.border}`, borderTopColor: C.accent, animation: "spin 0.75s linear infinite" }} />
@@ -356,8 +379,8 @@ function StudyMode() {
         : answer === correctAnswerText;
     }
     const xpToAdd = (!isRetry && isCorrect) ? (currentQuestion.xpValue || 10) : 0;
-    if (isCorrect) { setAnswerStatus("correct"); if (!isRetry) setXpEarned(p => p + xpToAdd); correctSound.play(); }
-    else           { setAnswerStatus("wrong");   wrongSound.play(); }
+    if (isCorrect) { setAnswerStatus("correct"); if (!isRetry) setXpEarned(p => p + xpToAdd); correctSound.current?.play?.().catch(() => {}); }
+    else           { setAnswerStatus("wrong");   wrongSound.current?.play?.().catch(() => {}); }
     if (!isRetry) processAnswer({ ...currentQuestion, subject: currentQuestion.subject || topic }, isCorrect, 0, "study");
 
     const newTotalAnswered = totalAnswered + 1;
@@ -406,6 +429,9 @@ function StudyMode() {
         totalAnswered, totalCorrect,
       });
     }
+    // Mark the completed batch's questions as seen
+    const batchQs = batches[currentBatchIndex] || [];
+    if (batchQs.length > 0) markSeen(batchQs);
   };
 
   const handleReviewBatch = () => {
@@ -501,6 +527,42 @@ function StudyMode() {
             <span>{xpEarned} XP</span>
           </div>
         </div>
+
+        {/* ── Seen questions progress banner ── */}
+        {(() => {
+          const prog = getProgress(rawQuestions.length);
+          if (prog.total === 0) return null;
+          return (
+            <div style={{
+              display: "flex", alignItems: "center", justifyContent: "space-between",
+              background: prog.allSeen ? C.greenDim : C.accentDim,
+              border: `1.5px solid ${prog.allSeen ? C.green : C.accent}`,
+              borderRadius: 12, padding: "10px 14px", marginBottom: 16, gap: 12,
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <BookOpenText size={14} color={prog.allSeen ? C.green : C.accent} />
+                <span style={{ fontSize: 12, fontWeight: 600, color: C.text }}>
+                  {prog.allSeen
+                    ? "You've seen all questions — repeating from the start"
+                    : `${prog.seen} of ${prog.total} questions seen — unseen questions first`}
+                </span>
+              </div>
+              {prog.allSeen && (
+                <button
+                  onClick={resetSeen}
+                  style={{
+                    fontSize: 11, fontWeight: 700, color: C.green,
+                    background: "none", border: `1px solid ${C.green}`,
+                    borderRadius: 8, padding: "3px 10px", cursor: "pointer",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Reset
+                </button>
+              )}
+            </div>
+          );
+        })()}
 
         {/* ── Batch / question progress ── */}
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "14px 18px", marginBottom: 20 }}>
