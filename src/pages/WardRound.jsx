@@ -20,26 +20,6 @@ const PHASE = {
   DEBRIEF:     "debrief",
 };
 
-const PHASE_ORDER = [
-  PHASE.PRESENTATION,
-  PHASE.HISTORY,
-  PHASE.EXAMINATION,
-  PHASE.INVESTIGATIONS,
-  PHASE.DIAGNOSIS,
-  PHASE.MANAGEMENT,
-  PHASE.DEBRIEF,
-];
-
-const PHASE_LABELS = {
-  presentation:  "Presentation",
-  history:       "History",
-  examination:   "Examination",
-  investigations:"Investigations",
-  diagnosis:     "Diagnosis",
-  management:    "Management",
-  debrief:       "Debrief",
-};
-
 const SPECIALTY_COLOR = {
   Medicine:    "#0d9488",
   Surgery:     "#f97316",

@@ -165,7 +165,7 @@ function StudyMode() {
     useStudyProgress({ uid, isPro, topicKey });
 
   // ── Resume state ──
-  const [resumeDecided,   setResumeDecided]   = useState(!isPro); // non-pro skips resume prompt
+  const [resumeDecided,   setResumeDecided]   = useState(!isPro);
   const [showResumePrompt,setShowResumePrompt]= useState(false);
 
   // ── Determine starting batch/question ──
@@ -273,7 +273,6 @@ function StudyMode() {
     return (
       <div style={{ minHeight: "100vh", background: C.bg, display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "'DM Sans', sans-serif" }}>
         <div style={{ width: "100%", maxWidth: 480, background: C.surface, borderRadius: 24, padding: "36px 32px", boxShadow: "0 8px 32px rgba(0,0,0,0.10)", border: `1.5px solid ${C.border}` }}>
-          {/* Header */}
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
             <div style={{ width: 46, height: 46, borderRadius: 13, background: C.accentDim, color: C.accent, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
               <PlayCircle size={22} />
@@ -286,7 +285,6 @@ function StudyMode() {
             </div>
           </div>
 
-          {/* Progress stats */}
           <div style={{ background: C.bg, borderRadius: 14, padding: "16px 18px", marginBottom: 24, border: `1px solid ${C.border}` }}>
             <p style={{ fontSize: 12, color: C.muted, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 12 }}>Your last session · {lastDate}</p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
@@ -301,7 +299,6 @@ function StudyMode() {
                 </div>
               ))}
             </div>
-            {/* Batch progress bar */}
             <div style={{ marginTop: 14 }}>
               <ProgressBar value={((progress.batchIndex || 0) / batches.length) * 100} color={C.accent} height={5} />
               <p style={{ fontSize: 11, color: C.muted, marginTop: 5, fontWeight: 500 }}>
@@ -310,7 +307,6 @@ function StudyMode() {
             </div>
           </div>
 
-          {/* Actions */}
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <button onClick={handleResume} style={{
               padding: "14px 20px", borderRadius: 12, border: "none",
@@ -336,6 +332,7 @@ function StudyMode() {
       </div>
     );
   }
+
   if (studyView === "flashcards") {
     return (
       <div style={{ background: C.bg, minHeight: "100vh" }}>
@@ -388,7 +385,6 @@ function StudyMode() {
     setTotalAnswered(newTotalAnswered);
     setTotalCorrect(newTotalCorrect);
 
-    // ── Auto-save progress to Firestore (Pro only) ──
     if (isPro && !isRetry) {
       saveProgress({
         batchIndex:       currentBatchIndex,
@@ -429,7 +425,6 @@ function StudyMode() {
         totalAnswered, totalCorrect,
       });
     }
-    // Mark the completed batch's questions as seen
     const batchQs = batches[currentBatchIndex] || [];
     if (batchQs.length > 0) markSeen(batchQs);
   };
@@ -454,13 +449,11 @@ function StudyMode() {
     return (
       <div style={{ background: C.bg, minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "'DM Sans', sans-serif" }}>
         <div style={{ width: "100%", maxWidth: 520 }}>
-          {/* Score ring area */}
           <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 24, padding: "40px 32px 32px", textAlign: "center" }}>
             <p style={{ color: C.muted, fontSize: 12, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 24 }}>
               Batch {currentBatchIndex + 1} of {batches.length} — {formatTopicLabel(currentSubtopic || topic)}
             </p>
 
-            {/* Big score */}
             <div style={{
               width: 120, height: 120, borderRadius: "50%", margin: "0 auto 24px",
               background: `conic-gradient(${isPassing ? C.green : C.red} ${score * 3.6}deg, ${C.border} 0deg)`,
@@ -483,10 +476,8 @@ function StudyMode() {
               <p style={{ color: C.muted, fontSize: 13, marginTop: 4 }}>Practice mode — no XP awarded</p>
             )}
 
-            {/* Divider */}
             <div style={{ height: 1, background: C.border, margin: "28px 0" }} />
 
-            {/* Actions */}
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
               <ActionButton icon={<BarChart2 size={15} />} label="Review Answers" onClick={handleReviewBatch} color={C.accent} />
               {currentBatchIndex < batches.length - 1 && (
@@ -511,7 +502,6 @@ function StudyMode() {
   <>
     <div style={{ background: C.bg, minHeight: "100vh", fontFamily: "'DM Sans', sans-serif", color: C.text }}>
 
-      {/* Mode switcher */}
       <ModeSwitcher active="quiz" onSwitch={setStudyView} count={allQuestions.length} />
 
       <div style={{ maxWidth: 780, margin: "0 auto", padding: "20px 20px 60px" }}>
@@ -528,42 +518,6 @@ function StudyMode() {
           </div>
         </div>
 
-        {/* ── Seen questions progress banner ── */}
-        {(() => {
-          const prog = getProgress(rawQuestions.length);
-          if (prog.total === 0) return null;
-          return (
-            <div style={{
-              display: "flex", alignItems: "center", justifyContent: "space-between",
-              background: prog.allSeen ? C.greenDim : C.accentDim,
-              border: `1.5px solid ${prog.allSeen ? C.green : C.accent}`,
-              borderRadius: 12, padding: "10px 14px", marginBottom: 16, gap: 12,
-            }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <BookOpenText size={14} color={prog.allSeen ? C.green : C.accent} />
-                <span style={{ fontSize: 12, fontWeight: 600, color: C.text }}>
-                  {prog.allSeen
-                    ? "You've seen all questions — repeating from the start"
-                    : `${prog.seen} of ${prog.total} questions seen — unseen questions first`}
-                </span>
-              </div>
-              {prog.allSeen && (
-                <button
-                  onClick={resetSeen}
-                  style={{
-                    fontSize: 11, fontWeight: 700, color: C.green,
-                    background: "none", border: `1px solid ${C.green}`,
-                    borderRadius: 8, padding: "3px 10px", cursor: "pointer",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  Reset
-                </button>
-              )}
-            </div>
-          );
-        })()}
-
         {/* ── Batch / question progress ── */}
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "14px 18px", marginBottom: 20 }}>
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: C.muted, fontWeight: 600, marginBottom: 8 }}>
@@ -575,7 +529,6 @@ function StudyMode() {
 
         {/* ── Question card ── */}
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, padding: "28px 28px 24px", marginBottom: 16, position: "relative", overflow: "hidden" }}>
-          {/* Accent line top */}
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, ${C.accent}, ${C.green})`, borderRadius: "20px 20px 0 0" }} />
 
           <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 20 }}>
@@ -619,7 +572,6 @@ function StudyMode() {
               );
             })()}
 
-            {/* When answer is shown, replace timer with a static "Answered" pill */}
             {showAnswer && (
               <span style={{
                 fontSize: 11, fontWeight: 700, padding: "4px 10px", borderRadius: 99,
@@ -898,12 +850,11 @@ function DeepStudyPanel({ question, topic, onClose }) {
   const [fcLoading,    setFcLoading]    = useState(false);
   const [fcIndex,      setFcIndex]      = useState(0);
   const [fcFlipped,    setFcFlipped]    = useState(false);
-  const [view,         setView]         = useState("reading"); // "reading" | "flashcards"
+  const [view,         setView]         = useState("reading");
 
   const questionText = question.text || question.question;
   const topicLabel   = question.topic || question.subject || formatTopicLabel(topic);
 
-  // ── Fetch AI deep-study content on mount ──
   useEffect(() => {
     const fetch_ = async () => {
       setLoading(true); setError(null);
@@ -949,7 +900,6 @@ Write in a clear, engaging style suitable for a medical student. Be thorough but
     fetch_();
   }, [question.id]);
 
-  // ── Generate flashcards from content ──
   const generateFlashcards = async () => {
     if (!content) return;
     setFcLoading(true); setFlashcards([]); setFcIndex(0); setFcFlipped(false);
@@ -988,7 +938,6 @@ Make the fronts clinically-focused questions. Keep backs concise but complete.`,
     }
   };
 
-  // ── Render content with basic markdown parsing ──
   const renderContent = (text) => {
     const lines = text.split("\n");
     return lines.map((line, i) => {
@@ -1031,7 +980,6 @@ Make the fronts clinically-focused questions. Keep backs concise but complete.`,
       }}>
         <style>{`@keyframes dsSlideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }`}</style>
 
-        {/* ── Panel header ── */}
         <div style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
           padding: "18px 24px 14px",
@@ -1047,7 +995,6 @@ Make the fronts clinically-focused questions. Keep backs concise but complete.`,
             </div>
           </div>
 
-          {/* View toggle */}
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             {flashcards.length > 0 && (
               <div style={{ display: "flex", background: C.bg, borderRadius: 99, padding: 3, border: `1px solid ${C.border}` }}>
@@ -1071,7 +1018,6 @@ Make the fronts clinically-focused questions. Keep backs concise but complete.`,
           </div>
         </div>
 
-        {/* ── Context chip ── */}
         <div style={{ padding: "10px 24px 0", flexShrink: 0 }}>
           <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 10, padding: "8px 14px" }}>
             <p style={{ fontSize: 11, color: C.muted, fontWeight: 600, marginBottom: 2, letterSpacing: "0.04em" }}>RELATED QUESTION</p>
@@ -1079,10 +1025,8 @@ Make the fronts clinically-focused questions. Keep backs concise but complete.`,
           </div>
         </div>
 
-        {/* ── Scrollable body ── */}
         <div style={{ flex: 1, overflowY: "auto", padding: "16px 24px 24px" }}>
 
-          {/* Reading view */}
           {view === "reading" && (
             <>
               {loading && (
@@ -1105,7 +1049,6 @@ Make the fronts clinically-focused questions. Keep backs concise but complete.`,
             </>
           )}
 
-          {/* Flashcard view */}
           {view === "flashcards" && (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, padding: "16px 0" }}>
               {fcLoading && (
@@ -1117,12 +1060,10 @@ Make the fronts clinically-focused questions. Keep backs concise but complete.`,
 
               {!fcLoading && flashcards.length > 0 && (
                 <>
-                  {/* Card counter */}
                   <p style={{ fontSize: 12, color: C.muted, fontWeight: 700 }}>
                     {fcIndex + 1} / {flashcards.length}
                   </p>
 
-                  {/* Flashcard */}
                   <div
                     onClick={() => setFcFlipped(f => !f)}
                     style={{
@@ -1144,7 +1085,6 @@ Make the fronts clinically-focused questions. Keep backs concise but complete.`,
                     </p>
                   </div>
 
-                  {/* Navigation */}
                   <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
                     <button
                       onClick={() => { setFcIndex(i => Math.max(0, i - 1)); setFcFlipped(false); }}
@@ -1168,7 +1108,6 @@ Make the fronts clinically-focused questions. Keep backs concise but complete.`,
                     </button>
                   </div>
 
-                  {/* Progress dots */}
                   <div style={{ display: "flex", gap: 6 }}>
                     {flashcards.map((_, i) => (
                       <div key={i} onClick={() => { setFcIndex(i); setFcFlipped(false); }} style={{ width: i === fcIndex ? 20 : 7, height: 7, borderRadius: 99, background: i === fcIndex ? C.accent : C.border, cursor: "pointer", transition: "all 0.2s" }} />
@@ -1180,7 +1119,6 @@ Make the fronts clinically-focused questions. Keep backs concise but complete.`,
           )}
         </div>
 
-        {/* ── Footer actions ── */}
         <div style={{ padding: "12px 24px 24px", borderTop: `1px solid ${C.border}`, display: "flex", gap: 10, flexShrink: 0 }}>
           {view === "reading" && !loading && !error && (
             <button

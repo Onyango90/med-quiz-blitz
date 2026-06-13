@@ -40,7 +40,6 @@ export default function WhoAmI() {
   const [cluesShown,     setCluesShown]     = useState(1);
   const [phase,          setPhase]          = useState("clue"); // clue | type | options | result
   const [typedAnswer,    setTypedAnswer]    = useState("");
-  const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect,      setIsCorrect]      = useState(null);
   const [totalXP,        setTotalXP]        = useState(0);
   const [streak,         setStreak]         = useState(0);
@@ -114,13 +113,12 @@ export default function WhoAmI() {
     setCluesShown(1);
     setPhase("clue");
     setTypedAnswer("");
-    setSelectedOption(null);
     setIsCorrect(null);
   };
 
   const replay = () => {
     setCaseIdx(0); setCluesShown(1); setPhase("clue");
-    setTypedAnswer(""); setSelectedOption(null); setIsCorrect(null);
+    setTypedAnswer(""); setIsCorrect(null);
     setTotalXP(0); setSessionScore({ correct: 0, total: 0 });
     setStreak(0); setBestStreak(0); setHistory([]);
     setShowSummary(false); setCardKey((k) => k + 1);
@@ -345,7 +343,7 @@ export default function WhoAmI() {
                   <button
                     key={i}
                     className="wai-option"
-                    onClick={() => { setSelectedOption(opt); resolveAnswer(opt); }}
+                    onClick={() => { resolveAnswer(opt); }}
                   >
                     <span className="wai-opt-letter">{["A","B","C","D"][i]}</span>
                     <span className="wai-opt-text">{opt}</span>

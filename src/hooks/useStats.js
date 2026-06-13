@@ -9,36 +9,31 @@ export function useStats() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Initialize stats service when user changes
   useEffect(() => {
-    if (currentUser) {
-      const service = new StatsService(currentUser.uid);
-      setStatsService(service);
-      setStats(service.getAllStats());
-      setLoading(false);
-    } else {
+    if (!currentUser) {
       setStatsService(null);
       setStats(null);
       setLoading(false);
+      return;
     }
+
+    // FIX: await initialize() so Firestore data loads before UI renders
+    const service = new StatsService(currentUser.uid);
+    service.initialize().then(() => {
+      setStatsService(service);
+      setStats(service.getAllStats());
+      setLoading(false);
+    });
   }, [currentUser]);
 
-  // Refresh stats
   const refreshStats = () => {
-    if (statsService) {
-      setStats(statsService.getAllStats());
-    }
+    if (statsService) setStats(statsService.getAllStats());
   };
 
-  // Start a session
   const startSession = (mode) => {
-    if (statsService) {
-      statsService.startSession(mode);
-      refreshStats();
-    }
+    if (statsService) { statsService.startSession(mode); refreshStats(); }
   };
 
-  // Process an answer
   const processAnswer = (question, wasCorrect, timeSpentSeconds, mode) => {
     if (statsService) {
       const result = statsService.processAnswer(question, wasCorrect, timeSpentSeconds, mode);
@@ -48,7 +43,6 @@ export function useStats() {
     return null;
   };
 
-  // End session
   const endSession = () => {
     if (statsService) {
       const result = statsService.endSession();
@@ -58,12 +52,5 @@ export function useStats() {
     return null;
   };
 
-  return {
-    stats,
-    loading,
-    startSession,
-    processAnswer,
-    endSession,
-    refreshStats
-  };
+  return { stats, loading, startSession, processAnswer, endSession, refreshStats };
 }

@@ -6,6 +6,7 @@ import { useStats } from "../hooks/useStats";
 import { auth } from "../firebase";
 import { getFirestore, doc, getDoc, updateDoc, increment } from "firebase/firestore";
 import { getDailyQuestions } from "../data/dailyChallengeQuestions";
+import "./BossBattle.css";
 
 // ── Full question pool (all banks, normalised) ────────────────────────────────
 import grossAnatomy      from "../data/questions/gross_anatomy.json";
@@ -100,7 +101,6 @@ function buildBossPool(bossNum, count, usedIds, runSeed) {
   picked.forEach(q => usedIds.add(q.id));
   return picked;
 }
-import "./BossBattle.css";
 
 // ── Boss roster ───────────────────────────────────────────────────────────────
 const BOSSES = [

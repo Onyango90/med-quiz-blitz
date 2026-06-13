@@ -1,17 +1,13 @@
 // src/services/statsService.js
-// Stats are stored in BOTH localStorage (fast reads) and Firestore (persistent cross-device)
 
 import {
   getFirestore,
   doc,
   getDoc,
   setDoc,
-  updateDoc,
   serverTimestamp,
-  increment,
 } from "firebase/firestore";
 
-// XP Rules
 const XP_RULES = {
   CORRECT_ANSWER:   10,
   WRONG_ANSWER:      2,
@@ -28,150 +24,80 @@ class StatsService {
     this.db         = getFirestore();
     this.fsDocRef   = doc(this.db, "users", userId, "stats", "main");
 
-    this.sessionStartTime      = null;
-    this.sessionQuestions      = [];
-    this._syncedFromFirestore   = false;
-
-    // Load from localStorage immediately (fast, for UI)
-    this.loadFromLocal();
-    // Then sync from Firestore in background (authoritative)
-    this.syncFromFirestore();
+    this.sessionStartTime    = null;
+    this.sessionQuestions    = [];
+    this.onStatsUpdated      = null; // callback for UI refresh
   }
 
-  // ── Local storage (fast, used for immediate UI reads) ─────────────────────
-  loadFromLocal() {
+  // ── Init: always load from Firestore first ────────────────────────────────
+  async initialize() {
+    try {
+      const snap = await getDoc(this.fsDocRef);
+      if (snap.exists()) {
+        this.stats = snap.data();
+        // FIX: Check streak validity on every login
+        this._checkStreakOnLogin();
+      } else {
+        this.initializeNewStats();
+        await this._saveToFirestore();
+      }
+    } catch (e) {
+      console.warn("Firestore unavailable, using localStorage:", e);
+      this._loadFromLocal();
+    }
+    this._saveToLocal();
+    return this.stats;
+  }
+
+  // FIX: Validate streak on login — reset if more than 1 day has passed
+  _checkStreakOnLogin() {
+    const today     = new Date().toISOString().split("T")[0];
+    const yesterday = this._getYesterday();
+    const last      = this.stats.lastCorrectDate;
+
+    if (last && last !== today && last !== yesterday) {
+      // Gap of 2+ days — reset streak
+      this.stats.currentStreak = 0;
+    }
+    // If last === today or yesterday, streak is still valid — do nothing
+  }
+
+  _getYesterday() {
+    const d = new Date();
+    d.setDate(d.getDate() - 1);
+    return d.toISOString().split("T")[0];
+  }
+
+  // ── Local storage (fallback only) ─────────────────────────────────────────
+  _loadFromLocal() {
     try {
       const saved = localStorage.getItem(this.storageKey);
       if (saved) {
         this.stats = JSON.parse(saved);
+        this._checkStreakOnLogin();
       } else {
         this.initializeNewStats();
       }
     } catch {
       this.initializeNewStats();
     }
-    return this.stats;
   }
 
-  saveToLocal() {
+  _saveToLocal() {
     try {
       localStorage.setItem(this.storageKey, JSON.stringify(this.stats));
     } catch {}
   }
 
-  // ── Firestore sync (authoritative, cross-device) ──────────────────────────
-  async syncFromFirestore() {
-    try {
-      const snap = await getDoc(this.fsDocRef);
-      if (snap.exists()) {
-        const fsData = snap.data();
-        // Merge: take the higher value for numeric fields so no data is lost
-        this.stats = this._mergeStats(this.stats, fsData);
-        this.saveToLocal();
-        this._syncedFromFirestore = true;
-      } else {
-        // First time — write local stats to Firestore
-        await this._writeFullStatsToFirestore();
-        this._syncedFromFirestore = true;
-      }
-    } catch (e) {
-      console.warn("Could not sync stats from Firestore:", e);
-    }
-  }
-
-  // Merge two stat objects, keeping the larger/more complete values
-  _mergeStats(local, remote) {
-    return {
-      totalAttempted:          Math.max(local.totalAttempted   || 0, remote.totalAttempted   || 0),
-      totalCorrect:            Math.max(local.totalCorrect     || 0, remote.totalCorrect     || 0),
-      totalXP:                 Math.max(local.totalXP          || 0, remote.totalXP          || 0),
-      currentStreak:           Math.max(local.currentStreak    || 0, remote.currentStreak    || 0),
-      longestStreak:           Math.max(local.longestStreak    || 0, remote.longestStreak    || 0),
-      lastCorrectDate:         remote.lastCorrectDate          || local.lastCorrectDate      || null,
-      sessionsCompleted:       Math.max(local.sessionsCompleted|| 0, remote.sessionsCompleted|| 0),
-      totalTimeSpent:          Math.max(local.totalTimeSpent   || 0, remote.totalTimeSpent   || 0),
-      currentSessionQuestions: local.currentSessionQuestions   || 0,
-      currentSessionCorrect:   local.currentSessionCorrect     || 0,
-      subjectStats:            this._mergeSubjects(local.subjectStats || {}, remote.subjectStats || {}),
-      dailyActivity:           this._mergeDailyActivity(local.dailyActivity || {}, remote.dailyActivity || {}),
-      featureUsage:            this._mergeFeatureUsage(local.featureUsage || {}, remote.featureUsage || {}),
-      achievements:            [...new Set([...(local.achievements || []), ...(remote.achievements || [])])],
-      joinDate:                remote.joinDate || local.joinDate || new Date().toISOString().split("T")[0],
-    };
-  }
-
-  _mergeSubjects(local, remote) {
-    const merged = { ...local };
-    for (const [subject, data] of Object.entries(remote)) {
-      if (!merged[subject]) {
-        merged[subject] = data;
-      } else {
-        merged[subject] = {
-          correct:  Math.max(merged[subject].correct  || 0, data.correct  || 0),
-          total:    Math.max(merged[subject].total    || 0, data.total    || 0),
-          xpEarned: Math.max(merged[subject].xpEarned || 0, data.xpEarned || 0),
-        };
-      }
-    }
-    return merged;
-  }
-
-  _mergeDailyActivity(local, remote) {
-    const merged = { ...local };
-    for (const [date, data] of Object.entries(remote)) {
-      if (!merged[date]) {
-        merged[date] = data;
-      } else {
-        merged[date] = {
-          attempted: Math.max(merged[date].attempted || 0, data.attempted || 0),
-          correct:   Math.max(merged[date].correct   || 0, data.correct   || 0),
-          xpEarned:  Math.max(merged[date].xpEarned  || 0, data.xpEarned  || 0),
-          timeSpent: Math.max(merged[date].timeSpent  || 0, data.timeSpent  || 0),
-          sessions:  Math.max(merged[date].sessions   || 0, data.sessions   || 0),
-        };
-      }
-    }
-    return merged;
-  }
-
-  _mergeFeatureUsage(local, remote) {
-    const merged = { ...local };
-    for (const [feature, data] of Object.entries(remote)) {
-      if (!merged[feature]) {
-        merged[feature] = data;
-      } else {
-        merged[feature] = {
-          count:    Math.max(merged[feature].count || 0, data.count || 0),
-          lastUsed: data.lastUsed || merged[feature].lastUsed,
-        };
-      }
-    }
-    return merged;
-  }
-
-  // Write complete stats object to Firestore
-  async _writeFullStatsToFirestore() {
+  // ── Firestore save (authoritative) ───────────────────────────────────────
+  async _saveToFirestore() {
     try {
       await setDoc(this.fsDocRef, {
         ...this.stats,
         updatedAt: serverTimestamp(),
       }, { merge: true });
     } catch (e) {
-      console.warn("Could not write stats to Firestore:", e);
-    }
-  }
-
-  // Incremental Firestore update (fast — only changed fields)
-  async _incrementFirestore(fields) {
-    try {
-      const updates = { updatedAt: serverTimestamp() };
-      for (const [key, val] of Object.entries(fields)) {
-        updates[key] = increment(val);
-      }
-      await updateDoc(this.fsDocRef, updates);
-    } catch {
-      // If doc doesn't exist yet, write full stats
-      await this._writeFullStatsToFirestore();
+      console.warn("Could not save to Firestore:", e);
     }
   }
 
@@ -194,7 +120,6 @@ class StatsService {
       achievements:            [],
       joinDate:                new Date().toISOString().split("T")[0],
     };
-    this.saveToLocal();
   }
 
   // ── Session management ────────────────────────────────────────────────────
@@ -213,9 +138,8 @@ class StatsService {
     }
     this.stats.featureUsage[featureName].count++;
     this.stats.featureUsage[featureName].lastUsed = new Date().toISOString();
-    this.saveToLocal();
-    // Fire-and-forget Firestore update
-    this._writeFullStatsToFirestore();
+    this._saveToLocal();
+    this._saveToFirestore();
   }
 
   // ── Answer processing ─────────────────────────────────────────────────────
@@ -223,21 +147,18 @@ class StatsService {
     const today   = new Date().toISOString().split("T")[0];
     const subject = question.subject || "General";
 
-    // Update basic stats
     this.stats.totalAttempted++;
     if (wasCorrect) {
       this.stats.totalCorrect++;
       this.stats.currentSessionCorrect++;
     }
 
-    // Calculate XP
     const xpEarned = this.calculateXP(wasCorrect, timeSpentSeconds);
     this.stats.totalXP += xpEarned;
 
-    // Update streak
-    this.updateStreak(wasCorrect, today);
+    // FIX: Update streak correctly
+    this._updateStreak(wasCorrect, today);
 
-    // Subject stats
     if (!this.stats.subjectStats[subject]) {
       this.stats.subjectStats[subject] = { correct: 0, total: 0, xpEarned: 0 };
     }
@@ -245,7 +166,6 @@ class StatsService {
     if (wasCorrect) this.stats.subjectStats[subject].correct++;
     this.stats.subjectStats[subject].xpEarned += xpEarned;
 
-    // Daily activity
     if (!this.stats.dailyActivity[today]) {
       this.stats.dailyActivity[today] = { attempted: 0, correct: 0, xpEarned: 0, timeSpent: 0, sessions: 0 };
     }
@@ -254,18 +174,12 @@ class StatsService {
     this.stats.dailyActivity[today].xpEarned  += xpEarned;
     this.stats.dailyActivity[today].timeSpent += timeSpentSeconds;
 
-    // Session tracking
     this.stats.currentSessionQuestions++;
     this.sessionQuestions.push({ correct: wasCorrect, subject, timeSpent: timeSpentSeconds, xpEarned });
 
-    // Achievements
     this.checkAchievements();
-
-    // Save locally immediately
-    this.saveToLocal();
-
-    // Sync to Firestore (incremental, non-blocking)
-    this._writeFullStatsToFirestore();
+    this._saveToLocal();
+    this._saveToFirestore(); // non-blocking
 
     return {
       xpEarned,
@@ -273,6 +187,26 @@ class StatsService {
       totalXP:   this.stats.totalXP,
       accuracy:  this.getOverallAccuracy(),
     };
+  }
+
+  // FIX: Streak increments on first correct answer of the day only
+  _updateStreak(wasCorrect, today) {
+    if (!wasCorrect) return; // wrong answers never affect streak
+    if (this.stats.lastCorrectDate === today) return; // already counted today
+
+    const yesterday = this._getYesterday();
+
+    if (this.stats.lastCorrectDate === yesterday) {
+      this.stats.currentStreak++; // consecutive day
+    } else {
+      this.stats.currentStreak = 1; // gap — restart
+    }
+
+    this.stats.lastCorrectDate = today;
+
+    if (this.stats.currentStreak > this.stats.longestStreak) {
+      this.stats.longestStreak = this.stats.currentStreak;
+    }
   }
 
   calculateXP(wasCorrect, timeSpentSeconds) {
@@ -318,28 +252,10 @@ class StatsService {
       this.stats.dailyActivity[today].sessions++;
     }
 
-    this.saveToLocal();
-    this._writeFullStatsToFirestore();
+    this._saveToLocal();
+    this._saveToFirestore();
 
     return { sessionDuration, sessionTotal, sessionAccuracy, bonusXP, bonuses, totalXP: this.stats.totalXP };
-  }
-
-  updateStreak(wasCorrect, today) {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    const yesterdayStr = yesterday.toISOString().split("T")[0];
-
-    if (wasCorrect && this.stats.lastCorrectDate !== today) {
-      if (this.stats.lastCorrectDate === yesterdayStr) {
-        this.stats.currentStreak++;
-      } else {
-        this.stats.currentStreak = 1;
-      }
-      this.stats.lastCorrectDate = today;
-      if (this.stats.currentStreak > this.stats.longestStreak) {
-        this.stats.longestStreak = this.stats.currentStreak;
-      }
-    }
   }
 
   checkAchievements() {
@@ -364,11 +280,11 @@ class StatsService {
       }
     });
 
-    if (newOnes.length > 0) this.saveToLocal();
+    if (newOnes.length > 0) this._saveToLocal();
     return newOnes;
   }
 
-  // ── Getters ────────────────────────────────────────────────────────────────
+  // ── Getters ───────────────────────────────────────────────────────────────
   getOverallAccuracy() {
     if (this.stats.totalAttempted === 0) return 0;
     return ((this.stats.totalCorrect / this.stats.totalAttempted) * 100).toFixed(1);
@@ -385,7 +301,7 @@ class StatsService {
   }
 
   getTodayStats() {
-    const today    = new Date().toISOString().split("T")[0];
+    const today     = new Date().toISOString().split("T")[0];
     const todayData = this.stats.dailyActivity[today] || { attempted: 0, correct: 0, xpEarned: 0, timeSpent: 0 };
     return {
       ...todayData,
@@ -434,7 +350,7 @@ class StatsService {
 
   resetStats() {
     this.initializeNewStats();
-    this._writeFullStatsToFirestore();
+    this._saveToFirestore();
     return this.getAllStats();
   }
 }

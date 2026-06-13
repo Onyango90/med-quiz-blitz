@@ -1,6 +1,7 @@
 ﻿import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
+import { getAnalytics, isSupported } from "firebase/analytics"; 
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -16,3 +17,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getDatabase(app);
+
+// ← Add this block
+export const analytics = await isSupported().then(yes => 
+  yes ? getAnalytics(app) : null
+);

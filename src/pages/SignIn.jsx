@@ -32,19 +32,25 @@ export default function SignIn() {
     } catch (err) {
       switch (err.code) {
         case "auth/user-not-found":
-          setError("No account found with this email.");
+          setError("No account found with this email. If you signed up with Google, use the 'Continue with Google' button above.");
           break;
         case "auth/wrong-password":
-          setError("Incorrect password. Please try again.");
+          setError("Incorrect password. Please try again. If you signed up with Google, use the 'Continue with Google' button above.");
+          break;
+        case "auth/invalid-credential":
+          setError("Wrong email or password. If you signed up with Google, use the 'Continue with Google' button above.");
           break;
         case "auth/invalid-email":
           setError("Please enter a valid email address.");
           break;
         case "auth/too-many-requests":
-          setError("Too many attempts. Please try again later.");
+          setError("Too many attempts. Please try again later or reset your password.");
+          break;
+        case "auth/user-disabled":
+          setError("This account has been disabled. Please contact support.");
           break;
         default:
-          setError("Failed to sign in. Please check your connection.");
+          setError("Failed to sign in. If you signed up with Google, use the 'Continue with Google' button above.");
       }
       setLoading(false);
     }
@@ -59,11 +65,10 @@ export default function SignIn() {
       localStorage.setItem("userEmail", user.email);
       navigate("/home");
     } catch (err) {
-      console.error("🔴 Google sign-in error code:", err.code);
-      console.error("🔴 Google sign-in error message:", err.message);
-      console.error("🔴 Full error:", err);
-      if (err.code !== "auth/popup-closed-by-user") {
-        setError(`Google sign-in failed: ${err.code}`);
+      if (err.code === "auth/popup-blocked") {
+        setError("Popup was blocked. Please allow popups for this site and try again.");
+      } else if (err.code !== "auth/popup-closed-by-user") {
+        setError("Google sign-in failed. Please try again or use email/password.");
       }
     }
   };
