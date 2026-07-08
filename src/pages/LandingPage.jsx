@@ -57,16 +57,16 @@ export default function LandingPage() {
       <div className={`lp-logo-wrap ${logoShow ? "lp-logo--show" : ""}`}>
 
         <div className="lp-m-mark">
-          <span>M</span>
+          <span>T</span>
         </div>
 
         <div className={`lp-brand ${brandShow ? "lp-brand--show" : ""}`}>
-          <span className="lp-brand-med">Med</span>
-          <span className="lp-brand-blitz">Blitz</span>
+          <span className="lp-brand-tuko">Tuko</span>
+          <span className="lp-brand-zone">Zone</span>
         </div>
 
         <p className={`lp-tagline ${brandShow ? "lp-tagline--show" : ""}`}>
-          Your medical quiz companion
+          Level up your medical journey
         </p>
 
         <div className={`lp-loader-wrap ${loaderShow ? "lp-loader--show" : ""}`}>

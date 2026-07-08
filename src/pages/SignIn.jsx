@@ -84,25 +84,8 @@ export default function SignIn() {
             <div className="auth-brand-orb au-orb-2" />
           </div>
           <div className="auth-brand-inner">
-            <div className="auth-logo-mark">M</div>
-            <span className="auth-brand-name">Med<span>Blitz</span></span>
-            <span className="auth-brand-sub">
-              Your daily medical quiz companion.<br />Study smarter, score higher.
-            </span>
-            <div className="auth-brand-stats">
-              <div className="auth-stat">
-                <span className="auth-stat-val">10k+</span>
-                <span className="auth-stat-label">Questions</span>
-              </div>
-              <div className="auth-stat">
-                <span className="auth-stat-val">12</span>
-                <span className="auth-stat-label">Subjects</span>
-              </div>
-              <div className="auth-stat">
-                <span className="auth-stat-val">Daily</span>
-                <span className="auth-stat-label">Challenges</span>
-              </div>
-            </div>
+            <div className="auth-logo-mark">T</div>
+            <span className="auth-brand-name">Tuko<span>Zone</span></span>
           </div>
         </div>
 
@@ -171,16 +154,9 @@ export default function SignIn() {
           </form>
 
           <div className="auth-footer">
-            New to MedBlitz?{" "}
+            New to TukoZone?{" "}
             <button onClick={() => navigate("/signup")}>Create an account</button>
           </div>
-        </div>
-
-        {/* Trust row */}
-        <div className="auth-trust">
-          <div className="auth-trust-item"><span className="auth-trust-icon">🔒</span> Secure</div>
-          <div className="auth-trust-item"><span className="auth-trust-icon">🏥</span> Med-focused</div>
-          <div className="auth-trust-item"><span className="auth-trust-icon">🔥</span> Streak tracking</div>
         </div>
 
       </div>

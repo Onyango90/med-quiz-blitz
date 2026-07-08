@@ -89,11 +89,8 @@ export default function SignUp() {
             <div className="auth-brand-orb au-orb-2" />
           </div>
           <div className="auth-brand-inner">
-            <div className="auth-logo-mark">M</div>
-            <span className="auth-brand-name">Med<span>Blitz</span></span>
-            <span className="auth-brand-sub">
-              Join thousands of med students.<br />Build your streak from day one.
-            </span>
+            <div className="auth-logo-mark">T</div>
+            <span className="auth-brand-name">Tuko<span>Zone</span></span>
           </div>
         </div>
 
@@ -158,7 +155,7 @@ export default function SignUp() {
               />
             </div>
             <div className="auth-field">
-              <span className="auth-field-icon">🎓</span>
+              <span className="auth-field-icon"></span>
               <select
                 name="year"
                 className="auth-select"
@@ -189,19 +186,6 @@ export default function SignUp() {
           <div className="auth-footer">
             Already have an account?{" "}
             <button onClick={() => navigate("/signin")}>Sign in</button>
-          </div>
-        </div>
-
-        {/* ─ Trust row ─ */}
-        <div className="auth-trust">
-          <div className="auth-trust-item">
-            <span className="auth-trust-icon">🆓</span> Free to join
-          </div>
-          <div className="auth-trust-item">
-            <span className="auth-trust-icon">📊</span> Track progress
-          </div>
-          <div className="auth-trust-item">
-            <span className="auth-trust-icon">🏆</span> Earn XP
           </div>
         </div>
 

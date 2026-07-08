@@ -64,7 +64,7 @@
   transform: scale(1) translateY(0);
 }
 
-/* ── M mark — matches actual logo ── */
+/* ── T mark — matches actual logo ── */
 .lp-m-mark {
   width: 100px;
   height: 100px;
@@ -106,14 +106,14 @@
   opacity: 1;
   transform: translateY(0);
 }
-.lp-brand-med {
+.lp-brand-tuko {
   font-size: 2.8rem;
   font-weight: 900;
   color: #ffffff;
   letter-spacing: -0.04em;
   font-family: 'DM Sans', system-ui, sans-serif;
 }
-.lp-brand-blitz {
+.lp-brand-zone {
   font-size: 2.8rem;
   font-weight: 900;
   color: #2DD4A0;
@@ -208,7 +208,7 @@
 @media (max-width: 480px) {
   .lp-m-mark        { width: 80px; height: 80px; border-radius: 20px; }
   .lp-m-mark span   { font-size: 46px; }
-  .lp-brand-med,
-  .lp-brand-blitz   { font-size: 2.2rem; }
+  .lp-brand-tuko,
+  .lp-brand-zone    { font-size: 2.2rem; }
   .lp-loader-wrap   { width: 140px; }
 }

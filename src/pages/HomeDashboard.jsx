@@ -274,7 +274,7 @@ export default function HomeDashboard() {
   if (authLoading || statsLoading) {
     return (
       <div className="hd-loading">
-        <div className="hd-loading-logo">M</div>
+        <div className="hd-loading-logo">T</div>
         <div className="hd-spinner" />
         <p>Loading your dashboard…</p>
       </div>
@@ -303,8 +303,8 @@ export default function HomeDashboard() {
       ════════════════════════════════════ */}
       <aside className={`hd-sidebar ${sidebarOpen ? "hd-sb-open" : "hd-sb-closed"} ${isMobile ? "hd-sb-mobile" : ""}`}>
         <div className="hd-sb-logo">
-          <div className="hd-logo-mark">M</div>
-          {sidebarOpen && <span className="hd-logo-text">MedBlitz</span>}
+          <div className="hd-logo-mark">T</div>
+          {sidebarOpen && <span className="hd-logo-text">TukoZone</span>}
         </div>
 
         <nav className="hd-sb-nav">
