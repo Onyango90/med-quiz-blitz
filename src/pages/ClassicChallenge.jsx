@@ -7,6 +7,40 @@ import { getFirestore, doc, getDoc, updateDoc, increment } from "firebase/firest
 import { getQuestionsForYear, shuffleForSession } from "../data/name3Questions";
 import "./ClassicChallenge.css";
 
+
+// ── Light background + font override (visual only) ──────────────────────────
+const LIGHT_THEME_STYLE = `
+  .n3-page, .n3-loading {
+    background: #f8fafc !important;
+    color: #0f172a !important;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  }
+  .n3-page *, .n3-loading * {
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  }
+  .n3-page .n3-inner {
+    color: #0f172a !important;
+  }
+  .n3-page .n3-lobby-hero,
+  .n3-page .n3-rules-card,
+  .n3-page .n3-question-card {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+  .n3-page .n3-lobby-title,
+  .n3-page .n3-lobby-sub,
+  .n3-page .n3-rules-card,
+  .n3-page .n3-question-card,
+  .n3-page .n3-ls-lbl,
+  .n3-page .n3-ls-val {
+    color: #0f172a !important;
+  }
+  .n3-page .n3-back-btn,
+  .n3-page .n3-topbar-x {
+    color: #0f172a !important;
+  }
+`;
+
 // ── Fuzzy answer matcher ───────────────────────────────────────────────────────
 // Strips noise words, normalises spelling, does partial matching
 function normalise(str) {
@@ -348,6 +382,7 @@ export default function ClassicChallenge() {
   if (loading) {
     return (
       <div className="n3-loading">
+        <style>{LIGHT_THEME_STYLE}</style>
         <div className="n3-spinner" />
         <p>Loading questions…</p>
       </div>
@@ -362,6 +397,9 @@ export default function ClassicChallenge() {
   if (phase === PHASE.LOBBY) {
     return (
       <div className="n3-page">
+      <style>{LIGHT_THEME_STYLE}</style>
+        <style>{LIGHT_THEME_STYLE}</style>
+        <style>{LIGHT_THEME_STYLE}</style>
         <div className="n3-inner">
           <button className="n3-back-btn" onClick={() => navigate("/games-dashboard")}>← Back</button>
 
