@@ -520,3 +520,9 @@
   .hd-spot-header-left { gap: 10px; }
   .hd-spot-title       { font-size: 14px; }
 } 
+
+/* ═══ Community group in sidebar ═══ */
+.hd-sb-group { display: flex; flex-direction: column; gap: 2px; }
+.hd-sb-caret { flex-shrink: 0; transition: transform 0.2s; opacity: 0.6; }
+.hd-sb-caret.open { transform: rotate(180deg); }
+.hd-sb-sub { padding-left: 40px; font-size: 12.5px; }

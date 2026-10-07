@@ -35,6 +35,8 @@ import BlitzHost from "./pages/BlitzHost";
 import BlitzJoin from "./pages/BlitzJoin";
 import PharmaRoulette from "./pages/PharmaRoulette";
 import MyExams from "./pages/MyExams";  // ← ADDED THIS LINE
+import Community from "./pages/Community";
+import LecturerPortal from "./pages/LecturerPortal";
 
 // Study Mode (questions page)
 import StudyMode from "./components/StudyMode";
@@ -128,6 +130,11 @@ function App() {
 
           {/* My Exams */}
           <Route path="/my-exams" element={<MyExams />} />  {/* ← ADDED THIS ROUTE */}
+
+          {/* Community — Ask a Senior / Lecturers / Study Groups / Support */}
+          <Route path="/community" element={<Community />} />
+          <Route path="/community/:section" element={<Community />} />
+          <Route path="/lecturer" element={<LecturerPortal />} />
 
           {/* Admin — restricted to admin emails only */}
           <Route path="/admin" element={<AdminDashboard />} />

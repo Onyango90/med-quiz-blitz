@@ -11,7 +11,7 @@ import {
   Flame, Sparkles, FileText, ChevronRight, ChevronLeft,
   Zap, Target, Clock, Star, Award, Menu, MessageSquare,
   FileUp, Swords, Home, TrendingUp, Radio,
-  BrainCircuit, Layers, FileSearch, BookMarked, Tv2,
+  BrainCircuit, Layers, FileSearch, BookMarked, Tv2, Users, ChevronDown,
 } from "lucide-react";
 import "./HomeDashboard.css";
 import FeedbackForm from "../components/FeedbackForm";
@@ -117,6 +117,7 @@ export default function HomeDashboard() {
   const [spotAnim,        setSpotAnim]        = useState("in");
   const [spotAnimating,   setSpotAnimating]   = useState(false);
   const [isMobile,        setIsMobile]        = useState(window.innerWidth < 1024);
+  const [communityOpen,  setCommunityOpen]  = useState(() => location.pathname.startsWith("/community"));
 
   const autoRotateTimer = useRef(null);
 
@@ -262,6 +263,45 @@ export default function HomeDashboard() {
   ];
   const navItems = allNavItems.filter((i) => !i.adminOnly || isAdmin);
 
+  // Community group (Learn → Connect → Get Support). Sits above My Stats.
+  const communityItems = [
+    { label: "Ask a Senior",           path: "/community/senior" },
+    { label: "Connect with a Lecturer", path: "/community/lecturers" },
+    { label: "Study Groups",           path: "/community/groups" },
+    { label: "Support & Well-being",   path: "/community/support" },
+  ];
+  const inCommunity = location.pathname.startsWith("/community");
+  const goTo = (path) => { navigate(path); if (isMobile) setSidebarOpen(false); };
+  const communityGroup = (
+    <div className="hd-sb-group" key="community-group">
+      <button
+        className={`hd-sb-item ${inCommunity ? "hd-sb-item--active" : ""}`}
+        style={{ "--accent": "#0d7c6e" }}
+        title="Community"
+        aria-expanded={sidebarOpen ? communityOpen : undefined}
+        onClick={() => (sidebarOpen ? setCommunityOpen((v) => !v) : goTo("/community/senior"))}
+      >
+        <Users size={18} className="hd-sb-icon" />
+        {sidebarOpen && (
+          <>
+            <span className="hd-sb-label">Community</span>
+            <ChevronDown size={14} className={`hd-sb-caret ${communityOpen ? "open" : ""}`} />
+          </>
+        )}
+      </button>
+      {sidebarOpen && communityOpen && communityItems.map((c) => (
+        <button
+          key={c.path}
+          className={`hd-sb-item hd-sb-sub ${location.pathname === c.path ? "hd-sb-item--active" : ""}`}
+          style={{ "--accent": "#0d7c6e" }}
+          onClick={() => goTo(c.path)}
+        >
+          <span className="hd-sb-label">{c.label}</span>
+        </button>
+      ))}
+    </div>
+  );
+
   // Bottom tab items (mobile)
   const bottomTabs = [
     { icon: Home,     label: "Home",   path: "/home" },
@@ -309,8 +349,9 @@ export default function HomeDashboard() {
 
         <nav className="hd-sb-nav">
           {navItems.map((item) => (
+            <React.Fragment key={item.path}>
+            {item.path === "/stats" && communityGroup}
             <button
-              key={item.path}
               className={`hd-sb-item ${item.special ? "hd-sb-item--special" : ""} ${location.pathname === item.path ? "hd-sb-item--active" : ""}`}
               style={{ "--accent": item.accent }}
               onClick={() => {
@@ -327,6 +368,7 @@ export default function HomeDashboard() {
                 </>
               )}
             </button>
+            </React.Fragment>
           ))}
         </nav>
 
